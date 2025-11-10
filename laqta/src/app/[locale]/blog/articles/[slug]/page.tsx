@@ -1,0 +1,138 @@
+import React from "react";
+import { notFound } from "next/navigation";
+import { Navigation } from "@/components/layout/Navigation";
+import Footer from "@/components/sections/Footer";
+import { BlogArticle } from "./BlogArticle";
+
+import { Blog, blogsApi, utils } from "@/lib/strapi";
+import { getTranslations } from "next-intl/server";
+import { generateSEOMetadata, generateArticleStructuredData, StructuredData } from "@/components/ui/SEO";
+
+// Add static generation with revalidation
+export const revalidate = 3600; // 1 hour
+
+// Fix interface to include both slug and locale
+interface BlogPageProps {
+    params: Promise<{ locale: string; slug: string }>;
+}
+
+export async function generateStaticParams() {
+    try {
+        const response = await blogsApi.getAll({ pageSize: 100 });
+        const blogs = response.data || [];
+
+        const locales = ["en", "ar", "fr"];
+        const params = [];
+
+        for (const locale of locales) {
+            for (const blog of blogs) {
+                params.push({
+                    locale,
+                    slug: blog.slug,
+                });
+            }
+        }
+
+        return params;
+    } catch (error) {
+        console.error("Error generating static params:", error);
+        return [];
+    }
+}
+
+// Fix fetchBlogBySlug to include locale
+async function fetchBlogBySlug(
+    slug: string,
+    locale: string,
+): Promise<Blog | null> {
+    try {
+        const response = await blogsApi.getBySlug(slug, locale);
+        return response.data[0] || null;
+    } catch (error) {
+        return null;
+    }
+}
+
+// Fix generateMetadata to use both slug and locale
+export async function generateMetadata({ params }: BlogPageProps) {
+    const { slug, locale } = await params;
+    const blog = await fetchBlogBySlug(slug, locale);
+    const t = await getTranslations({ locale, namespace: "blog" });
+
+    if (!blog) {
+        return {
+            title: t("articleNotFound"),
+            description: t("articleNotFoundDescription"),
+        };
+    }
+
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://laqta.com';
+    const canonical = `${siteUrl}/${locale}/blog/articles/${slug}`;
+    const ogImage = blog.featured_image?.url
+        ? utils.getFileUrl(blog.featured_image.url)
+        : undefined;
+
+    return generateSEOMetadata({
+        title: blog.meta_title || `${blog.title} - LAQTA`,
+        description: blog.meta_description || blog.excerpt || blog.description,
+        canonical,
+        ogImage,
+        ogType: 'article',
+        article: {
+            publishedTime: blog.publishedAt,
+            modifiedTime: blog.updatedAt,
+            author: blog.author?.name,
+            tags: blog.tags?.map(tag => tag.name),
+        },
+    });
+}
+
+// Fix BlogArticlePage component to use both slug and locale
+const BlogArticlePage = async ({ params }: BlogPageProps) => {
+    const { slug, locale } = await params;
+
+    const blog = await fetchBlogBySlug(slug, locale);
+
+    if (!blog) {
+        notFound();
+    }
+
+    // Fetch related blogs with locale
+    let relatedBlogs: Blog[] = [];
+    try {
+        const relatedResponse = await blogsApi.getRelated(blog.id, 3, {
+            locale,
+        });
+        relatedBlogs = relatedResponse.data;
+    } catch (error) {
+        console.error("Failed to fetch related blogs:", error);
+    }
+
+    // Generate structured data for SEO
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://laqta.com';
+    const articleUrl = `${siteUrl}/${locale}/blog/articles/${slug}`;
+    const articleImage = blog.featured_image?.url
+        ? utils.getFileUrl(blog.featured_image.url)
+        : undefined;
+
+    const structuredData = generateArticleStructuredData({
+        title: blog.title,
+        description: blog.excerpt || blog.description,
+        publishedTime: blog.publishedAt,
+        modifiedTime: blog.updatedAt,
+        author: blog.author?.name || 'Laqta Team',
+        image: articleImage,
+        url: articleUrl,
+    });
+
+    return (
+        <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 min-h-screen">
+            <StructuredData data={structuredData} />
+            <Navigation />
+            <BlogArticle blog={blog} relatedBlogs={relatedBlogs} />
+            <Footer />
+        </div>
+    );
+};
+
+export default BlogArticlePage;

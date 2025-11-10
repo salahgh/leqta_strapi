@@ -1,0 +1,245 @@
+{
+  "navigation": {
+    "home": "الرئيسية",
+    "about": "من نحن",
+    "services": "الخدمات",
+    "blog": "المدونة",
+    "contact": "اتصل بنا",
+    "getStarted": "ابدأ الآن",
+    "learnMore": "اعرف المزيد"
+  },
+  "hero": {
+    "title": "حيث تلتقي الإبداع بالاستراتيجية",
+    "description": "ليقطة هي شركة تسويق محتوى وإنتاج شاملة مقرها الجزائر. نحن نجمع بين السرد والاستراتيجية والتميز البصري لتمكين علامتك التجارية بمحتوى فيديو مؤثر.",
+    "getStarted": "ابدأ الآن",
+    "contactUs": "اتصل بنا"
+  },
+  "about": {
+    "badge": "حول ليقطة",
+    "title": "نحن ليقطة",
+    "description": "وكالة تسويق محتوى وإنتاج أفلام مقرها الجزائر. نحن نخدم العلامات التجارية والشركات وصناع التغيير بمحتوى فيديو هادف يمزج بين الإبداع والاستراتيجية.",
+    "getStarted": "ابدأ الآن",
+    "learnMore": "اعرف المزيد"
+  },
+  "aboutHero": {
+    "badge": "حول ليقطة",
+    "title": "نحن ليقطة",
+    "description": "وكالة تسويق محتوى وإنتاج أفلام مقرها الجزائر. نحن نخدم العلامات التجارية والشركات وصناع التغيير بمحتوى فيديو هادف يمزج بين الإبداع والاستراتيجية.",
+    "getStarted": "ابدأ الآن",
+    "contactUs": "اتصل بنا"
+  },
+  "services": {
+    "badge": "خدماتنا",
+    "title": "ما نقوم به",
+    "description": "نحن نقدم حلول رقمية شاملة لمساعدة عملك على النمو"
+  },
+  "works": {
+    "badge": "أعمالنا",
+    "title": "أعمالنا",
+    "description": "من الشركات القوية للعلامات التجارية إلى الحملات الاجتماعية الجريئة، الإبداع مع الاستراتيجية للتواصل والأداء والإلهام. إليك نظرة على ما أنشأناه مع عملائنا المذهلين."
+  },
+  "perfectPartner": {
+    "badge": "شريكك المثالي",
+    "title": "نمو ثابت في 3 خطوات بسيطة فقط",
+    "description": "نحن نتبع عملية منظمة ومدفوعة بالبيانات لضمان أن استراتيجية التسويق الخاصة بك تحقق نموًا ثابتًا ونتائج قابلة للقياس."
+  },
+  "competitiveEdge": {
+    "badge": "الفرق ليقطة",
+    "title": "ميزتنا التنافسية",
+    "description": "في ليقطة، نمزج الإبداع الجريء مع الخبرة التسويقية الاستراتيجية. هذا التوازن يضمن محتوى عالي الأداء مع تأثير بصري.",
+    "advantages": {
+      "creativity": "الإبداع مع الاحترافية",
+      "resilience": "المرونة والمثابرة",
+      "attention": "الاهتمام بالتفاصيل",
+      "commitment": "الالتزام وإدارة الوقت"
+    }
+  },
+  "testimonials": {
+    "badge": "الشهادات",
+    "title": "ما يقوله عملاؤنا",
+    "description": "لا تأخذ كلامنا فقط",
+    "successStoriesTitle": "قصص نجاح من عملائنا السعداء",
+    "swipeIndicator": "← اسحب للتنقل →",
+    "loadingText": "تحميل الشهادات...",
+    "previousTestimonial": "الشهادة السابقة",
+    "nextTestimonial": "الشهادة التالية"
+  },
+  "faq": {
+    "badge": "أسئلة؟",
+    "title": "الأسئلة الشائعة",
+    "description": "اعثر على إجابات للأسئلة الشائعة حول خدمات التسويق بالاشتراك."
+  },
+  "contact": {
+    "badge": "اتصل بنا",
+    "title": "لنبدأ مشروعك",
+    "description": "مستعد لإحياء رؤيتك؟",
+    "getInTouch": "تواصل معنا",
+    "connectBadge": "لنتواصل",
+    "contactTitle": "تواصل معنا",
+    "contactDescription": "سواء كان لديك مشروع في ذهنك أو سؤال حول خدماتنا، نحن نحب أن نسمع منك. املأ النموذج وسنعود إليك خلال 24 ساعة.",
+    "form": {
+      "fullname": "الاسم الكامل",
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
+      "message": "الرسالة",
+      "submit": "إرسال الرسالة",
+      "required": "مطلوب",
+      "invalidEmail": "عنوان بريد إلكتروني غير صالح",
+      "fullnameRequired": "الاسم الكامل مطلوب",
+      "emailRequired": "البريد الإلكتروني مطلوب",
+      "phoneRequired": "رقم الهاتف مطلوب",
+      "messageRequired": "الرسالة مطلوبة",
+      "successMessage": "تم إرسال الرسالة بنجاح!",
+      "errorMessage": "خطأ في إرسال الرسالة. يرجى المحاولة مرة أخرى."
+    }
+  },
+  "contactPage": {
+    "goBack": "العودة",
+    "stepper": {
+      "personalInfo": "المعلومات الشخصية",
+      "personalInfoDescription": "أخبرنا عن نفسك",
+      "companyInfo": "معلومات الشركة والصناعة",
+      "companyInfoDescription": "شارك تفاصيل شركتك",
+      "socialMedia": "روابط وسائل التواصل الاجتماعي",
+      "socialMediaDescription": "اربط حضورك على وسائل التواصل",
+      "reviewSubmit": "مراجعة وإرسال",
+      "reviewSubmitDescription": "راجع معلوماتك وأرسلها",
+      "success": "نجح",
+      "successDescription": "تم إكمال إرسالك"
+    },
+    "buttons": {
+      "goBack": "العودة",
+      "next": "التالي",
+      "submit": "إرسال",
+      "goBackToMainPage": "العودة إلى الصفحة الرئيسية"
+    },
+    "form": {
+      "fullName": "الاسم الكامل",
+      "fullNamePlaceholder": "أدخل اسمك الكامل",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "أدخل عنوان بريدك الإلكتروني",
+      "phoneNumber": "رقم الهاتف",
+      "phoneNumberPlaceholder": "أدخل رقم هاتفك",
+      "industry": "الصناعة",
+      "selectIndustry": "اختر صناعتك",
+      "otherIndustry": "صناعة أخرى",
+      "otherIndustryPlaceholder": "يرجى تحديد صناعتك",
+      "companyName": "اسم الشركة",
+      "companyNamePlaceholder": "أدخل اسم شركتك",
+      "jobTitle": "المسمى الوظيفي",
+      "jobTitlePlaceholder": "أدخل مسماك الوظيفي",
+      "website": "الموقع الإلكتروني",
+      "websitePlaceholder": "https://yourwebsite.com",
+      "socialMediaLinks": "روابط وسائل التواصل الاجتماعي",
+      "facebook": "فيسبوك",
+      "facebookPlaceholder": "https://facebook.com/yourpage",
+      "instagram": "إنستغرام",
+      "instagramPlaceholder": "https://instagram.com/yourpage",
+      "tiktok": "تيك توك",
+      "tiktokPlaceholder": "https://tiktok.com/@yourpage",
+      "linkedin": "لينكد إن",
+      "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+      "projectDetails": "تفاصيل المشروع",
+      "projectDescription": "وصف المشروع",
+      "projectDescriptionPlaceholder": "أخبرنا عن مشروعك وأهدافك ومتطلباتك",
+      "goals": "أهداف المشروع",
+      "goalsPlaceholder": "ما الذي تأمل في تحقيقه من هذا المشروع؟",
+      "industries": {
+        "technology": "التكنولوجيا",
+        "healthcare": "الرعاية الصحية",
+        "finance": "المالية",
+        "education": "التعليم",
+        "retail": "التجارة",
+        "manufacturing": "التصنيع",
+        "consulting": "الاستشارات",
+        "media": "الإعلام والترفيه",
+        "nonprofit": "غير ربحي",
+        "government": "الحكومة",
+        "other": "أخرى"
+      },
+      "validation": {
+        "required": "هذا الحقل مطلوب",
+        "email": "يرجى إدخال عنوان بريد إلكتروني صحيح",
+        "phone": "يرجى إدخال رقم هاتف صحيح",
+        "url": "يرجى إدخال رابط صحيح",
+        "minLength": "يجب أن يكون على الأقل {min} أحرف",
+        "maxLength": "يجب ألا يزيد عن {max} حرف",
+        "fullNameRequired": "الاسم الكامل مطلوب",
+        "emailRequired": "عنوان البريد الإلكتروني مطلوب",
+        "phoneRequired": "رقم الهاتف مطلوب",
+        "industryRequired": "يرجى اختيار صناعة",
+        "otherIndustryRequired": "يرجى تحديد صناعتك",
+        "companyNameRequired": "اسم الشركة مطلوب",
+        "jobTitleRequired": "المسمى الوظيفي مطلوب",
+        "websiteInvalid": "يرجى إدخال رابط موقع ويب صحيح",
+        "facebookInvalid": "يرجى إدخال رابط فيسبوك صحيح",
+        "instagramInvalid": "يرجى إدخال رابط إنستغرام صحيح",
+        "tiktokInvalid": "يرجى إدخال رابط تيك توك صحيح",
+        "linkedinInvalid": "يرجى إدخال رابط لينكد إن صحيح"
+      }
+    },
+    "success": {
+      "title": "تم الإرسال!",
+      "description": "تم إرسال النموذج بنجاح",
+      "personalInfoSubmitted": "تم إرسال المعلومات الشخصية",
+      "companyInfoSubmitted": "تم إرسال معلومات الشركة",
+      "socialMediaSubmitted": "تم إرسال روابط وسائل التواصل الاجتماعي",
+      "nextStepsTitle": "ما الذي سيحدث بعد ذلك؟",
+      "reviewSubmission": "سيقوم فريقنا بمراجعة طلبك خلال 24 ساعة",
+      "confirmationEmail": "ستتلقى رسالة تأكيد بالبريد الإلكتروني قريباً",
+      "scheduleCall": "سنتواصل معك لجدولة مكالمة استكشافية",
+      "referenceId": "رقم المرجع:"
+    }
+  },
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ ما",
+    "success": "نجح!",
+    "required": "هذا الحقل مطلوب",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "confirm": "تأكيد",
+    "close": "إغلاق",
+    "retry": "حاول مرة أخرى",
+    "readMore": "اقرأ المزيد",
+    "viewAll": "عرض الكل"
+  },
+  "blog": {
+    "title": "الرؤى والقصص",
+    "description": "اكتشف كيف يحول السرد العلامات التجارية ويتواصل مع الجماهير على مستوى أعمق",
+    "featuredStories": "القصص المميزة",
+    "latestArticles": "أحدث المقالات",
+    "allArticles": "جميع المقالات",
+    "allArticlesDescription": "استكشف مجموعتنا الكاملة من الرؤى والقصص",
+    "viewAllArticles": "عرض جميع المقالات",
+    "noArticles": "لا توجد مدونات متاحة في الوقت الحالي.",
+    "relatedArticles": "مقالات ذات صلة",
+    "tags": "العلامات:",
+    "minRead": "دقيقة قراءة",
+    "views": "مشاهدات",
+    "articleNotFound": "المقال غير موجود - ليقطة",
+    "articleNotFoundDescription": "لم يتم العثور على المقال المطلوب.",
+    "allArticlesTitle": "جميع المقالات - ليقطة",
+    "allArticlesMetaDescription": "تصفح جميع مقالاتنا مع خيارات البحث والتصفية",
+    "blogTitle": "رؤى وقصص - ليقطة",
+    "blogMetaDescription": "اكتشف كيف يحول السرد العلامات التجارية ويتصل مع الجماهير على مستوى أعمق"
+  },
+  "footer": {
+    "newsletter": "النشرة الإخبارية",
+    "newsletterDescription": "ابق على اطلاع بآخر تحديثاتنا، اشترك في نشرتنا الإخبارية",
+    "company": "الشركة",
+    "aboutUs": "من نحن",
+    "ourServices": "خدماتنا",
+    "ourWorks": "أعمالنا",
+    "testimonials": "الشهادات",
+    "contactUs": "اتصل بنا",
+    "faq": "الأسئلة الشائعة",
+    "blog": "المدونة",
+    "utilityPages": "الصفحات المساعدة",
+    "termsCondition": "الشروط والأحكام",
+    "privacyPolicy": "سياسة الخصوصية",
+    "copyright": "حقوق الطبع والنشر © 2025 ليقطة. جميع الحقوق محفوظة"
+  }
+}

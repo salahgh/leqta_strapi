@@ -1,0 +1,245 @@
+{
+  "navigation": {
+    "home": "Home",
+    "about": "About Us",
+    "services": "Services",
+    "blog": "Blog",
+    "contact": "Contact Us",
+    "getStarted": "Get Started",
+    "learnMore": "Learn more"
+  },
+  "hero": {
+    "title": "Where Creativity Meets Strategy",
+    "description": "Leqta is a full-service content marketing & production company based in Algiers. We combine storytelling, strategy, and visual excellence to empower your brand with impactful video content.",
+    "getStarted": "Get Started",
+    "contactUs": "Contact Us"
+  },
+  "about": {
+    "badge": "About Leqta",
+    "title": "We are LEQTA",
+    "description": "A content marketing & film production agency based in Algiers. We serve brands, businesses, and changemakers with purposeful video content that blends creativity and strategy.",
+    "getStarted": "Get Started",
+    "learnMore": "Learn more"
+  },
+  "aboutHero": {
+    "badge": "About Leqta",
+    "title": "We are LEQTA",
+    "description": "A content marketing & film production agency based in Algiers. We serve brands, businesses, and changemakers with purposeful video content that blends creativity and strategy.",
+    "getStarted": "Get Started",
+    "contactUs": "Contact Us"
+  },
+  "services": {
+    "badge": "Our Services",
+    "title": "What We Do",
+    "description": "We offer comprehensive digital solutions to help your business grow"
+  },
+  "works": {
+    "badge": "Our Works",
+    "title": "Our Works",
+    "description": "From powerful brand firms to bold social campaigns, creativity with strategy to connect, perform, and inspire. Here's a look at what we've created with our amazing clients."
+  },
+  "perfectPartner": {
+    "badge": "Your Perfect Partner",
+    "title": "Consistent Growth in Just a Simple 3-Steps",
+    "description": "We follow a structured, data-driven process to ensure your marketing strategy delivers consistent growth and measurable results."
+  },
+  "competitiveEdge": {
+    "badge": "The Leqta Difference",
+    "title": "Our Competitive Edge",
+    "description": "At Leqta, we blend bold creativity with strategic marketing know-how. This balance ensures high-performing content with visual impact.",
+    "advantages": {
+      "creativity": "Creativity with Professionalism",
+      "resilience": "Resilience & Perseverance",
+      "attention": "Attention to Detail",
+      "commitment": "Commitment & Time Management"
+    }
+  },
+  "testimonials": {
+    "badge": "Testimonials",
+    "title": "What Our Clients Say",
+    "description": "Don't just take our word for it",
+    "successStoriesTitle": "Success Stories From Our Happy Clients",
+    "swipeIndicator": "← Swipe to navigate →",
+    "loadingText": "Loading testimonials...",
+    "previousTestimonial": "Previous testimonial",
+    "nextTestimonial": "Next testimonial"
+  },
+  "faq": {
+    "badge": "Questions?",
+    "title": "Frequently Asked Questions",
+    "description": "Find answers to common questions about our subscription marketing services."
+  },
+  "contact": {
+    "badge": "Contact Us",
+    "title": "Let's Start Your Project",
+    "description": "Ready to bring your vision to life?",
+    "getInTouch": "Get in Touch",
+    "connectBadge": "Let's Connect",
+    "contactTitle": "Get in Touch",
+    "contactDescription": "Whether you have a project in mind or a question about our services, we'd love to hear from you. Fill out the form and we'll get back to you within 24 hours.",
+    "form": {
+      "fullname": "Full name",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Message",
+      "submit": "Send Message",
+      "required": "required",
+      "invalidEmail": "Invalid email address",
+      "fullnameRequired": "Full name is required",
+      "emailRequired": "Email is required",
+      "phoneRequired": "Phone number is required",
+      "messageRequired": "Message is required",
+      "successMessage": "Message sent successfully!",
+      "errorMessage": "Error sending message. Please try again."
+    }
+  },
+  "contactPage": {
+    "goBack": "Go Back",
+    "stepper": {
+      "personalInfo": "Personal Information",
+      "personalInfoDescription": "Tell us about yourself",
+      "companyInfo": "Company & Industry Information",
+      "companyInfoDescription": "Share your company details",
+      "socialMedia": "Social Media Links",
+      "socialMediaDescription": "Connect your social presence",
+      "reviewSubmit": "Review & Submit",
+      "reviewSubmitDescription": "Review your information and submit",
+      "success": "Success",
+      "successDescription": "Your submission is complete"
+    },
+    "buttons": {
+      "goBack": "Go Back",
+      "next": "Next",
+      "submit": "Submit",
+      "goBackToMainPage": "Go Back to Main Page"
+    },
+    "form": {
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Enter your full name",
+      "email": "Email",
+      "emailPlaceholder": "Enter your email address",
+      "phoneNumber": "Phone Number",
+      "phoneNumberPlaceholder": "Enter your phone number",
+      "industry": "Industry",
+      "selectIndustry": "Select your industry",
+      "otherIndustry": "Other Industry",
+      "otherIndustryPlaceholder": "Please specify your industry",
+      "companyName": "Company Name",
+      "companyNamePlaceholder": "Enter your company name",
+      "jobTitle": "Job Title",
+      "jobTitlePlaceholder": "Enter your job title",
+      "website": "Website",
+      "websitePlaceholder": "https://yourwebsite.com",
+      "socialMediaLinks": "Social Media Links",
+      "facebook": "Facebook",
+      "facebookPlaceholder": "https://facebook.com/yourpage",
+      "instagram": "Instagram",
+      "instagramPlaceholder": "https://instagram.com/yourpage",
+      "tiktok": "TikTok",
+      "tiktokPlaceholder": "https://tiktok.com/@yourpage",
+      "linkedin": "LinkedIn",
+      "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+      "projectDetails": "Project Details",
+      "projectDescription": "Project Description",
+      "projectDescriptionPlaceholder": "Tell us about your project, goals, and requirements",
+      "goals": "Project Goals",
+      "goalsPlaceholder": "What do you hope to achieve with this project?",
+      "industries": {
+        "technology": "Technology",
+        "healthcare": "Healthcare",
+        "finance": "Finance",
+        "education": "Education",
+        "retail": "Retail",
+        "manufacturing": "Manufacturing",
+        "consulting": "Consulting",
+        "media": "Media & Entertainment",
+        "nonprofit": "Non-profit",
+        "government": "Government",
+        "other": "Other"
+      },
+      "validation": {
+        "required": "This field is required",
+        "email": "Please enter a valid email address",
+        "phone": "Please enter a valid phone number",
+        "url": "Please enter a valid URL",
+        "minLength": "Must be at least {min} characters",
+        "maxLength": "Must be no more than {max} characters",
+        "fullNameRequired": "Full name is required",
+        "emailRequired": "Email address is required",
+        "phoneRequired": "Phone number is required",
+        "industryRequired": "Please select an industry",
+        "otherIndustryRequired": "Please specify your industry",
+        "companyNameRequired": "Company name is required",
+        "jobTitleRequired": "Job title is required",
+        "websiteInvalid": "Please enter a valid website URL",
+        "facebookInvalid": "Please enter a valid Facebook URL",
+        "instagramInvalid": "Please enter a valid Instagram URL",
+        "tiktokInvalid": "Please enter a valid TikTok URL",
+        "linkedinInvalid": "Please enter a valid LinkedIn URL"
+      }
+    },
+    "success": {
+      "title": "Submitted!",
+      "description": "Form has been submitted successfully",
+      "personalInfoSubmitted": "Personal information submitted",
+      "companyInfoSubmitted": "Company information submitted",
+      "socialMediaSubmitted": "Social media links submitted",
+      "nextStepsTitle": "What happens next?",
+      "reviewSubmission": "Our team will review your submission within 24 hours",
+      "confirmationEmail": "You'll receive a confirmation email shortly",
+      "scheduleCall": "We'll contact you to schedule a discovery call",
+      "referenceId": "Reference ID:"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "success": "Success!",
+    "required": "This field is required",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "close": "Close",
+    "retry": "Try Again",
+    "readMore": "Read More",
+    "viewAll": "View All"
+  },
+  "blog": {
+    "title": "Insights & Stories",
+    "description": "Discover how storytelling transforms brands and connects with audiences on a deeper level",
+    "featuredStories": "Featured Stories",
+    "latestArticles": "Latest Articles",
+    "allArticles": "All Articles",
+    "allArticlesDescription": "Explore our complete collection of insights and stories",
+    "viewAllArticles": "View All Articles",
+    "noArticles": "No blogs available at the moment.",
+    "relatedArticles": "Related Articles",
+    "tags": "Tags:",
+    "minRead": "min read",
+    "views": "views",
+    "articleNotFound": "Article not found - LAQTA",
+    "articleNotFoundDescription": "The requested article could not be found.",
+    "allArticlesTitle": "All Articles - LAQTA",
+    "allArticlesMetaDescription": "Browse all our articles with search and filter options",
+    "blogTitle": "Insights & Stories - LAQTA",
+    "blogMetaDescription": "Discover how storytelling transforms brands and connects with audiences on a deeper level"
+  },
+  "footer": {
+    "newsletter": "Newsletter",
+    "newsletterDescription": "Keep up our latest update, subscribe to our newsletter",
+    "company": "Company",
+    "aboutUs": "About us",
+    "ourServices": "Our services",
+    "ourWorks": "Our works",
+    "testimonials": "Testimonials",
+    "contactUs": "Contact us",
+    "faq": "FAQ",
+    "blog": "Blog",
+    "utilityPages": "Utility Pages",
+    "termsCondition": "Terms & Condition",
+    "privacyPolicy": "Privacy Policy",
+    "copyright": "Copyright © 2025 LEQTA. All Rights Reserved"
+  }
+}

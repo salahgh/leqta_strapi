@@ -1,0 +1,140 @@
+/* Responsive Typography Utilities */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+    /* Enhanced Responsive Typography with all breakpoints */
+    .text-responsive-xs {
+        @apply text-[10px] sm:text-body-xs md:text-body-sm lg:text-body-md xl:text-body-lg 2xl:text-body-xl;
+    }
+
+    .text-responsive-sm {
+        @apply text-body-xs sm:text-body-sm md:text-body-md lg:text-body-lg xl:text-body-xl 2xl:text-body-2xl;
+    }
+
+    .text-responsive-md {
+        @apply text-body-sm sm:text-body-md md:text-body-lg lg:text-body-xl xl:text-body-2xl 2xl:text-body-2xl;
+    }
+
+    .text-responsive-lg {
+        @apply text-body-md sm:text-body-lg md:text-body-xl lg:text-body-2xl xl:text-body-2xl 2xl:text-body-2xl;
+    }
+
+    .text-responsive-display {
+        @apply text-display-xs sm:text-display-sm md:text-display-md lg:text-display-lg
+        xl:text-display-xl 2xl:text-display-2xl;
+    }
+
+    /* Enhanced Responsive Spacing with all breakpoints */
+    .spacing-form-tight {
+        @apply mb-0.5 sm:mb-1 md:mb-1.5 lg:mb-2 xl:mb-2.5 2xl:mb-3;
+    }
+
+    .spacing-form-normal {
+        @apply mb-1 sm:mb-2 md:mb-3 lg:mb-4 xl:mb-5 2xl:mb-6;
+    }
+
+    .padding-responsive-xs {
+        @apply px-1 py-0.5 sm:px-1.5 sm:py-1 md:px-2 md:py-1.5 lg:px-3 lg:py-2 xl:px-4 xl:py-2.5 2xl:px-5 2xl:py-3;
+    }
+
+    .padding-responsive-sm {
+        @apply px-2 py-1.5 sm:px-2.5 sm:py-2 md:px-3 md:py-2.5 lg:px-4 lg:py-3 xl:px-5 xl:py-3.5 2xl:px-6 2xl:py-4;
+    }
+
+    .padding-responsive-md {
+        @apply px-3 py-2 sm:px-3.5 sm:py-2.5 md:px-4 md:py-3 lg:px-6 lg:py-4 xl:px-8 xl:py-5 2xl:px-10 2xl:py-6;
+    }
+
+    .padding-responsive-lg {
+        @apply px-4 py-3 sm:px-5 sm:py-3.5 md:px-6 md:py-4 lg:px-8 lg:py-5 xl:px-10 xl:py-6 2xl:px-12 2xl:py-8;
+    }
+
+    /* Enhanced Button Sizes with all breakpoints */
+    .btn-size-xs {
+        @apply px-1 py-0.5 sm:px-1.5 sm:py-0.5 md:px-2 md:py-1 lg:px-2.5 lg:py-1 xl:px-3 xl:py-1.5 2xl:px-3.5 2xl:py-1.5;
+        @apply h-[20px] sm:h-[22px] md:h-[24px] lg:h-[28px] xl:h-[30px] 2xl:h-[32px];
+    }
+
+    .btn-size-sm {
+        @apply px-1.5 py-0.5 sm:px-2 sm:py-1 md:px-2.5 md:py-1 lg:px-3 lg:py-1.5 xl:px-4 xl:py-2 2xl:px-5 2xl:py-2.5;
+        @apply h-[24px] sm:h-[26px] md:h-[28px] lg:h-[32px] xl:h-[36px] 2xl:h-[40px];
+    }
+
+    .btn-size-md {
+        @apply px-2 py-1 sm:px-2.5 sm:py-1.5 md:px-3 md:py-1.5 lg:px-4 lg:py-2 xl:px-5 xl:py-2.5 2xl:px-6 2xl:py-3;
+        @apply h-[28px] sm:h-[30px] md:h-[32px] lg:h-[38px] xl:h-[42px] 2xl:h-[48px];
+    }
+
+    .btn-size-lg {
+        @apply px-3 py-1.5 sm:px-3.5 sm:py-2 md:px-4 md:py-2 lg:px-6 lg:py-3 xl:px-8 xl:py-4 2xl:px-10 2xl:py-5;
+        @apply h-[32px] sm:h-[36px] md:h-[38px] lg:h-[44px] xl:h-[52px] 2xl:h-[60px];
+    }
+
+    .btn-size-xl {
+        @apply px-4 py-2 sm:px-5 sm:py-2.5 md:px-6 md:py-3 lg:px-8 lg:py-4 xl:px-10 xl:py-5 2xl:px-12 2xl:py-6;
+        @apply h-[36px] sm:h-[40px] md:h-[44px] lg:h-[52px] xl:h-[60px] 2xl:h-[72px];
+    }
+
+    /* Form Input Utilities */
+    .form-input-base {
+        @apply w-full bg-transparent border border-gray-600 text-white placeholder-gray-400;
+        @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+        @apply transition-all duration-200;
+    }
+
+    .form-label-base {
+        @apply block text-white font-medium;
+    }
+
+    /* Navigation Utilities */
+    .nav-link-base {
+        @apply relative px-4 py-2 rounded-full transition-all duration-300 ease-in-out;
+        @apply text-white/90 hover:text-white font-medium;
+    }
+
+    .nav-link-active {
+        @apply text-white;
+    }
+
+    .nav-link-inactive {
+        @apply hover:bg-white/10;
+    }
+
+    /* Container utilities for all breakpoints */
+    .container-responsive {
+        @apply w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20;
+    }
+
+    .max-width-responsive {
+        @apply max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl;
+    }
+}
+
+@layer base {
+    html {
+        font-family: 'Poppins', system-ui, sans-serif;
+    }
+
+    body {
+        @apply text-body-md text-white bg-primary;
+    }
+
+    h1 {
+        @apply text-responsive-display font-bold;
+    }
+
+    h2 {
+        @apply text-display-sm sm:text-display-md md:text-display-lg lg:text-display-xl xl:text-display-2xl font-semibold;
+    }
+
+    h3 {
+        @apply text-display-xs sm:text-display-sm md:text-display-md  lg:text-display-lg font-semibold;
+    }
+
+    p {
+        @apply text-responsive-md text-responsive-md;
+    }
+}

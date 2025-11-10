@@ -1,0 +1,28 @@
+export default {
+  routes: [
+    {
+      method: 'GET',
+      path: '/projects/findByTitle/:title',
+      handler: 'project.findByTitle',
+      config: {
+        auth: false, // This makes it public
+      }
+    },
+    {
+      method: 'GET',
+      path: '/projects/category/:category',
+      handler: 'project.findByCategory',
+      config: {
+        auth: false, // This makes it public
+      }
+    },
+    {
+      method: 'GET',
+      path: '/projects/featured',
+      handler: 'project.findFeatured',
+      config: {
+        auth: false, // This makes it public
+      }
+    }
+  ]
+};

@@ -6,7 +6,12 @@ import Footer from "@/components/sections/Footer";
 import { CompetitiveEdge } from "@/src/app/[locale]/about/competitiveEdge";
 
 // Main About Page Component - Make it async to handle async components
-export default async function AboutPage() {
+export default async function AboutPage({
+    params,
+}: {
+    params: Promise<{ locale: string }>;
+}) {
+    const { locale } = await params;
     return (
         <div className="relative bg-primary flex flex-col w-full min-h-screen overflow-hidden">
             {/* Gradient Overlay Layer */}
@@ -43,7 +48,7 @@ export default async function AboutPage() {
                 {/* @ts-expect-error Server Component */}
                 <MissionVisionCards />
                 <CompetitiveEdge />
-                <Footer />
+                <Footer locale={locale} />
             </div>
         </div>
     );

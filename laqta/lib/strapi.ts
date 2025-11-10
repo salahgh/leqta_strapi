@@ -632,6 +632,35 @@ export interface Tag {
     publishedAt: string;
 }
 
+// Newsletter interface
+export interface Newsletter {
+    id: number;
+    documentId?: string;
+    email: string;
+    status: 'active' | 'unsubscribed';
+    subscribedAt: string;
+    unsubscribedAt?: string;
+    source?: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+// Social Media interface
+export interface SocialMedia {
+    id: number;
+    documentId?: string;
+    platform: string;
+    url: string;
+    icon?: string;
+    order: number;
+    isActive: boolean;
+    ariaLabel?: string;
+    backgroundColor?: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+}
+
 // Updated Blogs API
 // Ensure these methods support locale parameter
 export const blogsApi = {
@@ -822,24 +851,73 @@ export const newsletterApi = {
         locale?: string,
     ): Promise<{ success: boolean; message: string }> {
         try {
-            await fetchApi(
-                "/newsletter-subscriptions",
+            const response = await fetchApi<{ message: string; data: any }>(
+                "/newsletters/subscribe",
                 {
                     method: "POST",
-                    body: JSON.stringify({ data: { email } }),
+                    body: JSON.stringify({ email, source: 'website' }),
                 },
                 locale,
             );
             return {
                 success: true,
-                message: "Successfully subscribed to newsletter!",
+                message: response.message || "Successfully subscribed to newsletter!",
             };
         } catch (error) {
             return {
                 success: false,
-                message: "Failed to subscribe. Please try again.",
+                message: error instanceof Error ? error.message : "Failed to subscribe. Please try again.",
             };
         }
+    },
+
+    async unsubscribe(
+        email: string,
+        locale?: string,
+    ): Promise<{ success: boolean; message: string }> {
+        try {
+            const response = await fetchApi<{ message: string; data: any }>(
+                "/newsletters/unsubscribe",
+                {
+                    method: "POST",
+                    body: JSON.stringify({ email }),
+                },
+                locale,
+            );
+            return {
+                success: true,
+                message: response.message || "Successfully unsubscribed from newsletter.",
+            };
+        } catch (error) {
+            return {
+                success: false,
+                message: error instanceof Error ? error.message : "Failed to unsubscribe. Please try again.",
+            };
+        }
+    },
+};
+
+// Social Media API
+export const socialMediaApi = {
+    async getAll(params?: {
+        page?: number;
+        pageSize?: number;
+        sort?: string;
+        locale?: string;
+    }): Promise<ApiResponse<SocialMedia[]>> {
+        const searchParams = new URLSearchParams();
+
+        if (params?.page) searchParams.set("pagination[page]", params.page.toString());
+        if (params?.pageSize) searchParams.set("pagination[pageSize]", params.pageSize.toString());
+        if (params?.sort) searchParams.set("sort", params.sort);
+
+        // Filter for active social media links only
+        searchParams.set("filters[isActive][$eq]", "true");
+
+        const query = searchParams.toString();
+        const endpoint = `/social-medias${query ? `?${query}` : ""}`;
+
+        return fetchApi<ApiResponse<SocialMedia[]>>(endpoint, {}, params?.locale);
     },
 };
 
@@ -848,6 +926,7 @@ export default {
     categoriesApi,
     tagsApi,
     newsletterApi,
+    socialMediaApi,
     servicesApi,
     worksApi,
     testimonialsApi,

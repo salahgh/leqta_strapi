@@ -178,24 +178,50 @@ const ContactUs = () => {
                 </button>
             </div>
 
-            {/* Main Content - Stepper and Form Side by Side */}
-            <div className="max-w-7xl mx-auto px-6 py-8">
-                <div className="flex gap-8 min-h-[600px]">
-                    {/* Left Side - Vertical Stepper */}
-                    <div className="w-80 flex-shrink-0">
+            {/* Main Content - Responsive Layout */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+                {/* Mobile Progress Bar - Visible only on mobile/tablet */}
+                <div className="lg:hidden mb-6">
+                    <div className="flex justify-between items-center gap-2 px-2">
+                        {Array.from({ length: totalSteps - 1 }).map((_, i) => {
+                            const stepNum = i + 1;
+                            return (
+                                <div key={i} className="flex-1">
+                                    <div
+                                        className={`h-2 w-full rounded-full transition-all duration-300 ${
+                                            stepNum < currentStep
+                                                ? "bg-blue-500"
+                                                : stepNum === currentStep
+                                                ? "bg-blue-400"
+                                                : "bg-slate-700"
+                                        }`}
+                                    />
+                                </div>
+                            );
+                        })}
+                    </div>
+                    <p className="text-center text-sm text-slate-400 mt-3">
+                        {currentStep < 5 ? `Step ${currentStep} of ${totalSteps - 1}` : 'Complete!'}
+                    </p>
+                </div>
+
+                {/* Desktop/Tablet Layout */}
+                <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-6 lg:gap-8 min-h-[600px]">
+                    {/* Left Side - Vertical Stepper (Desktop only) */}
+                    <div className="hidden lg:block">
                         <div className="sticky top-8">
                             <StepperComponent currentStep={currentStep} />
                         </div>
                     </div>
 
                     {/* Right Side - Form Content */}
-                    <div className="flex-1 max-w-2xl">
-                        <div className="bg-slate-900/30 backdrop-blur-sm rounded-xl p-8 border border-slate-700/50 h-full">
+                    <div className="w-full max-w-2xl mx-auto lg:mx-0">
+                        <div className="bg-slate-900/30 backdrop-blur-sm rounded-xl p-4 sm:p-6 lg:p-8 border border-slate-700/50">
                             {renderCurrentStepForm()}
 
                             {/* Action Buttons - Hide on success step and final step (handled internally) */}
                             {currentStep < totalSteps && currentStep !== 4 && (
-                                <div className="mt-8">
+                                <div className="mt-6 sm:mt-8">
                                     <ActionButtons
                                         handleGoBack={handleGoBack}
                                         currentStep={currentStep}
@@ -211,7 +237,7 @@ const ContactUs = () => {
             </div>
 
             {/* Footer */}
-            <Footer />
+            <Footer locale="en" />
         </div>
     );
 };

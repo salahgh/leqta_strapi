@@ -1,0 +1,245 @@
+{
+  "navigation": {
+    "home": "Accueil",
+    "about": "À propos",
+    "services": "Services",
+    "blog": "Blog",
+    "contact": "Contactez-nous",
+    "getStarted": "Commencer",
+    "learnMore": "En savoir plus"
+  },
+  "hero": {
+    "title": "Où la créativité rencontre la stratégie",
+    "description": "Leqta est une agence de marketing de contenu et de production complète basée à Alger. Nous combinons narration, stratégie et excellence visuelle pour donner à votre marque un contenu vidéo percutant.",
+    "getStarted": "Commencer",
+    "contactUs": "Contactez-nous"
+  },
+  "about": {
+    "badge": "À propos de Leqta",
+    "title": "Nous sommes LEQTA",
+    "description": "Une agence de marketing de contenu et de production cinématographique basée à Alger. Nous servons les marques, les entreprises et les acteurs du changement avec du contenu vidéo significatif qui allie créativité et stratégie.",
+    "getStarted": "Commencer",
+    "learnMore": "En savoir plus"
+  },
+  "aboutHero": {
+    "badge": "À propos de Leqta",
+    "title": "Nous sommes LEQTA",
+    "description": "Une agence de marketing de contenu et de production cinématographique basée à Alger. Nous servons les marques, les entreprises et les acteurs du changement avec du contenu vidéo significatif qui allie créativité et stratégie.",
+    "getStarted": "Commencer",
+    "contactUs": "Contactez-nous"
+  },
+  "services": {
+    "badge": "Nos Services",
+    "title": "Ce que nous faisons",
+    "description": "Nous offrons des solutions numériques complètes pour aider votre entreprise à croître"
+  },
+  "works": {
+    "badge": "Nos Travaux",
+    "title": "Nos Travaux",
+    "description": "Des entreprises de marque puissantes aux campagnes sociales audacieuses, la créativité avec la stratégie pour connecter, performer et inspirer. Voici un aperçu de ce que nous avons créé avec nos clients extraordinaires."
+  },
+  "perfectPartner": {
+    "badge": "Votre Partenaire Parfait",
+    "title": "Croissance Constante en Seulement 3 Étapes Simples",
+    "description": "Nous suivons un processus structuré et axé sur les données pour garantir que votre stratégie marketing offre une croissance constante et des résultats mesurables."
+  },
+  "competitiveEdge": {
+    "badge": "La Différence Leqta",
+    "title": "Notre Avantage Concurrentiel",
+    "description": "Chez Leqta, nous mélangeons la créativité audacieuse avec le savoir-faire marketing stratégique. Cet équilibre garantit un contenu performant avec un impact visuel.",
+    "advantages": {
+      "creativity": "Créativité avec Professionnalisme",
+      "resilience": "Résilience et Persévérance",
+      "attention": "Attention aux Détails",
+      "commitment": "Engagement et Gestion du Temps"
+    }
+  },
+  "testimonials": {
+    "badge": "Témoignages",
+    "title": "Ce que disent nos clients",
+    "description": "Ne nous croyez pas sur parole",
+    "successStoriesTitle": "Histoires de Succès de Nos Clients Satisfaits",
+    "swipeIndicator": "← Glissez pour naviguer →",
+    "loadingText": "Chargement des témoignages...",
+    "previousTestimonial": "Témoignage précédent",
+    "nextTestimonial": "Témoignage suivant"
+  },
+  "faq": {
+    "badge": "Questions?",
+    "title": "Questions Fréquemment Posées",
+    "description": "Trouvez des réponses aux questions courantes sur nos services de marketing par abonnement."
+  },
+  "contact": {
+    "badge": "Contactez-nous",
+    "title": "Commençons Votre Projet",
+    "description": "Prêt à donner vie à votre vision?",
+    "getInTouch": "Entrer en Contact",
+    "connectBadge": "Connectons-nous",
+    "contactTitle": "Entrer en Contact",
+    "contactDescription": "Que vous ayez un projet en tête ou une question sur nos services, nous aimerions avoir de vos nouvelles. Remplissez le formulaire et nous vous répondrons dans les 24 heures.",
+    "form": {
+      "fullname": "Nom complet",
+      "email": "Email",
+      "phone": "Téléphone",
+      "message": "Message",
+      "submit": "Envoyer le Message",
+      "required": "requis",
+      "invalidEmail": "Adresse email invalide",
+      "fullnameRequired": "Le nom complet est requis",
+      "emailRequired": "L'email est requis",
+      "phoneRequired": "Le numéro de téléphone est requis",
+      "messageRequired": "Le message est requis",
+      "successMessage": "Message envoyé avec succès!",
+      "errorMessage": "Erreur lors de l'envoi du message. Veuillez réessayer."
+    }
+  },
+  "contactPage": {
+    "goBack": "Retour",
+    "stepper": {
+      "personalInfo": "Informations Personnelles",
+      "personalInfoDescription": "Parlez-nous de vous",
+      "companyInfo": "Informations sur l'Entreprise et l'Industrie",
+      "companyInfoDescription": "Partagez les détails de votre entreprise",
+      "socialMedia": "Liens des Réseaux Sociaux",
+      "socialMediaDescription": "Connectez votre présence sociale",
+      "reviewSubmit": "Révision et Soumission",
+      "reviewSubmitDescription": "Révisez vos informations et soumettez",
+      "success": "Succès",
+      "successDescription": "Votre soumission est terminée"
+    },
+    "buttons": {
+      "goBack": "Retour",
+      "next": "Suivant",
+      "submit": "Soumettre",
+      "goBackToMainPage": "Retour à la Page Principale"
+    },
+    "form": {
+      "fullName": "Nom Complet",
+      "fullNamePlaceholder": "Entrez votre nom complet",
+      "email": "Email",
+      "emailPlaceholder": "Entrez votre adresse email",
+      "phoneNumber": "Numéro de Téléphone",
+      "phoneNumberPlaceholder": "Entrez votre numéro de téléphone",
+      "industry": "Industrie",
+      "selectIndustry": "Sélectionnez votre industrie",
+      "otherIndustry": "Autre Industrie",
+      "otherIndustryPlaceholder": "Veuillez spécifier votre industrie",
+      "companyName": "Nom de l'Entreprise",
+      "companyNamePlaceholder": "Entrez le nom de votre entreprise",
+      "jobTitle": "Titre du Poste",
+      "jobTitlePlaceholder": "Entrez votre titre de poste",
+      "website": "Site Web",
+      "websitePlaceholder": "https://votresite.com",
+      "socialMediaLinks": "Liens des Réseaux Sociaux",
+      "facebook": "Facebook",
+      "facebookPlaceholder": "https://facebook.com/votrepage",
+      "instagram": "Instagram",
+      "instagramPlaceholder": "https://instagram.com/votrepage",
+      "tiktok": "TikTok",
+      "tiktokPlaceholder": "https://tiktok.com/@votrepage",
+      "linkedin": "LinkedIn",
+      "linkedinPlaceholder": "https://linkedin.com/in/votreprofil",
+      "projectDetails": "Détails du Projet",
+      "projectDescription": "Description du Projet",
+      "projectDescriptionPlaceholder": "Parlez-nous de votre projet, de vos objectifs et de vos exigences",
+      "goals": "Objectifs du Projet",
+      "goalsPlaceholder": "Qu'espérez-vous accomplir avec ce projet?",
+      "industries": {
+        "technology": "Technologie",
+        "healthcare": "Santé",
+        "finance": "Finance",
+        "education": "Éducation",
+        "retail": "Commerce de Détail",
+        "manufacturing": "Fabrication",
+        "consulting": "Conseil",
+        "media": "Médias et Divertissement",
+        "nonprofit": "Organisation à But Non Lucratif",
+        "government": "Gouvernement",
+        "other": "Autre"
+      },
+      "validation": {
+        "required": "Ce champ est requis",
+        "email": "Veuillez entrer une adresse e-mail valide",
+        "phone": "Veuillez entrer un numéro de téléphone valide",
+        "url": "Veuillez entrer une URL valide",
+        "minLength": "Doit contenir au moins {min} caractères",
+        "maxLength": "Ne doit pas dépasser {max} caractères",
+        "fullNameRequired": "Le nom complet est requis",
+        "emailRequired": "L'adresse e-mail est requise",
+        "phoneRequired": "Le numéro de téléphone est requis",
+        "industryRequired": "Veuillez sélectionner une industrie",
+        "otherIndustryRequired": "Veuillez spécifier votre industrie",
+        "companyNameRequired": "Le nom de l'entreprise est requis",
+        "jobTitleRequired": "Le titre du poste est requis",
+        "websiteInvalid": "Veuillez entrer une URL de site web valide",
+        "facebookInvalid": "Veuillez entrer une URL Facebook valide",
+        "instagramInvalid": "Veuillez entrer une URL Instagram valide",
+        "tiktokInvalid": "Veuillez entrer une URL TikTok valide",
+        "linkedinInvalid": "Veuillez entrer une URL LinkedIn valide"
+      }
+    },
+    "success": {
+      "title": "Soumis!",
+      "description": "Le formulaire a été soumis avec succès",
+      "personalInfoSubmitted": "Informations personnelles soumises",
+      "companyInfoSubmitted": "Informations de l'entreprise soumises",
+      "socialMediaSubmitted": "Liens des réseaux sociaux soumis",
+      "nextStepsTitle": "Que se passe-t-il ensuite?",
+      "reviewSubmission": "Notre équipe examinera votre soumission dans les 24 heures",
+      "confirmationEmail": "Vous recevrez un e-mail de confirmation sous peu",
+      "scheduleCall": "Nous vous contacterons pour planifier un appel de découverte",
+      "referenceId": "ID de référence:"
+    }
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Quelque chose s'est mal passé",
+    "success": "Succès!",
+    "required": "Ce champ est requis",
+    "cancel": "Annuler",
+    "save": "Sauvegarder",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "confirm": "Confirmer",
+    "close": "Fermer",
+    "retry": "Réessayer",
+    "readMore": "Lire Plus",
+    "viewAll": "Voir Tout"
+  },
+  "blog": {
+    "title": "Insights et Histoires",
+    "description": "Découvrez comment la narration transforme les marques et se connecte avec les audiences à un niveau plus profond",
+    "featuredStories": "Histoires en Vedette",
+    "latestArticles": "Derniers Articles",
+    "allArticles": "Tous les Articles",
+    "allArticlesDescription": "Explorez notre collection complète d'insights et d'histoires",
+    "viewAllArticles": "Voir Tous les Articles",
+    "noArticles": "Aucun blog disponible pour le moment.",
+    "relatedArticles": "Articles Connexes",
+    "tags": "Tags:",
+    "minRead": "min de lecture",
+    "views": "vues",
+    "articleNotFound": "Article non trouvé - LAQTA",
+    "articleNotFoundDescription": "L'article demandé n'a pas pu être trouvé.",
+    "allArticlesTitle": "Tous les Articles - LAQTA",
+    "allArticlesMetaDescription": "Parcourez tous nos articles avec des options de recherche et de filtre",
+    "blogTitle": "Insights et Histoires - LAQTA",
+    "blogMetaDescription": "Découvrez comment la narration transforme les marques et se connecte avec les audiences à un niveau plus profond"
+  },
+  "footer": {
+    "newsletter": "Newsletter",
+    "newsletterDescription": "Restez au courant de nos dernières mises à jour, abonnez-vous à notre newsletter",
+    "company": "Entreprise",
+    "aboutUs": "À propos de nous",
+    "ourServices": "Nos services",
+    "ourWorks": "Nos travaux",
+    "testimonials": "Témoignages",
+    "contactUs": "Contactez-nous",
+    "faq": "FAQ",
+    "blog": "Blog",
+    "utilityPages": "Pages Utilitaires",
+    "termsCondition": "Termes et Conditions",
+    "privacyPolicy": "Politique de Confidentialité",
+    "copyright": "Copyright © 2025 LEQTA. Tous Droits Réservés"
+  }
+}

@@ -33,7 +33,7 @@ const AboutSection = ({
                     <div className="items-center justify-center">
                         <Badge>{t('badge')}</Badge>
                     </div>
-                    <h2 className="text-black md:text-[46px] text-[40px] leading-tight">
+                    <h2 className="text-black text-display-md md:text-display-lg xl:text-display-xl leading-tight">
                         {t('title').split(" ").map((word, index) => (
                             <span
                                 key={index}

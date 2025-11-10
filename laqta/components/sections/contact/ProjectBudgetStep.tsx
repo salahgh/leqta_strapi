@@ -2,22 +2,13 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useTranslations } from "next-intl";
+import { useFormInput } from "@/lib/formik-helpers";
 
 const validationSchema = Yup.object({
     projectType: Yup.string().required("Project type is required"),
     budget: Yup.string().required("Budget range is required"),
     timeline: Yup.string().required("Timeline is required"),
 });
-
-function useFormInput(name, formik) {
-    return {
-        name,
-        value: formik.values[name],
-        onChange: formik.handleChange,
-        onBlur: formik.handleBlur,
-        error: formik.touched[name] && formik.errors[name],
-    };
-}
 
 const ProjectBudgetStep = ({ initialValues, onSubmit }) => {
     const t = useTranslations('contactPage.form');

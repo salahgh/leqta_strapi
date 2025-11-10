@@ -127,7 +127,7 @@ const BlogPage = async ({
             </section>
             Newsletter Subscription
             <NewsletterSubscription />
-            <Footer />
+            <Footer locale={locale} />
         </div>
     );
 };

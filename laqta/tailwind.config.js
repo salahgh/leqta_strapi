@@ -74,54 +74,54 @@ module.exports = {
                 // Display Text Styles (for headings, heroes, etc.)
                 "display-xs": [
                     "24px",
-                    { lineHeight: "32px", letterSpacing: "-2%" },
+                    { lineHeight: "32px", letterSpacing: "-0.02em" },
                 ],
                 "display-sm": [
                     "30px",
-                    { lineHeight: "38px", letterSpacing: "-2%" },
+                    { lineHeight: "38px", letterSpacing: "-0.02em" },
                 ],
                 "display-md": [
                     "36px",
-                    { lineHeight: "44px", letterSpacing: "-2%" },
+                    { lineHeight: "44px", letterSpacing: "-0.02em" },
                 ],
                 "display-lg": [
                     "48px",
-                    { lineHeight: "60px", letterSpacing: "-2%" },
+                    { lineHeight: "60px", letterSpacing: "-0.02em" },
                 ],
                 "display-xl": [
                     "60px",
-                    { lineHeight: "72px", letterSpacing: "-2%" },
+                    { lineHeight: "72px", letterSpacing: "-0.02em" },
                 ],
 
                 "display-2xl": [
                     "72px",
-                    { lineHeight: "80px", letterSpacing: "-2%" },
+                    { lineHeight: "80px", letterSpacing: "-0.02em" },
                 ],
 
                 // Body Text Styles (for content, paragraphs, etc.)
                 "body-xs": [
                     "12px",
-                    { lineHeight: "20px", letterSpacing: "-2%" },
+                    { lineHeight: "20px", letterSpacing: "-0.02em" },
                 ],
                 "body-sm": [
                     "14px",
-                    { lineHeight: "24px", letterSpacing: "-2%" },
+                    { lineHeight: "24px", letterSpacing: "-0.02em" },
                 ],
                 "body-md": [
                     "16px",
-                    { lineHeight: "28px", letterSpacing: "-2%" },
+                    { lineHeight: "28px", letterSpacing: "-0.02em" },
                 ],
                 "body-lg": [
                     "18px",
-                    { lineHeight: "30px", letterSpacing: "-2%" },
+                    { lineHeight: "30px", letterSpacing: "-0.02em" },
                 ],
                 "body-xl": [
                     "20px",
-                    { lineHeight: "32px", letterSpacing: "-2%" },
+                    { lineHeight: "32px", letterSpacing: "-0.02em" },
                 ],
                 "body-2xl": [
                     "22px",
-                    { lineHeight: "34px", letterSpacing: "-2%" },
+                    { lineHeight: "34px", letterSpacing: "-0.02em" },
                 ],
 
                 // Legacy sizes (keep for backward compatibility)

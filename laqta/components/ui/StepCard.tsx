@@ -25,10 +25,10 @@ export const StepCard = ({ number, title, description, color, position }) => {
 
             {/* Content */}
             <div className="max-w-xs">
-                <h3 className="text-white text-xl font-semibold mb-3">
+                <h3 className="text-white text-body-xl font-semibold mb-3">
                     {title}
                 </h3>
-                <p className="text-gray-300 text-sm leading-relaxed">
+                <p className="text-gray-300 text-responsive-sm leading-relaxed">
                     {description}
                 </p>
             </div>

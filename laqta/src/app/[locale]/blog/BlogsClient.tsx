@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { BlogCard } from "./BlogCard";
 import { SearchAndFilter } from "./SearchAndFilter";
 import { Pagination } from "./Pagination";
-import { NewsletterSubscription } from "./NewsletterSubscription";
+import NewsletterForm from "@/components/ui/NewsletterForm";
 import { Blog, Category, blogsApi } from "@/lib/strapi";
 import { useTranslations, useLocale } from "next-intl";
 
@@ -137,7 +137,7 @@ export const BlogsClient: React.FC<BlogsClientProps> = ({
                 </div>
             </section>
 
-            <NewsletterSubscription />
+            <NewsletterForm variant="blog" />
         </>
     );
 };

@@ -123,18 +123,18 @@
     }
 
     h1 {
-        @apply text-responsive-display font-bold;
+        @apply text-display-md md:text-display-lg lg:text-display-xl xl:text-display-2xl font-bold;
     }
 
     h2 {
-        @apply text-display-sm sm:text-display-md md:text-display-lg lg:text-display-xl xl:text-display-2xl font-semibold;
+        @apply text-display-sm md:text-display-md lg:text-display-lg xl:text-display-xl font-semibold;
     }
 
     h3 {
-        @apply text-display-xs sm:text-display-sm md:text-display-md  lg:text-display-lg font-semibold;
+        @apply text-display-xs md:text-display-sm lg:text-display-md font-semibold;
     }
 
     p {
-        @apply text-responsive-md text-responsive-md;
+        @apply text-responsive-md;
     }
 }

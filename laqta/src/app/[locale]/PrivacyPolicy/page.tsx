@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useParams } from "react";
 import { Navigation } from "@/components/layout/Navigation";
 import Footer from "@/components/sections/Footer";
 
@@ -134,6 +134,8 @@ const renderContent = (activeSection) => {
 };
 
 export default function Page() {
+    const params = useParams();
+    const locale = (params?.locale as string) || "en";
     const [activeSection, setActiveSection] = useState("data-protection");
 
     const sections = [
@@ -211,7 +213,7 @@ export default function Page() {
                 <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-200/15 rounded-full blur-3xl"></div>
                 <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-pink-200/15 rounded-full blur-3xl"></div>
             </div>
-            <Footer />
+            <Footer locale={locale} />
         </div>
     );
 }

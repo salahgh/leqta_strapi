@@ -18,7 +18,7 @@ export const NavLink: React.FC<NavLinkProps> = ({
         <Link
             href={href}
             className={`
-        text-[16px] font-medium leading-none
+        text-body-md lg:text-body-lg font-medium leading-none
         transition-all duration-200 ease-in-out
         ${isActive ? "text-brand-aqua" : "text-white hover:text-brand-aqua"}
         ${className}

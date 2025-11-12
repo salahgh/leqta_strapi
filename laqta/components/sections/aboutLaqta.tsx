@@ -2,6 +2,7 @@ import { Rocket } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { useTranslations } from "next-intl";
+import { Link } from "@/src/i18n/navigation";
 import "./styles.css";
 
 // Main About Section Component
@@ -58,24 +59,28 @@ const AboutSection = ({
                     {/*Buttons*/}
                     <div className="flex gap-4" style={{ height: 61 }}>
                         <div className={"h-12 md:h-16"}>
-                            <Button
-                                variant="primary"
-                                className=""
-                                rightIcon={<Rocket className="w-4 h-4 ml-2" />}
-                                leftIcon={null}
-                            >
-                                {t('getStarted')}
-                            </Button>
+                            <Link href="/contact">
+                                <Button
+                                    variant="primary"
+                                    className=""
+                                    rightIcon={<Rocket className="w-4 h-4 ml-2" />}
+                                    leftIcon={null}
+                                >
+                                    {t('getStarted')}
+                                </Button>
+                            </Link>
                         </div>
                         <div className={"h-12 md:h-16"}>
-                            <Button
-                                variant="secondary"
-                                className="text-blue-300"
-                                leftIcon={null}
-                                rightIcon={null}
-                            >
-                                {t('learnMore')}
-                            </Button>
+                            <Link href="/about">
+                                <Button
+                                    variant="secondary"
+                                    className="text-blue-300"
+                                    leftIcon={null}
+                                    rightIcon={null}
+                                >
+                                    {t('learnMore')}
+                                </Button>
+                            </Link>
                         </div>
                     </div>
                 </div>

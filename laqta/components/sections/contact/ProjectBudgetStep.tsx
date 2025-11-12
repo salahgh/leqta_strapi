@@ -4,13 +4,19 @@ import * as Yup from "yup";
 import { useTranslations } from "next-intl";
 import { useFormInput } from "@/lib/formik-helpers";
 
+interface ProjectBudgetStepValues {
+    projectType: string;
+    budget: string;
+    timeline: string;
+}
+
 const validationSchema = Yup.object({
     projectType: Yup.string().required("Project type is required"),
     budget: Yup.string().required("Budget range is required"),
     timeline: Yup.string().required("Timeline is required"),
 });
 
-const ProjectBudgetStep = ({ initialValues, onSubmit }) => {
+const ProjectBudgetStep = ({ initialValues, onSubmit }: { initialValues?: Partial<ProjectBudgetStepValues>; onSubmit: (values: ProjectBudgetStepValues) => void }) => {
     const t = useTranslations('contactPage.form');
     
     const projectTypeOptions = [
@@ -45,7 +51,7 @@ const ProjectBudgetStep = ({ initialValues, onSubmit }) => {
         { value: "flexible", label: t('timelines.flexible') },
     ];
     
-    const formik = useFormik({
+    const formik = useFormik<ProjectBudgetStepValues>({
         initialValues: {
             projectType: "",
             budget: "",
@@ -63,7 +69,7 @@ const ProjectBudgetStep = ({ initialValues, onSubmit }) => {
                     {t('projectType')}
                 </label>
                 <select
-                    {...useFormInput("projectType", formik)}
+                    {...useFormInput<ProjectBudgetStepValues>("projectType", formik)}
                     className="form-input-base text-responsive-lg padding-responsive-sm rounded-full w-full"
                     style={{
                         backgroundColor: "#141733",
@@ -86,7 +92,7 @@ const ProjectBudgetStep = ({ initialValues, onSubmit }) => {
                     {t('budget')}
                 </label>
                 <select
-                    {...useFormInput("budget", formik)}
+                    {...useFormInput<ProjectBudgetStepValues>("budget", formik)}
                     className="form-input-base text-responsive-lg padding-responsive-sm rounded-full w-full"
                     style={{
                         backgroundColor: "#141733",
@@ -109,7 +115,7 @@ const ProjectBudgetStep = ({ initialValues, onSubmit }) => {
                     {t('timeline')}
                 </label>
                 <select
-                    {...useFormInput("timeline", formik)}
+                    {...useFormInput<ProjectBudgetStepValues>("timeline", formik)}
                     className="form-input-base text-responsive-lg padding-responsive-sm rounded-full w-full"
                     style={{
                         backgroundColor: "#141733",

@@ -8,6 +8,14 @@ import { FormInput } from "@/components/ui/FormInput";
 import Footer from "@/components/sections/Footer";
 import { useFormInput } from "@/lib/formik-helpers";
 
+interface ProjectInfoStepValues {
+    projectType: string;
+    budget: string;
+    timeline: string;
+    projectDescription: string;
+    goals: string;
+}
+
 // Yup validation schema for project info step
 const validationSchema = Yup.object({
     projectType: Yup.string().required("Project type is required"),
@@ -24,15 +32,13 @@ const validationSchema = Yup.object({
 });
 
 const ProjectInfoStep = ({
-    initialValues = {
-        projectType: "",
-        budget: "",
-        timeline: "",
-        projectDescription: "",
-        goals: "",
-    },
+    initialValues,
     currentStep = 2,
     totalSteps = 4,
+}: {
+    initialValues?: Partial<ProjectInfoStepValues>;
+    currentStep?: number;
+    totalSteps?: number;
 }) => {
     const projectTypeOptions = [
         "Web Development",
@@ -68,8 +74,15 @@ const ProjectInfoStep = ({
         formikBag.setSubmitting(false);
     };
 
-    const formik = useFormik({
-        initialValues,
+    const formik = useFormik<ProjectInfoStepValues>({
+        initialValues: {
+            projectType: "",
+            budget: "",
+            timeline: "",
+            projectDescription: "",
+            goals: "",
+            ...initialValues
+        },
         validationSchema,
         onSubmit: (values, formikBag) => {
             if (handleSubmit) {
@@ -128,7 +141,7 @@ const ProjectInfoStep = ({
                     placeholder={undefined}
                     label="Project Description"
                     variant={"compact"}
-                    {...useFormInput("projectDescription", formik)}
+                    {...useFormInput<ProjectInfoStepValues>("projectDescription", formik)}
                     as="textarea"
                     style={{
                         backgroundColor: "#141733",
@@ -143,7 +156,7 @@ const ProjectInfoStep = ({
                     placeholder={undefined}
                     variant={"compact"}
                     label="Project Goals & Success Metrics"
-                    {...useFormInput("goals", formik)}
+                    {...useFormInput<ProjectInfoStepValues>("goals", formik)}
                     as="textarea"
                     style={{
                         backgroundColor: "#141733",

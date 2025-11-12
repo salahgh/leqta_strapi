@@ -23,6 +23,14 @@ export default {
       config: {
         auth: false, // This makes it public
       }
+    },
+    {
+      method: 'GET',
+      path: '/projects/slug/:slug',
+      handler: 'project.findBySlug',
+      config: {
+        auth: false, // This makes it public
+      }
     }
   ]
 };

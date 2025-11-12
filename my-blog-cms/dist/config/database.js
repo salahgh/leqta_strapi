@@ -1,9 +1,5 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const path_1 = __importDefault(require("path"));
 exports.default = ({ env }) => {
     // Use PostgreSQL for development, MariaDB (mysql client) for production
     // Auto-detect based on NODE_ENV, or use DATABASE_CLIENT if explicitly set
@@ -15,7 +11,7 @@ exports.default = ({ env }) => {
             connection: {
                 host: env('DATABASE_HOST', 'localhost'),
                 port: env.int('DATABASE_PORT', 3306),
-                database: env('DATABASE_NAME', 'strapi_db'),
+                database: env('DATABASE_NAME', 'strapi_db_leqta_2'),
                 user: env('DATABASE_USERNAME', 'root'),
                 password: env('DATABASE_PASSWORD', ''),
                 ssl: env.bool('DATABASE_SSL', false) && {
@@ -50,13 +46,7 @@ exports.default = ({ env }) => {
                 max: env.int('DATABASE_POOL_MAX', 10),
                 acquireTimeoutMillis: env.int('DATABASE_CONNECTION_TIMEOUT', 60000),
             },
-        },
-        sqlite: {
-            connection: {
-                filename: path_1.default.join(__dirname, '..', '..', env('DATABASE_FILENAME', '.tmp/data.db')),
-            },
-            useNullAsDefault: true,
-        },
+        }
     };
     return {
         connection: {

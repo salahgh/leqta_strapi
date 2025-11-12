@@ -5,6 +5,7 @@ exports.servicesData = [
     {
         base: {
             title: "Content Strategy & Creation",
+            slug: "content-strategy-creation",
             description: "Comprehensive content strategy development and high-quality content creation that drives engagement and converts visitors into customers.",
             gradientFrom: "#3B82F6",
             gradientTo: "#1D4ED8",
@@ -25,6 +26,7 @@ exports.servicesData = [
     {
         base: {
             title: "Social Media Management",
+            slug: "social-media-management",
             description: "Full-service social media management including content creation, community engagement, and performance analytics across all major platforms.",
             gradientFrom: "#10B981",
             gradientTo: "#047857",
@@ -45,6 +47,7 @@ exports.servicesData = [
     {
         base: {
             title: "SEO & Performance Marketing",
+            slug: "seo-performance-marketing",
             description: "Advanced SEO optimization and performance marketing campaigns designed to increase organic traffic and improve search engine rankings.",
             gradientFrom: "#8B5CF6",
             gradientTo: "#6D28D9",
@@ -65,6 +68,7 @@ exports.servicesData = [
     {
         base: {
             title: "Email Marketing Automation",
+            slug: "email-marketing-automation",
             description: "Strategic email marketing campaigns with advanced automation workflows that nurture leads and drive conversions at scale.",
             gradientFrom: "#F59E0B",
             gradientTo: "#D97706",
@@ -85,6 +89,7 @@ exports.servicesData = [
     {
         base: {
             title: "Brand Development & Design",
+            slug: "brand-development-design",
             description: "Complete brand identity development including logo design, brand guidelines, and visual identity systems that resonate with your target audience.",
             gradientFrom: "#EF4444",
             gradientTo: "#DC2626",
@@ -105,6 +110,7 @@ exports.servicesData = [
     {
         base: {
             title: "Analytics & Performance Tracking",
+            slug: "analytics-performance-tracking",
             description: "Comprehensive analytics setup and performance tracking with detailed reporting and insights to optimize your marketing ROI.",
             gradientFrom: "#06B6D4",
             gradientTo: "#0891B2",

@@ -18,13 +18,14 @@ interface BlogPageProps {
 
 export async function generateStaticParams() {
     try {
-        const response = await blogsApi.getAll({ pageSize: 100 });
-        const blogs = response.data || [];
-
         const locales = ["en", "ar", "fr"];
         const params = [];
 
+        // Fetch blogs for each locale separately to get correct slugs
         for (const locale of locales) {
+            const response = await blogsApi.getAll({ pageSize: 100, locale });
+            const blogs = response.data || [];
+
             for (const blog of blogs) {
                 params.push({
                     locale,
@@ -100,9 +101,7 @@ const BlogArticlePage = async ({ params }: BlogPageProps) => {
     // Fetch related blogs with locale
     let relatedBlogs: Blog[] = [];
     try {
-        const relatedResponse = await blogsApi.getRelated(blog.id, 3, {
-            locale,
-        });
+        const relatedResponse = await blogsApi.getRelated(blog.id, 3, locale);
         relatedBlogs = relatedResponse.data;
     } catch (error) {
         console.error("Failed to fetch related blogs:", error);
@@ -126,10 +125,10 @@ const BlogArticlePage = async ({ params }: BlogPageProps) => {
     });
 
     return (
-        <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 min-h-screen">
+        <div className="bg-white min-h-screen">
             <StructuredData data={structuredData} />
             <Navigation />
-            <BlogArticle blog={blog} relatedBlogs={relatedBlogs} />
+            <BlogArticle blog={blog} relatedBlogs={relatedBlogs} locale={locale} />
             <Footer locale={locale} />
         </div>
     );

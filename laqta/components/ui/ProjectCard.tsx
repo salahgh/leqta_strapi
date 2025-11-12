@@ -2,6 +2,7 @@ import React from "react";
 import { Rocket } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
+import { Link } from "@/src/i18n/navigation";
 
 interface ProjectCardProps {
     imagePosition?: "left" | "right";
@@ -13,6 +14,7 @@ interface ProjectCardProps {
     imageUrl?: string;
     imageAlt?: string;
     className?: string;
+    slug?: string; // New prop for linking to detail page
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = (props) => {
@@ -26,13 +28,14 @@ export const ProjectCard: React.FC<ProjectCardProps> = (props) => {
         imageUrl = "/images/workImage.jpg",
         imageAlt = "Project image",
         className = "",
+        slug,
     } = props;
 
     const isLeftImage = imagePosition === "left";
 
-    return (
+    const cardContent = (
         <div
-            className={`bg-white rounded-xl sm:rounded-2xl p-2 sm:p-3 md:p-4 lg:p-6 xl:p-8 shadow-lg border border-gray-200 ${className}`}
+            className={`bg-white rounded-xl sm:rounded-2xl p-2 sm:p-3 md:p-4 lg:p-6 xl:p-8 shadow-lg border border-gray-200 transition-all duration-300 hover:shadow-2xl hover:scale-[1.01] ${slug ? 'cursor-pointer' : ''} ${className}`}
         >
             <div
                 className={`flex gap-3 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12 ${
@@ -90,4 +93,15 @@ export const ProjectCard: React.FC<ProjectCardProps> = (props) => {
             </div>
         </div>
     );
+
+    // Wrap in Link if slug is provided
+    if (slug) {
+        return (
+            <Link href={`/works/${slug}`} className="block h-full">
+                {cardContent}
+            </Link>
+        );
+    }
+
+    return cardContent;
 };

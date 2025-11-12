@@ -56,11 +56,12 @@ const transformStrapiService = (service: Service) => ({
     gradientFrom: service.gradientFrom,
     gradientTo: service.gradientTo,
     icon: getIconComponent(service.icon),
+    slug: service.slug, // Add slug for linking
     // Add featured_image with full URL
     featured_image: service.featured_image ? {
         ...service.featured_image,
-        url: service.featured_image.url.startsWith('http') 
-            ? service.featured_image.url 
+        url: service.featured_image.url.startsWith('http')
+            ? service.featured_image.url
             : `${process.env.NEXT_PUBLIC_STRAPI_URL_2}${service.featured_image.url}`
     } : null,
 });
@@ -151,6 +152,7 @@ export default async function ServicesSection({
                                         gradientTo={service.gradientTo}
                                         icon={service.icon}
                                         featured_image={service.featured_image}
+                                        slug={service.slug}
                                         className="h-full"
                                     />
                                 </div>

@@ -123,18 +123,15 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                                                 text-white/90 hover:text-white md:h-32
                                                 ${
                                                     isActive
-                                                        ? "text-white"
+                                                        ? "text-white font-semibold brightness-110"
                                                         : "hover:bg-white/10"
                                                 }
                                             `}
                                         >
                                             {item.label}
-                                            {/*{isActive && (*/}
-                                            {/*    <div className="hidden absolute inset-0 rounded-full bg-gradient-to-r from-blue-400/20 to-purple-400/20 animate-pulse" />*/}
-                                            {/*)}*/}
                                         </NavLink>
                                         {isActive && (
-                                            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white rounded-full animate-bounce" />
+                                            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white rounded-full animate-bounce" />
                                         )}
                                     </div>
                                 );

@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useParams } from "react";
+import React from "react";
+import { useParams } from "next/navigation";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FormInput } from "@/components/ui/FormInput";

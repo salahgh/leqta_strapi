@@ -75,6 +75,7 @@ export const HeroSection: React.FC = () => {
                     <div className={"h-12 w-full md:h-16 md:w-auto"}>
                         <Link href="/services">
                             <Button
+                                leftIcon={null}
                                 rightIcon={<Rocket className="ml-2 h-10 w-4" />}
                             >
                                 {t("getStarted")}
@@ -83,7 +84,7 @@ export const HeroSection: React.FC = () => {
                     </div>
                     <div className={"h-12 w-full md:h-16 md:w-auto"}>
                         <Link href="/contact">
-                            <Button variant="secondary">{t("contactUs")}</Button>
+                            <Button variant="secondary" leftIcon={null} rightIcon={null}>{t("contactUs")}</Button>
                         </Link>
                     </div>
                 </div>

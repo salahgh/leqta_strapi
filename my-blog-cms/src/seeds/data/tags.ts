@@ -7,12 +7,10 @@ export const tagsData = [
         },
         translations: {
             ar: {
-                name: "جمع التمويل",
-                slug: "fundraising-ar"
+                name: "جمع التمويل"
             },
             fr: {
-                name: "Levée de fonds",
-                slug: "fundraising-fr"
+                name: "Levée de fonds"
             }
         }
     },
@@ -24,12 +22,10 @@ export const tagsData = [
         },
         translations: {
             ar: {
-                name: "تطوير المنتجات",
-                slug: "product-development-ar"
+                name: "تطوير المنتجات"
             },
             fr: {
-                name: "Développement de produits",
-                slug: "product-development-fr"
+                name: "Développement de produits"
             }
         }
     },
@@ -41,12 +37,10 @@ export const tagsData = [
         },
         translations: {
             ar: {
-                name: "بناء الفريق",
-                slug: "team-building-ar"
+                name: "بناء الفريق"
             },
             fr: {
-                name: "Constitution d'équipe",
-                slug: "team-building-fr"
+                name: "Constitution d'équipe"
             }
         }
     },
@@ -58,12 +52,10 @@ export const tagsData = [
         },
         translations: {
             ar: {
-                name: "تقنيات النمو",
-                slug: "growth-hacking-ar"
+                name: "تقنيات النمو"
             },
             fr: {
-                name: "Growth Hacking",
-                slug: "growth-hacking-fr"
+                name: "Growth Hacking"
             }
         }
     },
@@ -75,12 +67,10 @@ export const tagsData = [
         },
         translations: {
             ar: {
-                name: "تحسين محركات البحث",
-                slug: "seo-ar"
+                name: "تحسين محركات البحث"
             },
             fr: {
-                name: "Référencement",
-                slug: "seo-fr"
+                name: "Référencement"
             }
         }
     },
@@ -92,12 +82,10 @@ export const tagsData = [
         },
         translations: {
             ar: {
-                name: "تسويق المحتوى",
-                slug: "content-marketing-ar"
+                name: "تسويق المحتوى"
             },
             fr: {
-                name: "Marketing de contenu",
-                slug: "content-marketing-fr"
+                name: "Marketing de contenu"
             }
         }
     }

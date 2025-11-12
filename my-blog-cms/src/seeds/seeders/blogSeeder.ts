@@ -37,20 +37,27 @@ export const seedBlogs = async (strapi, blogsData) => {
             console.log(`Created English Blog: "${blogData.base.title}" (ID: ${enBlog.id})`);
 
             for (const [localeCode, translation] of Object.entries(blogData.translations)) {
-                const translationData = {
-                    ...blogWithRelations,
-                    // @ts-expect-error
-                    ...translation,
+                // Extract only localized fields (exclude slug, featured_image, etc. as they're now non-localized)
+                const translationData: any = translation;
+                const { slug, featured_image, header_image, content_image, ...translatedFields } = translationData;
+
+                const blogTranslationData = {
+                    ...translatedFields,
+                    // Keep relations from the base blog
+                    author: blogWithRelations.author,
+                    category: blogWithRelations.category,
+                    tags: blogWithRelations.tags,
                     publishedAt: new Date()
                 };
 
                 const translatedBlog = await strapi.entityService.create('api::blog.blog', {
-                    data: translationData,
+                    data: blogTranslationData,
                     locale: localeCode,
                     localizations: enBlog.id
                 });
 
-                           }
+                console.log(`Created ${localeCode.toUpperCase()} translation for: "${translatedFields.title}" (ID: ${translatedBlog.id})`);
+            }
         }
 
         console.log('✅ Blogs seeding completed successfully');

@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { ArrowLeft } from "lucide-react";
-import Footer from "@/components/sections/Footer";
 import { useTranslations } from "next-intl";
 
 import PersonalInfoStep from "./PersonalInfoStep";
@@ -235,9 +234,6 @@ const ContactUs = () => {
                     </div>
                 </div>
             </div>
-
-            {/* Footer */}
-            <Footer locale="en" />
         </div>
     );
 };

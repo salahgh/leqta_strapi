@@ -5,6 +5,25 @@ import { FormInput } from "@/components/ui/FormInput";
 import { useTranslations } from "next-intl";
 import { useFormInput } from "@/lib/formik-helpers";
 
+interface SocialMedia {
+    facebook: string;
+    instagram: string;
+    tiktok: string;
+    linkedin: string;
+}
+
+interface PersonalInfoFormValues {
+    fullName: string;
+    email: string;
+    phoneNumber: string;
+    industry: string;
+    otherIndustry: string;
+    companyName: string;
+    jobTitle: string;
+    website: string;
+    socialMedia: SocialMedia;
+}
+
 // Yup validation schema
 const validationSchema = Yup.object({
     fullName: Yup.string()
@@ -58,24 +77,13 @@ const validationSchema = Yup.object({
 });
 
 const PersonalInfoForm = ({
-    initialValues = {
-        fullName: "",
-        email: "",
-        phoneNumber: "",
-        industry: "",
-        otherIndustry: "",
-        companyName: "",
-        jobTitle: "",
-        website: "",
-        socialMedia: {
-            facebook: "",
-            instagram: "",
-            tiktok: "",
-            linkedin: "",
-        },
-    },
+    initialValues,
     currentStep = 1,
     totalSteps = 3,
+}: {
+    initialValues?: Partial<PersonalInfoFormValues>;
+    currentStep?: number;
+    totalSteps?: number;
 }) => {
     const t = useTranslations('contactPage.form');
     
@@ -99,8 +107,24 @@ const PersonalInfoForm = ({
         formikBag.setSubmitting(false);
     };
 
-    const formik = useFormik({
-        initialValues,
+    const formik = useFormik<PersonalInfoFormValues>({
+        initialValues: {
+            fullName: "",
+            email: "",
+            phoneNumber: "",
+            industry: "",
+            otherIndustry: "",
+            companyName: "",
+            jobTitle: "",
+            website: "",
+            socialMedia: {
+                facebook: "",
+                instagram: "",
+                tiktok: "",
+                linkedin: "",
+            },
+            ...initialValues
+        },
         validationSchema,
         onSubmit: (values, formikBag) => {
             if (onSubmit) {
@@ -114,7 +138,7 @@ const PersonalInfoForm = ({
             {/* Full Name Field */}
             <FormInput
                 label={t('fullName')}
-                {...useFormInput("fullName", formik)}
+                {...useFormInput<PersonalInfoFormValues>("fullName", formik)}
                 placeholder={t('fullNamePlaceholder')}
                 variant={"compact"}
                 style={{
@@ -126,7 +150,7 @@ const PersonalInfoForm = ({
             {/* Email Field */}
             <FormInput
                 label={t('email')}
-                {...useFormInput("email", formik)}
+                {...useFormInput<PersonalInfoFormValues>("email", formik)}
                 placeholder={t('emailPlaceholder')}
                 variant={"compact"}
                 type="email"
@@ -139,7 +163,7 @@ const PersonalInfoForm = ({
             {/* Phone Number Field */}
             <FormInput
                 label={t('phoneNumber')}
-                {...useFormInput("phoneNumber", formik)}
+                {...useFormInput<PersonalInfoFormValues>("phoneNumber", formik)}
                 variant={"compact"}
                 placeholder={t('phoneNumberPlaceholder')}
                 style={{
@@ -155,7 +179,7 @@ const PersonalInfoForm = ({
                     {t('industry')}
                 </label>
                 <select
-                    {...useFormInput("industry", formik)}
+                    {...useFormInput<PersonalInfoFormValues>("industry", formik)}
                     className="form-input-base text-responsive-lg padding-responsive-sm rounded-full w-full"
                     style={{
                         backgroundColor: "#141733",
@@ -177,7 +201,7 @@ const PersonalInfoForm = ({
             {formik.values.industry === "other" && (
                 <FormInput
                     label={t('otherIndustry')}
-                    {...useFormInput("otherIndustry", formik)}
+                    {...useFormInput<PersonalInfoFormValues>("otherIndustry", formik)}
                     placeholder={t('otherIndustryPlaceholder')}
                     variant={"compact"}
                     style={{
@@ -190,7 +214,7 @@ const PersonalInfoForm = ({
             {/* Company Name Field */}
             <FormInput
                 label={t('companyName')}
-                {...useFormInput("companyName", formik)}
+                {...useFormInput<PersonalInfoFormValues>("companyName", formik)}
                 placeholder={t('companyNamePlaceholder')}
                 variant={"compact"}
                 style={{
@@ -202,7 +226,7 @@ const PersonalInfoForm = ({
             {/* Job Title Field */}
             <FormInput
                 label={t('jobTitle')}
-                {...useFormInput("jobTitle", formik)}
+                {...useFormInput<PersonalInfoFormValues>("jobTitle", formik)}
                 placeholder={t('jobTitlePlaceholder')}
                 variant={"compact"}
                 style={{
@@ -214,7 +238,7 @@ const PersonalInfoForm = ({
             {/* Website Field */}
             <FormInput
                 label={t('website')}
-                {...useFormInput("website", formik)}
+                {...useFormInput<PersonalInfoFormValues>("website", formik)}
                 placeholder={t('websitePlaceholder')}
                 variant={"compact"}
                 type="url"
@@ -234,7 +258,7 @@ const PersonalInfoForm = ({
                     value={formik.values.socialMedia.facebook}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.touched.socialMedia?.facebook && formik.errors.socialMedia?.facebook}
+                    error={formik.touched.socialMedia?.facebook && formik.errors.socialMedia?.facebook ? String(formik.errors.socialMedia.facebook) : undefined}
                     placeholder={t('facebookPlaceholder')}
                     variant={"compact"}
                     type="url"
@@ -250,7 +274,7 @@ const PersonalInfoForm = ({
                     value={formik.values.socialMedia.instagram}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.touched.socialMedia?.instagram && formik.errors.socialMedia?.instagram}
+                    error={formik.touched.socialMedia?.instagram && formik.errors.socialMedia?.instagram ? String(formik.errors.socialMedia.instagram) : undefined}
                     placeholder={t('instagramPlaceholder')}
                     variant={"compact"}
                     type="url"
@@ -266,7 +290,7 @@ const PersonalInfoForm = ({
                     value={formik.values.socialMedia.tiktok}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.touched.socialMedia?.tiktok && formik.errors.socialMedia?.tiktok}
+                    error={formik.touched.socialMedia?.tiktok && formik.errors.socialMedia?.tiktok ? String(formik.errors.socialMedia.tiktok) : undefined}
                     placeholder={t('tiktokPlaceholder')}
                     variant={"compact"}
                     type="url"
@@ -282,7 +306,7 @@ const PersonalInfoForm = ({
                     value={formik.values.socialMedia.linkedin}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.touched.socialMedia?.linkedin && formik.errors.socialMedia?.linkedin}
+                    error={formik.touched.socialMedia?.linkedin && formik.errors.socialMedia?.linkedin ? String(formik.errors.socialMedia.linkedin) : undefined}
                     placeholder={t('linkedinPlaceholder')}
                     variant={"compact"}
                     type="url"

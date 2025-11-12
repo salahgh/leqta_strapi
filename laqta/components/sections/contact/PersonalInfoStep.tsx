@@ -5,7 +5,13 @@ import { FormInput } from "@/components/ui/FormInput";
 import { useTranslations } from "next-intl";
 import { useFormInput } from "@/lib/formik-helpers";
 
-const PersonalInfoStep = ({ initialValues, onSubmit }) => {
+interface PersonalInfoStepValues {
+    fullName: string;
+    email: string;
+    phoneNumber: string;
+}
+
+const PersonalInfoStep = ({ initialValues, onSubmit }: { initialValues?: Partial<PersonalInfoStepValues>; onSubmit: (values: PersonalInfoStepValues) => void }) => {
     const t = useTranslations('contactPage.form');
     const tValidation = useTranslations('contactPage.form.validation');
     
@@ -23,7 +29,7 @@ const PersonalInfoStep = ({ initialValues, onSubmit }) => {
             .required(tValidation('phoneRequired')),
     });
 
-    const formik = useFormik({
+    const formik = useFormik<PersonalInfoStepValues>({
         initialValues: {
             fullName: "",
             email: "",
@@ -46,7 +52,7 @@ const PersonalInfoStep = ({ initialValues, onSubmit }) => {
             <form onSubmit={formik.handleSubmit} className="space-y-4" id="step-1-form">
                 <FormInput
                     label={t('fullName')}
-                    {...useFormInput("fullName", formik)}
+                    {...useFormInput<PersonalInfoStepValues>("fullName", formik)}
                     placeholder={t('fullNamePlaceholder')}
                     variant={"compact"}
                     style={{
@@ -57,7 +63,7 @@ const PersonalInfoStep = ({ initialValues, onSubmit }) => {
 
                 <FormInput
                     label={t('email')}
-                    {...useFormInput("email", formik)}
+                    {...useFormInput<PersonalInfoStepValues>("email", formik)}
                     placeholder={t('emailPlaceholder')}
                     variant={"compact"}
                     type="email"
@@ -69,7 +75,7 @@ const PersonalInfoStep = ({ initialValues, onSubmit }) => {
 
                 <FormInput
                     label={t('phoneNumber')}
-                    {...useFormInput("phoneNumber", formik)}
+                    {...useFormInput<PersonalInfoStepValues>("phoneNumber", formik)}
                     variant={"compact"}
                     placeholder={t('phoneNumberPlaceholder')}
                     style={{

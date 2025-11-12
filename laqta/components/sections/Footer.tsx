@@ -77,20 +77,20 @@ const Footer = async ({ locale }: FooterProps) => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link
+                                        <a
                                             href="/#works"
-                                            className="text-gray-400 hover:text-white transition-colors duration-200"
+                                            className="text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer"
                                         >
                                             {t('ourWorks')}
-                                        </Link>
+                                        </a>
                                     </li>
                                     <li>
-                                        <Link
+                                        <a
                                             href="/#testimonials"
-                                            className="text-gray-400 hover:text-white transition-colors duration-200"
+                                            className="text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer"
                                         >
                                             {t('testimonials')}
-                                        </Link>
+                                        </a>
                                     </li>
                                     <li>
                                         <Link
@@ -101,12 +101,12 @@ const Footer = async ({ locale }: FooterProps) => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link
+                                        <a
                                             href="/#faq"
-                                            className="text-gray-400 hover:text-white transition-colors duration-200"
+                                            className="text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer"
                                         >
                                             {t('faq')}
-                                        </Link>
+                                        </a>
                                     </li>
                                     <li>
                                         <Link

@@ -1,6 +1,19 @@
 // Plan Card Component
 import { Check } from "lucide-react";
 import React from "react";
+import { Link } from "@/src/i18n/navigation";
+
+interface PlanCardProps {
+    title: string;
+    description: string;
+    price?: string;
+    buttonText: string;
+    buttonColor: string;
+    features?: string[];
+    equipment?: string[];
+    gradient: string;
+    frameId?: string;
+}
 
 export const PlanCard = ({
     title,
@@ -12,9 +25,9 @@ export const PlanCard = ({
     equipment,
     gradient,
     frameId,
-}) => (
+}: PlanCardProps) => (
     <div
-        className={`relative rounded-2xl p-4 ${gradient} border border-gray-700 h-full`}
+        className={`relative rounded-2xl p-4 ${gradient} border border-gray-700 h-full hover:border-gray-600 transition-all duration-300`}
     >
         <div className="flex flex-col h-full">
             <h3 className="font-bold text-white ">{title}</h3>
@@ -38,7 +51,7 @@ export const PlanCard = ({
             {equipment && (
                 <div className="mb-8">
                     <h4 className="text-white font-semibold mb-4">
-                        What's Included
+                        Equipment Included
                     </h4>
                     <ul className="space-y-2">
                         {equipment.map((item, index) => (
@@ -61,11 +74,13 @@ export const PlanCard = ({
                     <div className="text-white text-2xl font-bold">{price}</div>
                 )}
                 <div className={"flex-1"}></div>
-                <button
-                    className={`px-6 py-3 rounded-full font-semibold text-sm transition-all hover:scale-105 ${buttonColor}`}
-                >
-                    {buttonText}
-                </button>
+                <Link href="/contact">
+                    <button
+                        className={`px-6 py-3 rounded-full font-semibold text-sm transition-all hover:scale-105 ${buttonColor}`}
+                    >
+                        {buttonText}
+                    </button>
+                </Link>
             </div>
         </div>
     </div>

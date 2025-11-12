@@ -1,7 +1,6 @@
-import { Strapi } from '@strapi/strapi';
 import { socialMediaData } from '../data/socialMedias';
 
-export async function seedSocialMedias(strapi: Strapi) {
+export async function seedSocialMedias(strapi: any) {
   console.log('🔗 Starting social media seeding...');
 
   try {

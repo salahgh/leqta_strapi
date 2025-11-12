@@ -24,10 +24,11 @@ export const seedTags = async (strapi: any, tagsData: any[]) => {
             console.log(`Created English Tag: "${tagData.base.name}" (ID: ${enTag.id})`);
 
             for (const [localeCode, translation] of Object.entries(tagData.translations)) {
+                // Only include localized fields (name) in translations
+                // slug and color are shared across all locales
+                const trans = translation as { name: string };
                 const translationData = {
-                    ...tagData.base,
-                    // @ts-expect-error
-                    ...translation,
+                    name: trans.name,
                     publishedAt: new Date()
                 };
 
@@ -37,7 +38,7 @@ export const seedTags = async (strapi: any, tagsData: any[]) => {
                     localizations: enTag.id
                 });
 
-
+                console.log(`Created ${localeCode.toUpperCase()} translation for Tag: "${trans.name}" (ID: ${translatedTag.id})`);
             }
         }
 

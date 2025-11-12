@@ -24,10 +24,13 @@ export const seedServices = async (strapi: any, servicesData: any[]) => {
             console.log(`Created English Service: "${serviceData.base.title}" (ID: ${enService.id})`);
 
             for (const [localeCode, translation] of Object.entries(serviceData.translations)) {
+                // Only include localized fields (title, description, tags) in translations
+                // Non-localized fields (slug, gradientFrom, gradientTo, featured, order, icon) are shared across locales
+                const trans = translation as { title: string; description: string; tags?: any };
                 const translationData = {
-                    ...serviceData.base,
-                    // @ts-expect-error
-                    ...translation,
+                    title: trans.title,
+                    description: trans.description,
+                    ...(trans.tags && { tags: trans.tags }),
                     publishedAt: new Date()
                 };
 
@@ -37,7 +40,7 @@ export const seedServices = async (strapi: any, servicesData: any[]) => {
                     localizations: enService.id
                 });
 
-
+                console.log(`Created ${localeCode.toUpperCase()} translation for Service: "${trans.title}" (ID: ${translatedService.id})`);
             }
         }
 

@@ -17,6 +17,7 @@ import {seedTestimonials} from "./testimonialSeeder";
 import {seedFAQs} from "./faqSeeder";
 import {seedMissions} from "./missionSeeder";
 import {seedBlogs} from "./blogSeeder";
+import {seedSocialMedias} from "./socialMediaSeeder";
 
 export const runSeeds = async (strapi: any) => {
     try {
@@ -45,6 +46,9 @@ export const runSeeds = async (strapi: any) => {
 
         // Seed Missions
         await seedMissions(strapi, missionsData);
+
+        // Seed Social Medias
+        await seedSocialMedias(strapi);
 
         // Seed Blogs (requires authors, categories, and tags)
         await seedBlogs(strapi, blogsData);

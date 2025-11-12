@@ -3,16 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FormInput } from "@/components/ui/FormInput";
 import { useTranslations } from "next-intl";
-
-function useFormInput(name, formik) {
-    return {
-        name,
-        value: formik.values[name],
-        onChange: formik.handleChange,
-        onBlur: formik.handleBlur,
-        error: formik.touched[name] && formik.errors[name],
-    };
-}
+import { useFormInput } from "@/lib/formik-helpers";
 
 const PersonalInfoStep = ({ initialValues, onSubmit }) => {
     const t = useTranslations('contactPage.form');

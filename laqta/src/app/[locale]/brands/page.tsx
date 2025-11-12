@@ -3,7 +3,12 @@ import React from "react";
 import { Button } from "@/components/ui/Button";
 import Footer from "@/components/sections/Footer";
 
-export default function BrandsPage() {
+export default async function BrandsPage({
+    params,
+}: {
+    params: Promise<{ locale: string }>;
+}) {
+    const { locale } = await params;
     return (
         <div>
             <div className="bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex flex-col justify-center items-center">
@@ -42,7 +47,7 @@ export default function BrandsPage() {
                     </Button>
                 </div>
             </div>
-            <Footer />
+            <Footer locale={locale} />
         </div>
     );
 }

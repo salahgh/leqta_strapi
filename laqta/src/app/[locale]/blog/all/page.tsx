@@ -72,7 +72,7 @@ const AllBlogsPage = async ({
                 initialLatestBlogs={latestBlogs}
                 categories={categories}
             />
-            <Footer />
+            <Footer locale={locale} />
         </div>
     );
 };

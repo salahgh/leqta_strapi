@@ -1,12 +1,30 @@
 import React from "react";
 import { Logo } from "@/components/ui/Logo";
-import EmailSubscriptionForm from "@/components/ui/EmailSubscriptionForm";
-import { useTranslations } from "next-intl";
+import NewsletterForm from "@/components/ui/NewsletterForm";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/src/i18n/navigation";
+import { socialMediaApi, SocialMedia } from "@/lib/strapi";
 
-const Footer = () => {
-    const t = useTranslations('footer');
-    
+interface FooterProps {
+    locale: string;
+}
+
+const Footer = async ({ locale }: FooterProps) => {
+    const t = await getTranslations('footer');
+
+    // Fetch social media links from Strapi
+    let socialMediaLinks: SocialMedia[] = [];
+    try {
+        const response = await socialMediaApi.getAll({
+            sort: "order:asc",
+            locale: locale,
+        });
+        socialMediaLinks = response.data;
+    } catch (error) {
+        console.error("Failed to fetch social media links:", error);
+        // Fallback to empty array - component will handle gracefully
+    }
+
     return (
         <div className="bg-gray-100">
             {/* Main content area - light gray background */}
@@ -31,7 +49,7 @@ const Footer = () => {
                                     {t('newsletterDescription')}
                                 </p>
 
-                                <EmailSubscriptionForm />
+                                <NewsletterForm variant="footer" />
                             </div>
                         </div>
 
@@ -144,50 +162,67 @@ const Footer = () => {
 
                         {/* Social Media Icons */}
                         <div className="flex space-x-4">
-                            <a
-                                href="#"
-                                className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors duration-200"
-                                style={{
-                                    backgroundColor: "#1787ba",
-                                    width: 35,
-                                    height: 35,
-                                }}
-                            >
-                                <img src="/icons/socialicon.svg" alt="Logo" />
-                            </a>
-                            <a
-                                href="#"
-                                className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors duration-200"
-                                style={{
-                                    backgroundColor: "#1787ba",
-                                    width: 35,
-                                    height: 35,
-                                }}
-                            >
-                                <img src="/icons/facebook.svg" alt="Logo" />
-                            </a>
-                            <a
-                                href="#"
-                                className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors duration-200"
-                                style={{
-                                    backgroundColor: "#1787ba",
-                                    width: 35,
-                                    height: 35,
-                                }}
-                            >
-                                <img src="/icons/instagram.svg" alt="Logo" />
-                            </a>
-                            <a
-                                href="#"
-                                className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors duration-200 shadow-lg"
-                                style={{
-                                    backgroundColor: "#1787ba",
-                                    width: 35,
-                                    height: 35,
-                                }}
-                            >
-                                <img src="/icons/linkedIn.svg" alt="Logo" />
-                            </a>
+                            {socialMediaLinks.length > 0 ? (
+                                socialMediaLinks.map((social) => (
+                                    <a
+                                        key={social.id}
+                                        href={social.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity duration-200"
+                                        style={{
+                                            backgroundColor: social.backgroundColor || "#1787ba",
+                                            width: 35,
+                                            height: 35,
+                                        }}
+                                        aria-label={social.ariaLabel || `Visit our ${social.platform} page`}
+                                    >
+                                        {social.icon && (
+                                            <img
+                                                src={social.icon}
+                                                alt={social.platform}
+                                                className="w-5 h-5"
+                                            />
+                                        )}
+                                    </a>
+                                ))
+                            ) : (
+                                /* Fallback: show default icons if no data from CMS */
+                                <>
+                                    <a
+                                        href="#"
+                                        className="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity duration-200"
+                                        style={{ backgroundColor: "#1787ba", width: 35, height: 35 }}
+                                        aria-label="Social media"
+                                    >
+                                        <img src="/icons/socialicon.svg" alt="Social" className="w-5 h-5" />
+                                    </a>
+                                    <a
+                                        href="#"
+                                        className="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity duration-200"
+                                        style={{ backgroundColor: "#1787ba", width: 35, height: 35 }}
+                                        aria-label="Facebook"
+                                    >
+                                        <img src="/icons/facebook.svg" alt="Facebook" className="w-5 h-5" />
+                                    </a>
+                                    <a
+                                        href="#"
+                                        className="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity duration-200"
+                                        style={{ backgroundColor: "#1787ba", width: 35, height: 35 }}
+                                        aria-label="Instagram"
+                                    >
+                                        <img src="/icons/instagram.svg" alt="Instagram" className="w-5 h-5" />
+                                    </a>
+                                    <a
+                                        href="#"
+                                        className="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity duration-200"
+                                        style={{ backgroundColor: "#1787ba", width: 35, height: 35 }}
+                                        aria-label="LinkedIn"
+                                    >
+                                        <img src="/icons/linkedIn.svg" alt="LinkedIn" className="w-5 h-5" />
+                                    </a>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>

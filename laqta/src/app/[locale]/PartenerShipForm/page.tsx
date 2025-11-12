@@ -1,12 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useParams } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FormInput } from "@/components/ui/FormInput";
 import { Button } from "@/components/ui/Button";
 import { Navigation } from "@/components/layout/Navigation";
 import Footer from "@/components/sections/Footer";
+import { useFormInput } from "@/lib/formik-helpers";
 
 // Yup validation schema
 const validationSchema = Yup.object({
@@ -49,19 +50,11 @@ const validationSchema = Yup.object({
         .required("Message is required"),
 });
 
-// Custom hook for handling form input changes
-function useFormInput(name, formik) {
-    // todo for the form input create a select variant
-    return {
-        name,
-        value: formik.values[name],
-        onChange: formik.handleChange,
-        onBlur: formik.handleBlur,
-        error: formik.touched[name] && formik.errors[name],
-    };
-}
+// useFormInput hook moved to @/lib/formik-helpers.ts
 
 function PartnershipFormPage() {
+    const params = useParams();
+    const locale = (params?.locale as string) || "en";
     const serviceOptions = [
         "Web Development",
         "Mobile App Development",
@@ -240,7 +233,7 @@ function PartnershipFormPage() {
                     </div>
                 </div>
             </div>
-            <Footer />
+            <Footer locale={locale} />
         </div>
     );
 }

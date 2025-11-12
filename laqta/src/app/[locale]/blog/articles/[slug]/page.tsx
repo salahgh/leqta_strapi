@@ -130,7 +130,7 @@ const BlogArticlePage = async ({ params }: BlogPageProps) => {
             <StructuredData data={structuredData} />
             <Navigation />
             <BlogArticle blog={blog} relatedBlogs={relatedBlogs} />
-            <Footer />
+            <Footer locale={locale} />
         </div>
     );
 };

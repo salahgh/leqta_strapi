@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { CheckCircle, Send } from "lucide-react";
 import { FormInput } from "@/components/ui/FormInput";
 import Footer from "@/components/sections/Footer";
+import { useFormInput } from "@/lib/formik-helpers";
 
 // Yup validation schema for project info step
 const validationSchema = Yup.object({
@@ -21,17 +22,6 @@ const validationSchema = Yup.object({
         .max(500, "Goals must not exceed 500 characters")
         .required("Project goals are required"),
 });
-
-// Custom hook for handling form input changes
-function useFormInput(name, formik) {
-    return {
-        name,
-        value: formik.values[name],
-        onChange: formik.handleChange,
-        onBlur: formik.handleBlur,
-        error: formik.touched[name] && formik.errors[name],
-    };
-}
 
 const ProjectInfoStep = ({
     initialValues = {

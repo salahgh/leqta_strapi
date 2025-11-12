@@ -47,7 +47,7 @@ export default async function Home({
                 <FAQSectionWrapper locale={locale} />
                 <ContactUs />
             </div>
-            <Footer />
+            <Footer locale={locale} />
         </div>
     );
 }

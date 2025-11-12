@@ -81,7 +81,7 @@ export const ServiceCard = (props) => {
                     </h3>
 
                     {/* Description */}
-                    <p className="text-white text-base opacity-95 mb-8 leading-relaxed flex-grow">
+                    <p className="text-white text-responsive-md opacity-95 mb-8 leading-relaxed flex-grow">
                         {description}
                     </p>
 
@@ -90,7 +90,7 @@ export const ServiceCard = (props) => {
                         {tags?.map((tag, index) => (
                             <span
                                 key={index}
-                                className="px-3 py-1.5 bg-white bg-opacity-20 text-white text-sm rounded-full backdrop-blur-sm"
+                                className="px-3 py-1.5 bg-white bg-opacity-20 text-white text-body-sm rounded-full backdrop-blur-sm"
                             >
                                 {tag}
                             </span>

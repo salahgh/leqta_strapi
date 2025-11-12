@@ -25,7 +25,7 @@ interface MetaItemProps {
 // Reusable Badge Component
 const Badge: React.FC<BadgeProps> = ({ children, color, className = "" }) => (
     <span
-        className={`px-3 py-1 text-xs font-bold text-white rounded-full backdrop-blur-sm shadow-md border border-white/20 ${className}`}
+        className={`px-3 py-1 text-body-xs font-bold text-white rounded-full backdrop-blur-sm shadow-md border border-white/20 ${className}`}
         style={{
             backgroundColor: color ? `${color}dd` : "rgba(0, 0, 0, 0.5)",
             boxShadow: color ? `0 2px 10px ${color}30` : "0 2px 10px rgba(0, 0, 0, 0.1)",
@@ -39,7 +39,7 @@ const Badge: React.FC<BadgeProps> = ({ children, color, className = "" }) => (
 const MetaItem: React.FC<MetaItemProps> = ({ icon, text }) => (
     <div className="flex items-center space-x-1">
         {icon}
-        <span className="text-xs font-medium">{text}</span>
+        <span className="text-body-xs font-medium">{text}</span>
     </div>
 );
 
@@ -148,7 +148,7 @@ const FeaturedBlogCard: React.FC<{ blog: Blog; blogUrl: string }> = ({ blog, blo
                     <div className="absolute bottom-4 right-4 z-20">
                         <div className="flex items-center space-x-1 px-3 py-1 bg-black/50 backdrop-blur-sm rounded-full border border-white/20">
                             <GalleryIcon className="text-white" />
-                            <span className="text-xs font-semibold text-white">
+                            <span className="text-body-xs font-semibold text-white">
                                 +{blog.gallery.length}
                             </span>
                         </div>
@@ -177,7 +177,7 @@ const FeaturedBlogCard: React.FC<{ blog: Blog; blogUrl: string }> = ({ blog, blo
             </div>
 
             {/* Title */}
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight group-hover:text-blue-600 transition-colors duration-300">
+            <h3 className="text-display-sm md:text-display-md lg:text-display-lg font-bold text-gray-900 mb-4 leading-tight group-hover:text-blue-600 transition-colors duration-300">
                 <Link
                     href={blogUrl}
                     className="hover:underline decoration-2 underline-offset-4"
@@ -187,7 +187,7 @@ const FeaturedBlogCard: React.FC<{ blog: Blog; blogUrl: string }> = ({ blog, blo
             </h3>
 
             {/* Excerpt */}
-            <p className="text-gray-600 text-lg mb-8 leading-relaxed line-clamp-3">
+            <p className="text-gray-600 text-responsive-md mb-8 leading-relaxed line-clamp-3">
                 {blog.excerpt}
             </p>
 
@@ -207,10 +207,10 @@ const FeaturedBlogCard: React.FC<{ blog: Blog; blogUrl: string }> = ({ blog, blo
                         </div>
                     )}
                     <div>
-                        <p className="text-sm font-semibold text-gray-900">
+                        <p className="text-body-sm font-semibold text-gray-900">
                             {blog.author?.name || "Anonymous"}
                         </p>
-                        <p className="text-xs text-gray-500">Author</p>
+                        <p className="text-body-xs text-gray-500">Author</p>
                     </div>
                 </div>
 
@@ -276,7 +276,7 @@ const DefaultBlogCard: React.FC<{ blog: Blog; blogUrl: string }> = ({ blog, blog
             </div>
 
             {/* Title */}
-            <h4 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-blue-600 transition-colors duration-300">
+            <h4 className="text-body-xl md:text-display-sm font-bold text-gray-900 mb-3 leading-tight group-hover:text-blue-600 transition-colors duration-300">
                 <Link
                     href={blogUrl}
                     className="hover:underline decoration-2 underline-offset-2"
@@ -286,7 +286,7 @@ const DefaultBlogCard: React.FC<{ blog: Blog; blogUrl: string }> = ({ blog, blog
             </h4>
 
             {/* Excerpt */}
-            <p className="text-gray-600 text-sm mb-6 leading-relaxed line-clamp-3 flex-grow">
+            <p className="text-gray-600 text-responsive-sm mb-6 leading-relaxed line-clamp-3 flex-grow">
                 {blog.excerpt}
             </p>
 
@@ -303,7 +303,7 @@ const DefaultBlogCard: React.FC<{ blog: Blog; blogUrl: string }> = ({ blog, blog
                         />
                     )}
                     <div>
-                        <p className="text-xs font-semibold text-gray-900">
+                        <p className="text-body-xs font-semibold text-gray-900">
                             {blog.author?.name || "Anonymous"}
                         </p>
                     </div>
@@ -361,7 +361,7 @@ const HorizontalBlogCard: React.FC<{ blog: Blog; blogUrl: string }> = ({ blog, b
                 </div>
 
                 {/* Title */}
-                <h4 className="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-blue-600 transition-colors duration-300">
+                <h4 className="text-body-lg md:text-body-xl font-bold text-gray-900 mb-2 leading-tight group-hover:text-blue-600 transition-colors duration-300">
                     <Link
                         href={blogUrl}
                         className="hover:underline decoration-2 underline-offset-2"
@@ -371,7 +371,7 @@ const HorizontalBlogCard: React.FC<{ blog: Blog; blogUrl: string }> = ({ blog, b
                 </h4>
 
                 {/* Excerpt */}
-                <p className="text-gray-600 text-sm leading-relaxed line-clamp-2 mb-4">
+                <p className="text-gray-600 text-responsive-sm leading-relaxed line-clamp-2 mb-4">
                     {blog.excerpt}
                 </p>
             </div>
@@ -388,7 +388,7 @@ const HorizontalBlogCard: React.FC<{ blog: Blog; blogUrl: string }> = ({ blog, b
                             className="rounded-full"
                         />
                     )}
-                    <p className="text-xs font-semibold text-gray-900">
+                    <p className="text-body-xs font-semibold text-gray-900">
                         {blog.author?.name || "Anonymous"}
                     </p>
                 </div>

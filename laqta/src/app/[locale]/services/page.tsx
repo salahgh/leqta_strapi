@@ -10,7 +10,12 @@ export const metadata = {
 };
 
 // Main Component
-const BasicProductionPage = () => {
+const BasicProductionPage = async ({
+    params,
+}: {
+    params: Promise<{ locale: string }>;
+}) => {
+    const { locale } = await params;
     const basicPlanFeatures = [
         "Filming of 5 content pieces",
         "1 full day of shooting",
@@ -68,7 +73,7 @@ const BasicProductionPage = () => {
                         frameId={undefined}
                     />
                 </div>
-                <Footer />
+                <Footer locale={locale} />
             </div>
         </div>
     );

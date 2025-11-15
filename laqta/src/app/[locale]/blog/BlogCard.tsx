@@ -3,12 +3,12 @@ import { Link } from "@/src/i18n/navigation";
 import Image from "next/image";
 import { Blog, utils } from "@/lib/strapi";
 import { SocialShare } from "./SocialShare";
-import { useLocale } from "next-intl";
 
 interface BlogCardProps {
     blog: Blog;
-    variant?: "default" | "featured" | "horizontal";
+    variant?: "default" | "featured" | "horizontal" | "grid" | "grid-with-logo";
     className?: string;
+    locale?: string;
 }
 
 interface BadgeProps {
@@ -43,9 +43,15 @@ const MetaItem: React.FC<MetaItemProps> = ({ icon, text }) => (
     </div>
 );
 
-// Date formatting utility
-const formatDate = (dateString: string): string => {
-    return new Date(dateString).toLocaleDateString("en-US", {
+// Date formatting utility with locale support
+const formatDate = (dateString: string, locale: string = "en"): string => {
+    const localeMap: Record<string, string> = {
+        en: "en-US",
+        ar: "ar-SA",
+        fr: "fr-FR",
+    };
+
+    return new Date(dateString).toLocaleDateString(localeMap[locale] || "en-US", {
         month: "short",
         day: "numeric",
         year: "numeric",
@@ -106,8 +112,8 @@ const ArrowRightIcon = ({ className = "w-3 h-3" }: { className?: string }) => (
 );
 
 // Featured Blog Card Component
-const FeaturedBlogCard: React.FC<{ blog: Blog; blogUrl: string }> = ({ blog, blogUrl }) => (
-    <article className="group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-blue-200">
+const FeaturedBlogCard: React.FC<{ blog: Blog; blogUrl: string; locale?: string }> = ({ blog, blogUrl, locale = "en" }) => (
+    <article className="group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-blue-200 hover:-translate-y-1">
         {/* Hover Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-purple-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
 
@@ -120,6 +126,9 @@ const FeaturedBlogCard: React.FC<{ blog: Blog; blogUrl: string }> = ({ blog, blo
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                     priority
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
                 />
                 
                 {/* Image Overlay Gradient */}
@@ -162,9 +171,9 @@ const FeaturedBlogCard: React.FC<{ blog: Blog; blogUrl: string }> = ({ blog, blo
             {/* Meta Information */}
             <div className="flex items-center justify-between text-gray-500 text-sm mb-4">
                 <div className="flex items-center space-x-4">
-                    <MetaItem 
-                        icon={<CalendarIcon className="w-4 h-4" />} 
-                        text={formatDate(blog.publishedAt)} 
+                    <MetaItem
+                        icon={<CalendarIcon className="w-4 h-4" />}
+                        text={formatDate(blog.publishedAt, locale)}
                     />
                     {blog.views && (
                         <MetaItem 
@@ -226,203 +235,243 @@ const FeaturedBlogCard: React.FC<{ blog: Blog; blogUrl: string }> = ({ blog, blo
     </article>
 );
 
-// Default Blog Card Component
-const DefaultBlogCard: React.FC<{ blog: Blog; blogUrl: string }> = ({ blog, blogUrl }) => (
-    <article className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-blue-200 hover:-translate-y-2">
-        {/* Hover Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 to-purple-50/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
-
-        {/* Featured Image */}
-        {blog.featured_image && (
-            <div className="relative h-56 w-full overflow-hidden">
-                <Image
-                    src={utils.getFileUrl(blog.featured_image.url)}
-                    alt={blog.featured_image.alternativeText || blog.title}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-                />
-                
-                {/* Image Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
-                
-                {/* Category Badge */}
-                {blog.category && (
-                    <div className="absolute top-4 left-4 z-20">
-                        <Badge color={blog.category.color}>
-                            {blog.category.name}
-                        </Badge>
-                    </div>
-                )}
-            </div>
-        )}
-
-        {/* Content */}
-        <div className="relative z-20 p-6 flex flex-col h-full">
-            {/* Meta Information */}
-            <div className="flex items-center justify-between text-gray-500 text-sm mb-3">
-                <div className="flex items-center space-x-3">
-                    <MetaItem 
-                        icon={<CalendarIcon />} 
-                        text={formatDate(blog.publishedAt)} 
+// Grid Blog Card Component (for blog list page)
+const GridBlogCard: React.FC<{ blog: Blog; blogUrl: string; locale?: string }> = ({ blog, blogUrl, locale = "en" }) => (
+    <Link href={blogUrl} className="block group">
+        <article className="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden h-full flex flex-col hover:-translate-y-1 border border-gray-100 hover:border-blue-200">
+            {/* Featured Image */}
+            {blog.featured_image && (
+                <div className="relative h-56 md:h-60 w-full overflow-hidden">
+                    <Image
+                        src={utils.getFileUrl(blog.featured_image.url)}
+                        alt={blog.featured_image.alternativeText || blog.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        loading="lazy"
                     />
-                    {blog.read_time && (
-                        <MetaItem 
-                            icon={<ClockIcon />} 
-                            text={`${blog.read_time} min`} 
-                        />
+
+                    {/* Category Badge */}
+                    {blog.category && (
+                        <div className="absolute top-4 left-4 z-10">
+                            <span
+                                className="px-3 py-1.5 text-xs font-semibold text-white rounded-full"
+                                style={{ backgroundColor: blog.category.color || "#7C3AED" }}
+                            >
+                                {blog.category.name}
+                            </span>
+                        </div>
                     )}
                 </div>
-                <SocialShare url={blogUrl} title={blog.title} size="sm" />
-            </div>
+            )}
 
-            {/* Title */}
-            <h4 className="text-body-xl md:text-display-sm font-bold text-gray-900 mb-3 leading-tight group-hover:text-blue-600 transition-colors duration-300">
-                <Link
-                    href={blogUrl}
-                    className="hover:underline decoration-2 underline-offset-2"
-                >
+            {/* Content */}
+            <div className="p-6 flex flex-col flex-grow">
+                {/* Title */}
+                <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight line-clamp-2 group-hover:text-blue-600 transition-colors">
                     {blog.title}
-                </Link>
-            </h4>
+                </h3>
 
-            {/* Excerpt */}
-            <p className="text-gray-600 text-responsive-sm mb-6 leading-relaxed line-clamp-3 flex-grow">
-                {blog.excerpt}
-            </p>
+                {/* Excerpt */}
+                <p className="text-gray-600 text-sm mb-5 leading-relaxed line-clamp-2 flex-grow">
+                    {blog.excerpt}
+                </p>
 
-            {/* Footer */}
-            <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
-                <div className="flex items-center space-x-2">
+                {/* Author & Meta */}
+                <div className="flex items-center text-sm text-gray-500">
                     {blog.author?.avatar && (
                         <Image
                             src={utils.getFileUrl(blog.author.avatar.url)}
                             alt={blog.author.name || "Author"}
                             width={32}
                             height={32}
-                            className="rounded-full ring-2 ring-gray-200 group-hover:ring-blue-300 transition-all duration-300"
+                            className="rounded-full mr-3"
                         />
                     )}
-                    <div>
-                        <p className="text-body-xs font-semibold text-gray-900">
-                            {blog.author?.name || "Anonymous"}
-                        </p>
-                    </div>
+                    <span className="font-medium text-gray-700 mr-2">
+                        {blog.author?.name || "Anonymous"}
+                    </span>
+                    <span className="mx-1">•</span>
+                    <span>{formatDate(blog.publishedAt, locale)}</span>
+                    {blog.read_time && (
+                        <>
+                            <span className="mx-1">•</span>
+                            <span>{blog.read_time} min read</span>
+                        </>
+                    )}
                 </div>
-
-                <Link
-                    href={blogUrl}
-                    className="group/btn text-blue-600 hover:text-blue-700 font-semibold text-sm inline-flex items-center space-x-1 hover:bg-blue-50 px-3 py-2 rounded-lg transition-all duration-300"
-                >
-                    <span>Read more</span>
-                    <ArrowRightIcon className="group-hover/btn:translate-x-1 transition-transform duration-300" />
-                </Link>
             </div>
-        </div>
-    </article>
+        </article>
+    </Link>
 );
 
-// Horizontal Blog Card Component (for future use)
-const HorizontalBlogCard: React.FC<{ blog: Blog; blogUrl: string }> = ({ blog, blogUrl }) => (
-    <article className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-blue-200 flex">
-        {/* Featured Image */}
-        {blog.featured_image && (
-            <div className="relative w-1/3 h-48 overflow-hidden">
+// Grid Blog Card with Logo Background
+const GridBlogCardWithLogo: React.FC<{ blog: Blog; blogUrl: string; locale?: string }> = ({ blog, blogUrl, locale = "en" }) => (
+    <Link href={blogUrl} className="block group">
+        <article className="relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden h-full flex flex-col hover:-translate-y-1 border border-gray-100 hover:border-blue-200">
+            {/* LAQTA Logo Background */}
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-0 group-hover:opacity-[0.05] transition-opacity duration-500">
                 <Image
-                    src={utils.getFileUrl(blog.featured_image.url)}
-                    alt={blog.featured_image.alternativeText || blog.title}
+                    src="/images/logo.svg"
+                    alt="LAQTA"
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                    className="object-contain p-8"
                 />
             </div>
-        )}
 
-        {/* Content */}
-        <div className="flex-1 p-6 flex flex-col justify-between">
-            <div>
-                {/* Meta and Category */}
-                <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center space-x-3 text-gray-500 text-sm">
-                        <MetaItem 
-                            icon={<CalendarIcon />} 
-                            text={formatDate(blog.publishedAt)} 
-                        />
-                        {blog.read_time && (
-                            <MetaItem 
-                                icon={<ClockIcon />} 
-                                text={`${blog.read_time} min`} 
-                            />
-                        )}
-                    </div>
+            {/* Featured Image */}
+            {blog.featured_image && (
+                <div className="relative h-56 md:h-60 w-full overflow-hidden z-10">
+                    <Image
+                        src={utils.getFileUrl(blog.featured_image.url)}
+                        alt={blog.featured_image.alternativeText || blog.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        loading="lazy"
+                    />
+
+                    {/* Category Badge */}
                     {blog.category && (
-                        <Badge color={blog.category.color}>
-                            {blog.category.name}
-                        </Badge>
+                        <div className="absolute top-4 left-4 z-20">
+                            <span
+                                className="px-3 py-1.5 text-xs font-semibold text-white rounded-full"
+                                style={{ backgroundColor: blog.category.color || "#7C3AED" }}
+                            >
+                                {blog.category.name}
+                            </span>
+                        </div>
                     )}
                 </div>
+            )}
 
+            {/* Content */}
+            <div className="relative z-10 p-6 flex flex-col flex-grow">
                 {/* Title */}
-                <h4 className="text-body-lg md:text-body-xl font-bold text-gray-900 mb-2 leading-tight group-hover:text-blue-600 transition-colors duration-300">
-                    <Link
-                        href={blogUrl}
-                        className="hover:underline decoration-2 underline-offset-2"
-                    >
-                        {blog.title}
-                    </Link>
-                </h4>
+                <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight line-clamp-2 group-hover:text-blue-600 transition-colors">
+                    {blog.title}
+                </h3>
 
                 {/* Excerpt */}
-                <p className="text-gray-600 text-responsive-sm leading-relaxed line-clamp-2 mb-4">
+                <p className="text-gray-600 text-sm mb-5 leading-relaxed line-clamp-2 flex-grow">
                     {blog.excerpt}
                 </p>
-            </div>
 
-            {/* Footer */}
-            <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
+                {/* Author & Meta */}
+                <div className="flex items-center text-sm text-gray-500">
                     {blog.author?.avatar && (
                         <Image
                             src={utils.getFileUrl(blog.author.avatar.url)}
                             alt={blog.author.name || "Author"}
-                            width={24}
-                            height={24}
-                            className="rounded-full"
+                            width={32}
+                            height={32}
+                            className="rounded-full mr-3"
                         />
                     )}
-                    <p className="text-body-xs font-semibold text-gray-900">
+                    <span className="font-medium text-gray-700 mr-2">
                         {blog.author?.name || "Anonymous"}
+                    </span>
+                    <span className="mx-1">•</span>
+                    <span>{formatDate(blog.publishedAt, locale)}</span>
+                    {blog.read_time && (
+                        <>
+                            <span className="mx-1">•</span>
+                            <span>{blog.read_time} min read</span>
+                        </>
+                    )}
+                </div>
+            </div>
+        </article>
+    </Link>
+);
+
+// Default Blog Card Component (keeping for backward compatibility)
+const DefaultBlogCard: React.FC<{ blog: Blog; blogUrl: string; locale?: string }> = ({ blog, blogUrl, locale = "en" }) => (
+    <GridBlogCard blog={blog} blogUrl={blogUrl} locale={locale} />
+);
+
+// Horizontal Blog Card Component (for "You Might Also Like" section)
+const HorizontalBlogCard: React.FC<{ blog: Blog; blogUrl: string; locale?: string }> = ({ blog, blogUrl, locale = "en" }) => (
+    <Link href={blogUrl} className="block group">
+        <article className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden flex h-full hover:-translate-y-0.5 border border-gray-100 hover:border-blue-200">
+            {/* Featured Image */}
+            {blog.featured_image && (
+                <div className="relative w-40 md:w-48 flex-shrink-0 overflow-hidden">
+                    <Image
+                        src={utils.getFileUrl(blog.featured_image.url)}
+                        alt={blog.featured_image.alternativeText || blog.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 768px) 160px, 192px"
+                        loading="lazy"
+                    />
+                </div>
+            )}
+
+            {/* Content */}
+            <div className="flex-1 p-5 flex flex-col justify-between">
+                <div>
+                    {/* Category Badge */}
+                    {blog.category && (
+                        <div className="mb-3">
+                            <span
+                                className="inline-block px-3 py-1 text-xs font-semibold rounded-full text-white"
+                                style={{ backgroundColor: blog.category.color || "#7C3AED" }}
+                            >
+                                {blog.category.name}
+                            </span>
+                        </div>
+                    )}
+
+                    {/* Title */}
+                    <h4 className="text-lg font-bold text-gray-900 mb-3 leading-tight group-hover:text-blue-600 transition-colors line-clamp-2">
+                        {blog.title}
+                    </h4>
+
+                    {/* Excerpt */}
+                    <p className="text-gray-600 text-sm leading-relaxed line-clamp-2 mb-4">
+                        {blog.excerpt}
                     </p>
                 </div>
 
-                <Link
-                    href={blogUrl}
-                    className="group/btn text-blue-600 hover:text-blue-700 font-semibold text-sm inline-flex items-center space-x-1 hover:bg-blue-50 px-3 py-2 rounded-lg transition-all duration-300"
-                >
-                    <span>Read more</span>
-                    <ArrowRightIcon className="group-hover/btn:translate-x-1 transition-transform duration-300" />
-                </Link>
+                {/* Meta */}
+                <div className="flex items-center text-sm text-gray-500">
+                    <span>{formatDate(blog.publishedAt, locale)}</span>
+                    {blog.read_time && (
+                        <>
+                            <span className="mx-2">•</span>
+                            <span>{blog.read_time} min read</span>
+                        </>
+                    )}
+                </div>
             </div>
-        </div>
-    </article>
+        </article>
+    </Link>
 );
 
 // Main BlogCard Component
-export const BlogCard: React.FC<BlogCardProps> = ({ 
-    blog, 
-    variant = "default", 
-    className = "" 
+export const BlogCard: React.FC<BlogCardProps> = ({
+    blog,
+    variant = "default",
+    className = "",
+    locale = "en"
 }) => {
-    const locale = useLocale();
+    // Link component from @/src/i18n/navigation handles locale automatically
     const blogUrl = `/blog/articles/${blog.slug}`;
 
     // Render based on variant
     const renderCard = () => {
         switch (variant) {
             case "featured":
-                return <FeaturedBlogCard blog={blog} blogUrl={blogUrl} />;
+                return <FeaturedBlogCard blog={blog} blogUrl={blogUrl} locale={locale} />;
             case "horizontal":
-                return <HorizontalBlogCard blog={blog} blogUrl={blogUrl} />;
+                return <HorizontalBlogCard blog={blog} blogUrl={blogUrl} locale={locale} />;
+            case "grid":
+                return <GridBlogCard blog={blog} blogUrl={blogUrl} locale={locale} />;
+            case "grid-with-logo":
+                return <GridBlogCardWithLogo blog={blog} blogUrl={blogUrl} locale={locale} />;
             default:
-                return <DefaultBlogCard blog={blog} blogUrl={blogUrl} />;
+                return <DefaultBlogCard blog={blog} blogUrl={blogUrl} locale={locale} />;
         }
     };
 

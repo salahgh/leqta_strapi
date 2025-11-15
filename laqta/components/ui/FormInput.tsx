@@ -11,10 +11,14 @@ interface FormInputProps {
     onChange: (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     ) => void;
+    onBlur?: (
+        e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => void;
     error?: string;
     className?: string;
     style?: React.CSSProperties;
     variant?: "default" | "compact";
+    rows?: number;
 }
 
 export const FormInput: React.FC<FormInputProps> = ({
@@ -25,10 +29,12 @@ export const FormInput: React.FC<FormInputProps> = ({
     as = "input",
     value,
     onChange,
+    onBlur,
     error,
     className,
     style = {},
     variant = "default",
+    rows = 3,
 }) => {
     const containerSpacing =
         variant === "compact" ? "spacing-form-tight" : "spacing-form-normal";
@@ -58,7 +64,8 @@ export const FormInput: React.FC<FormInputProps> = ({
                     placeholder={placeholder}
                     value={value}
                     onChange={onChange}
-                    rows={3}
+                    onBlur={onBlur}
+                    rows={rows}
                     className={cn(baseInputClasses, "rounded-lg")}
                     style={style}
                 />
@@ -69,6 +76,7 @@ export const FormInput: React.FC<FormInputProps> = ({
                     placeholder={placeholder}
                     value={value}
                     onChange={onChange}
+                    onBlur={onBlur}
                     className={cn(baseInputClasses, "rounded-full ")}
                     style={{ color: "#D2D2D3", ...style }}
                 />

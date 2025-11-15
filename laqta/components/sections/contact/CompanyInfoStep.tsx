@@ -5,6 +5,14 @@ import { FormInput } from "@/components/ui/FormInput";
 import { useTranslations } from "next-intl";
 import { useFormInput } from "@/lib/formik-helpers";
 
+interface CompanyInfoFormValues {
+    industry: string;
+    otherIndustry: string;
+    companyName: string;
+    jobTitle: string;
+    website: string;
+}
+
 const validationSchema = Yup.object({
     industry: Yup.string().required("Industry is required"),
     otherIndustry: Yup.string().when("industry", {
@@ -23,7 +31,7 @@ const validationSchema = Yup.object({
     website: Yup.string().url("Please enter a valid URL").nullable(),
 });
 
-const CompanyInfoStep = ({ initialValues, onSubmit }) => {
+const CompanyInfoStep = ({ initialValues, onSubmit }: { initialValues?: Partial<CompanyInfoFormValues>; onSubmit: (values: CompanyInfoFormValues) => void }) => {
     const t = useTranslations('contactPage.form');
     
     const industryOptions = [
@@ -41,7 +49,7 @@ const CompanyInfoStep = ({ initialValues, onSubmit }) => {
         { value: "other", label: t('industries.other') },
     ];
     
-    const formik = useFormik({
+    const formik = useFormik<CompanyInfoFormValues>({
         initialValues: {
             industry: "",
             otherIndustry: "",
@@ -67,7 +75,7 @@ const CompanyInfoStep = ({ initialValues, onSubmit }) => {
                         {t('industry')}
                     </label>
                     <select
-                        {...useFormInput("industry", formik)}
+                        {...useFormInput<CompanyInfoFormValues>("industry", formik)}
                         className="form-input-base text-responsive-lg padding-responsive-sm rounded-full w-full"
                         style={{
                             backgroundColor: "#141733",
@@ -88,7 +96,7 @@ const CompanyInfoStep = ({ initialValues, onSubmit }) => {
                 {formik.values.industry === "other" && (
                     <FormInput
                         label={t('otherIndustry')}
-                        {...useFormInput("otherIndustry", formik)}
+                        {...useFormInput<CompanyInfoFormValues>("otherIndustry", formik)}
                         placeholder={t('otherIndustryPlaceholder')}
                         variant={"compact"}
                         style={{
@@ -100,7 +108,7 @@ const CompanyInfoStep = ({ initialValues, onSubmit }) => {
 
                 <FormInput
                     label={t('companyName')}
-                    {...useFormInput("companyName", formik)}
+                    {...useFormInput<CompanyInfoFormValues>("companyName", formik)}
                     placeholder={t('companyNamePlaceholder')}
                     variant={"compact"}
                     style={{
@@ -111,7 +119,7 @@ const CompanyInfoStep = ({ initialValues, onSubmit }) => {
 
                 <FormInput
                     label={t('jobTitle')}
-                    {...useFormInput("jobTitle", formik)}
+                    {...useFormInput<CompanyInfoFormValues>("jobTitle", formik)}
                     placeholder={t('jobTitlePlaceholder')}
                     variant={"compact"}
                     style={{
@@ -122,7 +130,7 @@ const CompanyInfoStep = ({ initialValues, onSubmit }) => {
 
                 <FormInput
                     label={t('website')}
-                    {...useFormInput("website", formik)}
+                    {...useFormInput<CompanyInfoFormValues>("website", formik)}
                     placeholder={t('websitePlaceholder')}
                     variant={"compact"}
                     type="url"

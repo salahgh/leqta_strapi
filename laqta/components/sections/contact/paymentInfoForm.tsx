@@ -3,6 +3,12 @@ import * as Yup from "yup";
 import { FormInput } from "@/components/ui/FormInput";
 import { useFormInput } from "@/lib/formik-helpers";
 
+interface PaymentInfoFormValues {
+    cardNumber: string;
+    expirationDate: string;
+    cvv: string;
+}
+
 const validationSchema = {
     cardNumber: Yup.string()
         .matches(/^\d{16}$/, "Card number must be 16 digits")
@@ -26,14 +32,23 @@ export function PaymentInfoForm({
     },
     currentStep = 3,
     totalSteps = 4,
+}: {
+    initialValues?: Partial<PaymentInfoFormValues>;
+    currentStep?: number;
+    totalSteps?: number;
 }) {
     const handleSubmit = (values, formikBag) => {
         // Handle form submission logic here
         formikBag.setSubmitting(false);
     };
 
-    const formik = useFormik({
-        initialValues,
+    const formik = useFormik<PaymentInfoFormValues>({
+        initialValues: {
+            cardNumber: "",
+            expirationDate: "",
+            cvv: "",
+            ...initialValues
+        },
         validationSchema: Yup.object(validationSchema),
         onSubmit: (values, { setSubmitting, resetForm }) =>
             handleSubmit(values, { setSubmitting, resetForm }),
@@ -44,7 +59,7 @@ export function PaymentInfoForm({
             {/* Payment Details */}
             <FormInput
                 label="Card Number"
-                {...useFormInput("cardNumber", formik)}
+                {...useFormInput<PaymentInfoFormValues>("cardNumber", formik)}
                 placeholder="Enter your card number"
                 variant={"compact"}
                 style={{
@@ -55,7 +70,7 @@ export function PaymentInfoForm({
 
             <FormInput
                 label="Expiration Date"
-                {...useFormInput("expirationDate", formik)}
+                {...useFormInput<PaymentInfoFormValues>("expirationDate", formik)}
                 placeholder="MM/YY"
                 variant={"compact"}
                 style={{
@@ -66,7 +81,7 @@ export function PaymentInfoForm({
 
             <FormInput
                 label="CVV"
-                {...useFormInput("cvv", formik)}
+                {...useFormInput<PaymentInfoFormValues>("cvv", formik)}
                 placeholder="123"
                 variant={"compact"}
                 style={{

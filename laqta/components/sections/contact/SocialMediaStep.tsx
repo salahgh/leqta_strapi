@@ -5,6 +5,13 @@ import { FormInput } from "@/components/ui/FormInput";
 import { useTranslations } from "next-intl";
 import { useFormInput } from "@/lib/formik-helpers";
 
+interface SocialMediaStepValues {
+    facebook: string;
+    instagram: string;
+    tiktok: string;
+    linkedin: string;
+}
+
 const validationSchema = Yup.object({
     facebook: Yup.string().url("Please enter a valid Facebook URL").nullable(),
     instagram: Yup.string().url("Please enter a valid Instagram URL").nullable(),
@@ -12,10 +19,10 @@ const validationSchema = Yup.object({
     linkedin: Yup.string().url("Please enter a valid LinkedIn URL").nullable(),
 });
 
-const SocialMediaStep = ({ initialValues, onSubmit }) => {
+const SocialMediaStep = ({ initialValues, onSubmit }: { initialValues?: Partial<SocialMediaStepValues>; onSubmit: (values: SocialMediaStepValues) => void }) => {
     const t = useTranslations('contactPage.form');
-    
-    const formik = useFormik({
+
+    const formik = useFormik<SocialMediaStepValues>({
         initialValues: {
             facebook: "",
             instagram: "",
@@ -37,7 +44,7 @@ const SocialMediaStep = ({ initialValues, onSubmit }) => {
             <form onSubmit={formik.handleSubmit} className="space-y-4" id="step-3-form">
                 <FormInput
                     label="Facebook"
-                    {...useFormInput("facebook", formik)}
+                    {...useFormInput<SocialMediaStepValues>("facebook", formik)}
                     placeholder="https://facebook.com/yourpage"
                     variant={"compact"}
                     type="url"
@@ -49,7 +56,7 @@ const SocialMediaStep = ({ initialValues, onSubmit }) => {
 
                 <FormInput
                     label="Instagram"
-                    {...useFormInput("instagram", formik)}
+                    {...useFormInput<SocialMediaStepValues>("instagram", formik)}
                     placeholder="https://instagram.com/yourpage"
                     variant={"compact"}
                     type="url"
@@ -61,7 +68,7 @@ const SocialMediaStep = ({ initialValues, onSubmit }) => {
 
                 <FormInput
                     label="TikTok"
-                    {...useFormInput("tiktok", formik)}
+                    {...useFormInput<SocialMediaStepValues>("tiktok", formik)}
                     placeholder="https://tiktok.com/@yourpage"
                     variant={"compact"}
                     type="url"
@@ -73,7 +80,7 @@ const SocialMediaStep = ({ initialValues, onSubmit }) => {
 
                 <FormInput
                     label="LinkedIn"
-                    {...useFormInput("linkedin", formik)}
+                    {...useFormInput<SocialMediaStepValues>("linkedin", formik)}
                     placeholder="https://linkedin.com/in/yourprofile"
                     variant={"compact"}
                     type="url"

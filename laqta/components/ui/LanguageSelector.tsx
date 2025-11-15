@@ -41,7 +41,7 @@ const UKFlag: React.FC = () => (
 
 // French Flag Component
 const FrenchFlag: React.FC = () => (
-    <div className="aspect-square h-full flex">
+    <div className="aspect-square h-full flex rounded-full overflow-hidden">
         <div className="w-1/3 bg-blue-600"></div>
         <div className="w-1/3 bg-white"></div>
         <div className="w-1/3 bg-red-600"></div>

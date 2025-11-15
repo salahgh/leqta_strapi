@@ -123,13 +123,13 @@ export async function OurWorksSection({
                             imageAlt =
                                 workData.featured_image.alternativeText ||
                                 workData.title;
-                        } else if (workData?.image?.data?.attributes?.url) {
+                        } else if ((workData as any)?.image?.data?.attributes?.url) {
                             // Fallback to old image structure for backward compatibility
                             imageUrl = utils.getFileUrl(
-                                workData.image.data.attributes.url,
+                                (workData as any).image.data.attributes.url,
                             );
                             imageAlt =
-                                workData.image.data.attributes
+                                (workData as any).image.data.attributes
                                     .alternativeText || workData.title;
                         }
 
@@ -152,6 +152,7 @@ export async function OurWorksSection({
                                 }
                                 imageUrl={imageUrl}
                                 imageAlt={imageAlt}
+                                slug={workData?.slug}
                             />
                         );
                     }))}

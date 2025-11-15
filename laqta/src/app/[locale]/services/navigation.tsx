@@ -3,17 +3,19 @@
 // Navigation Component
 import { ArrowLeft, ChevronDown, Check } from "lucide-react";
 import React, { useState, useRef, useEffect } from "react";
+import { useRouter } from "@/src/i18n/navigation";
 
 export const Navigation = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [activeItem, setActiveItem] = useState(0);
     const dropdownRef = useRef(null);
+    const router = useRouter();
 
     const navItems = [
-        { name: "Basic Production", active: true },
-        { name: "Advertising Content Production", active: false },
-        { name: "Content Marketing Strategy", active: false },
-        { name: "Integrated Content Marketing", active: false },
+        { name: "Basic Production", active: true, available: true },
+        { name: "Advertising Content Production", active: false, available: false },
+        { name: "Content Marketing Strategy", active: false, available: false },
+        { name: "Integrated Content Marketing", active: false, available: false },
     ];
 
     // Update active states based on activeItem index
@@ -42,19 +44,32 @@ export const Navigation = () => {
 
     // Handle item selection
     const handleItemSelect = (index) => {
+        const item = updatedNavItems[index];
+        // Only allow selection of available items
+        if (!item.available) {
+            return;
+        }
         setActiveItem(index);
         setIsDropdownOpen(false);
+        // Future: Navigate to specific service page when available
+    };
+
+    // Handle back button click
+    const handleBackClick = () => {
+        router.push('/#services');
     };
 
     return (
-        <nav className="flex justify-center gap-4 w-full bg-pink-200 px-2 h-12">
+        <nav className="flex justify-center gap-4 w-full bg-gradient-to-r from-gray-900/50 to-gray-800/50 backdrop-blur-sm px-2 h-12 border-b border-gray-700/50">
             {/* Back Button */}
             <div className={"aspect-square h-full"}>
                 <button
-                    className="rounded-full h-full  border border-gray-600 hover:bg-gray-700 transition-colors
-                flex items-center justify-center aspect-square bg-blue-200"
+                    onClick={handleBackClick}
+                    className="rounded-full h-full border border-gray-600 hover:bg-gray-700 hover:border-gray-500 transition-all duration-200
+                flex items-center justify-center aspect-square bg-gray-800/80 group"
+                    aria-label="Go back to services overview"
                 >
-                    <ArrowLeft className="w-8 h-8 text-white" />
+                    <ArrowLeft className="w-8 h-8 text-gray-300 group-hover:text-white group-hover:-translate-x-1 transition-all duration-200" />
                 </button>
             </div>
             {/*/!* Desktop Navigation *!/*/}
@@ -104,18 +119,26 @@ export const Navigation = () => {
                                 <button
                                     key={index}
                                     onClick={() => handleItemSelect(index)}
-                                    className={`w-full px-6 py-2 text-left transition-all duration-200 flex items-center justify-between hover:bg-gray-700/50 ${
-                                        item.active
+                                    disabled={!item.available}
+                                    className={`w-full px-6 py-2 text-left transition-all duration-200 flex items-center justify-between ${
+                                        !item.available
+                                            ? "text-gray-500 cursor-not-allowed opacity-50"
+                                            : item.active
                                             ? "bg-blue-600/20 text-white border-l-4 border-blue-500"
-                                            : "text-gray-300 hover:text-white"
+                                            : "text-gray-300 hover:text-white hover:bg-gray-700/50"
                                     }`}
                                     role="option"
                                     aria-selected={item.active}
+                                    aria-disabled={!item.available}
+                                    title={!item.available ? "Coming soon" : item.name}
                                 >
-                                    <span className="font-medium text-base leading-tight">
+                                    <span className="font-medium text-base leading-tight flex items-center gap-2">
                                         {item.name}
+                                        {!item.available && (
+                                            <span className="text-xs px-2 py-0.5 bg-gray-700 rounded-full">Coming Soon</span>
+                                        )}
                                     </span>
-                                    {item.active && (
+                                    {item.active && item.available && (
                                         <Check className="w-5 h-5 text-blue-400 flex-shrink-0" />
                                     )}
                                 </button>

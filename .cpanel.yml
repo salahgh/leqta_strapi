@@ -2,537 +2,62 @@
 deployment:
   tasks:
     # ============================================
-    # MONOREPO DEPLOYMENT CONFIGURATION
+    # SIMPLE STRAPI CMS DEPLOYMENT
     # ============================================
-    # This configuration deploys both applications:
-    # 1. Strapi CMS Backend (my-blog-cms/)
-    # 2. Next.js Frontend (laqta/)
+    # Update this path for your environment
+    - export DEPLOYPATH=/home/yourusername/public_html/
 
-    # Update these variables for your environment
-    - export STRAPI_DEPLOYPATH=/home/yourusername/strapi-cms/
-    - export NEXTJS_DEPLOYPATH=/home/yourusername/laqta-frontend/
-    - export STRAPI_PORT=1337
-    - export NEXTJS_PORT=3001
-    - export NODE_VERSION=20
-    - export NODE_PATH=/opt/cpanel/ea-nodejs${NODE_VERSION}/bin
-
-    # ============================================
-    # INITIAL SETUP
-    # ============================================
-    - echo "=============================================="
-    - echo "LAQTA MONOREPO DEPLOYMENT"
-    - echo "=============================================="
+    - echo "=========================================="
+    - echo "Deploying Strapi CMS"
     - echo "Timestamp:" $(date)
-    - echo "Node.js Path: ${NODE_PATH}"
-    - echo ""
-    - echo "Applications to deploy:"
-    - echo "1. Strapi CMS Backend  -> ${STRAPI_DEPLOYPATH}"
-    - echo "2. Next.js Frontend    -> ${NEXTJS_PORT_DEPLOYPATH}"
-    - echo "=============================================="
+    - echo "=========================================="
 
-    # Check Node.js availability
-    - echo "Verifying Node.js installation..."
-    - ${NODE_PATH}/node --version
-    - ${NODE_PATH}/npm --version
-
-    # ============================================
-    # PART 1: DEPLOY STRAPI BACKEND
-    # ============================================
-    - echo ""
-    - echo "=============================================="
-    - echo "PART 1/2: DEPLOYING STRAPI CMS BACKEND"
-    - echo "=============================================="
-
-    # Navigate to backend directory
+    # Navigate to Strapi directory
     - cd my-blog-cms
 
-    # Check for .env file
-    - |
-      if [ ! -f .env ]; then
-        echo "ERROR: my-blog-cms/.env file not found!"
-        echo "Please create .env file before deploying"
-        exit 1
-      fi
-
-    # Install backend dependencies
-    - echo "Installing Strapi dependencies..."
-    - ${NODE_PATH}/npm ci --production --prefer-offline --no-audit
+    # Install dependencies
+    - echo "Installing dependencies..."
+    - npm ci --production
 
     # Build Strapi admin panel
-    - echo "Building Strapi admin panel..."
+    - echo "Building Strapi..."
     - export NODE_ENV=production
-    - ${NODE_PATH}/npm run build
+    - npm run build
 
-    # Prepare Strapi deployment directory
-    - echo "Preparing Strapi deployment directory..."
-    - mkdir -p ${STRAPI_DEPLOYPATH}
+    # Create deployment directory
+    - mkdir -p $DEPLOYPATH
 
-    # Backup previous Strapi deployment
-    - |
-      if [ -d "${STRAPI_DEPLOYPATH}/dist" ]; then
-        echo "Creating backup of previous Strapi deployment..."
-        timestamp=$(date +%Y%m%d_%H%M%S)
-        mkdir -p ${STRAPI_DEPLOYPATH}/backups
-        tar -czf ${STRAPI_DEPLOYPATH}/backups/strapi_backup_${timestamp}.tar.gz -C ${STRAPI_DEPLOYPATH} dist/ || true
-        cd ${STRAPI_DEPLOYPATH}/backups && ls -t strapi_backup_*.tar.gz | tail -n +4 | xargs -r rm
-      fi
+    # Copy files to deployment directory
+    - echo "Copying files..."
+    - /bin/cp -R config $DEPLOYPATH
+    - /bin/cp -R src $DEPLOYPATH
+    - /bin/cp -R public $DEPLOYPATH
+    - /bin/cp -R dist $DEPLOYPATH
+    - /bin/cp -R node_modules $DEPLOYPATH
+    - /bin/cp -R database $DEPLOYPATH 2>/dev/null || true
+    - /bin/cp package.json $DEPLOYPATH
+    - /bin/cp package-lock.json $DEPLOYPATH
 
-    # Deploy Strapi files
-    - echo "Deploying Strapi files..."
-    - rsync -av --delete config/ ${STRAPI_DEPLOYPATH}/config/
-    - rsync -av --delete src/ ${STRAPI_DEPLOYPATH}/src/
-    - rsync -av --delete public/ ${STRAPI_DEPLOYPATH}/public/
-    - rsync -av --delete dist/ ${STRAPI_DEPLOYPATH}/dist/
-    - rsync -av --delete node_modules/ ${STRAPI_DEPLOYPATH}/node_modules/
-    - rsync -av database/ ${STRAPI_DEPLOYPATH}/database/ 2>/dev/null || true
-    - rsync -av extensions/ ${STRAPI_DEPLOYPATH}/extensions/ 2>/dev/null || true
-    - rsync -av types/ ${STRAPI_DEPLOYPATH}/types/ 2>/dev/null || true
+    # Copy .env file if exists (make sure you have .env in my-blog-cms/)
+    - /bin/cp .env $DEPLOYPATH/.env 2>/dev/null || echo "No .env file found"
 
-    # Copy Strapi configuration files
-    - cp package.json ${STRAPI_DEPLOYPATH}/
-    - cp package-lock.json ${STRAPI_DEPLOYPATH}/
-    - cp tsconfig.json ${STRAPI_DEPLOYPATH}/ 2>/dev/null || true
-    - cp favicon.png ${STRAPI_DEPLOYPATH}/ 2>/dev/null || true
-    - cp .env ${STRAPI_DEPLOYPATH}/.env
-    - chmod 600 ${STRAPI_DEPLOYPATH}/.env
+    # Create necessary directories
+    - mkdir -p $DEPLOYPATH/.cache
+    - mkdir -p $DEPLOYPATH/.tmp
+    - mkdir -p $DEPLOYPATH/public/uploads
 
-    # Create Strapi runtime directories
-    - mkdir -p ${STRAPI_DEPLOYPATH}/.cache
-    - mkdir -p ${STRAPI_DEPLOYPATH}/.strapi
-    - mkdir -p ${STRAPI_DEPLOYPATH}/.tmp
-    - mkdir -p ${STRAPI_DEPLOYPATH}/logs
+    # Set permissions
+    - chmod -R 755 $DEPLOYPATH
 
-    # Set Strapi permissions
-    - echo "Setting Strapi permissions..."
-    - chmod -R 755 ${STRAPI_DEPLOYPATH}
-    - chmod 600 ${STRAPI_DEPLOYPATH}/.env
-    - chmod -R 750 ${STRAPI_DEPLOYPATH}/config
-    - chmod -R 777 ${STRAPI_DEPLOYPATH}/.cache
-    - chmod -R 777 ${STRAPI_DEPLOYPATH}/.tmp
-    - chmod -R 777 ${STRAPI_DEPLOYPATH}/public/uploads 2>/dev/null || mkdir -p ${STRAPI_DEPLOYPATH}/public/uploads && chmod -R 777 ${STRAPI_DEPLOYPATH}/public/uploads
-
-    # Create Strapi .htaccess
-    - echo "Creating Strapi .htaccess..."
-    - |
-      cat > ${STRAPI_DEPLOYPATH}/.htaccess << 'EOF'
-      # Strapi CMS Reverse Proxy Configuration
-      <IfModule mod_rewrite.c>
-        RewriteEngine On
-        RewriteOptions Inherit
-
-        # Proxy API requests
-        RewriteRule ^api/(.*)$ http://127.0.0.1:STRAPI_PORT/api/$1 [P,L]
-
-        # Proxy admin panel
-        RewriteRule ^admin(.*)$ http://127.0.0.1:STRAPI_PORT/admin$1 [P,L]
-
-        # Proxy uploads
-        RewriteRule ^uploads/(.*)$ http://127.0.0.1:STRAPI_PORT/uploads/$1 [P,L]
-
-        # Proxy all other requests
-        RewriteCond %{REQUEST_FILENAME} !-f
-        RewriteCond %{REQUEST_FILENAME} !-d
-        RewriteRule ^(.*)$ http://127.0.0.1:STRAPI_PORT/$1 [P,L]
-      </IfModule>
-
-      # Security Headers
-      <IfModule mod_headers.c>
-        Header set X-Content-Type-Options "nosniff"
-        Header set X-Frame-Options "SAMEORIGIN"
-        Header set X-XSS-Protection "1; mode=block"
-      </IfModule>
-
-      # Protect sensitive files
-      <FilesMatch "^\.env">
-        Order allow,deny
-        Deny from all
-      </FilesMatch>
-      EOF
-    - sed -i "s/STRAPI_PORT/${STRAPI_PORT}/g" ${STRAPI_DEPLOYPATH}/.htaccess
-
-    # Create Strapi PM2 ecosystem file
-    - |
-      cat > ${STRAPI_DEPLOYPATH}/ecosystem.config.js << 'EOF'
-      module.exports = {
-        apps: [{
-          name: 'strapi-cms',
-          script: 'node_modules/@strapi/strapi/bin/strapi.js',
-          args: 'start',
-          cwd: 'STRAPI_DEPLOYPATH_PLACEHOLDER',
-          instances: 1,
-          exec_mode: 'cluster',
-          env: {
-            NODE_ENV: 'production',
-            PORT: STRAPI_PORT_PLACEHOLDER
-          },
-          error_file: './logs/err.log',
-          out_file: './logs/out.log',
-          log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
-          merge_logs: true,
-          autorestart: true,
-          watch: false,
-          max_memory_restart: '1G'
-        }]
-      };
-      EOF
-    - sed -i "s|STRAPI_DEPLOYPATH_PLACEHOLDER|${STRAPI_DEPLOYPATH}|g" ${STRAPI_DEPLOYPATH}/ecosystem.config.js
-    - sed -i "s/STRAPI_PORT_PLACEHOLDER/${STRAPI_PORT}/g" ${STRAPI_DEPLOYPATH}/ecosystem.config.js
-
-    - echo "✓ Strapi backend deployed successfully!"
-
-    # Return to repo root
-    - cd ..
-
-    # ============================================
-    # PART 2: DEPLOY NEXT.JS FRONTEND
-    # ============================================
+    - echo "=========================================="
+    - echo "Deployment completed!"
+    - echo "Files deployed to: $DEPLOYPATH"
     - echo ""
-    - echo "=============================================="
-    - echo "PART 2/2: DEPLOYING NEXT.JS FRONTEND"
-    - echo "=============================================="
-
-    # Navigate to frontend directory
-    - cd laqta
-
-    # Check/create .env.local
-    - |
-      if [ ! -f .env.local ]; then
-        echo "WARNING: laqta/.env.local file not found!"
-        echo "Creating .env.local with default values..."
-        cat > .env.local << 'ENVEOF'
-      # Strapi Backend URL (update with your production URL)
-      NEXT_PUBLIC_STRAPI_URL_2=http://localhost:1337
-      ENVEOF
-      fi
-
-    # Verify package.json exists
-    - |
-      if [ ! -f package.json ]; then
-        echo "ERROR: laqta/package.json not found!"
-        exit 1
-      fi
-
-    # Install frontend dependencies
-    - echo "Installing Next.js dependencies..."
-    - ${NODE_PATH}/npm ci --production=false --prefer-offline --no-audit
-
-    # Build Next.js application
-    - echo "Building Next.js application..."
-    - export NODE_ENV=production
-    - ${NODE_PATH}/npm run build
-
-    # Verify build completed
-    - |
-      if [ ! -d ".next" ]; then
-        echo "ERROR: Next.js build failed - .next directory not found!"
-        exit 1
-      fi
-
-    # Prepare Next.js deployment directory
-    - echo "Preparing Next.js deployment directory..."
-    - mkdir -p ${NEXTJS_DEPLOYPATH}
-
-    # Backup previous Next.js deployment
-    - |
-      if [ -d "${NEXTJS_DEPLOYPATH}/.next" ]; then
-        echo "Creating backup of previous Next.js deployment..."
-        timestamp=$(date +%Y%m%d_%H%M%S)
-        mkdir -p ${NEXTJS_DEPLOYPATH}/backups
-        tar -czf ${NEXTJS_DEPLOYPATH}/backups/nextjs_backup_${timestamp}.tar.gz -C ${NEXTJS_DEPLOYPATH} .next/ || true
-        cd ${NEXTJS_DEPLOYPATH}/backups && ls -t nextjs_backup_*.tar.gz | tail -n +4 | xargs -r rm
-      fi
-
-    # Deploy Next.js files
-    - echo "Deploying Next.js files..."
-    - rsync -av --delete .next/ ${NEXTJS_DEPLOYPATH}/.next/
-    - rsync -av --delete public/ ${NEXTJS_DEPLOYPATH}/public/
-    - rsync -av --delete src/ ${NEXTJS_DEPLOYPATH}/src/
-    - rsync -av --delete messages/ ${NEXTJS_DEPLOYPATH}/messages/
-    - rsync -av --delete components/ ${NEXTJS_DEPLOYPATH}/components/
-    - rsync -av --delete lib/ ${NEXTJS_DEPLOYPATH}/lib/
-    - rsync -av --delete node_modules/ ${NEXTJS_DEPLOYPATH}/node_modules/
-    - rsync -av styles/ ${NEXTJS_DEPLOYPATH}/styles/ 2>/dev/null || true
-    - rsync -av design/ ${NEXTJS_DEPLOYPATH}/design/ 2>/dev/null || true
-
-    # Copy Next.js configuration files
-    - cp package.json ${NEXTJS_DEPLOYPATH}/
-    - cp package-lock.json ${NEXTJS_DEPLOYPATH}/
-    - cp next.config.ts ${NEXTJS_DEPLOYPATH}/ 2>/dev/null || cp next.config.js ${NEXTJS_DEPLOYPATH}/ 2>/dev/null || cp next.config.mjs ${NEXTJS_DEPLOYPATH}/ 2>/dev/null || true
-    - cp tsconfig.json ${NEXTJS_DEPLOYPATH}/ 2>/dev/null || true
-    - cp tailwind.config.js ${NEXTJS_DEPLOYPATH}/ 2>/dev/null || true
-    - cp postcss.config.js ${NEXTJS_DEPLOYPATH}/ 2>/dev/null || cp postcss.config.mjs ${NEXTJS_DEPLOYPATH}/ 2>/dev/null || true
-    - cp middleware.ts ${NEXTJS_DEPLOYPATH}/ 2>/dev/null || cp middleware.js ${NEXTJS_DEPLOYPATH}/ 2>/dev/null || true
-    - cp .env.local ${NEXTJS_DEPLOYPATH}/.env.local
-    - chmod 600 ${NEXTJS_DEPLOYPATH}/.env.local
-
-    # Create Next.js runtime directories
-    - mkdir -p ${NEXTJS_DEPLOYPATH}/.next/cache
-    - mkdir -p ${NEXTJS_DEPLOYPATH}/logs
-
-    # Set Next.js permissions
-    - echo "Setting Next.js permissions..."
-    - chmod -R 755 ${NEXTJS_DEPLOYPATH}
-    - chmod 600 ${NEXTJS_DEPLOYPATH}/.env.local
-    - chmod -R 777 ${NEXTJS_DEPLOYPATH}/.next/cache
-
-    # Create Next.js .htaccess
-    - echo "Creating Next.js .htaccess..."
-    - |
-      cat > ${NEXTJS_DEPLOYPATH}/.htaccess << 'EOF'
-      # Next.js Application Reverse Proxy Configuration
-      <IfModule mod_rewrite.c>
-        RewriteEngine On
-        RewriteOptions Inherit
-
-        # Proxy static files from _next
-        RewriteRule ^_next/(.*)$ http://127.0.0.1:NEXTJS_PORT/_next/$1 [P,L]
-
-        # Proxy static files from public
-        RewriteCond %{REQUEST_FILENAME} !-f
-        RewriteCond %{REQUEST_FILENAME} !-d
-        RewriteRule ^(.+\.(jpg|jpeg|png|gif|svg|ico|css|js|webp|woff|woff2|ttf|eot))$ http://127.0.0.1:NEXTJS_PORT/$1 [P,L]
-
-        # Proxy API routes
-        RewriteRule ^api/(.*)$ http://127.0.0.1:NEXTJS_PORT/api/$1 [P,L]
-
-        # Proxy all other requests
-        RewriteCond %{REQUEST_FILENAME} !-f
-        RewriteCond %{REQUEST_FILENAME} !-d
-        RewriteRule ^(.*)$ http://127.0.0.1:NEXTJS_PORT/$1 [P,L]
-      </IfModule>
-
-      # Security Headers
-      <IfModule mod_headers.c>
-        Header set X-Content-Type-Options "nosniff"
-        Header set X-Frame-Options "SAMEORIGIN"
-        Header set X-XSS-Protection "1; mode=block"
-        Header set Referrer-Policy "strict-origin-when-cross-origin"
-      </IfModule>
-
-      # Protect sensitive files
-      <FilesMatch "^\.env">
-        Order allow,deny
-        Deny from all
-      </FilesMatch>
-
-      # Enable GZIP compression
-      <IfModule mod_deflate.c>
-        AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
-      </IfModule>
-
-      # Browser caching for static assets
-      <IfModule mod_expires.c>
-        ExpiresActive On
-        ExpiresByType image/jpg "access plus 1 year"
-        ExpiresByType image/jpeg "access plus 1 year"
-        ExpiresByType image/gif "access plus 1 year"
-        ExpiresByType image/png "access plus 1 year"
-        ExpiresByType image/svg+xml "access plus 1 year"
-        ExpiresByType text/css "access plus 1 month"
-        ExpiresByType application/javascript "access plus 1 month"
-        ExpiresByType application/font-woff "access plus 1 year"
-        ExpiresByType application/font-woff2 "access plus 1 year"
-      </IfModule>
-      EOF
-    - sed -i "s/NEXTJS_PORT/${NEXTJS_PORT}/g" ${NEXTJS_DEPLOYPATH}/.htaccess
-
-    # Create Next.js PM2 ecosystem file
-    - |
-      cat > ${NEXTJS_DEPLOYPATH}/ecosystem.config.js << 'EOF'
-      module.exports = {
-        apps: [{
-          name: 'laqta-frontend',
-          script: 'node_modules/next/dist/bin/next',
-          args: 'start',
-          cwd: 'NEXTJS_DEPLOYPATH_PLACEHOLDER',
-          instances: 1,
-          exec_mode: 'cluster',
-          env: {
-            NODE_ENV: 'production',
-            PORT: NEXTJS_PORT_PLACEHOLDER
-          },
-          error_file: './logs/err.log',
-          out_file: './logs/out.log',
-          log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
-          merge_logs: true,
-          autorestart: true,
-          watch: false,
-          max_memory_restart: '1G',
-          min_uptime: '10s',
-          max_restarts: 10
-        }]
-      };
-      EOF
-    - sed -i "s|NEXTJS_DEPLOYPATH_PLACEHOLDER|${NEXTJS_DEPLOYPATH}|g" ${NEXTJS_DEPLOYPATH}/ecosystem.config.js
-    - sed -i "s/NEXTJS_PORT_PLACEHOLDER/${NEXTJS_PORT}/g" ${NEXTJS_DEPLOYPATH}/ecosystem.config.js
-
-    # Create health check script
-    - |
-      cat > ${NEXTJS_DEPLOYPATH}/healthcheck.sh << 'EOF'
-      #!/bin/bash
-      PORT=NEXTJS_PORT_PLACEHOLDER
-      MAX_RETRIES=30
-      RETRY_INTERVAL=2
-
-      echo "Checking if Next.js is running on port $PORT..."
-
-      for i in $(seq 1 $MAX_RETRIES); do
-        if curl -s http://localhost:$PORT > /dev/null; then
-          echo "✓ Application is healthy!"
-          exit 0
-        fi
-        echo "Attempt $i/$MAX_RETRIES: Application not ready yet..."
-        sleep $RETRY_INTERVAL
-      done
-
-      echo "✗ Application failed health check!"
-      exit 1
-      EOF
-    - sed -i "s/NEXTJS_PORT_PLACEHOLDER/${NEXTJS_PORT}/g" ${NEXTJS_DEPLOYPATH}/healthcheck.sh
-    - chmod +x ${NEXTJS_DEPLOYPATH}/healthcheck.sh
-
-    - echo "✓ Next.js frontend deployed successfully!"
-
-    # Return to repo root
-    - cd ..
-
-    # ============================================
-    # CREATE UNIFIED PM2 ECOSYSTEM FILE
-    # ============================================
-    - echo ""
-    - echo "Creating unified PM2 configuration..."
-    - |
-      cat > ecosystem.config.js << 'EOF'
-      module.exports = {
-        apps: [
-          {
-            name: 'strapi-cms',
-            script: 'node_modules/@strapi/strapi/bin/strapi.js',
-            args: 'start',
-            cwd: 'STRAPI_DEPLOYPATH_PLACEHOLDER',
-            instances: 1,
-            exec_mode: 'cluster',
-            env: {
-              NODE_ENV: 'production',
-              PORT: STRAPI_PORT_PLACEHOLDER
-            },
-            error_file: './logs/err.log',
-            out_file: './logs/out.log',
-            log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
-            merge_logs: true,
-            autorestart: true,
-            watch: false,
-            max_memory_restart: '1G'
-          },
-          {
-            name: 'laqta-frontend',
-            script: 'node_modules/next/dist/bin/next',
-            args: 'start',
-            cwd: 'NEXTJS_DEPLOYPATH_PLACEHOLDER',
-            instances: 1,
-            exec_mode: 'cluster',
-            env: {
-              NODE_ENV: 'production',
-              PORT: NEXTJS_PORT_PLACEHOLDER
-            },
-            error_file: './logs/err.log',
-            out_file: './logs/out.log',
-            log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
-            merge_logs: true,
-            autorestart: true,
-            watch: false,
-            max_memory_restart: '1G',
-            min_uptime: '10s',
-            max_restarts: 10
-          }
-        ]
-      };
-      EOF
-    - sed -i "s|STRAPI_DEPLOYPATH_PLACEHOLDER|${STRAPI_DEPLOYPATH}|g" ecosystem.config.js
-    - sed -i "s/STRAPI_PORT_PLACEHOLDER/${STRAPI_PORT}/g" ecosystem.config.js
-    - sed -i "s|NEXTJS_DEPLOYPATH_PLACEHOLDER|${NEXTJS_DEPLOYPATH}|g" ecosystem.config.js
-    - sed -i "s/NEXTJS_PORT_PLACEHOLDER/${NEXTJS_PORT}/g" ecosystem.config.js
-
-    # ============================================
-    # DEPLOYMENT SUMMARY
-    # ============================================
-    - echo ""
-    - echo "=============================================="
-    - echo "🎉 DEPLOYMENT COMPLETED SUCCESSFULLY!"
-    - echo "=============================================="
-    - echo ""
-    - echo "📦 DEPLOYED APPLICATIONS:"
-    - echo "  1. Strapi CMS Backend:"
-    - echo "     Path: ${STRAPI_DEPLOYPATH}"
-    - echo "     Port: ${STRAPI_PORT}"
-    - echo "     Config: ${STRAPI_DEPLOYPATH}/ecosystem.config.js"
-    - echo ""
-    - echo "  2. Next.js Frontend:"
-    - echo "     Path: ${NEXTJS_DEPLOYPATH}"
-    - echo "     Port: ${NEXTJS_PORT}"
-    - echo "     Config: ${NEXTJS_DEPLOYPATH}/ecosystem.config.js"
-    - echo ""
-    - echo "=============================================="
-    - echo "📋 NEXT STEPS:"
-    - echo "=============================================="
-    - echo ""
-    - echo "1. CONFIGURE ENVIRONMENT VARIABLES:"
-    - echo "   • Update ${STRAPI_DEPLOYPATH}/.env"
-    - echo "     - Database credentials"
-    - echo "     - APP_KEYS and JWT secrets"
-    - echo "     - Supabase storage credentials"
-    - echo ""
-    - echo "   • Update ${NEXTJS_DEPLOYPATH}/.env.local"
-    - echo "     - NEXT_PUBLIC_STRAPI_URL_2=https://your-strapi-domain.com"
-    - echo ""
-    - echo "2. START APPLICATIONS (Choose One Method):"
-    - echo ""
-    - echo "   METHOD A - Start Both Apps with PM2:"
-    - echo "   $ pm2 start ecosystem.config.js"
-    - echo "   $ pm2 save"
-    - echo "   $ pm2 startup"
-    - echo ""
-    - echo "   METHOD B - Start Apps Individually:"
-    - echo "   $ pm2 start ${STRAPI_DEPLOYPATH}/ecosystem.config.js"
-    - echo "   $ pm2 start ${NEXTJS_DEPLOYPATH}/ecosystem.config.js"
-    - echo ""
-    - echo "   METHOD C - Use cPanel Node.js Apps:"
-    - echo "   • Setup Strapi in cPanel > Node.js Apps"
-    - echo "   • Setup Next.js in cPanel > Node.js Apps"
-    - echo ""
-    - echo "3. VERIFY DEPLOYMENTS:"
-    - echo "   • PM2 status: pm2 status"
-    - echo "   • PM2 logs: pm2 logs"
-    - echo "   • Strapi health: curl http://localhost:${STRAPI_PORT}/_health"
-    - echo "   • Next.js health: ${NEXTJS_DEPLOYPATH}/healthcheck.sh"
-    - echo ""
-    - echo "4. ACCESS APPLICATIONS:"
-    - echo "   • Strapi Admin: https://your-strapi-domain.com/admin"
-    - echo "   • Frontend EN: https://your-frontend-domain.com/en"
-    - echo "   • Frontend AR: https://your-frontend-domain.com/ar"
-    - echo "   • Frontend FR: https://your-frontend-domain.com/fr"
-    - echo ""
-    - echo "=============================================="
-    - echo "🔒 SECURITY CHECKLIST:"
-    - echo "=============================================="
-    - echo "  ☐ Update all environment variables"
-    - echo "  ☐ Verify .env file permissions (600)"
-    - echo "  ☐ Enable SSL/HTTPS certificates"
-    - echo "  ☐ Update APP_KEYS and JWT secrets"
-    - echo "  ☐ Configure firewall rules"
-    - echo "  ☐ Test CORS settings"
-    - echo "  ☐ Verify database connection"
-    - echo "  ☐ Test file uploads"
-    - echo ""
-    - echo "=============================================="
-    - echo "📊 MONITORING:"
-    - echo "=============================================="
-    - echo "  • View all processes: pm2 monit"
-    - echo "  • Restart all: pm2 restart all"
-    - echo "  • Stop all: pm2 stop all"
-    - echo "  • View logs: pm2 logs --lines 100"
-    - echo ""
-    - echo "=============================================="
-    - echo "Deployment timestamp:" $(date)
-    - echo "Node.js version:" $(${NODE_PATH}/node --version)
-    - echo "=============================================="
+    - echo "NEXT STEPS:"
+    - echo "1. Make sure .env file is in $DEPLOYPATH"
+    - echo "2. Setup Node.js app in cPanel:"
+    - echo "   - Application Root: $DEPLOYPATH"
+    - echo "   - Application Startup File: node_modules/@strapi/strapi/bin/strapi.js"
+    - echo "   - Click 'Setup'"
+    - echo "3. Start the application"
+    - echo "=========================================="

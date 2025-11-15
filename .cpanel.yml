@@ -25,7 +25,7 @@ deployment:
     - /bin/cp package.json $DEPLOYPATH/
     - /bin/cp package-lock.json $DEPLOYPATH/
     - /bin/cp tsconfig.json $DEPLOYPATH/ 2>/dev/null || true
-    - /bin/cp .env $DEPLOYPATH/.env 2>/dev/null || echo "WARNING: No .env file found"
+
 
     # Navigate to deployment directory
     - cd $DEPLOYPATH

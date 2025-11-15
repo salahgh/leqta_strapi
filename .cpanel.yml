@@ -31,7 +31,6 @@ deployment:
     - /bin/cp -R src $DEPLOYPATH/
     - /bin/cp -R public $DEPLOYPATH/
     - /bin/cp package.json $DEPLOYPATH/
-    - /bin/cp package-lock.json $DEPLOYPATH/
     - /bin/cp tsconfig.json $DEPLOYPATH/ 2>/dev/null || true
 
 

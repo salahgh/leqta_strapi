@@ -41,10 +41,16 @@ export default async function Home({
                 <HeroSection />
                 <AboutSection illustration={<CustomIllustration />} />
                 <ServicesSection locale={locale} />
-                <OurWorks locale={locale} />
+                <div id="works">
+                    <OurWorks locale={locale} />
+                </div>
                 <YourPerfectPartner locale={locale} />
-                <TestimonialsSectionWrapper locale={locale} />
-                <FAQSectionWrapper locale={locale} />
+                <div id="testimonials">
+                    <TestimonialsSectionWrapper locale={locale} />
+                </div>
+                <div id="faq">
+                    <FAQSectionWrapper locale={locale} />
+                </div>
                 <ContactUs />
             </div>
             <Footer locale={locale} />

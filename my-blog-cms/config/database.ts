@@ -12,7 +12,7 @@ export default ({ env }) => {
       connection: {
         host: env('DATABASE_HOST', 'localhost'),
         port: env.int('DATABASE_PORT', 3306),
-        database: env('DATABASE_NAME', 'strapi_db'),
+        database: env('DATABASE_NAME', 'strapi_db_leqta_2'),
         user: env('DATABASE_USERNAME', 'root'),
         password: env('DATABASE_PASSWORD', ''),
         ssl: env.bool('DATABASE_SSL', false) && {
@@ -47,13 +47,7 @@ export default ({ env }) => {
         max: env.int('DATABASE_POOL_MAX', 10),
         acquireTimeoutMillis: env.int('DATABASE_CONNECTION_TIMEOUT', 60000),
       },
-    },
-    sqlite: {
-      connection: {
-        filename: path.join(__dirname, '..', '..', env('DATABASE_FILENAME', '.tmp/data.db')),
-      },
-      useNullAsDefault: true,
-    },
+    }
   };
 
   return {

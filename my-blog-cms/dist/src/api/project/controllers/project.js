@@ -65,5 +65,23 @@ exports.default = strapi_1.factories.createCoreController('api::project.project'
         });
         const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
         return this.transformResponse(sanitizedEntity);
+    },
+    // Get published project by slug
+    async findBySlug(ctx) {
+        const { slug } = ctx.params;
+        const { query } = ctx;
+        const entity = await strapi.entityService.findMany('api::project.project', {
+            ...query,
+            filters: {
+                slug: slug,
+                publishedAt: { $notNull: true }
+            },
+            populate: '*', // Populate all relations including featured_image
+        });
+        if (!entity || entity.length === 0) {
+            return ctx.notFound('Project not found');
+        }
+        const sanitizedEntity = await this.sanitizeOutput(entity[0], ctx);
+        return this.transformResponse(sanitizedEntity);
     }
 }));

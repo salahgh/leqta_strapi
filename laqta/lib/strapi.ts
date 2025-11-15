@@ -76,7 +76,19 @@ const fetchApi = cache(async function <T>(
         },
     };
 
-    const url = new URL(`${API_BASE}${endpoint}`);
+    // Handle endpoints that already have query parameters
+    const [basePath, queryString] = endpoint.split('?');
+    const url = new URL(`${API_BASE}${basePath}`);
+
+    // Add existing query parameters if any
+    if (queryString) {
+        const existingParams = new URLSearchParams(queryString);
+        existingParams.forEach((value, key) => {
+            url.searchParams.set(key, value);
+        });
+    }
+
+    // Add locale parameter if provided
     if (locale) {
         url.searchParams.set("locale", locale);
     }
@@ -138,6 +150,23 @@ export const servicesApi = {
 
         const query = searchParams.toString();
         const endpoint = `/services/${id}${query ? `?${query}` : ""}`;
+
+        return fetchApi<ApiResponse<Service>>(endpoint, {}, params?.locale);
+    },
+
+    // Get service by slug
+    async getBySlug(
+        slug: string,
+        params?: {
+            populate?: string;
+            locale?: string;
+        },
+    ): Promise<ApiResponse<Service>> {
+        const searchParams = new URLSearchParams();
+        if (params?.populate) searchParams.set("populate", params.populate);
+
+        const query = searchParams.toString();
+        const endpoint = `/services/slug/${slug}${query ? `?${query}` : ""}`;
 
         return fetchApi<ApiResponse<Service>>(endpoint, {}, params?.locale);
     },
@@ -263,6 +292,23 @@ export const worksApi = {
 
         const query = searchParams.toString();
         const endpoint = `/projects/${id}${query ? `?${query}` : ""}`;
+
+        return fetchApi<ApiResponse<Work>>(endpoint, {}, params?.locale);
+    },
+
+    // Get project by slug
+    async getBySlug(
+        slug: string,
+        params?: {
+            populate?: string;
+            locale?: string;
+        },
+    ): Promise<ApiResponse<Work>> {
+        const searchParams = new URLSearchParams();
+        if (params?.populate) searchParams.set("populate", params.populate);
+
+        const query = searchParams.toString();
+        const endpoint = `/projects/slug/${slug}${query ? `?${query}` : ""}`;
 
         return fetchApi<ApiResponse<Work>>(endpoint, {}, params?.locale);
     },
@@ -586,6 +632,22 @@ export interface Blog {
         width?: number;
         height?: number;
     };
+    header_image?: {
+        id: number;
+        documentId: string;
+        url: string;
+        alternativeText?: string;
+        width?: number;
+        height?: number;
+    };
+    content_image?: {
+        id: number;
+        documentId: string;
+        url: string;
+        alternativeText?: string;
+        width?: number;
+        height?: number;
+    };
     // New fields from updated API
     featured_image_overlay?: {
         id: number;
@@ -664,7 +726,7 @@ export interface SocialMedia {
 // Updated Blogs API
 // Ensure these methods support locale parameter
 export const blogsApi = {
-    async getBySlug(slug: string, locale?: string, fields?: string[]): Promise<ApiResponse<Blog>> {
+    async getBySlug(slug: string, locale?: string, fields?: string[]): Promise<ApiResponse<Blog[]>> {
         const params = new URLSearchParams();
         params.set('filters[slug][$eq]', slug);
 
@@ -683,7 +745,7 @@ export const blogsApi = {
         params.set('populate[4]', 'author.avatar');
         params.set('populate[5]', 'tags');
 
-        return fetchApi<ApiResponse<Blog>>(
+        return fetchApi<ApiResponse<Blog[]>>(
             `/blogs?${params.toString()}`,
             {},
             locale,
@@ -696,7 +758,17 @@ export const blogsApi = {
     ): Promise<ApiResponse<Blog[]>> {
         const searchParams = new URLSearchParams();
         searchParams.set("filters[category][slug][$eq]", categorySlug);
-        searchParams.set("populate", "*");
+
+        // Explicitly populate all relations for Strapi v5
+        searchParams.set('populate[0]', 'featured_image');
+        searchParams.set('populate[1]', 'featured_image_overlay');
+        searchParams.set('populate[2]', 'gallery');
+        searchParams.set('populate[3]', 'header_image');
+        searchParams.set('populate[4]', 'content_image');
+        searchParams.set('populate[5]', 'category');
+        searchParams.set('populate[6]', 'author.avatar');
+        searchParams.set('populate[7]', 'tags');
+
         if (params?.page)
             searchParams.set("pagination[page]", params.page.toString());
         if (params?.pageSize)
@@ -715,11 +787,22 @@ export const blogsApi = {
     async getFeatured(params?: {
         page?: number;
         pageSize?: number;
+        sort?: string;
         locale?: string;
     }): Promise<ApiResponse<Blog[]>> {
         const searchParams = new URLSearchParams();
         searchParams.set("filters[featured][$eq]", "true");
-        searchParams.set("populate", "*");
+
+        // Explicitly populate all relations for Strapi v5
+        searchParams.set('populate[0]', 'featured_image');
+        searchParams.set('populate[1]', 'featured_image_overlay');
+        searchParams.set('populate[2]', 'gallery');
+        searchParams.set('populate[3]', 'header_image');
+        searchParams.set('populate[4]', 'content_image');
+        searchParams.set('populate[5]', 'category');
+        searchParams.set('populate[6]', 'author.avatar');
+        searchParams.set('populate[7]', 'tags');
+
         if (params?.page)
             searchParams.set("pagination[page]", params.page.toString());
         if (params?.pageSize)
@@ -727,6 +810,8 @@ export const blogsApi = {
                 "pagination[pageSize]",
                 params.pageSize.toString(),
             );
+        if (params?.sort)
+            searchParams.set("sort", params.sort);
 
         return fetchApi<ApiResponse<Blog[]>>(
             `/blogs?${searchParams.toString()}`,
@@ -747,13 +832,21 @@ export const blogsApi = {
     }): Promise<ApiResponse<Blog[]>> {
         const searchParams = new URLSearchParams();
 
-        // Add field selection if provided, otherwise populate all
+        // Add field selection if provided, otherwise populate all relations explicitly
         if (params?.fields && params.fields.length > 0) {
             params.fields.forEach((field, index) => {
                 searchParams.set(`fields[${index}]`, field);
             });
         } else {
-            searchParams.set("populate", "*");
+            // Explicitly populate all relations for Strapi v5
+            searchParams.set('populate[0]', 'featured_image');
+            searchParams.set('populate[1]', 'featured_image_overlay');
+            searchParams.set('populate[2]', 'gallery');
+            searchParams.set('populate[3]', 'header_image');
+            searchParams.set('populate[4]', 'content_image');
+            searchParams.set('populate[5]', 'category');
+            searchParams.set('populate[6]', 'author.avatar');
+            searchParams.set('populate[7]', 'tags');
         }
 
         if (params?.page)
@@ -805,7 +898,17 @@ export const blogsApi = {
     ): Promise<ApiResponse<Blog[]>> {
         const searchParams = new URLSearchParams();
         searchParams.set("filters[id][$ne]", blogId.toString());
-        searchParams.set("populate", "*");
+
+        // Explicitly populate all relations for Strapi v5
+        searchParams.set('populate[0]', 'featured_image');
+        searchParams.set('populate[1]', 'featured_image_overlay');
+        searchParams.set('populate[2]', 'gallery');
+        searchParams.set('populate[3]', 'header_image');
+        searchParams.set('populate[4]', 'content_image');
+        searchParams.set('populate[5]', 'category');
+        searchParams.set('populate[6]', 'author.avatar');
+        searchParams.set('populate[7]', 'tags');
+
         searchParams.set("pagination[pageSize]", limit.toString());
         searchParams.set("sort", "publishedAt:desc");
 

@@ -6,10 +6,17 @@ import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/Button";
 
-const SuccessStep = () => {
+interface SuccessStepProps {
+    onGoToMainPage?: () => void;
+}
+
+const SuccessStep: React.FC<SuccessStepProps> = ({ onGoToMainPage }) => {
     const t = useTranslations();
-    
+
     const handleGoHome = () => {
+        if (onGoToMainPage) {
+            onGoToMainPage();
+        }
         // Navigate to main page in real implementation
     };
 

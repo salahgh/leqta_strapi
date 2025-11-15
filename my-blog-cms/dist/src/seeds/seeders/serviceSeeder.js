@@ -22,10 +22,13 @@ const seedServices = async (strapi, servicesData) => {
             });
             console.log(`Created English Service: "${serviceData.base.title}" (ID: ${enService.id})`);
             for (const [localeCode, translation] of Object.entries(serviceData.translations)) {
+                // Only include localized fields (title, description, tags) in translations
+                // Non-localized fields (slug, gradientFrom, gradientTo, featured, order, icon) are shared across locales
+                const trans = translation;
                 const translationData = {
-                    ...serviceData.base,
-                    // @ts-expect-error
-                    ...translation,
+                    title: trans.title,
+                    description: trans.description,
+                    ...(trans.tags && { tags: trans.tags }),
                     publishedAt: new Date()
                 };
                 const translatedService = await strapi.entityService.create('api::service.service', {
@@ -33,6 +36,7 @@ const seedServices = async (strapi, servicesData) => {
                     locale: localeCode,
                     localizations: enService.id
                 });
+                console.log(`Created ${localeCode.toUpperCase()} translation for Service: "${trans.title}" (ID: ${translatedService.id})`);
             }
         }
         console.log('✅ Services seeding completed successfully');

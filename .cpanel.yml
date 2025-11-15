@@ -5,7 +5,7 @@ deployment:
     # SIMPLE STRAPI CMS DEPLOYMENT
     # ============================================
     # Update this path for your environment
-    - export DEPLOYPATH=/home/yourusername/public_html/
+    - export DEPLOYPATH=/home/leqtaco1/public_html/cms.leqta.com
 
     - echo "=========================================="
     - echo "Deploying Strapi CMS"
@@ -17,47 +17,13 @@ deployment:
 
     # Install dependencies
     - echo "Installing dependencies..."
-    - npm ci --production
+  
 
     # Build Strapi admin panel
     - echo "Building Strapi..."
     - export NODE_ENV=production
-    - npm run build
+
 
     # Create deployment directory
-    - mkdir -p $DEPLOYPATH
-
-    # Copy files to deployment directory
-    - echo "Copying files..."
-    - /bin/cp -R config $DEPLOYPATH
-    - /bin/cp -R src $DEPLOYPATH
-    - /bin/cp -R public $DEPLOYPATH
-    - /bin/cp -R dist $DEPLOYPATH
-    - /bin/cp -R node_modules $DEPLOYPATH
-    - /bin/cp -R database $DEPLOYPATH 2>/dev/null || true
-    - /bin/cp package.json $DEPLOYPATH
-    - /bin/cp package-lock.json $DEPLOYPATH
-
-    # Copy .env file if exists (make sure you have .env in my-blog-cms/)
-    - /bin/cp .env $DEPLOYPATH/.env 2>/dev/null || echo "No .env file found"
-
-    # Create necessary directories
-    - mkdir -p $DEPLOYPATH/.cache
-    - mkdir -p $DEPLOYPATH/.tmp
     - mkdir -p $DEPLOYPATH/public/uploads
-
-    # Set permissions
-    - chmod -R 755 $DEPLOYPATH
-
-    - echo "=========================================="
-    - echo "Deployment completed!"
-    - echo "Files deployed to: $DEPLOYPATH"
-    - echo ""
-    - echo "NEXT STEPS:"
-    - echo "1. Make sure .env file is in $DEPLOYPATH"
-    - echo "2. Setup Node.js app in cPanel:"
-    - echo "   - Application Root: $DEPLOYPATH"
-    - echo "   - Application Startup File: node_modules/@strapi/strapi/bin/strapi.js"
-    - echo "   - Click 'Setup'"
-    - echo "3. Start the application"
-    - echo "=========================================="
+    - mkdir -p $DEPLOYPATH

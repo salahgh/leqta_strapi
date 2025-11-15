@@ -4,28 +4,17 @@ deployment:
     # ============================================
     # SIMPLE STRAPI CMS DEPLOYMENT
     # ============================================
-    - export DEPLOYPATH=/home/leqtaco1/public_html/cms.leqta.com/strapi_cms
+    - export DEPLOYPATH=/home/leqtaco1/strapi_cms
+    - export NODE_VERSION=22
 
     - echo "=========================================="
     - echo "Deploying Strapi CMS"
     - echo "Timestamp:" $(date)
     - echo "=========================================="
 
-    # Detect and use latest Node.js version
-    - echo "Detecting Node.js versions..."
-    - echo "Available Node.js versions on server:"
-    - ls -d /opt/cpanel/ea-nodejs* 2>/dev/null || echo "No cPanel Node.js versions found"
-    - echo ""
-    - |
-      if [ -d "/opt/cpanel" ]; then
-        LATEST_NODE=$(ls -d /opt/cpanel/ea-nodejs* 2>/dev/null | sort -V | tail -1)
-        if [ ! -z "$LATEST_NODE" ]; then
-          export PATH="${LATEST_NODE}/bin:$PATH"
-          echo "✓ Selected latest version: $LATEST_NODE"
-        else
-          echo "Using system Node.js"
-        fi
-      fi
+    # Activate Node.js virtual environment
+    - echo "Activating Node.js ${NODE_VERSION} virtual environment..."
+    - source /home/leqtaco1/nodevenv/strapi_cms/${NODE_VERSION}/bin/activate
     - echo "Node.js version:" $(node --version)
     - echo "npm version:" $(npm --version)
     - echo ""

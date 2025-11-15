@@ -4,7 +4,7 @@ deployment:
     # ============================================
     # SIMPLE STRAPI CMS DEPLOYMENT
     # ============================================
-    - export DEPLOYPATH=/home/leqtaco1/public_html/cms.leqta.com
+    - export DEPLOYPATH=/home/leqtaco1/public_html/cms.leqta.com/strapi_cms
 
     - echo "=========================================="
     - echo "Deploying Strapi CMS"

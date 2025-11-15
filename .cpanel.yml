@@ -5,7 +5,7 @@ deployment:
     # SIMPLE STRAPI CMS DEPLOYMENT
     # ============================================
     - export DEPLOYPATH=/home/leqtaco1/strapi_cms
-    - export NODE_VERSION=22
+    - export NODE_VERSION=20
 
     - echo "=========================================="
     - echo "Deploying Strapi CMS"

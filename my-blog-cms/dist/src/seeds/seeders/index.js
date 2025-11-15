@@ -19,6 +19,7 @@ const testimonialSeeder_1 = require("./testimonialSeeder");
 const faqSeeder_1 = require("./faqSeeder");
 const missionSeeder_1 = require("./missionSeeder");
 const blogSeeder_1 = require("./blogSeeder");
+const socialMediaSeeder_1 = require("./socialMediaSeeder");
 const runSeeds = async (strapi) => {
     try {
         console.log('🌱 Starting internationalized seeding process...');
@@ -38,6 +39,8 @@ const runSeeds = async (strapi) => {
         await (0, faqSeeder_1.seedFAQs)(strapi, faqs_1.faqsData);
         // Seed Missions
         await (0, missionSeeder_1.seedMissions)(strapi, missions_1.missionsData);
+        // Seed Social Medias
+        await (0, socialMediaSeeder_1.seedSocialMedias)(strapi);
         // Seed Blogs (requires authors, categories, and tags)
         await (0, blogSeeder_1.seedBlogs)(strapi, blogs_1.blogsData);
         console.log('🎉 All internationalized seeding completed successfully!');

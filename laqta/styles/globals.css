@@ -8,7 +8,7 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Animation keyframes */
+/* Animation keyframes - Optimized for hardware acceleration */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -21,51 +21,59 @@ html {
 @keyframes slideUp {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(30px) translateZ(0);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) translateZ(0);
     }
 }
 
 @keyframes slideDown {
     from {
         opacity: 0;
-        transform: translateY(-30px);
+        transform: translateY(-30px) translateZ(0);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) translateZ(0);
     }
 }
 
 @keyframes slideRight {
     from {
         opacity: 0;
-        transform: translateX(-30px);
+        transform: translateX(-30px) translateZ(0);
     }
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateX(0) translateZ(0);
     }
 }
 
-/* Animation classes */
+/* Animation classes with performance optimizations */
 .animate-fade-in {
     animation: fadeIn 0.8s ease-out forwards;
+    will-change: opacity;
+    backface-visibility: hidden;
 }
 
 .animate-slide-up {
     animation: slideUp 0.8s ease-out forwards;
+    will-change: opacity, transform;
+    backface-visibility: hidden;
 }
 
 .animate-slide-down {
     animation: slideDown 0.8s ease-out forwards;
+    will-change: opacity, transform;
+    backface-visibility: hidden;
 }
 
 .animate-slide-right {
     animation: slideRight 0.8s ease-out forwards;
+    will-change: opacity, transform;
+    backface-visibility: hidden;
 }
 
 

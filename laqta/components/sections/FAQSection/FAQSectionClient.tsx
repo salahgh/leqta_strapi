@@ -24,16 +24,19 @@ export const FAQSectionClient: React.FC<FAQSectionClientProps> = ({ faqs, error 
         <section className="bg-white py-8 md:py-24">
             <div className="container mx-auto px-6 space-y-4">
                 <div className="text-center space-y-4">
-                    <Badge variant="default" className="">
-                        {t('badge')}
-                    </Badge>
-                    <h2 className="font-bold text-gray-900 mx-auto max-w-2xl">
+                    <div className="animate-slide-down" style={{ opacity: 0 }}>
+                        <Badge variant="default" className="">
+                            {t('badge')}
+                        </Badge>
+                    </div>
+                    <h2 className="font-bold text-gray-900 mx-auto max-w-2xl animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>
                         {t('title')}
                     </h2>
-                    <p className="text-secondary-gray text-responsive-lg max-w-3xl md:max-w-xl mx-auto">
+                    <p className="text-secondary-gray text-responsive-lg max-w-3xl md:max-w-xl mx-auto animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
                         {t('description')}
                     </p>
 
+                    <div className="animate-fade-in" style={{ opacity: 0, animationDelay: "450ms" }}>
                     {error ? (
                         <ErrorFallback
                             title="Unable to load FAQs"
@@ -57,6 +60,7 @@ export const FAQSectionClient: React.FC<FAQSectionClientProps> = ({ faqs, error 
                             />
                         ))
                     )}
+                    </div>
                 </div>
             </div>
         </section>

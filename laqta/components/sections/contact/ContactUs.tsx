@@ -166,7 +166,7 @@ const ContactUs = () => {
             </div>
 
             {/* Go Back Button */}
-            <div className="px-6 py-4">
+            <div className="px-6 py-4 animate-slide-right" style={{ opacity: 0 }}>
                 <button
                     onClick={handleGoToMainPage}
                     className="flex items-center space-x-2 px-4 py-2 border border-slate-600 rounded-full hover:bg-slate-700/30
@@ -178,7 +178,7 @@ const ContactUs = () => {
             </div>
 
             {/* Main Content - Responsive Layout */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 animate-fade-in" style={{ opacity: 0, animationDelay: "150ms" }}>
                 {/* Mobile Progress Bar - Visible only on mobile/tablet */}
                 <div className="lg:hidden mb-6">
                     <div className="flex justify-between items-center gap-2 px-2">

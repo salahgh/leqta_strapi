@@ -81,15 +81,17 @@ export const TestimonialsClient = ({
     return (
         <div className="relative bg-gray-200 md:pt-20 pt-12 flex flex-col gap-8">
             {/* Header section */}
-            <div className="text-center px-3 space-y-6 ">
-                <Badge>{t("badge")}</Badge>
+            <div className="text-center px-3 space-y-6">
+                <div className="animate-slide-down" style={{ opacity: 0 }}>
+                    <Badge>{t("badge")}</Badge>
+                </div>
 
-                <h1 className="leading-tight text-gray-800">
+                <h1 className="leading-tight text-gray-800 animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>
                     {t("successStoriesTitle")}
                 </h1>
             </div>
             {/* Testimonial carousel container */}
-            <div className="relative px-3 ">
+            <div className="relative px-3 animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
                 <button
                     onClick={goToPrevious}
                     className="hidden lg:flex absolute left-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full

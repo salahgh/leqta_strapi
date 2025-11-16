@@ -58,20 +58,22 @@ const AllBlogsPage = async ({
             <section className="px-4 md:px-8 pt-8 md:pt-16 pb-8">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center md:text-left">
-                        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 animate-slide-up" style={{ opacity: 0 }}>
                             {t("allArticles")}
                         </h1>
-                        <p className="text-lg md:text-xl text-gray-300">
+                        <p className="text-lg md:text-xl text-gray-300 animate-fade-in" style={{ opacity: 0, animationDelay: "150ms" }}>
                             {t("allArticlesDescription")}
                         </p>
                     </div>
                 </div>
             </section>
 
-            <BlogsClient
-                initialLatestBlogs={latestBlogs}
-                categories={categories}
-            />
+            <div className="animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
+                <BlogsClient
+                    initialLatestBlogs={latestBlogs}
+                    categories={categories}
+                />
+            </div>
             <Footer locale={locale} />
         </div>
     );

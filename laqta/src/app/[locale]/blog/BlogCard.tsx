@@ -456,6 +456,12 @@ export const BlogCard: React.FC<BlogCardProps> = ({
     className = "",
     locale = "en"
 }) => {
+    // Check if slug exists, if not skip rendering
+    if (!blog.slug) {
+        console.warn(`Blog "${blog.title}" (ID: ${blog.id}) is missing slug for locale "${locale}". Please run database migration.`);
+        return null;
+    }
+
     // Link component from @/src/i18n/navigation handles locale automatically
     const blogUrl = `/blog/articles/${blog.slug}`;
 

@@ -33,6 +33,37 @@
     "title": "What We Do",
     "description": "We offer comprehensive digital solutions to help your business grow"
   },
+  "servicesPage": {
+    "basicPlan": {
+      "title": "Basic Plan",
+      "description": "Ideal for brands needing a simple, fast production for a small batch of video content.",
+      "price": "126,900 DZD",
+      "buttonText": "Get Started",
+      "features": [
+        "Filming of 5 content pieces",
+        "1 full day of shooting",
+        "Basic editing for all 5 videos (cutting, transitions, basic color correction, music/logo overlay)"
+      ],
+      "equipment": [
+        "Professional Camera",
+        "Stabilizer (Gimbal + Tripod)",
+        "Softbox Light + RGB Tube Light",
+        "Wireless Microphone Kit (2 transmitters)"
+      ]
+    },
+    "premiumPlan": {
+      "title": "Premium Plan",
+      "description": "Brands with larger content needs, creative ambitions, or advanced technical requirements. This plan is 100% customized to your brand, objectives, and creative vision. We design the content, structure, and production workflow with your brand team.",
+      "buttonText": "Contact Us",
+      "features": [
+        "More than 5 video content pieces",
+        "Multi-day filming sessions",
+        "Additional equipment (e.g., drone, sliders, multi-cam setup)",
+        "Storyboard development and scripting",
+        "Advanced editing (motion graphics, subtitling, brand animation)"
+      ]
+    }
+  },
   "works": {
     "badge": "Our Works",
     "title": "Our Works",

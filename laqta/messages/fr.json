@@ -33,6 +33,37 @@
     "title": "Ce que nous faisons",
     "description": "Nous offrons des solutions numériques complètes pour aider votre entreprise à croître"
   },
+  "servicesPage": {
+    "basicPlan": {
+      "title": "Forfait de Base",
+      "description": "Idéal pour les marques ayant besoin d'une production simple et rapide pour un petit lot de contenu vidéo.",
+      "price": "126 900 DZD",
+      "buttonText": "Commencer",
+      "features": [
+        "Tournage de 5 contenus",
+        "1 journée complète de tournage",
+        "Montage de base pour les 5 vidéos (découpe, transitions, correction colorimétrique de base, overlay musique/logo)"
+      ],
+      "equipment": [
+        "Caméra Professionnelle",
+        "Stabilisateur (Gimbal + Trépied)",
+        "Softbox Light + RGB Tube Light",
+        "Kit Microphone Sans Fil (2 émetteurs)"
+      ]
+    },
+    "premiumPlan": {
+      "title": "Forfait Premium",
+      "description": "Pour les marques ayant des besoins de contenu plus importants, des ambitions créatives ou des exigences techniques avancées. Ce forfait est 100% personnalisé selon votre marque, vos objectifs et votre vision créative. Nous concevons le contenu, la structure et le flux de production avec votre équipe de marque.",
+      "buttonText": "Contactez-nous",
+      "features": [
+        "Plus de 5 contenus vidéo",
+        "Sessions de tournage multi-jours",
+        "Équipement supplémentaire (ex: drone, sliders, configuration multi-caméras)",
+        "Développement de storyboard et scénarisation",
+        "Montage avancé (motion graphics, sous-titrage, animation de marque)"
+      ]
+    }
+  },
   "works": {
     "badge": "Nos Travaux",
     "title": "Nos Travaux",

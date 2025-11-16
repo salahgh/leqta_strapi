@@ -76,26 +76,26 @@ const BlogPage = async ({
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16 md:mb-20">
                         {/* Badge */}
-                        <div className="inline-block mb-8">
+                        <div className="inline-block mb-8 animate-slide-down" style={{ opacity: 0 }}>
                             <span className="px-5 py-2.5 bg-white/10 backdrop-blur-sm text-white text-sm font-medium rounded-full border border-white/30">
                                 Insights & Stories
                             </span>
                         </div>
 
                         {/* Main Heading */}
-                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
+                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>
                             The LAQTA Blog
                         </h1>
 
                         {/* Description */}
-                        <p className="text-base md:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                        <p className="text-base md:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
                             Data-led technology strategies that boost brand engagement and impact. Explore insights in talent stories from our studios in Algeria. Explore real-world impact.
                         </p>
                     </div>
 
                     {/* Blog Grid with Logo Background */}
                     {latestBlogs.length > 0 ? (
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 animate-fade-in" style={{ opacity: 0, animationDelay: "450ms" }}>
                             {latestBlogs.map((blog) => (
                                 <BlogCard key={blog.id} blog={blog} variant="grid-with-logo" locale={locale} />
                             ))}

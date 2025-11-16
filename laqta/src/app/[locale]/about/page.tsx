@@ -36,42 +36,47 @@ export default async function AboutPage({
     const { locale } = await params;
     return (
         <div className="relative bg-primary flex flex-col w-full min-h-screen overflow-hidden">
-            {/* Gradient Overlay Layer */}
-            <div
-                className="absolute inset-0 z-20 opacity-90"
-                style={{
-                    background:
-                        "linear-gradient(to bottom, #FFFFFF00, #000000)",
-                }}
-            />
+            {/* Background Layers Container - Optimized for performance */}
+            <div className="absolute inset-0 pointer-events-none z-0">
+                {/* Union SVG Layer */}
+                <div className="absolute w-full inset-0" style={{ willChange: 'opacity' }}>
+                    <Image
+                        src="/images/union.svg"
+                        alt="Union Background"
+                        width={1920}
+                        height={1080}
+                        className="object-fill w-full h-full"
+                        priority
+                    />
+                </div>
 
-            {/* Vector Courbe SVG Layer */}
-            <div className="absolute z-30 w-[80%] lg:w-1/2 top-0 left-1/2 transform -translate-x-1/2 opacity-40">
-                <Image
-                    src="/images/vector_courbe.svg"
-                    alt="Vector Curve Background"
-                    width={800}
-                    height={800}
-                    className="h-full aspect-square object-cover"
-                    priority
+                {/* Gradient Overlay Layer */}
+                <div
+                    className="absolute inset-0 opacity-90"
+                    style={{
+                        background: "linear-gradient(to bottom, #FFFFFF00, #000000)",
+                        willChange: 'opacity'
+                    }}
                 />
+
+                {/* Vector Courbe SVG Layer */}
+                <div className="absolute w-[80%] lg:w-1/2 top-0 left-1/2 transform -translate-x-1/2 opacity-40" style={{ willChange: 'opacity, transform' }}>
+                    <Image
+                        src="/images/vector_courbe.svg"
+                        alt="Vector Curve Background"
+                        width={800}
+                        height={800}
+                        className="h-full aspect-square object-cover"
+                        priority
+                    />
+                </div>
             </div>
 
-            {/* Union SVG Layer */}
-            <div className="absolute z-10 w-full" style={{ top: 0, left: 0 }}>
-                <Image
-                    src="/images/union.svg"
-                    alt="Union Background"
-                    width={1920}
-                    height={1080}
-                    className="object-fill bg w-full"
-                    priority
-                />
-            </div>
+            {/* Navigation */}
+            <Navigation />
 
             {/* Content Layer */}
-            <div className="relative z-40 w-full">
-                <Navigation />
+            <div className="relative z-0 w-full flex-1">
                 <div className="space-y-8 md:space-y-12 lg:space-y-16">
                     <HeroSection />
                     {/* @ts-expect-error Server Component */}
@@ -80,9 +85,11 @@ export default async function AboutPage({
                         <CompetitiveEdge />
                     </div>
                 </div>
-                <div className="mt-12 md:mt-16">
-                    <Footer locale={locale} />
-                </div>
+            </div>
+
+            {/* Footer */}
+            <div className="relative z-0 mt-auto">
+                <Footer locale={locale} />
             </div>
         </div>
     );

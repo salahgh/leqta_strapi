@@ -69,20 +69,20 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
                 {/* Content */}
                 <div className="relative z-10 container mx-auto px-6 py-20 text-center">
                     {/* Category Badge */}
-                    <div className="flex justify-center mb-6">
+                    <div className="flex justify-center mb-6 animate-slide-down" style={{ opacity: 0 }}>
                         <span className="px-6 py-2 bg-white/10 backdrop-blur-md text-white text-body-md rounded-full border border-white/20">
                             {project.category}
                         </span>
                     </div>
 
                     {/* Title */}
-                    <h1 className="text-white text-display-lg md:text-display-xl lg:text-display-2xl font-bold mb-6 max-w-4xl mx-auto leading-tight">
+                    <h1 className="text-white text-display-lg md:text-display-xl lg:text-display-2xl font-bold mb-6 max-w-4xl mx-auto leading-tight animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>
                         {project.title}
                     </h1>
 
                     {/* Metrics */}
                     {project.metrics && (
-                        <p className="text-blue-300 text-body-xl md:text-display-xs font-semibold mb-8">
+                        <p className="text-blue-300 text-body-xl md:text-display-xs font-semibold mb-8 animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
                             {project.metrics}
                         </p>
                     )}
@@ -93,7 +93,7 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
             <section className="bg-white py-20">
                 <div className="container mx-auto px-6">
                     {/* Main Content */}
-                    <div className="max-w-4xl mx-auto">
+                    <div className="max-w-4xl mx-auto animate-fade-in" style={{ opacity: 0, animationDelay: "150ms" }}>
                         {/* Project Image */}
                         {imageUrl && (
                             <div className="mb-12 rounded-2xl overflow-hidden shadow-2xl">

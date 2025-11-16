@@ -8,6 +8,7 @@ export const seedBlogs = async (strapi, blogsData) => {
         const tags = await strapi.entityService.findMany('api::tag.tag', { locale: 'en' });
 
         for (const blogData of blogsData) {
+            console.log(`Processing blog: "${blogData.base.title}" (Slug: ${blogData.base.slug})`);
             const existingBlog = await strapi.entityService.findMany('api::blog.blog', {
                 filters: { slug: blogData.base.slug },
                 locale: 'en'
@@ -37,9 +38,9 @@ export const seedBlogs = async (strapi, blogsData) => {
             console.log(`Created English Blog: "${blogData.base.title}" (ID: ${enBlog.id})`);
 
             for (const [localeCode, translation] of Object.entries(blogData.translations)) {
-                // Extract only localized fields (exclude slug, featured_image, etc. as they're now non-localized)
+                // Extract only localized fields (slug is now localized and will be auto-generated from title)
                 const translationData: any = translation;
-                const { slug, featured_image, header_image, content_image, ...translatedFields } = translationData;
+                const { featured_image, header_image, content_image, ...translatedFields } = translationData;
 
                 const blogTranslationData = {
                     ...translatedFields,

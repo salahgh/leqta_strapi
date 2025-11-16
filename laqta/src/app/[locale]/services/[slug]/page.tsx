@@ -87,7 +87,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
                 <div className="relative z-10 container mx-auto px-6 py-20 text-center">
                     {/* Icon */}
                     {service.icon && (
-                        <div className="flex justify-center mb-6">
+                        <div className="flex justify-center mb-6 animate-slide-down" style={{ opacity: 0 }}>
                             <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
                                 {getIconComponent(service.icon)}
                             </div>
@@ -95,13 +95,13 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
                     )}
 
                     {/* Title */}
-                    <h1 className="text-white text-display-lg md:text-display-xl font-bold mb-6">
+                    <h1 className="text-white text-display-lg md:text-display-xl font-bold mb-6 animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>
                         {service.title}
                     </h1>
 
                     {/* Tags */}
                     {service.tags && service.tags.length > 0 && (
-                        <div className="flex flex-wrap justify-center gap-3 mb-8">
+                        <div className="flex flex-wrap justify-center gap-3 mb-8 animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
                             {service.tags.map((tag: string, index: number) => (
                                 <span
                                     key={index}
@@ -119,14 +119,14 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
             <section className="bg-white py-20">
                 <div className="container mx-auto px-6 max-w-4xl">
                     {/* Description */}
-                    <div className="prose prose-lg max-w-none mb-12">
+                    <div className="prose prose-lg max-w-none mb-12 animate-fade-in" style={{ opacity: 0, animationDelay: "150ms" }}>
                         <p className="text-gray-700 text-body-xl leading-relaxed whitespace-pre-wrap">
                             {service.description}
                         </p>
                     </div>
 
                     {/* CTA Section */}
-                    <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 text-center">
+                    <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 text-center animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
                         <h2 className="text-gray-900 text-display-sm font-bold mb-4">
                             {t("interestedInService")}
                         </h2>

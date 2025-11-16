@@ -1,0 +1,70 @@
+name: Deploy Strapi to cPanel (FTP Only - No SSH)
+
+# Use this workflow if you DON'T have SSH access to your cPanel server
+# This uploads pre-built files with node_modules
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'my-blog-cms/**'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: 'npm'
+          cache-dependency-path: my-blog-cms/package-lock.json
+
+      - name: Install production dependencies
+        working-directory: ./my-blog-cms
+        run: |
+          npm ci --production --no-audit --no-fund
+
+      - name: Build Strapi admin panel
+        working-directory: ./my-blog-cms
+        run: |
+          npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Clean up unnecessary files
+        working-directory: ./my-blog-cms
+        run: |
+          # Remove dev files
+          rm -rf .cache .tmp logs.txt
+          rm -rf node_modules/@types
+          # Remove .env files (you'll set these manually on cPanel)
+          rm -f .env .env.local .env.production
+
+      - name: Upload to cPanel via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.CPANEL_FTP_SERVER }}
+          username: ${{ secrets.CPANEL_FTP_USERNAME }}
+          password: ${{ secrets.CPANEL_FTP_PASSWORD }}
+          local-dir: ./my-blog-cms/
+          server-dir: /strapi_cms/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.env*
+            **/logs.txt
+          dangerous-clean-slate: false
+
+      - name: Deployment complete
+        run: |
+          echo "✅ Deployment complete!"
+          echo "⚠️  Don't forget to:"
+          echo "   1. Restart your Node.js app in cPanel"
+          echo "   2. Ensure .env file exists on the server with production settings"

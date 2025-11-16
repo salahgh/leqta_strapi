@@ -94,7 +94,7 @@ function PartnershipFormPage() {
             <div className="max-w-4xl mx-auto">
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <div className="mb-8 mt-32">
+                    <div className="mb-8 mt-32 animate-slide-down" style={{ opacity: 0 }}>
                         <span
                             className="inline-block border px-6 py-4 rounded-full"
                             style={{
@@ -107,16 +107,18 @@ function PartnershipFormPage() {
                         </span>
                     </div>
 
-                    <h1 className="text-white mb-2" style={{ fontSize: 56 }}>
+                    <h1 className="text-white mb-2 animate-slide-up" style={{ fontSize: 56, opacity: 0, animationDelay: "150ms" }}>
                         Partnership Form
                     </h1>
 
                     <p
-                        className="text-gray-400"
+                        className="text-gray-400 animate-fade-in"
                         style={{
                             fontSize: 24,
                             color: "#C6BBBB",
                             maxWidth: 900,
+                            opacity: 0,
+                            animationDelay: "300ms",
                         }}
                     >
                         Want to collaborate with LAQTA? Let's build something
@@ -126,7 +128,7 @@ function PartnershipFormPage() {
                 </div>
 
                 {/* Form */}
-                <div className="space-y-3">
+                <div className="space-y-3 animate-fade-in" style={{ opacity: 0, animationDelay: "450ms" }}>
                     {/* Name Fields */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <FormInput

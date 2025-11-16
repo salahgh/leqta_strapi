@@ -54,7 +54,7 @@ jobs:
           username: ${{ secrets.CPANEL_FTP_USERNAME }}
           password: ${{ secrets.CPANEL_FTP_PASSWORD }}
           local-dir: ./my-blog-cms/
-          server-dir: /strapi_cms/
+          server-dir: /
           exclude: |
             **/.git*
             **/.git*/**
@@ -65,6 +65,6 @@ jobs:
       - name: Deployment complete
         run: |
           echo "✅ Deployment complete!"
-          echo "⚠️  Don't forget to:"
+          echo "⚠️ Don't forget to:"
           echo "   1. Restart your Node.js app in cPanel"
           echo "   2. Ensure .env file exists on the server with production settings"

@@ -23,17 +23,27 @@ export async function generateStaticParams() {
 
         // Fetch blogs for each locale separately to get correct slugs
         for (const locale of locales) {
-            const response = await blogsApi.getAll({ pageSize: 100, locale });
+            const response = await blogsApi.getAll({
+                pageSize: 100,
+                locale,
+                fields: ['id', 'slug', 'title'] // Only fetch necessary fields
+            });
             const blogs = response.data || [];
 
             for (const blog of blogs) {
-                params.push({
-                    locale,
-                    slug: blog.slug,
-                });
+                // Ensure slug is a string
+                const slugValue = typeof blog.slug === 'string' ? blog.slug : String(blog.slug || '');
+
+                if (slugValue) {
+                    params.push({
+                        locale,
+                        slug: slugValue,
+                    });
+                }
             }
         }
 
+        console.log('Generated static params for blogs:', params.length);
         return params;
     } catch (error) {
         console.error("Error generating static params:", error);
@@ -128,7 +138,9 @@ const BlogArticlePage = async ({ params }: BlogPageProps) => {
         <div className="bg-white min-h-screen">
             <StructuredData data={structuredData} />
             <Navigation />
-            <BlogArticle blog={blog} relatedBlogs={relatedBlogs} locale={locale} />
+            <div className="animate-fade-in" style={{ opacity: 0, animationDelay: "150ms" }}>
+                <BlogArticle blog={blog} relatedBlogs={relatedBlogs} locale={locale} />
+            </div>
             <Footer locale={locale} />
         </div>
     );

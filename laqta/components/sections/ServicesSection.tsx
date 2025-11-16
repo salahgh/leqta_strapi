@@ -115,18 +115,21 @@ export default async function ServicesSection({
             <div className="relative z-20 flex flex-col">
                 {/* Header - Fully Responsive */}
                 <div className="text-center flex flex-col items-center gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-7 2xl:gap-8 py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24 2xl:py-32">
-                    <Badge variant="default">{finalBadge}</Badge>
+                    <div className="animate-slide-down" style={{ opacity: 0 }}>
+                        <Badge variant="default">{finalBadge}</Badge>
+                    </div>
 
-                    <h2 className="text-white text-center">{t("title")}</h2>
+                    <h2 className="text-white text-center animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>{t("title")}</h2>
 
-                    <p className="text-secondary-gray text-justify px-4 sm:max-w-sm md:max-w-2xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xlsm:px-6 md:px-8">
+                    <p className="text-secondary-gray text-justify px-4 sm:max-w-sm md:max-w-2xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xlsm:px-6 md:px-8 animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
                         {finalDescription}
                     </p>
                 </div>
 
                 {/* Services Grid - Fully Responsive */}
                 <div
-                    className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20"
+                    className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 animate-fade-in"
+                    style={{ opacity: 0, animationDelay: "450ms" }}
                 >
                     {servicesError ? (
                         <ErrorFallback
@@ -163,8 +166,9 @@ export default async function ServicesSection({
 
                 {/* CTA Button - Fully Responsive */}
                 <div
-                    className="text-center flex items-center justify-center mt-8 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24 
-                2xl:mt-28 pb-8 sm:pb-12 md:pb-16 lg:pb-20 xl:pb-24 2xl:pb-32"
+                    className="text-center flex items-center justify-center mt-8 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24
+                2xl:mt-28 pb-8 sm:pb-12 md:pb-16 lg:pb-20 xl:pb-24 2xl:pb-32 animate-fade-in"
+                    style={{ opacity: 0, animationDelay: "600ms" }}
                 >
                     <div className="h-10 sm:h-11 md:h-12 lg:h-14 xl:h-16 2xl:h-18">
                         <Button

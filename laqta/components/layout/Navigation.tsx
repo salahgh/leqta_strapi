@@ -88,7 +88,7 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                     text-responsive-md
                     ${
                         scrolled
-                            ? "shadow-lg bg-primary opacity-80 backdrop-blur-md  border-blue-700/30 h-14 md:h-16 glassmorphism"
+                            ? "shadow-lg bg-primary backdrop-blur-md border-blue-700/30 h-14 md:h-16 glassmorphism"
                             : "md:h-[90px] h-[60px]"
                     }
                     ${className}

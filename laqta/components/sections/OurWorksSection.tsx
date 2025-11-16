@@ -80,22 +80,25 @@ export async function OurWorksSection({
                     className="text-center flex flex-col
                 items-center gap-2 md:gap-6 lg:gap-5 xl:gap-6 md:pb-8"
                 >
-                    <Badge variant="default" className="">
-                        {badge || t("badge")}
-                    </Badge>
+                    <div className="animate-slide-down" style={{ opacity: 0 }}>
+                        <Badge variant="default" className="">
+                            {badge || t("badge")}
+                        </Badge>
+                    </div>
 
-                    <h2 className="text-gray-900">{title || t("title")}</h2>
+                    <h2 className="text-gray-900 animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>{title || t("title")}</h2>
 
                     <p
                         className="text-secondary-gray text-responsive-lg text-justify px-4 md:px-10 md:text-center
-                    lg:px-24 xl:px-32 2xl:px-40 max-w-4xl"
+                    lg:px-24 xl:px-32 2xl:px-40 max-w-4xl animate-fade-in"
+                        style={{ opacity: 0, animationDelay: "300ms" }}
                     >
                         {description || t("description")}
                     </p>
                 </div>
 
                 {/* Projects Section */}
-                <div className="space-y-2 sm:space-y-4 md:space-y-6 lg:space-y-12 xl:space-y-16 flex flex-col">
+                <div className="space-y-2 sm:space-y-4 md:space-y-6 lg:space-y-12 xl:space-y-16 flex flex-col animate-fade-in" style={{ opacity: 0, animationDelay: "450ms" }}>
                     {hasError ? (
                         <ErrorFallback
                             title="Unable to load projects"

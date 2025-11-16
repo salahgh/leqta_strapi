@@ -24,14 +24,14 @@ export const MissionVisionCardsClient: React.FC<
     return (
         <section className="py-12 md:py-16 px-4 md:px-8">
             {/* Section Header */}
-            <div className="text-center space-y-4 mb-12 max-w-3xl mx-auto animate-fade-in">
-                <div className="flex justify-center animate-slide-down">
+            <div className="text-center space-y-4 mb-12 max-w-3xl mx-auto animate-fade-in" style={{ opacity: 0 }}>
+                <div className="flex justify-center animate-slide-down" style={{ opacity: 0 }}>
                     <Badge>Our Foundation</Badge>
                 </div>
-                <h2 className="text-white font-bold animate-slide-up" style={{ animationDelay: "150ms" }}>
+                <h2 className="text-white font-bold animate-slide-up" style={{ animationDelay: "150ms", opacity: 0 }}>
                     Mission, Vision & Values
                 </h2>
-                <p className="text-gray-300 text-responsive-lg leading-relaxed animate-fade-in" style={{ animationDelay: "300ms" }}>
+                <p className="text-gray-300 text-responsive-lg leading-relaxed animate-fade-in" style={{ animationDelay: "300ms", opacity: 0 }}>
                     Discover what drives us to create exceptional content and deliver outstanding results for our clients.
                 </p>
             </div>
@@ -48,7 +48,7 @@ export const MissionVisionCardsClient: React.FC<
                         <div
                             key={mission.id}
                             className="animate-fade-in"
-                            style={{ animationDelay: `${450 + index * 150}ms` }}
+                            style={{ animationDelay: `${450 + index * 150}ms`, opacity: 0 }}
                         >
                             <Card
                                 icon={IconComponent}

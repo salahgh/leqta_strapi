@@ -61,17 +61,6 @@ export const Navigation = () => {
 
     return (
         <nav className="flex justify-center gap-4 w-full bg-gradient-to-r from-gray-900/50 to-gray-800/50 backdrop-blur-sm px-2 h-12 border-b border-gray-700/50">
-            {/* Back Button */}
-            <div className={"aspect-square h-full"}>
-                <button
-                    onClick={handleBackClick}
-                    className="rounded-full h-full border border-gray-600 hover:bg-gray-700 hover:border-gray-500 transition-all duration-200
-                flex items-center justify-center aspect-square bg-gray-800/80 group"
-                    aria-label="Go back to services overview"
-                >
-                    <ArrowLeft className="w-8 h-8 text-gray-300 group-hover:text-white group-hover:-translate-x-1 transition-all duration-200" />
-                </button>
-            </div>
             {/*/!* Desktop Navigation *!/*/}
             {/*<div className="hidden md:flex gap-6 rounded-full border border-gray-500 px-8 h-full items-center">*/}
             {/*    {updatedNavItems.map((item, index) => (*/}

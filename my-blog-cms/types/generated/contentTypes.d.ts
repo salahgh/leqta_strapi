@@ -578,7 +578,7 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
-          localized: false;
+          localized: true;
         };
       }>;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;

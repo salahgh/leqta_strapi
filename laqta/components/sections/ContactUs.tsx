@@ -67,9 +67,11 @@ const ContactForm = () => {
 
     return (
         <div className="bg-primary flex flex-col md:flex-row items-center justify-center py-8">
-            <ContactInfo />
+            <div className="animate-slide-right" style={{ opacity: 0 }}>
+                <ContactInfo />
+            </div>
 
-            <div className={"w-full md:w-auto md:p-12 p-2 mt-2 md:mt-4 "}>
+            <div className={"w-full md:w-auto md:p-12 p-2 mt-2 md:mt-4 animate-fade-in"} style={{ opacity: 0, animationDelay: "300ms" }}>
                 <div
                     style={{
                         background:

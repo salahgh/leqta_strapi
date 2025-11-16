@@ -28,6 +28,7 @@ export const PlanCard = ({
 }: PlanCardProps) => (
     <div
         className={`relative rounded-2xl p-4 ${gradient} border border-gray-700 h-full hover:border-gray-600 transition-all duration-300`}
+        style={{ willChange: 'border-color' }}
     >
         <div className="flex flex-col h-full">
             <h3 className="font-bold text-white ">{title}</h3>

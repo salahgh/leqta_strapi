@@ -143,8 +143,10 @@ export const BlogArticle: React.FC<{ blog: Blog; relatedBlogs: Blog[]; locale?: 
 
                     {/* Right Side - Blog Content */}
                     <article className="lg:col-span-9">
-                        <div className="prose prose-lg max-w-none blog-content prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-code:text-blue-600 prose-code:bg-blue-50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded">
+                        <div className="prose prose-lg max-w-none blog-content prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-900 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-code:text-blue-600 prose-code:bg-blue-50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded text-gray-900">
                             <div
+                                className="text-gray-900"
+                                style={{ color: '#111827' }}
                                 dangerouslySetInnerHTML={{ __html: blog.content }}
                             />
 
@@ -245,6 +247,7 @@ export const BlogArticle: React.FC<{ blog: Blog; relatedBlogs: Blog[]; locale?: 
                 .blog-content h5,
                 .blog-content h6 {
                     @apply font-bold text-gray-900 mt-8 mb-4 scroll-mt-24;
+                    color: #111827 !important;
                 }
 
                 .blog-content h1 { @apply text-3xl; }
@@ -253,7 +256,8 @@ export const BlogArticle: React.FC<{ blog: Blog; relatedBlogs: Blog[]; locale?: 
                 .blog-content h4 { @apply text-lg; }
 
                 .blog-content p {
-                    @apply mb-6 text-gray-700 leading-relaxed;
+                    @apply mb-6 text-gray-900 leading-relaxed;
+                    color: #111827 !important;
                 }
 
                 .blog-content a {
@@ -266,7 +270,12 @@ export const BlogArticle: React.FC<{ blog: Blog; relatedBlogs: Blog[]; locale?: 
                 }
 
                 .blog-content li {
-                    @apply mb-2 text-gray-700;
+                    @apply mb-2 text-gray-900;
+                    color: #111827 !important;
+                }
+
+                .blog-content strong {
+                    color: #111827 !important;
                 }
 
                 .blog-content blockquote {

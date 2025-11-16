@@ -31,10 +31,10 @@ const AboutSection = ({
                 {/* Content Section */}
                 <div className="space-y-6 flex-1">
                     {/* Badge */}
-                    <div className="items-center justify-center">
+                    <div className="items-center justify-center animate-slide-down" style={{ opacity: 0 }}>
                         <Badge>{t('badge')}</Badge>
                     </div>
-                    <h2 className="text-black text-display-md md:text-display-lg xl:text-display-xl leading-tight">
+                    <h2 className="text-black text-display-md md:text-display-lg xl:text-display-xl leading-tight animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>
                         {t('title').split(" ").map((word, index) => (
                             <span
                                 key={index}
@@ -53,11 +53,11 @@ const AboutSection = ({
                         ))}
                     </h2>
                     {/* Description */}
-                    <p className="text-secondary-gray leading-relaxed text-responsive-lg">
+                    <p className="text-secondary-gray leading-relaxed text-responsive-lg animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
                         {t('description')}
                     </p>
                     {/*Buttons*/}
-                    <div className="flex gap-4" style={{ height: 61 }}>
+                    <div className="flex gap-4 animate-fade-in" style={{ height: 61, opacity: 0, animationDelay: "450ms" }}>
                         <div className={"h-12 md:h-16"}>
                             <Link href="/contact">
                                 <Button
@@ -85,7 +85,7 @@ const AboutSection = ({
                     </div>
                 </div>
                 {/* Illustration Section */}
-                <div className="flex justify-center items-center md:max-w-80 lg:max-w-xl">
+                <div className="flex justify-center items-center md:max-w-80 lg:max-w-xl animate-fade-in" style={{ opacity: 0, animationDelay: "600ms" }}>
                     {illustration || (
                         // Fallback illustration if none provided
                         <div className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl p-8 aspect-square flex items-center justify-center">

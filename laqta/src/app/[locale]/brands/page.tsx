@@ -13,7 +13,7 @@ export default async function BrandsPage({
         <div>
             <div className="bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex flex-col justify-center items-center">
                 <Navigation />
-                <div className="mb-8 mt-32">
+                <div className="mb-8 mt-32 animate-slide-down" style={{ opacity: 0 }}>
                     <span
                         className="inline-block border px-6 py-4 rounded-full"
                         style={{
@@ -25,12 +25,12 @@ export default async function BrandsPage({
                         Our Partners
                     </span>
                 </div>
-                <p style={{ fontSize: 56 }} className={"text-white"}>
+                <p style={{ fontSize: 56, opacity: 0, animationDelay: "150ms" }} className={"text-white animate-slide-up"}>
                     Brands That Trust LEQTA
                 </p>
                 <p
-                    style={{ color: "#C6BBBB", fontSize: 24, maxWidth: 900 }}
-                    className="mt-4 mb-8 text-center"
+                    style={{ color: "#C6BBBB", fontSize: 24, maxWidth: 900, opacity: 0, animationDelay: "300ms" }}
+                    className="mt-4 mb-8 text-center animate-fade-in"
                 >
                     We're proud to collaborate with leading brands, bold
                     startups, and visionary changemakers. Together we create
@@ -39,9 +39,10 @@ export default async function BrandsPage({
                 <img
                     src="/images/brands.png"
                     alt="Logo"
-                    // className="w-full h-full"
+                    className="animate-fade-in"
+                    style={{ opacity: 0, animationDelay: "450ms" }}
                 />
-                <div className={"mt-8 mb-16 flex justify-center h-16"}>
+                <div className={"mt-8 mb-16 flex justify-center h-16 animate-fade-in"} style={{ opacity: 0, animationDelay: "600ms" }}>
                     <Button leftIcon={undefined} rightIcon={undefined}>
                         Become a partner
                     </Button>

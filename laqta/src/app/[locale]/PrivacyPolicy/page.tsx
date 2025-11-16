@@ -16,7 +16,9 @@ export default async function PrivacyPolicyPage({ params }: PrivacyPolicyPagePro
         <div className="bg-primary">
             <Navigation />
 
-            <PrivacyPolicyClient />
+            <div className="animate-fade-in" style={{ opacity: 0, animationDelay: "150ms" }}>
+                <PrivacyPolicyClient />
+            </div>
 
             {/* Background Decorative Elements */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">

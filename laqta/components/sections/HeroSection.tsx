@@ -55,23 +55,25 @@ export const HeroSection: React.FC = () => {
             {/* Content Layer */}
             <div className="relative z-40 w-full">
                 <Navigation />
-                <div className={"pt-4 flex justify-center"}>
+                <div className={"pt-4 flex justify-center animate-fade-in"} style={{ opacity: 0 }}>
                     <Logo className={"md:hidden"} />
                 </div>
                 <img
                     src="/images/wherecreativitymeetsstrategy.svg"
                     alt={t("title")}
-                    className={"w-full pt-2 px-2 lg:px-44"}
+                    className={"w-full pt-2 px-2 lg:px-44 animate-slide-up"}
+                    style={{ opacity: 0, animationDelay: "150ms" }}
                 />
                 <p
                     className="text-responsive-lg font-medium text-secondary-gray padding-responsive-lg
                 text-justify
-                 sm:text-center md:px-12 md:text-justify lg:text-center xl:px-40"
+                 sm:text-center md:px-12 md:text-justify lg:text-center xl:px-40 animate-fade-in"
+                    style={{ opacity: 0, animationDelay: "300ms" }}
                 >
                     {t("description")}
                 </p>
                 <div className={"h-8 md:h-[56px]"}></div>
-                <div className="flex w-full flex-col items-center justify-center gap-4 md:w-auto md:flex-row">
+                <div className="flex w-full flex-col items-center justify-center gap-4 md:w-auto md:flex-row animate-fade-in" style={{ opacity: 0, animationDelay: "450ms" }}>
                     <div className={"h-12 w-full md:h-16 md:w-auto"}>
                         <Link href="/services">
                             <Button

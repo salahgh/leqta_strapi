@@ -39,7 +39,7 @@ deployment:
 
     # Install dependencies in destination
     - echo "Installing dependencies in deployment directory..."
-    - npm install
+    - npm ci --production --no-audit --no-fund
 
     # Build Strapi in destination
     - echo "Building Strapi admin panel..."

@@ -98,14 +98,13 @@ jobs:
       - name: Deploy to FTP with Explicit TLS
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
+          server: ${{ secrets.CPANEL_FTP_SERVER }}
+          username: ${{ secrets.CPANEL_FTP_USERNAME }}
+          password: ${{ secrets.CPANEL_FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT || 21 }}
           protocol: ftps
           security: loose
           local-dir: ./my-blog-cms/
-          server-dir: ${{ secrets.FTP_SERVER_DIR }}
           exclude: |
             **/.git*
             **/.git*/**

@@ -68,3 +68,60 @@ jobs:
           name: strapi-build-info-${{ github.sha }}
           path: my-blog-cms/build-info.txt
           retention-days: 30
+
+  deploy:
+    name: Deploy to FTP
+    needs: build
+    runs-on: ubuntu-latest
+    # Only deploy on pushes to main branch (not on PRs)
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+          cache-dependency-path: 'my-blog-cms/package-lock.json'
+
+      - name: Install dependencies
+        working-directory: ./my-blog-cms
+        run: npm ci
+
+      - name: Build Strapi application
+        working-directory: ./my-blog-cms
+        run: npm run build
+
+      - name: Deploy to FTP with Explicit TLS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: ${{ secrets.FTP_PORT || 21 }}
+          protocol: ftps
+          security: loose
+          local-dir: ./my-blog-cms/
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.env
+            **/.cache/**
+            **/.tmp/**
+            **/coverage/**
+            **/*.log
+            **/.DS_Store
+          timeout: 600000
+          log-level: verbose
+
+      - name: Deployment complete
+        run: |
+          echo "✅ Strapi CMS deployed successfully to FTP server"
+          echo "🚀 Server: ${{ secrets.FTP_SERVER }}"
+          echo "📁 Directory: ${{ secrets.FTP_SERVER_DIR }}"
+          echo "⏰ Deployed at: $(date)"

@@ -90,16 +90,6 @@ const EyeIcon = ({ className = "w-3 h-3" }: { className?: string }) => (
     </svg>
 );
 
-const GalleryIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
-    <svg className={className} fill="currentColor" viewBox="0 0 20 20">
-        <path
-            fillRule="evenodd"
-            d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-            clipRule="evenodd"
-        />
-    </svg>
-);
-
 const ArrowRightIcon = ({ className = "w-3 h-3" }: { className?: string }) => (
     <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
@@ -118,11 +108,11 @@ const FeaturedBlogCard: React.FC<{ blog: Blog; blogUrl: string; locale?: string 
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-purple-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
 
         {/* Featured Image */}
-        {blog.featured_image && (
+        {blog.header_image && (
             <div className="relative h-72 md:h-80 w-full overflow-hidden">
                 <Image
-                    src={utils.getFileUrl(blog.featured_image.url)}
-                    alt={blog.featured_image.alternativeText || blog.title}
+                    src={utils.getFileUrl(blog.header_image.url)}
+                    alt={blog.header_image.alternativeText || blog.title}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                     priority
@@ -151,18 +141,6 @@ const FeaturedBlogCard: React.FC<{ blog: Blog; blogUrl: string; locale?: string 
                         </Badge>
                     </div>
                 )}
-                
-                {/* Gallery Indicator */}
-                {blog.gallery && blog.gallery.length > 0 && (
-                    <div className="absolute bottom-4 right-4 z-20">
-                        <div className="flex items-center space-x-1 px-3 py-1 bg-black/50 backdrop-blur-sm rounded-full border border-white/20">
-                            <GalleryIcon className="text-white" />
-                            <span className="text-body-xs font-semibold text-white">
-                                +{blog.gallery.length}
-                            </span>
-                        </div>
-                    </div>
-                )}
             </div>
         )}
 
@@ -189,6 +167,7 @@ const FeaturedBlogCard: React.FC<{ blog: Blog; blogUrl: string; locale?: string 
             <h3 className="text-display-sm md:text-display-md lg:text-display-lg font-bold text-gray-900 mb-4 leading-tight group-hover:text-blue-600 transition-colors duration-300">
                 <Link
                     href={blogUrl}
+                    locale={locale as any}
                     className="hover:underline decoration-2 underline-offset-4"
                 >
                     {blog.title}
@@ -225,6 +204,7 @@ const FeaturedBlogCard: React.FC<{ blog: Blog; blogUrl: string; locale?: string 
 
                 <Link
                     href={blogUrl}
+                    locale={locale as any}
                     className="group/btn bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 flex items-center space-x-2"
                 >
                     <span>Read Article</span>
@@ -237,14 +217,14 @@ const FeaturedBlogCard: React.FC<{ blog: Blog; blogUrl: string; locale?: string 
 
 // Grid Blog Card Component (for blog list page)
 const GridBlogCard: React.FC<{ blog: Blog; blogUrl: string; locale?: string }> = ({ blog, blogUrl, locale = "en" }) => (
-    <Link href={blogUrl} className="block group">
+    <Link href={blogUrl} locale={locale as any} className="block group">
         <article className="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden h-full flex flex-col hover:-translate-y-1 border border-gray-100 hover:border-blue-200">
             {/* Featured Image */}
-            {blog.featured_image && (
+            {blog.header_image && (
                 <div className="relative h-56 md:h-60 w-full overflow-hidden">
                     <Image
-                        src={utils.getFileUrl(blog.featured_image.url)}
-                        alt={blog.featured_image.alternativeText || blog.title}
+                        src={utils.getFileUrl(blog.header_image.url)}
+                        alt={blog.header_image.alternativeText || blog.title}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -307,79 +287,85 @@ const GridBlogCard: React.FC<{ blog: Blog; blogUrl: string; locale?: string }> =
 
 // Grid Blog Card with Logo Background
 const GridBlogCardWithLogo: React.FC<{ blog: Blog; blogUrl: string; locale?: string }> = ({ blog, blogUrl, locale = "en" }) => (
-    <Link href={blogUrl} className="block group">
+    <Link href={blogUrl} locale={locale as any} className="block group">
         <article className="relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden h-full flex flex-col hover:-translate-y-1 border border-gray-100 hover:border-blue-200">
-            {/* LAQTA Logo Background */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-0 group-hover:opacity-[0.05] transition-opacity duration-500">
-                <Image
-                    src="/images/logo.svg"
-                    alt="LAQTA"
-                    fill
-                    className="object-contain p-8"
-                />
-            </div>
+            {/* Content with Padding */}
+            <div className="p-4 flex flex-col h-full">
+                {/* Featured Image with relative positioning for logo */}
+                <div className="relative mb-4">
+                    {blog.header_image && (
+                        <div className="relative h-56 md:h-64 w-full overflow-hidden rounded-2xl">
+                            <Image
+                                src={utils.getFileUrl(blog.header_image.url)}
+                                alt={blog.header_image.alternativeText || blog.title}
+                                fill
+                                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                loading="lazy"
+                            />
 
-            {/* Featured Image */}
-            {blog.featured_image && (
-                <div className="relative h-56 md:h-60 w-full overflow-hidden z-10">
-                    <Image
-                        src={utils.getFileUrl(blog.featured_image.url)}
-                        alt={blog.featured_image.alternativeText || blog.title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        loading="lazy"
-                    />
-
-                    {/* Category Badge */}
-                    {blog.category && (
-                        <div className="absolute top-4 left-4 z-20">
-                            <span
-                                className="px-3 py-1.5 text-xs font-semibold text-white rounded-full"
-                                style={{ backgroundColor: blog.category.color || "#7C3AED" }}
-                            >
-                                {blog.category.name}
-                            </span>
+                            {/* Category Badge */}
+                            {blog.category && (
+                                <div className="absolute top-4 left-4 z-20">
+                                    <span
+                                        className="px-3 py-1.5 text-xs font-semibold text-white rounded-full"
+                                        style={{ backgroundColor: blog.category.color || "#7C3AED" }}
+                                    >
+                                        {blog.category.name}
+                                    </span>
+                                </div>
+                            )}
                         </div>
                     )}
-                </div>
-            )}
 
-            {/* Content */}
-            <div className="relative z-10 p-6 flex flex-col flex-grow">
+                    {/* LAQTA Logo Overlay - positioned under image */}
+                    <div className="absolute -bottom-2 right-4 opacity-10 pointer-events-none z-0">
+                        <Image
+                            src="/images/logo.svg"
+                            alt="LAQTA"
+                            width={80}
+                            height={80}
+                            className="object-contain"
+                        />
+                    </div>
+                </div>
+
+                {/* Time and Read Duration - smaller and grayer */}
+                <div className="flex items-center text-xs text-gray-400 mb-3">
+                    <ClockIcon className="w-3 h-3 mr-1" />
+                    <span>{blog.read_time} min read</span>
+                    <span className="mx-2">•</span>
+                    <CalendarIcon className="w-3 h-3 mr-1" />
+                    <span>{formatDate(blog.publishedAt, locale)}</span>
+                </div>
+
                 {/* Title */}
                 <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight line-clamp-2 group-hover:text-blue-600 transition-colors">
                     {blog.title}
                 </h3>
 
                 {/* Excerpt */}
-                <p className="text-gray-600 text-sm mb-5 leading-relaxed line-clamp-2 flex-grow">
+                <p className="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-2 flex-grow">
                     {blog.excerpt}
                 </p>
 
-                {/* Author & Meta */}
-                <div className="flex items-center text-sm text-gray-500">
-                    {blog.author?.avatar && (
-                        <Image
-                            src={utils.getFileUrl(blog.author.avatar.url)}
-                            alt={blog.author.name || "Author"}
-                            width={32}
-                            height={32}
-                            className="rounded-full mr-3"
-                        />
-                    )}
-                    <span className="font-medium text-gray-700 mr-2">
-                        {blog.author?.name || "Anonymous"}
-                    </span>
-                    <span className="mx-1">•</span>
-                    <span>{formatDate(blog.publishedAt, locale)}</span>
-                    {blog.read_time && (
-                        <>
-                            <span className="mx-1">•</span>
-                            <span>{blog.read_time} min read</span>
-                        </>
-                    )}
-                </div>
+                {/* Author */}
+                {blog.author && (
+                    <div className="flex items-center text-sm text-gray-500 mt-auto pt-4 border-t border-gray-100">
+                        {blog.author.avatar && (
+                            <Image
+                                src={utils.getFileUrl(blog.author.avatar.url)}
+                                alt={blog.author.name || "Author"}
+                                width={28}
+                                height={28}
+                                className="rounded-full mr-2"
+                            />
+                        )}
+                        <span className="font-medium text-gray-700">
+                            {blog.author.name || "Anonymous"}
+                        </span>
+                    </div>
+                )}
             </div>
         </article>
     </Link>
@@ -392,14 +378,14 @@ const DefaultBlogCard: React.FC<{ blog: Blog; blogUrl: string; locale?: string }
 
 // Horizontal Blog Card Component (for "You Might Also Like" section)
 const HorizontalBlogCard: React.FC<{ blog: Blog; blogUrl: string; locale?: string }> = ({ blog, blogUrl, locale = "en" }) => (
-    <Link href={blogUrl} className="block group">
+    <Link href={blogUrl} locale={locale as any} className="block group">
         <article className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden flex h-full hover:-translate-y-0.5 border border-gray-100 hover:border-blue-200">
             {/* Featured Image */}
-            {blog.featured_image && (
+            {blog.header_image && (
                 <div className="relative w-40 md:w-48 flex-shrink-0 overflow-hidden">
                     <Image
-                        src={utils.getFileUrl(blog.featured_image.url)}
-                        alt={blog.featured_image.alternativeText || blog.title}
+                        src={utils.getFileUrl(blog.header_image.url)}
+                        alt={blog.header_image.alternativeText || blog.title}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                         sizes="(max-width: 768px) 160px, 192px"

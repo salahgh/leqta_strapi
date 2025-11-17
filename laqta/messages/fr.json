@@ -238,8 +238,9 @@
     "viewAll": "Voir Tout"
   },
   "blog": {
-    "title": "Insights et Histoires",
-    "description": "Découvrez comment la narration transforme les marques et se connecte avec les audiences à un niveau plus profond",
+    "badge": "Insights et Histoires",
+    "title": "Le Blog LAQTA",
+    "description": "Des stratégies technologiques basées sur les données qui stimulent l'engagement et l'impact de la marque. Explorez les perspectives des histoires de talents de nos studios en Algérie. Découvrez l'impact réel.",
     "featuredStories": "Histoires en Vedette",
     "latestArticles": "Derniers Articles",
     "allArticles": "Tous les Articles",

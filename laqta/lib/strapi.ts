@@ -624,14 +624,6 @@ export interface Blog {
         name: string;
         slug: string;
     }>;
-    featured_image?: {
-        id: number;
-        documentId: string;
-        url: string;
-        alternativeText?: string;
-        width?: number;
-        height?: number;
-    };
     header_image?: {
         id: number;
         documentId: string;
@@ -648,26 +640,6 @@ export interface Blog {
         width?: number;
         height?: number;
     };
-    // New fields from updated API
-    featured_image_overlay?: {
-        id: number;
-        documentId: string;
-        url: string;
-        alternativeText?: string;
-        width?: number;
-        height?: number;
-    };
-    gallery?: Array<{
-        id: number;
-        documentId: string;
-        name: string;
-        alternativeText?: string;
-        caption?: string;
-        width: number;
-        height: number;
-        url: string;
-        previewUrl?: string;
-    }>;
 }
 
 // Category interface
@@ -738,12 +710,11 @@ export const blogsApi = {
         }
 
         // Always populate relations
-        params.set('populate[0]', 'featured_image');
-        params.set('populate[1]', 'featured_image_overlay');
-        params.set('populate[2]', 'gallery');
-        params.set('populate[3]', 'category');
-        params.set('populate[4]', 'author.avatar');
-        params.set('populate[5]', 'tags');
+        params.set('populate[0]', 'header_image');
+        params.set('populate[1]', 'content_image');
+        params.set('populate[2]', 'category');
+        params.set('populate[3]', 'author.avatar');
+        params.set('populate[4]', 'tags');
 
         return fetchApi<ApiResponse<Blog[]>>(
             `/blogs?${params.toString()}`,
@@ -760,14 +731,11 @@ export const blogsApi = {
         searchParams.set("filters[category][slug][$eq]", categorySlug);
 
         // Explicitly populate all relations for Strapi v5
-        searchParams.set('populate[0]', 'featured_image');
-        searchParams.set('populate[1]', 'featured_image_overlay');
-        searchParams.set('populate[2]', 'gallery');
-        searchParams.set('populate[3]', 'header_image');
-        searchParams.set('populate[4]', 'content_image');
-        searchParams.set('populate[5]', 'category');
-        searchParams.set('populate[6]', 'author.avatar');
-        searchParams.set('populate[7]', 'tags');
+        searchParams.set('populate[0]', 'header_image');
+        searchParams.set('populate[1]', 'content_image');
+        searchParams.set('populate[2]', 'category');
+        searchParams.set('populate[3]', 'author.avatar');
+        searchParams.set('populate[4]', 'tags');
 
         if (params?.page)
             searchParams.set("pagination[page]", params.page.toString());
@@ -794,14 +762,11 @@ export const blogsApi = {
         searchParams.set("filters[featured][$eq]", "true");
 
         // Explicitly populate all relations for Strapi v5
-        searchParams.set('populate[0]', 'featured_image');
-        searchParams.set('populate[1]', 'featured_image_overlay');
-        searchParams.set('populate[2]', 'gallery');
-        searchParams.set('populate[3]', 'header_image');
-        searchParams.set('populate[4]', 'content_image');
-        searchParams.set('populate[5]', 'category');
-        searchParams.set('populate[6]', 'author.avatar');
-        searchParams.set('populate[7]', 'tags');
+        searchParams.set('populate[0]', 'header_image');
+        searchParams.set('populate[1]', 'content_image');
+        searchParams.set('populate[2]', 'category');
+        searchParams.set('populate[3]', 'author.avatar');
+        searchParams.set('populate[4]', 'tags');
 
         if (params?.page)
             searchParams.set("pagination[page]", params.page.toString());
@@ -839,14 +804,11 @@ export const blogsApi = {
             });
         } else {
             // Explicitly populate all relations for Strapi v5
-            searchParams.set('populate[0]', 'featured_image');
-            searchParams.set('populate[1]', 'featured_image_overlay');
-            searchParams.set('populate[2]', 'gallery');
-            searchParams.set('populate[3]', 'header_image');
-            searchParams.set('populate[4]', 'content_image');
-            searchParams.set('populate[5]', 'category');
-            searchParams.set('populate[6]', 'author.avatar');
-            searchParams.set('populate[7]', 'tags');
+            searchParams.set('populate[0]', 'header_image');
+            searchParams.set('populate[1]', 'content_image');
+            searchParams.set('populate[2]', 'category');
+            searchParams.set('populate[3]', 'author.avatar');
+            searchParams.set('populate[4]', 'tags');
         }
 
         if (params?.page)
@@ -900,14 +862,11 @@ export const blogsApi = {
         searchParams.set("filters[id][$ne]", blogId.toString());
 
         // Explicitly populate all relations for Strapi v5
-        searchParams.set('populate[0]', 'featured_image');
-        searchParams.set('populate[1]', 'featured_image_overlay');
-        searchParams.set('populate[2]', 'gallery');
-        searchParams.set('populate[3]', 'header_image');
-        searchParams.set('populate[4]', 'content_image');
-        searchParams.set('populate[5]', 'category');
-        searchParams.set('populate[6]', 'author.avatar');
-        searchParams.set('populate[7]', 'tags');
+        searchParams.set('populate[0]', 'header_image');
+        searchParams.set('populate[1]', 'content_image');
+        searchParams.set('populate[2]', 'category');
+        searchParams.set('populate[3]', 'author.avatar');
+        searchParams.set('populate[4]', 'tags');
 
         searchParams.set("pagination[pageSize]", limit.toString());
         searchParams.set("sort", "publishedAt:desc");

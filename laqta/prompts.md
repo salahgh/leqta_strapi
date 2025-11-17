@@ -1,10 +1,11 @@
-- the blog page intenatinalization not working properly 
-  when i change the language sometimes it adds ar/fr/ two 
-  local to the URL 
-- how does strapi handles slugs with internationalization
-  because it is not working properly for blog articles
-- the navigation bar is transpent not apearing good on white 
-  backgrounds when scrolling
-- there is some flickerig on about us page and services page
-- remove the back button on the services page
-- translate the services page fro both french and arabic
+- fro the blog card create a padding around the image and text
+  the laqta logo overlay under the image and apears under text
+- the time and minutes read shoulld be under the image smaller and grayer
+- the blog page should be entirely trasnlated
+- the logo overly in the page background
+- the blog cards should have smaller spacing and equal sizes with vertical aspect ratio
+- in the article page 
+  the title should occupy 2/3 of the width rapped vertically
+- a small description under the main title 
+- the laqta logo overlay in the background of the article page
+- the cotent image placed inside the blog at arbitratry location

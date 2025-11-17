@@ -38,12 +38,17 @@ export const seedBlogs = async (strapi, blogsData) => {
             console.log(`Created English Blog: "${blogData.base.title}" (ID: ${enBlog.id})`);
 
             for (const [localeCode, translation] of Object.entries(blogData.translations)) {
-                // Extract only localized fields (slug is now localized and will be auto-generated from title)
+                // Extract only localized fields but keep non-localized fields from base
                 const translationData: any = translation;
-                const { featured_image, header_image, content_image, ...translatedFields } = translationData;
+                const { header_image, content_image, ...translatedFields } = translationData;
 
                 const blogTranslationData = {
                     ...translatedFields,
+                    // Use the English slug for all translations
+                    slug: blogData.base.slug,
+                    // Keep non-localized fields from the base blog
+                    header_image: blogData.base.header_image,
+                    content_image: blogData.base.content_image,
                     // Keep relations from the base blog
                     author: blogWithRelations.author,
                     category: blogWithRelations.category,

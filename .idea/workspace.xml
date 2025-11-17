@@ -5,33 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6536883-3166-43b8-b391-1fd30ff56c73" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.claude/settings.local.json" beforeDir="false" afterPath="$PROJECT_DIR$/.claude/settings.local.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/deploy-strapi.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy-strapi.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/email.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FIX_BLOG_NAVIGATION.md" beforeDir="false" afterPath="$PROJECT_DIR$/FIX_BLOG_NAVIGATION.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laqta/components/layout/Navigation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/laqta/components/layout/Navigation.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laqta/components/sections/ContactUs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/laqta/components/sections/ContactUs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laqta/components/sections/HeroSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/laqta/components/sections/HeroSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laqta/components/sections/OurWorksSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/laqta/components/sections/OurWorksSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laqta/components/sections/ServicesSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/laqta/components/sections/ServicesSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laqta/components/sections/YourPerfectPartner.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/laqta/components/sections/YourPerfectPartner.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laqta/components/sections/aboutLaqta.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/laqta/components/sections/aboutLaqta.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laqta/src/app/[locale]/PartenerShipForm/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/laqta/src/app/[locale]/PartenerShipForm/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laqta/src/app/[locale]/PrivacyPolicy/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/laqta/src/app/[locale]/PrivacyPolicy/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laqta/src/app/[locale]/about/MissionVisionCardsClient.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/laqta/src/app/[locale]/about/MissionVisionCardsClient.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laqta/src/app/[locale]/about/competitiveEdge.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/laqta/src/app/[locale]/about/competitiveEdge.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laqta/src/app/[locale]/about/heroSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/laqta/src/app/[locale]/about/heroSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laqta/src/app/[locale]/blog/articles/[slug]/BlogArticle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/laqta/src/app/[locale]/blog/articles/[slug]/BlogArticle.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laqta/src/app/[locale]/blog/articles/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/laqta/src/app/[locale]/blog/articles/[slug]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laqta/src/app/[locale]/brands/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/laqta/src/app/[locale]/brands/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laqta/src/app/[locale]/partners/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/laqta/src/app/[locale]/partners/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laqta/src/app/[locale]/services/header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/laqta/src/app/[locale]/services/header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laqta/src/app/[locale]/services/navigation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/laqta/src/app/[locale]/services/navigation.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laqta/src/app/[locale]/services/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/laqta/src/app/[locale]/services/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laqta/src/app/[locale]/services/planCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/laqta/src/app/[locale]/services/planCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my-blog-cms/MIGRATION_INSTRUCTIONS.md" beforeDir="false" afterPath="$PROJECT_DIR$/my-blog-cms/MIGRATION_INSTRUCTIONS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my-blog-cms/src/seeds/data/blogs.ts" beforeDir="false" afterPath="$PROJECT_DIR$/my-blog-cms/src/seeds/data/blogs.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my-blog-cms/types/generated/contentTypes.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/my-blog-cms/types/generated/contentTypes.d.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,30 +27,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "ignore_missing_gitignore": "true",
-    "last_opened_file_path": "C:/Users/user/Documents/GitHub/leqta_strapi",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore_missing_gitignore&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Documents/GitHub/leqta_strapi&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="2f9a2147-b851-4367-9942-e3fc004fced4" name="Changes" comment="" />
+      <changelist id="a6536883-3166-43b8-b391-1fd30ff56c73" name="Changes" comment="" />
       <created>1762789981050</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1762789981050</updated>
       <workItem from="1762789982080" duration="314000" />
+      <workItem from="1763362431988" duration="23000" />
     </task>
     <servers />
   </component>

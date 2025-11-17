@@ -6,7 +6,11 @@ import { BlogArticle } from "./BlogArticle";
 
 import { Blog, blogsApi, utils } from "@/lib/strapi";
 import { getTranslations } from "next-intl/server";
-import { generateSEOMetadata, generateArticleStructuredData, StructuredData } from "@/components/ui/SEO";
+import {
+    generateSEOMetadata,
+    generateArticleStructuredData,
+    StructuredData,
+} from "@/components/ui/SEO";
 
 // Add static generation with revalidation
 export const revalidate = 3600; // 1 hour
@@ -26,13 +30,16 @@ export async function generateStaticParams() {
             const response = await blogsApi.getAll({
                 pageSize: 100,
                 locale,
-                fields: ['id', 'slug', 'title'] // Only fetch necessary fields
+                fields: ["id", "slug", "title"], // Only fetch necessary fields
             });
             const blogs = response.data || [];
 
             for (const blog of blogs) {
                 // Ensure slug is a string
-                const slugValue = typeof blog.slug === 'string' ? blog.slug : String(blog.slug || '');
+                const slugValue =
+                    typeof blog.slug === "string"
+                        ? blog.slug
+                        : String(blog.slug || "");
 
                 if (slugValue) {
                     params.push({
@@ -43,7 +50,7 @@ export async function generateStaticParams() {
             }
         }
 
-        console.log('Generated static params for blogs:', params.length);
+        console.log("Generated static params for blogs:", params.length);
         return params;
     } catch (error) {
         console.error("Error generating static params:", error);
@@ -77,7 +84,7 @@ export async function generateMetadata({ params }: BlogPageProps) {
         };
     }
 
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://laqta.com';
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://laqta.com";
     const canonical = `${siteUrl}/${locale}/blog/articles/${slug}`;
     const ogImage = blog.featured_image?.url
         ? utils.getFileUrl(blog.featured_image.url)
@@ -88,12 +95,12 @@ export async function generateMetadata({ params }: BlogPageProps) {
         description: blog.meta_description || blog.excerpt || blog.description,
         canonical,
         ogImage,
-        ogType: 'article',
+        ogType: "article",
         article: {
             publishedTime: blog.publishedAt,
             modifiedTime: blog.updatedAt,
             author: blog.author?.name,
-            tags: blog.tags?.map(tag => tag.name),
+            tags: blog.tags?.map((tag) => tag.name),
         },
     });
 }
@@ -118,7 +125,7 @@ const BlogArticlePage = async ({ params }: BlogPageProps) => {
     }
 
     // Generate structured data for SEO
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://laqta.com';
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://laqta.com";
     const articleUrl = `${siteUrl}/${locale}/blog/articles/${slug}`;
     const articleImage = blog.featured_image?.url
         ? utils.getFileUrl(blog.featured_image.url)
@@ -129,17 +136,26 @@ const BlogArticlePage = async ({ params }: BlogPageProps) => {
         description: blog.excerpt || blog.description,
         publishedTime: blog.publishedAt,
         modifiedTime: blog.updatedAt,
-        author: blog.author?.name || 'Laqta Team',
+        author: blog.author?.name || "Laqta Team",
         image: articleImage,
         url: articleUrl,
     });
 
     return (
-        <div className="bg-white min-h-screen">
-            <StructuredData data={structuredData} />
-            <Navigation />
-            <div className="animate-fade-in" style={{ opacity: 0, animationDelay: "150ms" }}>
-                <BlogArticle blog={blog} relatedBlogs={relatedBlogs} locale={locale} />
+        <div className="min-h-screen bg-primary">
+            {/*<StructuredData data={structuredData} />*/}
+            <div className={"absolute"}>
+                <Navigation />
+            </div>
+            <div
+                className="animate-fade-in"
+                style={{ opacity: 0, animationDelay: "150ms" }}
+            >
+                <BlogArticle
+                    blog={blog}
+                    relatedBlogs={relatedBlogs}
+                    locale={locale}
+                />
             </div>
             <Footer locale={locale} />
         </div>

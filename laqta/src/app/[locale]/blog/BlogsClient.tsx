@@ -116,7 +116,7 @@ export const BlogsClient: React.FC<BlogsClientProps> = ({
                                 {blogs.map((blog) => {
                                     console.log("blog", blog);
                                     return (
-                                        <BlogCard key={blog.id} blog={blog} />
+                                        <BlogCard key={blog.id} blog={blog} locale={locale} />
                                     );
                                 })}
                             </div>

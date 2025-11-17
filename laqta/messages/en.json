@@ -238,8 +238,9 @@
     "viewAll": "View All"
   },
   "blog": {
-    "title": "Insights & Stories",
-    "description": "Discover how storytelling transforms brands and connects with audiences on a deeper level",
+    "badge": "Insights & Stories",
+    "title": "The LAQTA Blog",
+    "description": "Data-led technology strategies that boost brand engagement and impact. Explore insights in talent stories from our studios in Algeria. Explore real-world impact.",
     "featuredStories": "Featured Stories",
     "latestArticles": "Latest Articles",
     "allArticles": "All Articles",

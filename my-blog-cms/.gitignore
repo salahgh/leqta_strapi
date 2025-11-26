@@ -14,6 +14,9 @@ yarn-error.log*
 .env.production
 .env.*.local
 
+# Keep .env.server for deployment (contains production template)
+!.env.server
+
 # Strapi cache
 .cache
 .tmp

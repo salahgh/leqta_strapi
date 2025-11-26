@@ -1,3 +1,6 @@
 /node_modules/
 /.next/
 /.env.local
+
+# Keep .env.server for deployment (contains production template)
+# This file CAN be committed to git

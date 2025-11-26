@@ -48,7 +48,7 @@ export const runSeeds = async (strapi: any) => {
         await seedMissions(strapi, missionsData);
 
         // Seed Social Medias
-        await seedSocialMedias(strapi);
+        // await seedSocialMedias(strapi);
 
         // Seed Blogs (requires authors, categories, and tags)
         await seedBlogs(strapi, blogsData);

@@ -1,11 +1,19 @@
-- fro the blog card create a padding around the image and text
-  the laqta logo overlay under the image and apears under text
-- the time and minutes read shoulld be under the image smaller and grayer
-- the blog page should be entirely trasnlated
-- the logo overly in the page background
-- the blog cards should have smaller spacing and equal sizes with vertical aspect ratio
-- in the article page 
-  the title should occupy 2/3 of the width rapped vertically
-- a small description under the main title 
-- the laqta logo overlay in the background of the article page
-- the cotent image placed inside the blog at arbitratry location
+whrite a comprehensive pv for the work that have been done on the vps
+- configuring required ports for diffrent applications to run on 
+both the hestiaCP firewall and ecosnet firewall 
+- create simple table for port namber , reason , and used by
+rdp , ssh , http , https , 443 , 8080 , 3389 , 8083 , 21 , 12000 , 12100 , 20 , 3306 , 143.993 , 110,995 , 25,465 , 857 , 80 , 443 , 1337 , 3000
+- installation of light-weight desktop environment on the vps (XFCE)
+  (can be accessed throw windows remote desktop)
+- configuring ftp server (vsftpd) with two 3 users 
+one for chohrati (read-write)
+one for laqta (read-only)
+one for laqta-strapi (read-write)
+see ftp config for details
+- configurring maria db with root password and creating a new user for laqta-strapi
+with read-write access to the laqta_strapi database
+- configuring the environment variables for laqta-strapi
+  (STRAPI_URL, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME)
+- configuring hestiaCP mail server 
+- deploying strapi cms
+- deploying laqta

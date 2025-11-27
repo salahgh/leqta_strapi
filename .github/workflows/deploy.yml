@@ -1,0 +1,153 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  STRAPI_PATH: /var/www/laqta-project/my-blog-cms
+  LAQTA_PATH: /var/www/laqta-project/laqta
+
+jobs:
+  deploy-strapi:
+    name: Deploy Strapi
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+          cache-dependency-path: 'my-blog-cms/package-lock.json'
+
+      - name: Install & Build
+        working-directory: ./my-blog-cms
+        run: |
+          npm ci
+          npm run build
+
+      - name: Package
+        run: |
+          mkdir -p pkg
+          cp -r my-blog-cms/build pkg/ 2>/dev/null || true
+          cp -r my-blog-cms/dist pkg/ 2>/dev/null || true
+          cp -r my-blog-cms/config my-blog-cms/public my-blog-cms/src pkg/
+          cp my-blog-cms/package.json my-blog-cms/package-lock.json pkg/
+          cp my-blog-cms/tsconfig.json pkg/ 2>/dev/null || true
+          tar -czf strapi.tar.gz -C pkg .
+
+      - name: Deploy
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VPS_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H -p ${{ secrets.VPS_SSH_PORT || 22 }} ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+          scp -P ${{ secrets.VPS_SSH_PORT || 22 }} strapi.tar.gz ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }}:/tmp/
+
+          ssh -p ${{ secrets.VPS_SSH_PORT || 22 }} ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }} << 'EOF'
+          set -e
+          DEPLOY_PATH="${{ env.STRAPI_PATH }}"
+
+          [ -f "$DEPLOY_PATH/.env" ] && cp "$DEPLOY_PATH/.env" /tmp/.env.bak
+
+          mkdir -p "$DEPLOY_PATH"
+          cd "$DEPLOY_PATH"
+          find . -mindepth 1 -maxdepth 1 ! -name 'node_modules' ! -name '.env' -exec rm -rf {} +
+          tar -xzf /tmp/strapi.tar.gz
+
+          [ -f /tmp/.env.bak ] && mv /tmp/.env.bak .env
+
+          npm ci --only=production
+
+          if pm2 describe strapi > /dev/null 2>&1; then
+            pm2 restart strapi
+          else
+            pm2 start npm --name "strapi" -- run start
+          fi
+          pm2 save
+          rm /tmp/strapi.tar.gz
+          EOF
+
+  deploy-laqta:
+    name: Deploy Next.js
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+          cache-dependency-path: 'laqta/package-lock.json'
+
+      - name: Install & Build
+        working-directory: ./laqta
+        run: |
+          npm ci
+          npm run build
+        env:
+          NEXT_PUBLIC_STRAPI_URL_2: ${{ secrets.NEXT_PUBLIC_STRAPI_URL_2 }}
+
+      - name: Package
+        run: |
+          mkdir -p pkg
+          if [ -d "laqta/.next/standalone" ]; then
+            cp -r laqta/.next/standalone/* pkg/
+            mkdir -p pkg/.next/static pkg/public
+            cp -r laqta/.next/static/* pkg/.next/static/
+            cp -r laqta/public/* pkg/public/ 2>/dev/null || true
+          else
+            cp -r laqta/.next laqta/public pkg/ 2>/dev/null || true
+            cp laqta/package.json laqta/package-lock.json pkg/
+          fi
+          tar -czf laqta.tar.gz -C pkg .
+
+      - name: Deploy
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VPS_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H -p ${{ secrets.VPS_SSH_PORT || 22 }} ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+          scp -P ${{ secrets.VPS_SSH_PORT || 22 }} laqta.tar.gz ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }}:/tmp/
+
+          ssh -p ${{ secrets.VPS_SSH_PORT || 22 }} ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }} << 'EOF'
+          set -e
+          DEPLOY_PATH="${{ env.LAQTA_PATH }}"
+
+          [ -f "$DEPLOY_PATH/.env.local" ] && cp "$DEPLOY_PATH/.env.local" /tmp/.env.local.bak
+
+          mkdir -p "$DEPLOY_PATH"
+          cd "$DEPLOY_PATH"
+          find . -mindepth 1 -maxdepth 1 ! -name 'node_modules' ! -name '.env.local' -exec rm -rf {} +
+          tar -xzf /tmp/laqta.tar.gz
+
+          [ -f /tmp/.env.local.bak ] && mv /tmp/.env.local.bak .env.local
+
+          if [ -f "server.js" ]; then
+            if pm2 describe laqta > /dev/null 2>&1; then
+              pm2 restart laqta
+            else
+              pm2 start server.js --name "laqta"
+            fi
+          else
+            npm ci --only=production
+            if pm2 describe laqta > /dev/null 2>&1; then
+              pm2 restart laqta
+            else
+              pm2 start npm --name "laqta" -- run start
+            fi
+          fi
+          pm2 save
+          rm /tmp/laqta.tar.gz
+          EOF

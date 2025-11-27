@@ -4,7 +4,9 @@
       "Bash(taskkill:*)",
       "Bash(powershell -Command \"Invoke-RestMethod -Uri ''http://localhost:1337/api/blogs?locale=en&populate[0]=featured_image&populate[1]=category&populate[2]=author'' | ConvertTo-Json -Depth 3\")",
       "Bash(npm run build)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "WebFetch(domain:forum.hestiacp.com)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []

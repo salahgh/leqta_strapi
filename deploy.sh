@@ -22,7 +22,15 @@ STRAPI_DIR="$PROJECT_ROOT/my-blog-cms"
 LAQTA_DIR="$PROJECT_ROOT/laqta"
 BACKUP_DIR="$PROJECT_ROOT/.env-backups"
 LOG_FILE="/var/log/laqta-deploy.log"
+ECOSYSTEM_FILE="$PROJECT_ROOT/ecosystem.production.js"
 BRANCH="main"
+
+# ==========================================
+# Check if using ecosystem file
+# ==========================================
+using_ecosystem() {
+    [ -f "$ECOSYSTEM_FILE" ]
+}
 
 # ==========================================
 # Helper Functions
@@ -272,22 +280,30 @@ check_and_deploy() {
         log "→ Next.js (laqta) changes detected"
     fi
 
-    # Backup .env files before pull
-    log "→ Backing up .env files..."
-    mkdir -p "$BACKUP_DIR/pre-deploy"
-    [ -f "$STRAPI_DIR/.env" ] && cp "$STRAPI_DIR/.env" "$BACKUP_DIR/pre-deploy/strapi.env"
-    [ -f "$LAQTA_DIR/.env.local" ] && cp "$LAQTA_DIR/.env.local" "$BACKUP_DIR/pre-deploy/laqta.env.local"
+    # Backup .env files before pull (only if NOT using ecosystem file)
+    if using_ecosystem; then
+        log "→ Using ecosystem.production.js (not in git, no backup needed)"
+    else
+        log "→ Backing up .env files..."
+        mkdir -p "$BACKUP_DIR/pre-deploy"
+        [ -f "$STRAPI_DIR/.env" ] && cp "$STRAPI_DIR/.env" "$BACKUP_DIR/pre-deploy/strapi.env"
+        [ -f "$LAQTA_DIR/.env.local" ] && cp "$LAQTA_DIR/.env.local" "$BACKUP_DIR/pre-deploy/laqta.env.local"
+    fi
 
     # Pull the changes
     log "→ Pulling changes..."
     git pull origin $BRANCH
     log "✅ Git pull completed"
 
-    # Restore .env files after pull (in case they were overwritten)
-    log "→ Restoring .env files..."
-    [ -f "$BACKUP_DIR/pre-deploy/strapi.env" ] && cp "$BACKUP_DIR/pre-deploy/strapi.env" "$STRAPI_DIR/.env"
-    [ -f "$BACKUP_DIR/pre-deploy/laqta.env.local" ] && cp "$BACKUP_DIR/pre-deploy/laqta.env.local" "$LAQTA_DIR/.env.local"
-    log "✅ .env files restored"
+    # Restore .env files after pull (only if NOT using ecosystem file)
+    if using_ecosystem; then
+        log "✅ ecosystem.production.js unchanged (not tracked by git)"
+    else
+        log "→ Restoring .env files..."
+        [ -f "$BACKUP_DIR/pre-deploy/strapi.env" ] && cp "$BACKUP_DIR/pre-deploy/strapi.env" "$STRAPI_DIR/.env"
+        [ -f "$BACKUP_DIR/pre-deploy/laqta.env.local" ] && cp "$BACKUP_DIR/pre-deploy/laqta.env.local" "$LAQTA_DIR/.env.local"
+        log "✅ .env files restored"
+    fi
 
     # Deploy based on what changed
     if [ "$STRAPI_CHANGED" = true ] && [ "$LAQTA_CHANGED" = true ]; then
@@ -314,21 +330,21 @@ deploy_strapi() {
     cd "$STRAPI_DIR"
     log "→ Directory: $(pwd)"
 
-    # Backup .env before any changes
-    if [ -f ".env" ]; then
-        cp .env /tmp/.env.strapi.bak
-        log "✅ .env backed up"
-    fi
-
     # Pull if called directly (not from check_and_deploy)
     if [ "$1" = "pull" ] || [ -z "$ALREADY_PULLED" ]; then
+        # Backup .env before pull (only if NOT using ecosystem)
+        if ! using_ecosystem && [ -f ".env" ]; then
+            cp .env /tmp/.env.strapi.bak
+            log "✅ .env backed up"
+        fi
+
         log "→ Pulling latest changes..."
         git -C "$PROJECT_ROOT" fetch origin $BRANCH
         git -C "$PROJECT_ROOT" reset --hard origin/$BRANCH
         log "✅ Git pull completed"
 
-        # Restore .env after pull
-        if [ -f /tmp/.env.strapi.bak ]; then
+        # Restore .env after pull (only if NOT using ecosystem)
+        if ! using_ecosystem && [ -f /tmp/.env.strapi.bak ]; then
             cp /tmp/.env.strapi.bak .env
             log "✅ .env restored after pull"
         fi
@@ -352,8 +368,14 @@ deploy_strapi() {
     fi
 
     log "→ Starting strapi..."
-    pm2 start npm --name "strapi" -- run start
-    log "✅ Strapi started"
+    # Use ecosystem file if exists, otherwise use npm directly
+    if [ -f "$PROJECT_ROOT/ecosystem.production.js" ]; then
+        pm2 start "$PROJECT_ROOT/ecosystem.production.js" --only strapi
+        log "✅ Strapi started (using ecosystem.production.js)"
+    else
+        pm2 start npm --name "strapi" -- run start
+        log "✅ Strapi started (using npm)"
+    fi
 
     pm2 save
     log "✅ PM2 process list saved"
@@ -382,21 +404,21 @@ deploy_laqta() {
     cd "$LAQTA_DIR"
     log "→ Directory: $(pwd)"
 
-    # Backup .env.local before any changes
-    if [ -f ".env.local" ]; then
-        cp .env.local /tmp/.env.local.laqta.bak
-        log "✅ .env.local backed up"
-    fi
-
     # Pull if called directly (not from check_and_deploy)
     if [ "$1" = "pull" ] || [ -z "$ALREADY_PULLED" ]; then
+        # Backup .env.local before pull (only if NOT using ecosystem)
+        if ! using_ecosystem && [ -f ".env.local" ]; then
+            cp .env.local /tmp/.env.local.laqta.bak
+            log "✅ .env.local backed up"
+        fi
+
         log "→ Pulling latest changes..."
         git -C "$PROJECT_ROOT" fetch origin $BRANCH
         git -C "$PROJECT_ROOT" reset --hard origin/$BRANCH
         log "✅ Git pull completed"
 
-        # Restore .env.local after pull
-        if [ -f /tmp/.env.local.laqta.bak ]; then
+        # Restore .env.local after pull (only if NOT using ecosystem)
+        if ! using_ecosystem && [ -f /tmp/.env.local.laqta.bak ]; then
             cp /tmp/.env.local.laqta.bak .env.local
             log "✅ .env.local restored after pull"
         fi
@@ -420,8 +442,14 @@ deploy_laqta() {
     fi
 
     log "→ Starting laqta..."
-    pm2 start npm --name "laqta" -- run start
-    log "✅ Laqta started"
+    # Use ecosystem file if exists, otherwise use npm directly
+    if [ -f "$PROJECT_ROOT/ecosystem.production.js" ]; then
+        pm2 start "$PROJECT_ROOT/ecosystem.production.js" --only laqta
+        log "✅ Laqta started (using ecosystem.production.js)"
+    else
+        pm2 start npm --name "laqta" -- run start
+        log "✅ Laqta started (using npm)"
+    fi
 
     pm2 save
     log "✅ PM2 process list saved"
@@ -441,23 +469,32 @@ deploy_all() {
 
     cd "$PROJECT_ROOT"
 
-    # Backup .env files first
-    log "→ Backing up .env files..."
-    mkdir -p "$BACKUP_DIR/pre-deploy"
-    [ -f "$STRAPI_DIR/.env" ] && cp "$STRAPI_DIR/.env" "$BACKUP_DIR/pre-deploy/strapi.env"
-    [ -f "$LAQTA_DIR/.env.local" ] && cp "$LAQTA_DIR/.env.local" "$BACKUP_DIR/pre-deploy/laqta.env.local"
-    log "✅ .env files backed up"
+    # Show which config method is being used
+    if using_ecosystem; then
+        log "→ Using ecosystem.production.js for environment variables"
+        log "  (This file is not in git - your secrets are safe)"
+    else
+        log "→ Using .env files for environment variables"
+        # Backup .env files first
+        log "→ Backing up .env files..."
+        mkdir -p "$BACKUP_DIR/pre-deploy"
+        [ -f "$STRAPI_DIR/.env" ] && cp "$STRAPI_DIR/.env" "$BACKUP_DIR/pre-deploy/strapi.env"
+        [ -f "$LAQTA_DIR/.env.local" ] && cp "$LAQTA_DIR/.env.local" "$BACKUP_DIR/pre-deploy/laqta.env.local"
+        log "✅ .env files backed up"
+    fi
 
     log "→ Pulling latest changes from GitHub..."
     git fetch origin $BRANCH
     git reset --hard origin/$BRANCH
     log "✅ Git pull completed"
 
-    # Restore .env files after pull
-    log "→ Restoring .env files..."
-    [ -f "$BACKUP_DIR/pre-deploy/strapi.env" ] && cp "$BACKUP_DIR/pre-deploy/strapi.env" "$STRAPI_DIR/.env"
-    [ -f "$BACKUP_DIR/pre-deploy/laqta.env.local" ] && cp "$BACKUP_DIR/pre-deploy/laqta.env.local" "$LAQTA_DIR/.env.local"
-    log "✅ .env files restored"
+    # Restore .env files after pull (only if NOT using ecosystem)
+    if ! using_ecosystem; then
+        log "→ Restoring .env files..."
+        [ -f "$BACKUP_DIR/pre-deploy/strapi.env" ] && cp "$BACKUP_DIR/pre-deploy/strapi.env" "$STRAPI_DIR/.env"
+        [ -f "$BACKUP_DIR/pre-deploy/laqta.env.local" ] && cp "$BACKUP_DIR/pre-deploy/laqta.env.local" "$LAQTA_DIR/.env.local"
+        log "✅ .env files restored"
+    fi
 
     ALREADY_PULLED=true
     deploy_strapi
@@ -472,6 +509,17 @@ deploy_all() {
 show_status() {
     log_section "📊 Current Status"
 
+    log "→ Environment Config:"
+    if using_ecosystem; then
+        log "   Method: ecosystem.production.js ✅"
+        log "   File:   $ECOSYSTEM_FILE"
+    else
+        log "   Method: .env files"
+        [ -f "$STRAPI_DIR/.env" ] && log "   Strapi:  ✅ .env exists" || log "   Strapi:  ❌ .env missing"
+        [ -f "$LAQTA_DIR/.env.local" ] && log "   Next.js: ✅ .env.local exists" || log "   Next.js: ❌ .env.local missing"
+    fi
+
+    log ""
     log "→ Git Status:"
     cd "$PROJECT_ROOT"
     git log -1 --format="   Commit: %h - %s (%cr)"
@@ -494,17 +542,14 @@ show_status() {
         log "   Next.js: ❌ Not responding"
     fi
 
-    log ""
-    log "→ .env Files:"
-    [ -f "$STRAPI_DIR/.env" ] && log "   Strapi:  ✅ .env exists" || log "   Strapi:  ❌ .env missing"
-    [ -f "$LAQTA_DIR/.env.local" ] && log "   Next.js: ✅ .env.local exists" || log "   Next.js: ❌ .env.local missing"
-
-    log ""
-    log "→ Latest Backup:"
-    if [ -L "$BACKUP_DIR/latest" ]; then
-        log "   $BACKUP_DIR/latest"
-    else
-        log "   No backups found"
+    if ! using_ecosystem; then
+        log ""
+        log "→ Latest Backup:"
+        if [ -L "$BACKUP_DIR/latest" ]; then
+            log "   $BACKUP_DIR/latest"
+        else
+            log "   No backups found"
+        fi
     fi
 }
 

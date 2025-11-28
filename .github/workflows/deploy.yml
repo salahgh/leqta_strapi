@@ -107,11 +107,45 @@ jobs:
           echo "🔐 Setting up SSH connection..."
           echo "=========================================="
           mkdir -p ~/.ssh
+
+          # Check if secrets are set
+          if [ -z "${{ secrets.VPS_HOST }}" ]; then
+            echo "❌ Error: VPS_HOST secret is not set"
+            exit 1
+          fi
+
+          if [ -z "${{ secrets.VPS_SSH_PRIVATE_KEY }}" ]; then
+            echo "❌ Error: VPS_SSH_PRIVATE_KEY secret is not set"
+            exit 1
+          fi
+
+          if [ -z "${{ secrets.VPS_SSH_USERNAME }}" ]; then
+            echo "❌ Error: VPS_SSH_USERNAME secret is not set"
+            exit 1
+          fi
+
+          SSH_PORT="${{ secrets.VPS_SSH_PORT }}"
+          SSH_PORT="${SSH_PORT:-22}"
+
+          echo "→ Host: ${{ secrets.VPS_HOST }}"
+          echo "→ Port: $SSH_PORT"
+          echo "→ User: ${{ secrets.VPS_SSH_USERNAME }}"
+
+          echo ""
+          echo "→ Writing SSH private key..."
           echo "${{ secrets.VPS_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+          echo "✅ SSH key written"
 
-          echo "→ Scanning host keys for ${{ secrets.VPS_HOST }}..."
-          ssh-keyscan -H -p ${{ secrets.VPS_SSH_PORT || 22 }} ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts 2>/dev/null
+          echo ""
+          echo "→ Scanning host keys for ${{ secrets.VPS_HOST }}:$SSH_PORT..."
+          ssh-keyscan -H -p $SSH_PORT ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts 2>&1 || {
+            echo "⚠ ssh-keyscan failed, trying with StrictHostKeyChecking disabled..."
+            echo "Host ${{ secrets.VPS_HOST }}" >> ~/.ssh/config
+            echo "  StrictHostKeyChecking no" >> ~/.ssh/config
+            echo "  UserKnownHostsFile /dev/null" >> ~/.ssh/config
+            chmod 600 ~/.ssh/config
+          }
           echo "✅ SSH configured successfully"
 
       - name: Upload to VPS
@@ -119,10 +153,14 @@ jobs:
           echo "=========================================="
           echo "📤 Uploading Strapi package to VPS..."
           echo "=========================================="
+
+          SSH_PORT="${{ secrets.VPS_SSH_PORT }}"
+          SSH_PORT="${SSH_PORT:-22}"
+
           echo "→ Target: ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }}:/tmp/"
-          echo "→ Port: ${{ secrets.VPS_SSH_PORT || 22 }}"
+          echo "→ Port: $SSH_PORT"
           echo ""
-          scp -v -P ${{ secrets.VPS_SSH_PORT || 22 }} strapi.tar.gz ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }}:/tmp/
+          scp -o StrictHostKeyChecking=no -P $SSH_PORT strapi.tar.gz ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }}:/tmp/
           echo ""
           echo "✅ Upload completed successfully"
 
@@ -131,7 +169,11 @@ jobs:
           echo "=========================================="
           echo "🚀 Deploying Strapi on VPS..."
           echo "=========================================="
-          ssh -p ${{ secrets.VPS_SSH_PORT || 22 }} ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }} << 'EOF'
+
+          SSH_PORT="${{ secrets.VPS_SSH_PORT }}"
+          SSH_PORT="${SSH_PORT:-22}"
+
+          ssh -o StrictHostKeyChecking=no -p $SSH_PORT ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }} << 'EOF'
           set -e
 
           DEPLOY_PATH="/var/www/laqta-project/my-blog-cms"
@@ -341,11 +383,45 @@ jobs:
           echo "🔐 Setting up SSH connection..."
           echo "=========================================="
           mkdir -p ~/.ssh
+
+          # Check if secrets are set
+          if [ -z "${{ secrets.VPS_HOST }}" ]; then
+            echo "❌ Error: VPS_HOST secret is not set"
+            exit 1
+          fi
+
+          if [ -z "${{ secrets.VPS_SSH_PRIVATE_KEY }}" ]; then
+            echo "❌ Error: VPS_SSH_PRIVATE_KEY secret is not set"
+            exit 1
+          fi
+
+          if [ -z "${{ secrets.VPS_SSH_USERNAME }}" ]; then
+            echo "❌ Error: VPS_SSH_USERNAME secret is not set"
+            exit 1
+          fi
+
+          SSH_PORT="${{ secrets.VPS_SSH_PORT }}"
+          SSH_PORT="${SSH_PORT:-22}"
+
+          echo "→ Host: ${{ secrets.VPS_HOST }}"
+          echo "→ Port: $SSH_PORT"
+          echo "→ User: ${{ secrets.VPS_SSH_USERNAME }}"
+
+          echo ""
+          echo "→ Writing SSH private key..."
           echo "${{ secrets.VPS_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+          echo "✅ SSH key written"
 
-          echo "→ Scanning host keys for ${{ secrets.VPS_HOST }}..."
-          ssh-keyscan -H -p ${{ secrets.VPS_SSH_PORT || 22 }} ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts 2>/dev/null
+          echo ""
+          echo "→ Scanning host keys for ${{ secrets.VPS_HOST }}:$SSH_PORT..."
+          ssh-keyscan -H -p $SSH_PORT ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts 2>&1 || {
+            echo "⚠ ssh-keyscan failed, trying with StrictHostKeyChecking disabled..."
+            echo "Host ${{ secrets.VPS_HOST }}" >> ~/.ssh/config
+            echo "  StrictHostKeyChecking no" >> ~/.ssh/config
+            echo "  UserKnownHostsFile /dev/null" >> ~/.ssh/config
+            chmod 600 ~/.ssh/config
+          }
           echo "✅ SSH configured successfully"
 
       - name: Upload to VPS
@@ -353,10 +429,14 @@ jobs:
           echo "=========================================="
           echo "📤 Uploading Next.js package to VPS..."
           echo "=========================================="
+
+          SSH_PORT="${{ secrets.VPS_SSH_PORT }}"
+          SSH_PORT="${SSH_PORT:-22}"
+
           echo "→ Target: ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }}:/tmp/"
-          echo "→ Port: ${{ secrets.VPS_SSH_PORT || 22 }}"
+          echo "→ Port: $SSH_PORT"
           echo ""
-          scp -v -P ${{ secrets.VPS_SSH_PORT || 22 }} laqta.tar.gz ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }}:/tmp/
+          scp -o StrictHostKeyChecking=no -P $SSH_PORT laqta.tar.gz ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }}:/tmp/
           echo ""
           echo "✅ Upload completed successfully"
 
@@ -365,7 +445,11 @@ jobs:
           echo "=========================================="
           echo "🚀 Deploying Next.js on VPS..."
           echo "=========================================="
-          ssh -p ${{ secrets.VPS_SSH_PORT || 22 }} ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }} << 'EOF'
+
+          SSH_PORT="${{ secrets.VPS_SSH_PORT }}"
+          SSH_PORT="${SSH_PORT:-22}"
+
+          ssh -o StrictHostKeyChecking=no -p $SSH_PORT ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }} << 'EOF'
           set -e
 
           DEPLOY_PATH="/var/www/laqta-project/laqta"

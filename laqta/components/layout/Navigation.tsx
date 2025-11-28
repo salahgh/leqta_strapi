@@ -29,10 +29,10 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
 
     const navItems: NavItem[] = [
         { label: t("home"), href: "/" },
-        { label: t("about"), href: "/about" },
-        { label: t("services"), href: "/services" },
-        { label: t("blog"), href: "/blog" },
-        { label: t("contact"), href: "/contact" },
+        // { label: t("about"), href: "/about" },
+        // { label: t("services"), href: "/services" },
+        // { label: t("blog"), href: "/blog" },
+        // { label: t("contact"), href: "/contact" },
     ];
 
     // Function to check if a nav item is active
@@ -40,7 +40,7 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
         if (href === "/") {
             return pathname === "/" || pathname === `/${locale}`;
         }
-        const pathWithoutLocale = pathname.replace(/^\/(en|ar|fr)/, '');
+        const pathWithoutLocale = pathname.replace(/^\/(en|ar|fr)/, "");
         return pathWithoutLocale === href;
     };
 
@@ -284,7 +284,9 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                                     <Button
                                         size="lg"
                                         leftIcon={null}
-                                        rightIcon={<Rocket className="ml-2 h-4 w-4" />}
+                                        rightIcon={
+                                            <Rocket className="ml-2 h-4 w-4" />
+                                        }
                                     >
                                         {t("getStarted")}
                                     </Button>

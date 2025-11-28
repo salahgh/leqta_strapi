@@ -1,0 +1,13 @@
+# PM2 production ecosystem (contains secrets)
+ecosystem.production.js
+
+# Environment backups
+.env-backups/
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db

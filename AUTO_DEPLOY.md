@@ -122,16 +122,91 @@ See [Auto-Deploy with Cron](#auto-deploy-with-cron) section below.
 
 ---
 
-## Environment Files (.env)
+## Environment Configuration
 
-### Required Environment Files
+You have **two options** for managing environment variables:
+
+### Option A: PM2 Ecosystem File (Recommended)
+
+Use a single `ecosystem.production.js` file instead of multiple `.env` files. This is cleaner and easier to manage.
+
+```bash
+cd /var/www/laqta-project
+
+# Copy template and edit with your values
+cp ecosystem.config.js ecosystem.production.js
+nano ecosystem.production.js
+```
+
+Edit `ecosystem.production.js`:
+
+```javascript
+module.exports = {
+  apps: [
+    {
+      name: 'strapi',
+      cwd: './my-blog-cms',
+      script: 'npm',
+      args: 'run start',
+      env: {
+        NODE_ENV: 'production',
+        HOST: '0.0.0.0',
+        PORT: 1337,
+
+        // Security Keys (generate with: openssl rand -base64 32)
+        APP_KEYS: 'your-key-1,your-key-2,your-key-3,your-key-4',
+        API_TOKEN_SALT: 'your-api-token-salt',
+        ADMIN_JWT_SECRET: 'your-admin-jwt-secret',
+        TRANSFER_TOKEN_SALT: 'your-transfer-token-salt',
+        JWT_SECRET: 'your-jwt-secret',
+
+        // Database
+        DATABASE_CLIENT: 'mysql',
+        DATABASE_HOST: 'localhost',
+        DATABASE_PORT: 3306,
+        DATABASE_NAME: 'strapi',
+        DATABASE_USERNAME: 'strapi_user',
+        DATABASE_PASSWORD: 'your_secure_password',
+        DATABASE_SSL: 'false',
+
+        // Supabase (optional)
+        SUPABASE_API_URL: 'https://your-project.supabase.co',
+        SUPABASE_API_KEY: 'your-key',
+        SUPABASE_BUCKET: 'your-bucket',
+      },
+    },
+    {
+      name: 'laqta',
+      cwd: './laqta',
+      script: 'npm',
+      args: 'run start',
+      env: {
+        NODE_ENV: 'production',
+        PORT: 3000,
+        NEXT_PUBLIC_STRAPI_URL_2: 'http://localhost:1337',
+      },
+    },
+  ],
+};
+```
+
+**Start with ecosystem file:**
+```bash
+pm2 start ecosystem.production.js
+```
+
+**The deploy script automatically detects and uses `ecosystem.production.js` if it exists.**
+
+---
+
+### Option B: Traditional .env Files
+
+Use separate `.env` files for each project.
 
 | File | Location | Purpose |
 |------|----------|---------|
 | `.env` | `my-blog-cms/.env` | Strapi configuration |
 | `.env.local` | `laqta/.env.local` | Next.js configuration |
-
-### Initial Setup
 
 ```bash
 cd /var/www/laqta-project

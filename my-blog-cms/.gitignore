@@ -29,3 +29,6 @@ build
 .idea
 *.swp
 *.swo
+
+# PM2 production ecosystem (contains secrets)
+ecosystem.production.js

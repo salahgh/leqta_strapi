@@ -42,53 +42,203 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'my-blog-cms/package-lock.json'
 
-      - name: Install & Build
+      - name: Install Dependencies
         working-directory: ./my-blog-cms
         run: |
+          echo "=========================================="
+          echo "📦 Installing Strapi dependencies..."
+          echo "=========================================="
+          echo "Node version: $(node -v)"
+          echo "NPM version: $(npm -v)"
+          echo ""
           npm ci
-          npm run build
+          echo ""
+          echo "✅ Dependencies installed successfully"
 
-      - name: Package
+      - name: Build Strapi
+        working-directory: ./my-blog-cms
         run: |
+          echo "=========================================="
+          echo "🔨 Building Strapi admin panel..."
+          echo "=========================================="
+          npm run build
+          echo ""
+          echo "✅ Strapi build completed successfully"
+
+      - name: Package Artifacts
+        run: |
+          echo "=========================================="
+          echo "📁 Packaging Strapi for deployment..."
+          echo "=========================================="
           mkdir -p pkg
-          cp -r my-blog-cms/build pkg/ 2>/dev/null || true
-          cp -r my-blog-cms/dist pkg/ 2>/dev/null || true
+
+          echo "→ Copying build directory..."
+          cp -r my-blog-cms/build pkg/ 2>/dev/null && echo "  ✓ build/ copied" || echo "  ⚠ build/ not found (skipped)"
+
+          echo "→ Copying dist directory..."
+          cp -r my-blog-cms/dist pkg/ 2>/dev/null && echo "  ✓ dist/ copied" || echo "  ⚠ dist/ not found (skipped)"
+
+          echo "→ Copying config, public, src directories..."
           cp -r my-blog-cms/config my-blog-cms/public my-blog-cms/src pkg/
+          echo "  ✓ config/, public/, src/ copied"
+
+          echo "→ Copying package files..."
           cp my-blog-cms/package.json my-blog-cms/package-lock.json pkg/
-          cp my-blog-cms/tsconfig.json pkg/ 2>/dev/null || true
+          echo "  ✓ package.json, package-lock.json copied"
+
+          echo "→ Copying tsconfig.json..."
+          cp my-blog-cms/tsconfig.json pkg/ 2>/dev/null && echo "  ✓ tsconfig.json copied" || echo "  ⚠ tsconfig.json not found (skipped)"
+
+          echo ""
+          echo "→ Creating tarball..."
           tar -czf strapi.tar.gz -C pkg .
 
-      - name: Deploy
+          echo ""
+          echo "📊 Package contents:"
+          ls -la pkg/
+          echo ""
+          echo "📦 Archive size: $(du -h strapi.tar.gz | cut -f1)"
+          echo ""
+          echo "✅ Packaging completed successfully"
+
+      - name: Setup SSH Connection
         run: |
+          echo "=========================================="
+          echo "🔐 Setting up SSH connection..."
+          echo "=========================================="
           mkdir -p ~/.ssh
           echo "${{ secrets.VPS_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H -p ${{ secrets.VPS_SSH_PORT || 22 }} ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
 
-          scp -P ${{ secrets.VPS_SSH_PORT || 22 }} strapi.tar.gz ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }}:/tmp/
+          echo "→ Scanning host keys for ${{ secrets.VPS_HOST }}..."
+          ssh-keyscan -H -p ${{ secrets.VPS_SSH_PORT || 22 }} ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts 2>/dev/null
+          echo "✅ SSH configured successfully"
 
+      - name: Upload to VPS
+        run: |
+          echo "=========================================="
+          echo "📤 Uploading Strapi package to VPS..."
+          echo "=========================================="
+          echo "→ Target: ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }}:/tmp/"
+          echo "→ Port: ${{ secrets.VPS_SSH_PORT || 22 }}"
+          echo ""
+          scp -v -P ${{ secrets.VPS_SSH_PORT || 22 }} strapi.tar.gz ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }}:/tmp/
+          echo ""
+          echo "✅ Upload completed successfully"
+
+      - name: Deploy on VPS
+        run: |
+          echo "=========================================="
+          echo "🚀 Deploying Strapi on VPS..."
+          echo "=========================================="
           ssh -p ${{ secrets.VPS_SSH_PORT || 22 }} ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }} << 'EOF'
           set -e
-          DEPLOY_PATH="${{ env.STRAPI_PATH }}"
 
-          [ -f "$DEPLOY_PATH/.env" ] && cp "$DEPLOY_PATH/.env" /tmp/.env.bak
+          DEPLOY_PATH="/var/www/laqta-project/my-blog-cms"
 
+          echo ""
+          echo "=========================================="
+          echo "📍 Step 1: Backup environment file"
+          echo "=========================================="
+          if [ -f "$DEPLOY_PATH/.env" ]; then
+            cp "$DEPLOY_PATH/.env" /tmp/.env.bak
+            echo "✅ .env backed up to /tmp/.env.bak"
+          else
+            echo "⚠ No .env file found (first deployment?)"
+          fi
+
+          echo ""
+          echo "=========================================="
+          echo "📍 Step 2: Prepare deployment directory"
+          echo "=========================================="
+          echo "→ Creating directory: $DEPLOY_PATH"
           mkdir -p "$DEPLOY_PATH"
           cd "$DEPLOY_PATH"
+          echo "→ Current directory: $(pwd)"
+          echo "→ Cleaning old files (preserving node_modules and .env)..."
           find . -mindepth 1 -maxdepth 1 ! -name 'node_modules' ! -name '.env' -exec rm -rf {} +
+          echo "✅ Directory cleaned"
+
+          echo ""
+          echo "=========================================="
+          echo "📍 Step 3: Extract new files"
+          echo "=========================================="
+          echo "→ Extracting strapi.tar.gz..."
           tar -xzf /tmp/strapi.tar.gz
+          echo "✅ Files extracted"
+          echo ""
+          echo "📂 Deployed files:"
+          ls -la
 
-          [ -f /tmp/.env.bak ] && mv /tmp/.env.bak .env
-
-          npm ci --only=production
-
-          if pm2 describe strapi > /dev/null 2>&1; then
-            pm2 restart strapi
+          echo ""
+          echo "=========================================="
+          echo "📍 Step 4: Restore environment file"
+          echo "=========================================="
+          if [ -f /tmp/.env.bak ]; then
+            mv /tmp/.env.bak .env
+            echo "✅ .env restored"
           else
-            pm2 start npm --name "strapi" -- run start
+            echo "⚠ No .env backup to restore"
           fi
+
+          echo ""
+          echo "=========================================="
+          echo "📍 Step 5: Install production dependencies"
+          echo "=========================================="
+          echo "→ Running npm ci --only=production..."
+          npm ci --only=production
+          echo "✅ Dependencies installed"
+
+          echo ""
+          echo "=========================================="
+          echo "📍 Step 6: Restart PM2 process"
+          echo "=========================================="
+          if pm2 describe strapi > /dev/null 2>&1; then
+            echo "→ Strapi process found, restarting..."
+            pm2 restart strapi
+            echo "✅ Strapi restarted"
+          else
+            echo "→ Strapi process not found, starting new..."
+            pm2 start npm --name "strapi" -- run start
+            echo "✅ Strapi started"
+          fi
+
+          echo ""
+          echo "=========================================="
+          echo "📍 Step 7: Save PM2 process list"
+          echo "=========================================="
           pm2 save
+          echo "✅ PM2 process list saved"
+
+          echo ""
+          echo "=========================================="
+          echo "📍 Step 8: Cleanup"
+          echo "=========================================="
           rm /tmp/strapi.tar.gz
+          echo "✅ Temporary files cleaned"
+
+          echo ""
+          echo "=========================================="
+          echo "📍 Step 9: Verify deployment"
+          echo "=========================================="
+          echo "→ PM2 status:"
+          pm2 status
+          echo ""
+          echo "→ Waiting 10 seconds for Strapi to start..."
+          sleep 10
+          echo "→ Checking Strapi health endpoint..."
+          if curl -sf http://localhost:1337/api/health > /dev/null; then
+            echo "✅ Strapi is healthy and responding!"
+          else
+            echo "⚠ Health check failed (Strapi may still be starting)"
+            echo "→ Recent PM2 logs:"
+            pm2 logs strapi --lines 20 --nostream || true
+          fi
+
+          echo ""
+          echo "=========================================="
+          echo "🎉 STRAPI DEPLOYMENT COMPLETED!"
+          echo "=========================================="
           EOF
 
   deploy-laqta:
@@ -111,64 +261,237 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'laqta/package-lock.json'
 
-      - name: Install & Build
+      - name: Install Dependencies
         working-directory: ./laqta
         run: |
+          echo "=========================================="
+          echo "📦 Installing Next.js dependencies..."
+          echo "=========================================="
+          echo "Node version: $(node -v)"
+          echo "NPM version: $(npm -v)"
+          echo ""
           npm ci
+          echo ""
+          echo "✅ Dependencies installed successfully"
+
+      - name: Build Next.js
+        working-directory: ./laqta
+        run: |
+          echo "=========================================="
+          echo "🔨 Building Next.js application..."
+          echo "=========================================="
+          echo "→ NEXT_PUBLIC_STRAPI_URL_2: $NEXT_PUBLIC_STRAPI_URL_2"
+          echo ""
           npm run build
+          echo ""
+          echo "✅ Next.js build completed successfully"
         env:
           NEXT_PUBLIC_STRAPI_URL_2: ${{ secrets.NEXT_PUBLIC_STRAPI_URL_2 }}
 
-      - name: Package
+      - name: Package Artifacts
         run: |
+          echo "=========================================="
+          echo "📁 Packaging Next.js for deployment..."
+          echo "=========================================="
           mkdir -p pkg
+
           if [ -d "laqta/.next/standalone" ]; then
+            echo "→ Standalone output detected (optimized build)"
+            echo "→ Copying standalone build..."
             cp -r laqta/.next/standalone/* pkg/
+            echo "  ✓ standalone/ copied"
+
+            echo "→ Creating static and public directories..."
             mkdir -p pkg/.next/static pkg/public
+
+            echo "→ Copying static files..."
             cp -r laqta/.next/static/* pkg/.next/static/
-            cp -r laqta/public/* pkg/public/ 2>/dev/null || true
+            echo "  ✓ .next/static/ copied"
+
+            echo "→ Copying public files..."
+            cp -r laqta/public/* pkg/public/ 2>/dev/null && echo "  ✓ public/ copied" || echo "  ⚠ public/ empty or not found"
           else
-            cp -r laqta/.next laqta/public pkg/ 2>/dev/null || true
+            echo "→ Standard output detected (non-standalone build)"
+            echo "→ Copying .next directory..."
+            cp -r laqta/.next pkg/ 2>/dev/null && echo "  ✓ .next/ copied" || echo "  ⚠ .next/ not found"
+
+            echo "→ Copying public directory..."
+            cp -r laqta/public pkg/ 2>/dev/null && echo "  ✓ public/ copied" || echo "  ⚠ public/ not found"
+
+            echo "→ Copying package files..."
             cp laqta/package.json laqta/package-lock.json pkg/
+            echo "  ✓ package.json, package-lock.json copied"
           fi
+
+          echo ""
+          echo "→ Creating tarball..."
           tar -czf laqta.tar.gz -C pkg .
 
-      - name: Deploy
+          echo ""
+          echo "📊 Package contents:"
+          ls -la pkg/
+          echo ""
+          echo "📦 Archive size: $(du -h laqta.tar.gz | cut -f1)"
+          echo ""
+          echo "✅ Packaging completed successfully"
+
+      - name: Setup SSH Connection
         run: |
+          echo "=========================================="
+          echo "🔐 Setting up SSH connection..."
+          echo "=========================================="
           mkdir -p ~/.ssh
           echo "${{ secrets.VPS_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H -p ${{ secrets.VPS_SSH_PORT || 22 }} ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
 
-          scp -P ${{ secrets.VPS_SSH_PORT || 22 }} laqta.tar.gz ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }}:/tmp/
+          echo "→ Scanning host keys for ${{ secrets.VPS_HOST }}..."
+          ssh-keyscan -H -p ${{ secrets.VPS_SSH_PORT || 22 }} ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts 2>/dev/null
+          echo "✅ SSH configured successfully"
 
+      - name: Upload to VPS
+        run: |
+          echo "=========================================="
+          echo "📤 Uploading Next.js package to VPS..."
+          echo "=========================================="
+          echo "→ Target: ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }}:/tmp/"
+          echo "→ Port: ${{ secrets.VPS_SSH_PORT || 22 }}"
+          echo ""
+          scp -v -P ${{ secrets.VPS_SSH_PORT || 22 }} laqta.tar.gz ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }}:/tmp/
+          echo ""
+          echo "✅ Upload completed successfully"
+
+      - name: Deploy on VPS
+        run: |
+          echo "=========================================="
+          echo "🚀 Deploying Next.js on VPS..."
+          echo "=========================================="
           ssh -p ${{ secrets.VPS_SSH_PORT || 22 }} ${{ secrets.VPS_SSH_USERNAME }}@${{ secrets.VPS_HOST }} << 'EOF'
           set -e
-          DEPLOY_PATH="${{ env.LAQTA_PATH }}"
 
-          [ -f "$DEPLOY_PATH/.env.local" ] && cp "$DEPLOY_PATH/.env.local" /tmp/.env.local.bak
+          DEPLOY_PATH="/var/www/laqta-project/laqta"
 
+          echo ""
+          echo "=========================================="
+          echo "📍 Step 1: Verify Strapi is running"
+          echo "=========================================="
+          if curl -sf http://localhost:1337/api/health > /dev/null; then
+            echo "✅ Strapi is healthy and running"
+          else
+            echo "⚠ Warning: Strapi health check failed"
+            echo "→ Continuing deployment (Strapi may be starting)"
+          fi
+
+          echo ""
+          echo "=========================================="
+          echo "📍 Step 2: Backup environment file"
+          echo "=========================================="
+          if [ -f "$DEPLOY_PATH/.env.local" ]; then
+            cp "$DEPLOY_PATH/.env.local" /tmp/.env.local.bak
+            echo "✅ .env.local backed up to /tmp/.env.local.bak"
+          else
+            echo "⚠ No .env.local file found (first deployment?)"
+          fi
+
+          echo ""
+          echo "=========================================="
+          echo "📍 Step 3: Prepare deployment directory"
+          echo "=========================================="
+          echo "→ Creating directory: $DEPLOY_PATH"
           mkdir -p "$DEPLOY_PATH"
           cd "$DEPLOY_PATH"
+          echo "→ Current directory: $(pwd)"
+          echo "→ Cleaning old files (preserving node_modules and .env.local)..."
           find . -mindepth 1 -maxdepth 1 ! -name 'node_modules' ! -name '.env.local' -exec rm -rf {} +
+          echo "✅ Directory cleaned"
+
+          echo ""
+          echo "=========================================="
+          echo "📍 Step 4: Extract new files"
+          echo "=========================================="
+          echo "→ Extracting laqta.tar.gz..."
           tar -xzf /tmp/laqta.tar.gz
+          echo "✅ Files extracted"
+          echo ""
+          echo "📂 Deployed files:"
+          ls -la
 
-          [ -f /tmp/.env.local.bak ] && mv /tmp/.env.local.bak .env.local
+          echo ""
+          echo "=========================================="
+          echo "📍 Step 5: Restore environment file"
+          echo "=========================================="
+          if [ -f /tmp/.env.local.bak ]; then
+            mv /tmp/.env.local.bak .env.local
+            echo "✅ .env.local restored"
+          else
+            echo "⚠ No .env.local backup to restore"
+          fi
 
+          echo ""
+          echo "=========================================="
+          echo "📍 Step 6: Start/Restart application"
+          echo "=========================================="
           if [ -f "server.js" ]; then
+            echo "→ Standalone server.js detected"
             if pm2 describe laqta > /dev/null 2>&1; then
+              echo "→ Laqta process found, restarting..."
               pm2 restart laqta
+              echo "✅ Laqta restarted (standalone mode)"
             else
+              echo "→ Laqta process not found, starting new..."
               pm2 start server.js --name "laqta"
+              echo "✅ Laqta started (standalone mode)"
             fi
           else
+            echo "→ Standard Next.js build detected"
+            echo "→ Installing production dependencies..."
             npm ci --only=production
+            echo "✅ Dependencies installed"
+
             if pm2 describe laqta > /dev/null 2>&1; then
+              echo "→ Laqta process found, restarting..."
               pm2 restart laqta
+              echo "✅ Laqta restarted"
             else
+              echo "→ Laqta process not found, starting new..."
               pm2 start npm --name "laqta" -- run start
+              echo "✅ Laqta started"
             fi
           fi
+
+          echo ""
+          echo "=========================================="
+          echo "📍 Step 7: Save PM2 process list"
+          echo "=========================================="
           pm2 save
+          echo "✅ PM2 process list saved"
+
+          echo ""
+          echo "=========================================="
+          echo "📍 Step 8: Cleanup"
+          echo "=========================================="
           rm /tmp/laqta.tar.gz
+          echo "✅ Temporary files cleaned"
+
+          echo ""
+          echo "=========================================="
+          echo "📍 Step 9: Verify deployment"
+          echo "=========================================="
+          echo "→ PM2 status:"
+          pm2 status
+          echo ""
+          echo "→ Waiting 5 seconds for Next.js to start..."
+          sleep 5
+          echo "→ Checking frontend health..."
+          if curl -sf http://localhost:3000 > /dev/null; then
+            echo "✅ Next.js frontend is responding!"
+          else
+            echo "⚠ Health check failed (Next.js may still be starting)"
+            echo "→ Recent PM2 logs:"
+            pm2 logs laqta --lines 20 --nostream || true
+          fi
+
+          echo ""
+          echo "=========================================="
+          echo "🎉 NEXT.JS DEPLOYMENT COMPLETED!"
+          echo "=========================================="
           EOF

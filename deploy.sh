@@ -343,13 +343,17 @@ deploy_strapi() {
     log "✅ Build completed"
 
     log "→ Managing PM2 process..."
-    if pm2 describe strapi > /dev/null 2>&1; then
-        pm2 restart strapi
-        log "✅ Strapi restarted"
-    else
-        pm2 start npm --name "strapi" -- run start
-        log "✅ Strapi started (new process)"
+    # Stop and delete any existing strapi processes to avoid duplicates
+    if pm2 list | grep -q "strapi"; then
+        log "→ Stopping existing strapi process(es)..."
+        pm2 stop strapi 2>/dev/null || true
+        pm2 delete strapi 2>/dev/null || true
+        log "✅ Old strapi process(es) removed"
     fi
+
+    log "→ Starting strapi..."
+    pm2 start npm --name "strapi" -- run start
+    log "✅ Strapi started"
 
     pm2 save
     log "✅ PM2 process list saved"
@@ -407,20 +411,24 @@ deploy_laqta() {
     log "✅ Build completed"
 
     log "→ Managing PM2 process..."
-    if pm2 describe laqta > /dev/null 2>&1; then
-        pm2 restart laqta
-        log "✅ Laqta restarted"
-    else
-        pm2 start npm --name "laqta" -- run start
-        log "✅ Laqta started (new process)"
+    # Stop and delete any existing laqta processes to avoid duplicates
+    if pm2 list | grep -q "laqta"; then
+        log "→ Stopping existing laqta process(es)..."
+        pm2 stop laqta 2>/dev/null || true
+        pm2 delete laqta 2>/dev/null || true
+        log "✅ Old laqta process(es) removed"
     fi
+
+    log "→ Starting laqta..."
+    pm2 start npm --name "laqta" -- run start
+    log "✅ Laqta started"
 
     pm2 save
     log "✅ PM2 process list saved"
 
     # Health check
     sleep 3
-    check_health "http://localhost:3000" "Next.js"
+    check_health "http://localhost:3000/api/health" "Next.js"
 
     log_section "🎉 Next.js deployment completed!"
 }
@@ -480,7 +488,7 @@ show_status() {
         log "   Strapi:  ❌ Not responding"
     fi
 
-    if curl -sf "http://localhost:3000" > /dev/null 2>&1; then
+    if curl -sf "http://localhost:3000/api/health" > /dev/null 2>&1; then
         log "   Next.js: ✅ Healthy (http://localhost:3000)"
     else
         log "   Next.js: ❌ Not responding"

@@ -22,7 +22,7 @@ STRAPI_DIR="$PROJECT_ROOT/my-blog-cms"
 LAQTA_DIR="$PROJECT_ROOT/laqta"
 BACKUP_DIR="$PROJECT_ROOT/.env-backups"
 LOG_FILE="/var/log/laqta-deploy.log"
-ECOSYSTEM_FILE="$PROJECT_ROOT/ecosystem.production.js"
+ECOSYSTEM_FILE="$PROJECT_ROOT/ecosystem.production.config.js"
 BRANCH="main"
 
 # ==========================================
@@ -282,7 +282,7 @@ check_and_deploy() {
 
     # Backup .env files before pull (only if NOT using ecosystem file)
     if using_ecosystem; then
-        log "→ Using ecosystem.production.js (not in git, no backup needed)"
+        log "→ Using ecosystem.production.config.js (not in git, no backup needed)"
     else
         log "→ Backing up .env files..."
         mkdir -p "$BACKUP_DIR/pre-deploy"
@@ -297,7 +297,7 @@ check_and_deploy() {
 
     # Restore .env files after pull (only if NOT using ecosystem file)
     if using_ecosystem; then
-        log "✅ ecosystem.production.js unchanged (not tracked by git)"
+        log "✅ ecosystem.production.config.js unchanged (not tracked by git)"
     else
         log "→ Restoring .env files..."
         [ -f "$BACKUP_DIR/pre-deploy/strapi.env" ] && cp "$BACKUP_DIR/pre-deploy/strapi.env" "$STRAPI_DIR/.env"
@@ -369,9 +369,9 @@ deploy_strapi() {
 
     log "→ Starting strapi..."
     # Use ecosystem file if exists, otherwise use npm directly
-    if [ -f "$PROJECT_ROOT/ecosystem.production.js" ]; then
-        pm2 start "$PROJECT_ROOT/ecosystem.production.js" --only strapi
-        log "✅ Strapi started (using ecosystem.production.js)"
+    if [ -f "$PROJECT_ROOT/ecosystem.production.config.js" ]; then
+        pm2 start "$PROJECT_ROOT/ecosystem.production.config.js" --only strapi
+        log "✅ Strapi started (using ecosystem.production.config.js)"
     else
         pm2 start npm --name "strapi" -- run start
         log "✅ Strapi started (using npm)"
@@ -443,9 +443,9 @@ deploy_laqta() {
 
     log "→ Starting laqta..."
     # Use ecosystem file if exists, otherwise use npm directly
-    if [ -f "$PROJECT_ROOT/ecosystem.production.js" ]; then
-        pm2 start "$PROJECT_ROOT/ecosystem.production.js" --only laqta
-        log "✅ Laqta started (using ecosystem.production.js)"
+    if [ -f "$PROJECT_ROOT/ecosystem.production.config.js" ]; then
+        pm2 start "$PROJECT_ROOT/ecosystem.production.config.js" --only laqta
+        log "✅ Laqta started (using ecosystem.production.config.js)"
     else
         pm2 start npm --name "laqta" -- run start
         log "✅ Laqta started (using npm)"
@@ -471,7 +471,7 @@ deploy_all() {
 
     # Show which config method is being used
     if using_ecosystem; then
-        log "→ Using ecosystem.production.js for environment variables"
+        log "→ Using ecosystem.production.config.js for environment variables"
         log "  (This file is not in git - your secrets are safe)"
     else
         log "→ Using .env files for environment variables"
@@ -511,7 +511,7 @@ show_status() {
 
     log "→ Environment Config:"
     if using_ecosystem; then
-        log "   Method: ecosystem.production.js ✅"
+        log "   Method: ecosystem.production.config.js ✅"
         log "   File:   $ECOSYSTEM_FILE"
     else
         log "   Method: .env files"

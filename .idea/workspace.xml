@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6536883-3166-43b8-b391-1fd30ff56c73" name="Changes" comment="jh">
-      <change afterPath="$PROJECT_DIR$/.idea/git_toolbox_prj.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI_FTP_SERVER_GUIDE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NGINX_CONFIG.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PV_VPS_CONFIGURATION.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ftp_config.bash" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ftp_fix_permissions.bash" afterDir="false" />
+    <list default="true" id="a6536883-3166-43b8-b391-1fd30ff56c73" name="Changes" comment="bb">
       <change beforePath="$PROJECT_DIR$/.claude/settings.local.json" beforeDir="false" afterPath="$PROJECT_DIR$/.claude/settings.local.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DEPLOYMENT_GUIDE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/laqta/prompts.md" beforeDir="false" afterPath="$PROJECT_DIR$/laqta/prompts.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +62,8 @@
       <workItem from="1763362431988" duration="23000" />
       <workItem from="1763456784475" duration="2984000" />
       <workItem from="1764143582101" duration="42456000" />
-      <workItem from="1764229314098" duration="6456000" />
+      <workItem from="1764229314098" duration="9949000" />
+      <workItem from="1764314901481" duration="5918000" />
     </task>
     <task id="LOCAL-00001" summary="jh">
       <option name="closed" value="true" />
@@ -80,7 +73,55 @@
       <option name="project" value="LOCAL" />
       <updated>1764200003949</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="jhddd">
+      <option name="closed" value="true" />
+      <created>1764286934219</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1764286934219</updated>
+    </task>
+    <task id="LOCAL-00003" summary="aa">
+      <option name="closed" value="true" />
+      <created>1764316094461</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1764316094461</updated>
+    </task>
+    <task id="LOCAL-00004" summary="bb">
+      <option name="closed" value="true" />
+      <created>1764318048230</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1764318048230</updated>
+    </task>
+    <task id="LOCAL-00005" summary="cc">
+      <option name="closed" value="true" />
+      <created>1764318265126</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1764318265126</updated>
+    </task>
+    <task id="LOCAL-00006" summary="vv">
+      <option name="closed" value="true" />
+      <created>1764319699862</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1764319699862</updated>
+    </task>
+    <task id="LOCAL-00007" summary="bb">
+      <option name="closed" value="true" />
+      <created>1764320631247</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1764320631247</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -100,6 +141,11 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="jh" />
-    <option name="LAST_COMMIT_MESSAGE" value="jh" />
+    <MESSAGE value="jhddd" />
+    <MESSAGE value="aa" />
+    <MESSAGE value="cc" />
+    <MESSAGE value="vv" />
+    <MESSAGE value="bb" />
+    <option name="LAST_COMMIT_MESSAGE" value="bb" />
   </component>
 </project>

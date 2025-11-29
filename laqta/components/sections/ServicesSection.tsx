@@ -116,7 +116,7 @@ export default async function ServicesSection({
                 {/* Header - Fully Responsive */}
                 <div className="text-center flex flex-col items-center gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-7 2xl:gap-8 py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24 2xl:py-32">
                     <div className="animate-slide-down" style={{ opacity: 0 }}>
-                        <Badge variant="default">{finalBadge}</Badge>
+                        <Badge variant="default" className="h-12 md:h-16 flex items-center">{finalBadge}</Badge>
                     </div>
 
                     <h2 className="text-white text-center animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>{t("title")}</h2>

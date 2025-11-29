@@ -27,12 +27,12 @@ const AboutSection = ({
             </div>
 
             {/* Content Layer */}
-            <div className="relative z-20 bg-transparent rounded-2xl md:rounded-3xl shadow-2xl pt-8 md:p-12 md:flex p-4 md:gap-8">
+            <div className="relative z-20 bg-transparent rounded-2xl md:rounded-3xl shadow-2xl pt-8 md:p-12 md:flex p-4 md:gap-12 lg:gap-16">
                 {/* Content Section */}
                 <div className="space-y-6 flex-1">
                     {/* Badge */}
                     <div className="items-center justify-center animate-slide-down" style={{ opacity: 0 }}>
-                        <Badge>{t('badge')}</Badge>
+                        <Badge className="h-12 md:h-16 flex items-center">{t('badge')}</Badge>
                     </div>
                     <h2 className="text-black text-display-md md:text-display-lg xl:text-display-xl leading-tight animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>
                         {t('title').split(" ").map((word, index) => (
@@ -57,8 +57,8 @@ const AboutSection = ({
                         {t('description')}
                     </p>
                     {/*Buttons*/}
-                    <div className="flex gap-4 animate-fade-in" style={{ height: 61, opacity: 0, animationDelay: "450ms" }}>
-                        <div className={"h-12 md:h-16"}>
+                    <div className="flex gap-4 animate-fade-in" style={{ opacity: 0, animationDelay: "450ms" }}>
+                        <div className={"h-12 md:h-16 w-36 md:w-44"}>
                             <Link href="/contact">
                                 <Button
                                     variant="primary"
@@ -70,7 +70,7 @@ const AboutSection = ({
                                 </Button>
                             </Link>
                         </div>
-                        <div className={"h-12 md:h-16"}>
+                        <div className={"h-12 md:h-16 w-36 md:w-44"}>
                             <Link href="/about">
                                 <Button
                                     variant="secondary"

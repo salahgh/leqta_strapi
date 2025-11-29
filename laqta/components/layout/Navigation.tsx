@@ -29,10 +29,10 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
 
     const navItems: NavItem[] = [
         { label: t("home"), href: "/" },
-        // { label: t("about"), href: "/about" },
-        // { label: t("services"), href: "/services" },
-        // { label: t("blog"), href: "/blog" },
-        // { label: t("contact"), href: "/contact" },
+        { label: t("about"), href: "/about" },
+        { label: t("services"), href: "/services" },
+        { label: t("blog"), href: "/blog" },
+        { label: t("contact"), href: "/contact" },
     ];
 
     // Function to check if a nav item is active
@@ -138,7 +138,8 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                             })}
                         </div>
 
-                        <LanguageSelector className={"flex"} />
+                        {/* Language selector temporarily hidden */}
+                        {/* <LanguageSelector className={"flex"} /> */}
                     </div>
 
                     <div className="flex items-center  h-full">
@@ -182,7 +183,8 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
 
                     {/* Mobile Right Section */}
                     <div className="flex items-center gap-3 h-full py-2">
-                        <LanguageSelector className="flex h-full" />
+                        {/* Language selector temporarily hidden */}
+                        {/* <LanguageSelector className="flex h-full" /> */}
                         <Link href="/contact">
                             <Button
                                 leftIcon={null}
@@ -278,7 +280,8 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                     {/* Drawer Footer */}
                     <div className="border-t border-gray-700/50 p-6 bg-gray-800/30">
                         <div className="flex flex-col gap-4">
-                            <LanguageSelector className="flex w-full" />
+                            {/* Language selector temporarily hidden */}
+                            {/* <LanguageSelector className="flex w-full" /> */}
                             <div onClick={closeDrawer}>
                                 <Link href="/contact">
                                     <Button

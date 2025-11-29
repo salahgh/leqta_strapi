@@ -66,15 +66,15 @@ export const HeroSection: React.FC = () => {
                 />
                 <p
                     className="text-responsive-lg font-medium text-secondary-gray padding-responsive-lg
-                text-justify
-                 sm:text-center md:px-12 md:text-justify lg:text-center xl:px-40 animate-fade-in"
-                    style={{ opacity: 0, animationDelay: "300ms" }}
+                text-justify max-w-3xl mx-auto leading-relaxed
+                 sm:text-center md:px-12 md:text-justify lg:text-center animate-fade-in"
+                    style={{ opacity: 0, animationDelay: "300ms", lineHeight: "1.8" }}
                 >
                     {t("description")}
                 </p>
                 <div className={"h-8 md:h-[56px]"}></div>
                 <div className="flex w-full flex-col items-center justify-center gap-4 md:w-auto md:flex-row animate-fade-in" style={{ opacity: 0, animationDelay: "450ms" }}>
-                    <div className={"h-12 w-full md:h-16 md:w-auto"}>
+                    <div className={"h-12 w-full md:h-16 md:w-48"}>
                         <Link href="/services">
                             <Button
                                 leftIcon={null}
@@ -84,7 +84,7 @@ export const HeroSection: React.FC = () => {
                             </Button>
                         </Link>
                     </div>
-                    <div className={"h-12 w-full md:h-16 md:w-auto"}>
+                    <div className={"h-12 w-full md:h-16 md:w-48"}>
                         <Link href="/contact">
                             <Button variant="secondary" leftIcon={null} rightIcon={null}>{t("contactUs")}</Button>
                         </Link>

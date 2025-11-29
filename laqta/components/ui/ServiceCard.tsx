@@ -1,4 +1,4 @@
-// Service Card Component - Updated to support featured_image background with gradient overlay
+// Service Card Component - Updated design with icon glow, bottom text, and gradient overlay
 import { ChartColumnBig } from "lucide-react";
 import { Link } from "@/src/i18n/navigation";
 
@@ -7,16 +7,16 @@ export const ServiceCard = (props) => {
         title,
         description,
         tags = ["Strategy", "Publishing", "Production", "Reporting"],
-        gradientFrom = null,
-        gradientTo = null,
+        gradientFrom = "#000000",
+        gradientTo = "#1a1a2e",
         iconBg = "rgba(255,255,255,0.2)",
         className = "",
         icon = <ChartColumnBig />,
-        featured_image = null, // New prop for featured image
-        slug = null, // New prop for linking to detail page
+        featured_image = null,
+        slug = null,
     } = props;
 
-    // Determine background style - always include image if available
+    // Background style - gradient from service color to black
     const getBackgroundStyle = () => {
         if (featured_image?.url) {
             return {
@@ -26,78 +26,69 @@ export const ServiceCard = (props) => {
                 backgroundRepeat: 'no-repeat',
             };
         }
+        // Gradient from gradientTo (top) to black (bottom)
         return {
-            background: `linear-gradient(0deg, ${gradientFrom} 0%, ${gradientTo} 100%)`,
+            background: `linear-gradient(180deg, ${gradientTo} 0%, #000000 100%)`,
         };
-    };
-
-    // Generate gradient overlay style - transparent black at bottom, gradientTo at top
-    const getGradientOverlay = () => {
-        if (featured_image?.url && gradientTo) {
-            return {
-                background: `linear-gradient(0deg, rgba(0,0,0,1) 0%, ${gradientTo} 100%)`,
-                opacity: 0.8, // Adjust opacity to blend with image
-            };
-        }
-        return {};
     };
 
     const cardContent = (
         <div
-            className={`group relative text-gray-600 rounded-xl p-2 h-full overflow-hidden
-            hover:scale-[1.03] hover:shadow-2xl hover:shadow-purple-500/20
+            className={`group relative text-gray-600 rounded-xl p-1 h-full min-h-[400px] overflow-hidden
+            hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/20
             transition-all duration-500 ease-out cursor-pointer ${className}`}
             style={{
-                backgroundColor: "#605e68",
+                backgroundColor: "#2a2a3a",
+                border: "1px solid rgba(255,255,255,0.1)",
             }}
         >
             <div
-                className={"relative rounded-xl h-full w-full p-6 overflow-hidden"}
+                className={"relative rounded-lg h-full w-full overflow-hidden flex flex-col"}
                 style={getBackgroundStyle()}
             >
-                {/* Gradient overlay - applied on top of image when both are present */}
-                {featured_image?.url && gradientTo && (
+                {/* Gradient overlay from black (bottom) to transparent (top) for text readability */}
+                <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                        background: `linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 40%, transparent 100%)`,
+                    }}
+                />
+
+                {/* Icon at top right with glow effect */}
+                <div className="relative z-10 flex justify-end p-4">
                     <div
-                        className="absolute inset-0 rounded-xl transition-opacity duration-500 group-hover:opacity-90"
-                        style={getGradientOverlay()}
-                    ></div>
-                )}
-
-                {/* Dark overlay for better text readability */}
-                <div className={`absolute inset-0 transition-opacity duration-500 ${featured_image?.url ? 'bg-black bg-opacity-30 group-hover:bg-opacity-40' : 'bg-black bg-opacity-20 group-hover:bg-opacity-30'}`}></div>
-
-                {/* Animated glow effect on hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10"></div>
-
-                {/* Content */}
-                <div className="relative z-10 h-full flex flex-col">
-                    {/* Icon in top right with enhanced styling */}
-                    <div className="flex justify-end mb-6">
-                        <div
-                            className="w-12 h-12 rounded-xl flex items-center justify-center transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-lg"
-                            style={{ background: iconBg }}
-                        >
-                            {icon}
-                        </div>
+                        className="w-12 h-12 rounded-xl flex items-center justify-center transform transition-all duration-500 group-hover:scale-110"
+                        style={{
+                            background: iconBg,
+                            boxShadow: `0 0 20px ${gradientTo}80, 0 0 40px ${gradientTo}40, 0 0 60px ${gradientTo}20`,
+                        }}
+                    >
+                        {icon}
                     </div>
+                </div>
 
-                    {/* Title with enhanced animation */}
-                    <h3 className="text-white text-body-xl font-bold mb-4 leading-tight transform transition-all duration-300 group-hover:translate-x-1">
+                {/* Spacer to push content to bottom */}
+                <div className="flex-grow" />
+
+                {/* Content at bottom with gradient background */}
+                <div className="relative z-10 p-6 pt-8">
+                    {/* Title */}
+                    <h3 className="text-white text-body-xl font-bold mb-3 leading-tight transform transition-all duration-300 group-hover:translate-x-1">
                         {title}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-white text-responsive-md opacity-95 mb-8 leading-relaxed flex-grow transition-opacity duration-300 group-hover:opacity-100">
+                    <p className="text-gray-300 text-responsive-md opacity-90 mb-6 leading-relaxed line-clamp-3">
                         {description}
                     </p>
 
-                    {/* Tags with enhanced hover effect */}
-                    <div className="flex flex-wrap gap-2 mt-auto">
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2">
                         {tags?.map((tag, index) => (
                             <span
                                 key={index}
-                                className="px-3 py-1.5 bg-white bg-opacity-20 text-white text-body-sm rounded-full backdrop-blur-sm
-                                transition-all duration-300 hover:bg-opacity-30 hover:scale-105 cursor-default"
+                                className="px-3 py-1.5 bg-white bg-opacity-10 text-gray-300 text-body-sm rounded-full backdrop-blur-sm
+                                border border-white/10 transition-all duration-300 hover:bg-opacity-20 hover:scale-105 cursor-default"
                             >
                                 {tag}
                             </span>

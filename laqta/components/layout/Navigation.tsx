@@ -138,8 +138,7 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                             })}
                         </div>
 
-                        {/* Language selector temporarily hidden */}
-                        {/* <LanguageSelector className={"flex"} /> */}
+                        <LanguageSelector className={"flex"} />
                     </div>
 
                     <div className="flex items-center  h-full">
@@ -183,8 +182,7 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
 
                     {/* Mobile Right Section */}
                     <div className="flex items-center gap-3 h-full py-2">
-                        {/* Language selector temporarily hidden */}
-                        {/* <LanguageSelector className="flex h-full" /> */}
+                        <LanguageSelector className="flex h-full" />
                         <Link href="/contact">
                             <Button
                                 leftIcon={null}
@@ -280,8 +278,7 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                     {/* Drawer Footer */}
                     <div className="border-t border-gray-700/50 p-6 bg-gray-800/30">
                         <div className="flex flex-col gap-4">
-                            {/* Language selector temporarily hidden */}
-                            {/* <LanguageSelector className="flex w-full" /> */}
+                            <LanguageSelector className="flex w-full" />
                             <div onClick={closeDrawer}>
                                 <Link href="/contact">
                                     <Button

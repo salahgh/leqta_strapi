@@ -140,11 +140,8 @@ const PersonalInfoForm = ({
                 label={t('fullName')}
                 {...useFormInput<PersonalInfoFormValues>("fullName", formik)}
                 placeholder={t('fullNamePlaceholder')}
-                variant={"compact"}
-                style={{
-                    backgroundColor: "#141733",
-                    color: "#D2D2D3",
-                }}
+                size="sm"
+                className="bg-form-bg text-form-text"
             />
 
             {/* Email Field */}
@@ -152,62 +149,48 @@ const PersonalInfoForm = ({
                 label={t('email')}
                 {...useFormInput<PersonalInfoFormValues>("email", formik)}
                 placeholder={t('emailPlaceholder')}
-                variant={"compact"}
+                size="sm"
                 type="email"
-                style={{
-                    backgroundColor: "#141733",
-                    color: "#D2D2D3",
-                }}
+                className="bg-form-bg text-form-text"
             />
 
             {/* Phone Number Field */}
             <FormInput
                 label={t('phoneNumber')}
                 {...useFormInput<PersonalInfoFormValues>("phoneNumber", formik)}
-                variant={"compact"}
+                size="sm"
                 placeholder={t('phoneNumberPlaceholder')}
-                style={{
-                    backgroundColor: "#141733",
-                    color: "#D2D2D3",
-                }}
+                className="bg-form-bg text-form-text"
             />
 
-            // Industry Dropdown
             {/* Industry Dropdown */}
             <div className="spacing-form-tight">
-                <label className="form-label-base text-responsive-lg mb-0.5 md:mb-1">
+                <label className="form-label text-body-md sm:text-body-lg">
                     {t('industry')}
                 </label>
                 <select
                     {...useFormInput<PersonalInfoFormValues>("industry", formik)}
-                    className="form-input-base text-responsive-lg padding-responsive-sm rounded-full w-full"
-                    style={{
-                        backgroundColor: "#141733",
-                        color: "#D2D2D3",
-                    }}
+                    className="input-sm text-body-md sm:text-body-lg rounded-full w-full bg-form-bg text-form-text"
                 >
                     {industryOptions.map((option) => (
-                        <option key={option.value} value={option.value} style={{ backgroundColor: "#141733", color: "#D2D2D3" }}>
+                        <option key={option.value} value={option.value} className="bg-form-bg text-form-text">
                             {option.label}
                         </option>
                     ))}
                 </select>
                 {formik.touched.industry && formik.errors.industry && (
-                    <div className="text-red-400 mt-0.5 md:mt-1">{formik.errors.industry}</div>
+                    <div className="form-error">{formik.errors.industry}</div>
                 )}
             </div>
 
-            // Conditional Other Industry Field
+            {/* Conditional Other Industry Field */}
             {formik.values.industry === "other" && (
                 <FormInput
                     label={t('otherIndustry')}
                     {...useFormInput<PersonalInfoFormValues>("otherIndustry", formik)}
                     placeholder={t('otherIndustryPlaceholder')}
-                    variant={"compact"}
-                    style={{
-                        backgroundColor: "#141733",
-                        color: "#D2D2D3",
-                    }}
+                    size="sm"
+                    className="bg-form-bg text-form-text"
                 />
             )}
 
@@ -216,11 +199,8 @@ const PersonalInfoForm = ({
                 label={t('companyName')}
                 {...useFormInput<PersonalInfoFormValues>("companyName", formik)}
                 placeholder={t('companyNamePlaceholder')}
-                variant={"compact"}
-                style={{
-                    backgroundColor: "#141733",
-                    color: "#D2D2D3",
-                }}
+                size="sm"
+                className="bg-form-bg text-form-text"
             />
 
             {/* Job Title Field */}
@@ -228,11 +208,8 @@ const PersonalInfoForm = ({
                 label={t('jobTitle')}
                 {...useFormInput<PersonalInfoFormValues>("jobTitle", formik)}
                 placeholder={t('jobTitlePlaceholder')}
-                variant={"compact"}
-                style={{
-                    backgroundColor: "#141733",
-                    color: "#D2D2D3",
-                }}
+                size="sm"
+                className="bg-form-bg text-form-text"
             />
 
             {/* Website Field */}
@@ -240,18 +217,15 @@ const PersonalInfoForm = ({
                 label={t('website')}
                 {...useFormInput<PersonalInfoFormValues>("website", formik)}
                 placeholder={t('websitePlaceholder')}
-                variant={"compact"}
+                size="sm"
                 type="url"
-                style={{
-                    backgroundColor: "#141733",
-                    color: "#D2D2D3",
-                }}
+                className="bg-form-bg text-form-text"
             />
 
             {/* Social Media Links */}
-            <div className="space-y-3">
-                <h3 className="text-sm font-medium text-slate-300">{t('socialMediaLinks')}</h3>
-                
+            <div className="stack-gap-sm">
+                <h3 className="text-body-sm font-medium text-secondary-gray">{t('socialMediaLinks')}</h3>
+
                 <FormInput
                     label={t('facebook')}
                     name="socialMedia.facebook"
@@ -260,12 +234,9 @@ const PersonalInfoForm = ({
                     onBlur={formik.handleBlur}
                     error={formik.touched.socialMedia?.facebook && formik.errors.socialMedia?.facebook ? String(formik.errors.socialMedia.facebook) : undefined}
                     placeholder={t('facebookPlaceholder')}
-                    variant={"compact"}
+                    size="sm"
                     type="url"
-                    style={{
-                        backgroundColor: "#141733",
-                        color: "#D2D2D3",
-                    }}
+                    className="bg-form-bg text-form-text"
                 />
 
                 <FormInput
@@ -276,12 +247,9 @@ const PersonalInfoForm = ({
                     onBlur={formik.handleBlur}
                     error={formik.touched.socialMedia?.instagram && formik.errors.socialMedia?.instagram ? String(formik.errors.socialMedia.instagram) : undefined}
                     placeholder={t('instagramPlaceholder')}
-                    variant={"compact"}
+                    size="sm"
                     type="url"
-                    style={{
-                        backgroundColor: "#141733",
-                        color: "#D2D2D3",
-                    }}
+                    className="bg-form-bg text-form-text"
                 />
 
                 <FormInput
@@ -292,12 +260,9 @@ const PersonalInfoForm = ({
                     onBlur={formik.handleBlur}
                     error={formik.touched.socialMedia?.tiktok && formik.errors.socialMedia?.tiktok ? String(formik.errors.socialMedia.tiktok) : undefined}
                     placeholder={t('tiktokPlaceholder')}
-                    variant={"compact"}
+                    size="sm"
                     type="url"
-                    style={{
-                        backgroundColor: "#141733",
-                        color: "#D2D2D3",
-                    }}
+                    className="bg-form-bg text-form-text"
                 />
 
                 <FormInput
@@ -308,12 +273,9 @@ const PersonalInfoForm = ({
                     onBlur={formik.handleBlur}
                     error={formik.touched.socialMedia?.linkedin && formik.errors.socialMedia?.linkedin ? String(formik.errors.socialMedia.linkedin) : undefined}
                     placeholder={t('linkedinPlaceholder')}
-                    variant={"compact"}
+                    size="sm"
                     type="url"
-                    style={{
-                        backgroundColor: "#141733",
-                        color: "#D2D2D3",
-                    }}
+                    className="bg-form-bg text-form-text"
                 />
             </div>
         </form>

@@ -34,11 +34,18 @@
     "description": "Nous offrons des solutions numériques complètes pour aider votre entreprise à croître"
   },
   "servicesPage": {
+    "header": {
+      "badge": "Nos Forfaits",
+      "title": "Production de Base",
+      "description": "Leqta propose des options de production flexibles adaptées à vos besoins de contenu et à vos ambitions de marque. Choisissez entre notre Forfait de Base efficace ou un Forfait Premium entièrement personnalisé."
+    },
     "basicPlan": {
       "title": "Forfait de Base",
       "description": "Idéal pour les marques ayant besoin d'une production simple et rapide pour un petit lot de contenu vidéo.",
       "price": "126 900 DZD",
       "buttonText": "Commencer",
+      "featuresTitle": "Ce qui est inclus",
+      "equipmentTitle": "Équipement inclus",
       "features": [
         "Tournage de 5 contenus",
         "1 journée complète de tournage",
@@ -53,8 +60,9 @@
     },
     "premiumPlan": {
       "title": "Forfait Premium",
-      "description": "Pour les marques ayant des besoins de contenu plus importants, des ambitions créatives ou des exigences techniques avancées. Ce forfait est 100% personnalisé selon votre marque, vos objectifs et votre vision créative. Nous concevons le contenu, la structure et le flux de production avec votre équipe de marque.",
+      "description": "Pour les marques ayant des besoins de contenu plus importants, des ambitions créatives ou des exigences techniques avancées. Ce forfait est 100% personnalisé selon votre marque, vos objectifs et votre vision créative.",
       "buttonText": "Contactez-nous",
+      "featuresTitle": "Ce qui est inclus",
       "features": [
         "Plus de 5 contenus vidéo",
         "Sessions de tournage multi-jours",

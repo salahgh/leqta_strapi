@@ -1,47 +1,60 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 
+/**
+ * Badge Component - Design System
+ * Uses design tokens from globals.css and tailwind.config.js
+ * Mobile-first with slightly larger sizes on mobile for tap targets
+ */
+
 interface BadgeProps {
     children: React.ReactNode;
-    variant?: "default" | "compact";
-    color?: string;
-    borderColor?: string;
+    size?: "xs" | "sm" | "md" | "lg";
+    variant?: "default" | "accent" | "solid" | "outline";
     className?: string;
     shadow?: boolean;
+    icon?: React.ReactNode;
 }
 
 export const Badge: React.FC<BadgeProps> = ({
     children,
+    size = "sm",
     variant = "default",
-    color = "#54B3F1",
-    borderColor = "#54B3F1",
     className,
     shadow = false,
+    icon,
     ...props
 }) => {
-    const baseClasses = "inline-block border rounded-full";
+    const sizeClasses = {
+        xs: "badge-xs",
+        sm: "badge-sm",
+        md: "badge-md",
+        lg: "badge-lg",
+    };
 
     const variantClasses = {
-        default: "padding-responsive-md text-responsive-md",
-        compact: "px-6 py-1 text-responsive-md",
+        default: "badge-default",
+        accent: "badge-accent",
+        solid: "badge-solid",
+        outline: "badge-outline",
     };
 
     const shadowClass = shadow ? "shadow-lg" : "";
+    const iconClass = icon ? "badge-icon" : "";
 
     return (
         <span
             className={cn(
-                baseClasses,
+                "badge-base",
+                sizeClasses[size],
                 variantClasses[variant],
                 shadowClass,
+                iconClass,
                 className,
             )}
-            style={{
-                color,
-                borderColor,
-            }}
             {...props}
         >
+            {icon && <span className="flex-shrink-0">{icon}</span>}
             {children}
         </span>
     );

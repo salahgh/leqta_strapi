@@ -88,8 +88,8 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                     text-responsive-md
                     ${
                         scrolled
-                            ? "shadow-lg bg-primary backdrop-blur-md border-blue-700/30 h-14 md:h-16 glassmorphism"
-                            : "md:h-[90px] h-[60px]"
+                            ? "shadow-lg bg-primary backdrop-blur-md border-blue-700/30 nav-h-scrolled glassmorphism"
+                            : "nav-h"
                     }
                     ${className}
 
@@ -97,8 +97,7 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
             >
                 {/* Desktop Navigation */}
                 <div
-                    className="hidden xl:flex items-center justify-between mx-auto px-6 xl:px-8 h-full py-3"
-                    style={{ width: 1512 }}
+                    className="hidden xl:flex items-center justify-between mx-auto px-6 xl:px-8 h-full py-3 w-full max-w-container"
                 >
                     <div className="transition-all duration-300 hidden md:block">
                         <Logo />
@@ -299,9 +298,9 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
 
             {/* Spacer for fixed navigation */}
             <div
-                className={`transition-all duration-300 ${scrolled ? "h-20" : "h-[105px]"} hidden lg:block`}
+                className={`transition-all duration-300 ${scrolled ? "nav-spacer-scrolled" : "nav-spacer"} hidden lg:block`}
             />
-            <div className="h-[70px] lg:hidden" />
+            <div className="nav-spacer-mobile lg:hidden" />
         </>
     );
 };

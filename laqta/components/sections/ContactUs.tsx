@@ -1,5 +1,11 @@
 "use client";
 
+/**
+ * ContactUs Component - Design System
+ * Uses design tokens for consistent styling
+ * Mobile-first responsive design with gradient utilities
+ */
+
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -19,8 +25,7 @@ interface ContactFormValues {
 
 const ContactForm = () => {
     const t = useTranslations('contact.form');
-    const tCommon = useTranslations('common');
-    
+
     const formik = useFormik<ContactFormValues>({
         initialValues: {
             fullname: "",
@@ -66,34 +71,18 @@ const ContactForm = () => {
     });
 
     return (
-        <div className="bg-primary flex flex-col md:flex-row items-center justify-center py-8">
+        <div className="bg-primary flex flex-col md:flex-row items-center justify-center section-py-md">
             <div className="animate-slide-right" style={{ opacity: 0 }}>
                 <ContactInfo />
             </div>
 
-            <div className={"w-full md:w-auto md:p-12 p-2 mt-2 md:mt-4 animate-fade-in"} style={{ opacity: 0, animationDelay: "300ms" }}>
-                <div
-                    style={{
-                        background:
-                            "linear-gradient(358deg, rgba(0, 0, 0, 0.8) 0%, rgba(255, 255, 255, 0.2) 100%)",
-                        padding: 2,
-                        borderRadius: 16,
-                        zIndex: 20,
-                    }}
-                    className={"shadow-2xl pt-2 md:pt-8"}
-                >
+            <div className="w-full md:w-auto p-2 sm:p-4 md:p-8 lg:p-12 mt-2 md:mt-4 animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
+                {/* Outer gradient border wrapper */}
+                <div className="bg-gradient-contact-outer p-0.5 rounded-2xl shadow-2xl pt-2 md:pt-8 relative z-20">
                     {/* Inner content */}
-                    <div
-                        style={{
-                            background:
-                                "linear-gradient(180deg, rgba(29, 34, 53, 1) 0%, rgba(18, 19, 24, 1) 100%)",
-                            borderRadius: 15, // 62 - 16 (border width)
-                            zIndex: 19,
-                        }}
-                        className={"shadow-2xl w-full md:p-4 p-2"}
-                    >
+                    <div className="bg-gradient-contact-inner rounded-2xl shadow-2xl w-full card-p-sm sm:card-p-md relative z-10">
                         <form onSubmit={formik.handleSubmit} className="h-full">
-                            <div className="space-y-4 p-1 md:p-2 lg:p-3">
+                            <div className="form-group p-1 sm:p-2 lg:p-3">
                                 <FormInput
                                     label={t('fullname')}
                                     name="fullname"
@@ -105,7 +94,7 @@ const ContactForm = () => {
                                             ? formik.errors.fullname
                                             : ""
                                     }
-                                    variant="compact"
+                                    size="sm"
                                 />
 
                                 <FormInput
@@ -120,7 +109,7 @@ const ContactForm = () => {
                                             ? formik.errors.email
                                             : ""
                                     }
-                                    variant="compact"
+                                    size="sm"
                                 />
 
                                 <FormInput
@@ -134,7 +123,7 @@ const ContactForm = () => {
                                             ? formik.errors.phone
                                             : ""
                                     }
-                                    variant="compact"
+                                    size="sm"
                                 />
 
                                 <FormInput
@@ -149,10 +138,10 @@ const ContactForm = () => {
                                             ? formik.errors.message
                                             : ""
                                     }
-                                    variant="compact"
+                                    size="sm"
                                 />
                             </div>
-                            <div className="md:mt-4 mt-0.5">
+                            <div className="mt-2 sm:mt-3 md:mt-4">
                                 <SubmitButton
                                     isSubmitting={formik.isSubmitting}
                                     text={t('submit')}

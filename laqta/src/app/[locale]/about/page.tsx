@@ -77,11 +77,11 @@ export default async function AboutPage({
 
             {/* Content Layer */}
             <div className="relative z-0 w-full flex-1">
-                <div className="space-y-8 md:space-y-12 lg:space-y-16">
+                <div className="stack-gap-lg">
                     <HeroSection />
                     {/* @ts-expect-error Server Component */}
                     <MissionVisionCards />
-                    <div className="px-4 md:px-8 lg:px-16 max-w-7xl mx-auto">
+                    <div className="section-px max-w-7xl mx-auto">
                         <CompetitiveEdge />
                     </div>
                 </div>

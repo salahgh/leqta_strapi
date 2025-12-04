@@ -89,37 +89,24 @@ function PartnershipFormPage() {
     });
 
     return (
-        <div className="min-h-screen bg-gray-900 py-12 px-4">
+        <div className="min-h-screen bg-neutral-900 section-py-md section-px">
             <Navigation />
             <div className="max-w-4xl mx-auto">
                 {/* Header */}
                 <div className="text-center mb-12">
                     <div className="mb-8 mt-32 animate-slide-down" style={{ opacity: 0 }}>
-                        <span
-                            className="inline-block border px-6 py-4 rounded-full"
-                            style={{
-                                color: "#54B3F1",
-                                borderColor: "#54B3F1",
-                                fontSize: 20,
-                            }}
-                        >
+                        <span className="badge-lg badge-outline text-accent-blue border-accent-blue">
                             Become a Partner
                         </span>
                     </div>
 
-                    <h1 className="text-white mb-2 animate-slide-up" style={{ fontSize: 56, opacity: 0, animationDelay: "150ms" }}>
+                    <h1 className="text-white mb-2 animate-slide-up text-display-lg md:text-display-xl lg:text-display-2xl" style={{ opacity: 0, animationDelay: "150ms" }}>
                         Partnership Form
                     </h1>
 
                     <p
-                        className="text-gray-400 animate-fade-in"
-                        style={{
-                            fontSize: 24,
-                            color: "#C6BBBB",
-                            maxWidth: 900,
-                            opacity: 0,
-                            animationDelay: "300ms",
-                        }}
+                        className="text-secondary-gray animate-fade-in text-body-lg md:text-body-xl max-w-4xl mx-auto"
+                        style={{ opacity: 0, animationDelay: "300ms" }}
                     >
                         Want to collaborate with LAQTA? Let's build something
                         unforgettable together. Fill out the form below and
@@ -128,26 +115,22 @@ function PartnershipFormPage() {
                 </div>
 
                 {/* Form */}
-                <div className="space-y-3 animate-fade-in" style={{ opacity: 0, animationDelay: "450ms" }}>
+                <div className="form-group animate-fade-in" style={{ opacity: 0, animationDelay: "450ms" }}>
                     {/* Name Fields */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 grid-gap-sm">
                         <FormInput
                             label="First Name"
                             {...useFormInput("firstName", formik)}
                             placeholder="Sarah"
-                            style={{
-                                backgroundColor: "#141733",
-                                color: "#D2D2D3",
-                            }}
+                            size="md"
+                            className="bg-form-bg text-form-text"
                         />
                         <FormInput
                             label="Last Name"
                             {...useFormInput("lastName", formik)}
                             placeholder="e.g. Benyamina"
-                            style={{
-                                backgroundColor: "#141733",
-                                color: "#D2D2D3",
-                            }}
+                            size="md"
+                            className="bg-form-bg text-form-text"
                         />
                     </div>
 
@@ -156,10 +139,8 @@ function PartnershipFormPage() {
                         label="Company Name"
                         {...useFormInput("companyName", formik)}
                         placeholder="e.g. BrightHive"
-                        style={{
-                            backgroundColor: "#141733",
-                            color: "#D2D2D3",
-                        }}
+                        size="md"
+                        className="bg-form-bg text-form-text"
                     />
 
                     {/* Email Field */}
@@ -168,10 +149,8 @@ function PartnershipFormPage() {
                         {...useFormInput("email", formik)}
                         type="email"
                         placeholder="e.g. sarah.benyamina@email.com"
-                        style={{
-                            backgroundColor: "#141733",
-                            color: "#D2D2D3",
-                        }}
+                        size="md"
+                        className="bg-form-bg text-form-text"
                     />
 
                     {/* Phone Field */}
@@ -180,24 +159,9 @@ function PartnershipFormPage() {
                         {...useFormInput("phone", formik)}
                         type="tel"
                         placeholder="e.g. +213 555 123 456"
-                        style={{
-                            backgroundColor: "#141733",
-                            color: "#D2D2D3",
-                        }}
+                        size="md"
+                        className="bg-form-bg text-form-text"
                     />
-
-                    {/* Service Selection */}
-                    {/*<FormInput*/}
-                    {/*    label="Service"*/}
-                    {/*    {...useFormInput("service", formik)}*/}
-                    {/*    as="select"*/}
-                    {/*    placeholder="Select one"*/}
-                    {/*    style={{*/}
-                    {/*        backgroundColor: "#141733",*/}
-                    {/*        color: "#D2D2D3",*/}
-                    {/*        options: serviceOptions,*/}
-                    {/*    }}*/}
-                    {/*/>*/}
 
                     {/* Message Field */}
                     <FormInput
@@ -205,34 +169,30 @@ function PartnershipFormPage() {
                         {...useFormInput("message", formik)}
                         as="textarea"
                         placeholder="Tell us more about what you're looking for..."
-                        style={{
-                            backgroundColor: "#141733",
-                            color: "#D2D2D3",
-                            width: "100%",
-                            minHeight: 200,
-                        }}
+                        size="md"
+                        className="bg-form-bg text-form-text w-full min-h-[200px]"
                     />
 
                     {/* Character Count for Message */}
                     {formik.values.message && (
-                        <div className="text-right text-sm text-gray-400 -mt-4">
+                        <div className="text-right text-body-sm text-secondary-gray -mt-4">
                             {formik.values.message.length}/500 characters
                         </div>
                     )}
 
-                    <div className={"h-16 flex justify-end"}>
-                        <div style={{ width: 300 }}>
-                            <Button
-                                onClick={formik.handleSubmit}
-                                disabled={formik.isSubmitting}
-                                leftIcon={null}
-                                rightIcon={null}
-                            >
-                                {formik.isSubmitting
-                                    ? "Submitting..."
-                                    : "Submit Application"}
-                            </Button>
-                        </div>
+                    <div className="h-16 flex justify-end">
+                        <Button
+                            onClick={formik.handleSubmit}
+                            disabled={formik.isSubmitting}
+                            leftIcon={null}
+                            rightIcon={null}
+                            size="lg"
+                            className="w-full sm:w-auto min-w-[200px]"
+                        >
+                            {formik.isSubmitting
+                                ? "Submitting..."
+                                : "Submit Application"}
+                        </Button>
                     </div>
                 </div>
             </div>

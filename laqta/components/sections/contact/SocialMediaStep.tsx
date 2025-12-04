@@ -37,57 +37,45 @@ const SocialMediaStep = ({ initialValues, onSubmit }: { initialValues?: Partial<
     return (
         <div>
             <div className="mb-6">
-                <h2 className="text-2xl font-bold text-white mb-2">Social Media Links</h2>
-                <p className="text-slate-300">Connect your social media profiles (optional).</p>
+                <h2 className="text-display-xs font-bold text-white mb-2">Social Media Links</h2>
+                <p className="text-secondary-gray">Connect your social media profiles (optional).</p>
             </div>
-            
-            <form onSubmit={formik.handleSubmit} className="space-y-4" id="step-3-form">
+
+            <form onSubmit={formik.handleSubmit} className="form-group" id="step-3-form">
                 <FormInput
                     label="Facebook"
                     {...useFormInput<SocialMediaStepValues>("facebook", formik)}
                     placeholder="https://facebook.com/yourpage"
-                    variant={"compact"}
+                    size="sm"
                     type="url"
-                    style={{
-                        backgroundColor: "#141733",
-                        color: "#D2D2D3",
-                    }}
+                    className="bg-form-bg text-form-text"
                 />
 
                 <FormInput
                     label="Instagram"
                     {...useFormInput<SocialMediaStepValues>("instagram", formik)}
                     placeholder="https://instagram.com/yourpage"
-                    variant={"compact"}
+                    size="sm"
                     type="url"
-                    style={{
-                        backgroundColor: "#141733",
-                        color: "#D2D2D3",
-                    }}
+                    className="bg-form-bg text-form-text"
                 />
 
                 <FormInput
                     label="TikTok"
                     {...useFormInput<SocialMediaStepValues>("tiktok", formik)}
                     placeholder="https://tiktok.com/@yourpage"
-                    variant={"compact"}
+                    size="sm"
                     type="url"
-                    style={{
-                        backgroundColor: "#141733",
-                        color: "#D2D2D3",
-                    }}
+                    className="bg-form-bg text-form-text"
                 />
 
                 <FormInput
                     label="LinkedIn"
                     {...useFormInput<SocialMediaStepValues>("linkedin", formik)}
                     placeholder="https://linkedin.com/in/yourprofile"
-                    variant={"compact"}
+                    size="sm"
                     type="url"
-                    style={{
-                        backgroundColor: "#141733",
-                        color: "#D2D2D3",
-                    }}
+                    className="bg-form-bg text-form-text"
                 />
             </form>
         </div>

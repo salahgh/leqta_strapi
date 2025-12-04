@@ -1,57 +1,102 @@
-/* Responsive Typography Utilities */
+/**
+ * Laqta Design System - Global Styles
+ * ====================================
+ * Mobile-first responsive design with touch-friendly minimums.
+ * All base values target mobile screens (< 640px).
+ */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Smooth scrolling for anchor links */
-html {
-    scroll-behavior: smooth;
+/* =============================================================================
+   CSS CUSTOM PROPERTIES (Design Tokens)
+   ============================================================================= */
+
+:root {
+    /* Gradients */
+    --gradient-primary-button: linear-gradient(to right, #1370AD, #62C1FF);
+    --gradient-hero-fade: linear-gradient(to bottom, transparent, #000000);
+    --gradient-contact-outer: linear-gradient(358deg, rgba(0,0,0,0.8) 0%, rgba(255,255,255,0.2) 100%);
+    --gradient-contact-inner: linear-gradient(180deg, rgba(29,34,53,1) 0%, rgba(18,19,24,1) 100%);
+    --gradient-service-overlay: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 40%, transparent 100%);
+    --gradient-blog-hero: linear-gradient(135deg, #1e293b 0%, #1e3a8a 50%, #1e293b 100%);
+    --gradient-text-blue: linear-gradient(to right, #1370AD, #ABDEFF);
+
+    /* Glassmorphism */
+    --glass-bg: rgba(13, 17, 55, 0.64);
+    --glass-border: rgba(13, 17, 55, 0.3);
+    --glass-blur: blur(10.8px);
+    --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+
+    /* Colors (for CSS usage) */
+    --color-primary: #0D1137;
+    --color-primary-light: #1370AD;
+    --color-background: #141733;
+    --color-form-text: #D2D2D3;
+    --color-form-bg: #141733;
+    --color-accent-blue: #54B3F1;
+    --color-accent-social: #1787ba;
+    --color-accent-success: #93d5de;
 }
 
-/* Animation keyframes - Optimized for hardware acceleration */
+/* =============================================================================
+   BASE STYLES
+   ============================================================================= */
+
+html {
+    scroll-behavior: smooth;
+    font-family: 'Poppins', system-ui, sans-serif;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+@layer base {
+    body {
+        @apply text-body-md text-white bg-primary;
+    }
+
+    h1 {
+        @apply text-display-sm sm:text-display-md md:text-display-lg lg:text-display-xl xl:text-display-2xl font-bold;
+    }
+
+    h2 {
+        @apply text-display-xs sm:text-display-sm md:text-display-md lg:text-display-lg xl:text-display-xl font-semibold;
+    }
+
+    h3 {
+        @apply text-display-xs md:text-display-sm lg:text-display-md font-semibold;
+    }
+
+    p {
+        @apply text-responsive-md;
+    }
+}
+
+/* =============================================================================
+   ANIMATIONS
+   ============================================================================= */
+
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px) translateZ(0);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) translateZ(0);
-    }
+    from { opacity: 0; transform: translateY(30px) translateZ(0); }
+    to { opacity: 1; transform: translateY(0) translateZ(0); }
 }
 
 @keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-30px) translateZ(0);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) translateZ(0);
-    }
+    from { opacity: 0; transform: translateY(-30px) translateZ(0); }
+    to { opacity: 1; transform: translateY(0) translateZ(0); }
 }
 
 @keyframes slideRight {
-    from {
-        opacity: 0;
-        transform: translateX(-30px) translateZ(0);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0) translateZ(0);
-    }
+    from { opacity: 0; transform: translateX(-30px) translateZ(0); }
+    to { opacity: 1; transform: translateX(0) translateZ(0); }
 }
 
-/* Animation classes with performance optimizations */
 .animate-fade-in {
     animation: fadeIn 0.8s ease-out forwards;
     will-change: opacity;
@@ -76,9 +121,460 @@ html {
     backface-visibility: hidden;
 }
 
+/* =============================================================================
+   COMPONENT LAYER - Design System Utilities
+   ============================================================================= */
 
 @layer components {
-    /* Enhanced Responsive Typography with all breakpoints */
+
+    /* -------------------------------------------------------------------------
+       SECTION SPACING (Mobile-First)
+       ------------------------------------------------------------------------- */
+
+    /* Vertical Section Padding */
+    .section-py-sm {
+        @apply py-6 sm:py-8 md:py-12;
+    }
+
+    .section-py-md {
+        @apply py-8 sm:py-10 md:py-12 lg:py-16 xl:py-20;
+    }
+
+    .section-py-lg {
+        @apply py-12 sm:py-14 md:py-16 lg:py-20 xl:py-24 2xl:py-32;
+    }
+
+    /* Horizontal Section Padding */
+    .section-px {
+        @apply px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20;
+    }
+
+    /* -------------------------------------------------------------------------
+       CARD PADDING (Mobile-First)
+       ------------------------------------------------------------------------- */
+
+    .card-p-sm {
+        @apply p-3 sm:p-4 md:p-6;
+    }
+
+    .card-p-md {
+        @apply p-4 sm:p-5 md:p-6 lg:p-8;
+    }
+
+    .card-p-lg {
+        @apply p-6 sm:p-7 md:p-8 lg:p-10 xl:p-12;
+    }
+
+    /* -------------------------------------------------------------------------
+       GRID GAPS (Mobile-First)
+       ------------------------------------------------------------------------- */
+
+    .grid-gap-xs {
+        @apply gap-2 sm:gap-3 md:gap-4;
+    }
+
+    .grid-gap-sm {
+        @apply gap-3 sm:gap-4 md:gap-6;
+    }
+
+    .grid-gap-md {
+        @apply gap-4 sm:gap-5 md:gap-6 lg:gap-8;
+    }
+
+    .grid-gap-lg {
+        @apply gap-6 sm:gap-7 md:gap-8 lg:gap-10 xl:gap-12;
+    }
+
+    /* -------------------------------------------------------------------------
+       STACK GAPS (Vertical Spacing)
+       ------------------------------------------------------------------------- */
+
+    .stack-gap-sm {
+        @apply space-y-2 sm:space-y-3 md:space-y-4;
+    }
+
+    .stack-gap-md {
+        @apply space-y-3 sm:space-y-4 md:space-y-6;
+    }
+
+    .stack-gap-lg {
+        @apply space-y-4 sm:space-y-6 md:space-y-8;
+    }
+
+    /* -------------------------------------------------------------------------
+       BUTTONS (Mobile-First, Touch-Friendly)
+       ------------------------------------------------------------------------- */
+
+    /* Button Base */
+    .btn-base {
+        @apply font-semibold transition-all duration-200 ease-in-out;
+        @apply flex items-center justify-center rounded-lg;
+        @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+        @apply cursor-pointer select-none;
+    }
+
+    /* Button Sizes - Touch-friendly (min 44px on mobile) */
+    .btn-xs {
+        @apply btn-base h-9 sm:h-8 px-2.5 sm:px-3 text-xs sm:text-sm gap-1.5;
+    }
+
+    .btn-sm {
+        @apply btn-base h-10 px-3 sm:px-4 text-sm gap-2;
+    }
+
+    .btn-md {
+        @apply btn-base h-11 sm:h-12 px-4 sm:px-5 md:px-6 text-sm sm:text-base gap-2;
+    }
+
+    .btn-lg {
+        @apply btn-base h-12 sm:h-14 px-5 sm:px-6 md:px-8 text-base sm:text-lg gap-2.5;
+    }
+
+    .btn-xl {
+        @apply btn-base h-14 sm:h-16 px-6 sm:px-8 md:px-10 text-lg sm:text-xl gap-3;
+    }
+
+    /* Button Variants */
+    .btn-primary {
+        background: var(--gradient-primary-button);
+        @apply text-white font-medium;
+        @apply hover:shadow-xl hover:shadow-blue-500/25;
+        @apply hover:scale-105 active:scale-95;
+        @apply focus:ring-blue-400;
+    }
+
+    .btn-secondary {
+        @apply bg-transparent text-form-text border border-accent-blue;
+        @apply hover:bg-accent-blue/10 hover:scale-105 active:scale-95;
+        @apply focus:ring-accent-blue;
+    }
+
+    .btn-ghost {
+        @apply bg-transparent text-white;
+        @apply hover:bg-white/10;
+        @apply focus:ring-white/20;
+    }
+
+    .btn-outline {
+        @apply bg-transparent text-white border border-white/30;
+        @apply hover:bg-white/10 hover:border-white/50;
+        @apply focus:ring-white/30;
+    }
+
+    /* Button Modifiers */
+    .btn-pill {
+        @apply rounded-full;
+    }
+
+    .btn-block {
+        @apply w-full;
+    }
+
+    .btn-block-mobile {
+        @apply w-full sm:w-auto;
+    }
+
+    /* Legacy Button Sizes (backward compatibility) */
+    .btn-size-xs {
+        @apply btn-xs;
+    }
+
+    .btn-size-sm {
+        @apply btn-sm;
+    }
+
+    .btn-size-md {
+        @apply btn-md;
+    }
+
+    .btn-size-lg {
+        @apply btn-lg;
+    }
+
+    .btn-size-xl {
+        @apply btn-xl;
+    }
+
+    /* -------------------------------------------------------------------------
+       BADGES/CHIPS (Mobile-First)
+       ------------------------------------------------------------------------- */
+
+    /* Badge Base */
+    .badge-base {
+        @apply inline-flex items-center rounded-full font-medium;
+        @apply whitespace-nowrap transition-colors duration-200;
+    }
+
+    /* Badge Sizes */
+    .badge-xs {
+        @apply badge-base px-2 py-0.5 text-xs;
+    }
+
+    .badge-sm {
+        @apply badge-base px-2.5 py-0.5 sm:px-3 sm:py-1 text-xs sm:text-sm;
+    }
+
+    .badge-md {
+        @apply badge-base px-3 py-1 sm:px-4 sm:py-1.5 text-sm sm:text-base;
+    }
+
+    .badge-lg {
+        @apply badge-base px-4 py-1.5 sm:px-5 sm:py-2 text-base;
+    }
+
+    /* Badge Variants */
+    .badge-default {
+        @apply bg-white/10 text-white border border-white/20;
+    }
+
+    .badge-accent {
+        @apply bg-accent-blue/10 text-accent-blue border border-accent-blue;
+    }
+
+    .badge-solid {
+        @apply bg-accent-blue text-white border-0;
+    }
+
+    .badge-outline {
+        @apply bg-transparent text-accent-blue border border-accent-blue;
+    }
+
+    /* Badge with Icon */
+    .badge-icon {
+        @apply gap-1 sm:gap-1.5;
+    }
+
+    /* -------------------------------------------------------------------------
+       INPUTS/FORMS (Mobile-First, Touch-Friendly)
+       ------------------------------------------------------------------------- */
+
+    /* Input Base */
+    .input-base {
+        @apply w-full bg-form-bg border border-neutral-600 text-form-text;
+        @apply placeholder-neutral-400 rounded-lg;
+        @apply text-base; /* 16px min to prevent iOS zoom */
+        @apply focus:outline-none focus:ring-2 focus:ring-accent-blue;
+        @apply focus:border-transparent transition-all duration-200;
+    }
+
+    /* Input Sizes */
+    .input-sm {
+        @apply input-base h-10 px-3 sm:px-4 py-2 sm:py-2.5;
+    }
+
+    .input-md {
+        @apply input-base h-11 sm:h-12 px-3 sm:px-4 py-2.5 sm:py-3;
+    }
+
+    .input-lg {
+        @apply input-base h-12 sm:h-14 px-3 sm:px-4 py-3 sm:py-3.5;
+    }
+
+    /* Textarea */
+    .textarea-base {
+        @apply input-base min-h-[100px] sm:min-h-[120px] p-3 sm:p-4 rounded-lg;
+    }
+
+    /* Select */
+    .select-base {
+        @apply input-base appearance-none cursor-pointer;
+        @apply pr-10; /* Space for dropdown arrow */
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239CA3AF' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 0.75rem center;
+        background-repeat: no-repeat;
+        background-size: 1.25rem;
+    }
+
+    /* Form Layout */
+    .form-group {
+        @apply space-y-3 sm:space-y-4;
+    }
+
+    .form-label {
+        @apply block text-white font-medium mb-1;
+        @apply text-sm sm:text-base;
+    }
+
+    .form-error {
+        @apply text-red-400 text-xs sm:text-sm mt-1;
+    }
+
+    .form-helper {
+        @apply text-neutral-400 text-xs sm:text-sm mt-1;
+    }
+
+    /* Form Container */
+    .form-container {
+        @apply w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto;
+    }
+
+    /* Legacy Form Utilities (backward compatibility) */
+    .form-input-base {
+        @apply input-md;
+    }
+
+    .form-label-base {
+        @apply form-label;
+    }
+
+    .spacing-form-tight {
+        @apply mb-0.5 sm:mb-1 md:mb-1.5 lg:mb-2 xl:mb-2.5 2xl:mb-3;
+    }
+
+    .spacing-form-normal {
+        @apply mb-1 sm:mb-2 md:mb-3 lg:mb-4 xl:mb-5 2xl:mb-6;
+    }
+
+    /* -------------------------------------------------------------------------
+       NAVIGATION (Mobile-First)
+       ------------------------------------------------------------------------- */
+
+    /* Navigation Heights */
+    .nav-h {
+        @apply h-14 sm:h-16 md:h-20;
+    }
+
+    .nav-h-scrolled {
+        @apply h-12 sm:h-14 md:h-16;
+    }
+
+    /* Navigation Spacer (for fixed nav) */
+    .nav-spacer {
+        @apply h-14 sm:h-16 md:h-20;
+    }
+
+    .nav-spacer-scrolled {
+        @apply h-12 sm:h-14 md:h-16;
+    }
+
+    .nav-spacer-mobile {
+        @apply h-[60px] sm:h-16;
+    }
+
+    /* Navigation Links */
+    .nav-link-base {
+        @apply relative px-4 py-2 rounded-full transition-all duration-300 ease-in-out;
+        @apply text-white/90 hover:text-white font-medium;
+    }
+
+    .nav-link-active {
+        @apply text-white;
+    }
+
+    .nav-link-inactive {
+        @apply hover:bg-white/10;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+        @apply fixed inset-0 z-50 bg-background;
+    }
+
+    .mobile-menu-item {
+        @apply py-3 px-4 text-lg border-b border-white/10;
+        @apply min-h-[44px] flex items-center; /* Touch-friendly */
+    }
+
+    /* -------------------------------------------------------------------------
+       CONTAINERS (Mobile-First)
+       ------------------------------------------------------------------------- */
+
+    .container-padded {
+        @apply w-full max-w-7xl mx-auto section-px;
+    }
+
+    .container-responsive {
+        @apply w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20;
+    }
+
+    .max-width-responsive {
+        @apply max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl;
+    }
+
+    /* -------------------------------------------------------------------------
+       GRADIENTS
+       ------------------------------------------------------------------------- */
+
+    .bg-gradient-primary-button {
+        background: var(--gradient-primary-button);
+    }
+
+    .bg-gradient-hero-fade {
+        background: var(--gradient-hero-fade);
+    }
+
+    .bg-gradient-contact-outer {
+        background: var(--gradient-contact-outer);
+    }
+
+    .bg-gradient-contact-inner {
+        background: var(--gradient-contact-inner);
+    }
+
+    .bg-gradient-service-overlay {
+        background: var(--gradient-service-overlay);
+    }
+
+    .bg-gradient-blog-hero {
+        background: var(--gradient-blog-hero);
+    }
+
+    /* Service Card Gradient Variants */
+    .gradient-service-aqua {
+        background: linear-gradient(180deg, #94D7E0 0%, #000000 100%);
+    }
+
+    .gradient-service-yellow {
+        background: linear-gradient(180deg, #EFD27E 0%, #000000 100%);
+    }
+
+    .gradient-service-pink {
+        background: linear-gradient(180deg, #E438D5 0%, #000000 100%);
+    }
+
+    .gradient-service-blue {
+        background: linear-gradient(180deg, #1370AD 0%, #000000 100%);
+    }
+
+    /* Text Gradient */
+    .text-gradient-blue {
+        background: var(--gradient-text-blue);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* -------------------------------------------------------------------------
+       GLASSMORPHISM
+       ------------------------------------------------------------------------- */
+
+    .glassmorphism {
+        background: var(--glass-bg);
+        backdrop-filter: var(--glass-blur);
+        -webkit-backdrop-filter: var(--glass-blur);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        box-shadow: var(--glass-shadow);
+    }
+
+    .glass-card {
+        @apply glassmorphism;
+    }
+
+    /* -------------------------------------------------------------------------
+       SOCIAL ICONS
+       ------------------------------------------------------------------------- */
+
+    .social-icon-btn {
+        @apply w-9 h-9 rounded-full flex items-center justify-center;
+        @apply bg-accent-social hover:opacity-80 transition-opacity duration-200;
+        @apply min-w-[44px] min-h-[44px]; /* Touch-friendly */
+    }
+
+    /* -------------------------------------------------------------------------
+       RESPONSIVE TYPOGRAPHY
+       ------------------------------------------------------------------------- */
+
     .text-responsive-xs {
         @apply text-[10px] sm:text-body-xs md:text-body-sm lg:text-body-md xl:text-body-lg 2xl:text-body-xl;
     }
@@ -96,18 +592,12 @@ html {
     }
 
     .text-responsive-display {
-        @apply text-display-xs sm:text-display-sm md:text-display-md lg:text-display-lg
-        xl:text-display-xl 2xl:text-display-2xl;
+        @apply text-display-xs sm:text-display-sm md:text-display-md lg:text-display-lg xl:text-display-xl 2xl:text-display-2xl;
     }
 
-    /* Enhanced Responsive Spacing with all breakpoints */
-    .spacing-form-tight {
-        @apply mb-0.5 sm:mb-1 md:mb-1.5 lg:mb-2 xl:mb-2.5 2xl:mb-3;
-    }
-
-    .spacing-form-normal {
-        @apply mb-1 sm:mb-2 md:mb-3 lg:mb-4 xl:mb-5 2xl:mb-6;
-    }
+    /* -------------------------------------------------------------------------
+       RESPONSIVE PADDING (Legacy Support)
+       ------------------------------------------------------------------------- */
 
     .padding-responsive-xs {
         @apply px-1 py-0.5 sm:px-1.5 sm:py-1 md:px-2 md:py-1.5 lg:px-3 lg:py-2 xl:px-4 xl:py-2.5 2xl:px-5 2xl:py-3;
@@ -125,89 +615,348 @@ html {
         @apply px-4 py-3 sm:px-5 sm:py-3.5 md:px-6 md:py-4 lg:px-8 lg:py-5 xl:px-10 xl:py-6 2xl:px-12 2xl:py-8;
     }
 
-    /* Enhanced Button Sizes with all breakpoints */
-    .btn-size-xs {
-        @apply px-1 py-0.5 sm:px-1.5 sm:py-0.5 md:px-2 md:py-1 lg:px-2.5 lg:py-1 xl:px-3 xl:py-1.5 2xl:px-3.5 2xl:py-1.5;
-        @apply h-[20px] sm:h-[22px] md:h-[24px] lg:h-[28px] xl:h-[30px] 2xl:h-[32px];
+    /* -------------------------------------------------------------------------
+       MOBILE-SPECIFIC UTILITIES
+       ------------------------------------------------------------------------- */
+
+    /* Hide/Show based on breakpoint */
+    .mobile-only {
+        @apply block sm:hidden;
     }
 
-    .btn-size-sm {
-        @apply px-1.5 py-0.5 sm:px-2 sm:py-1 md:px-2.5 md:py-1 lg:px-3 lg:py-1.5 xl:px-4 xl:py-2 2xl:px-5 2xl:py-2.5;
-        @apply h-[24px] sm:h-[26px] md:h-[28px] lg:h-[32px] xl:h-[36px] 2xl:h-[40px];
+    .tablet-up {
+        @apply hidden sm:block;
     }
 
-    .btn-size-md {
-        @apply px-2 py-1 sm:px-2.5 sm:py-1.5 md:px-3 md:py-1.5 lg:px-4 lg:py-2 xl:px-5 xl:py-2.5 2xl:px-6 2xl:py-3;
-        @apply h-[28px] sm:h-[30px] md:h-[32px] lg:h-[38px] xl:h-[42px] 2xl:h-[48px];
+    .desktop-only {
+        @apply hidden lg:block;
     }
 
-    .btn-size-lg {
-        @apply px-3 py-1.5 sm:px-3.5 sm:py-2 md:px-4 md:py-2 lg:px-6 lg:py-3 xl:px-8 xl:py-4 2xl:px-10 2xl:py-5;
-        @apply h-[32px] sm:h-[36px] md:h-[38px] lg:h-[44px] xl:h-[52px] 2xl:h-[60px];
+    .mobile-tablet {
+        @apply block lg:hidden;
     }
 
-    .btn-size-xl {
-        @apply px-4 py-2 sm:px-5 sm:py-2.5 md:px-6 md:py-3 lg:px-8 lg:py-4 xl:px-10 xl:py-5 2xl:px-12 2xl:py-6;
-        @apply h-[36px] sm:h-[40px] md:h-[44px] lg:h-[52px] xl:h-[60px] 2xl:h-[72px];
+    /* Touch Targets - ensure minimum 44px */
+    .touch-target {
+        @apply min-h-[44px] min-w-[44px];
     }
 
-    /* Form Input Utilities */
-    .form-input-base {
-        @apply w-full bg-transparent border border-gray-600 text-white placeholder-gray-400;
-        @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
-        @apply transition-all duration-200;
+    /* Mobile Card Layouts */
+    .card-stack-mobile {
+        @apply flex flex-col sm:flex-row;
     }
 
-    .form-label-base {
-        @apply block text-white font-medium;
+    .card-grid-mobile {
+        @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3;
     }
 
-    /* Navigation Utilities */
-    .nav-link-base {
-        @apply relative px-4 py-2 rounded-full transition-all duration-300 ease-in-out;
-        @apply text-white/90 hover:text-white font-medium;
+    /* Horizontal Scroll on Mobile */
+    .scroll-snap-x {
+        @apply overflow-x-auto snap-x snap-mandatory;
+        -webkit-overflow-scrolling: touch;
     }
 
-    .nav-link-active {
-        @apply text-white;
-    }
-
-    .nav-link-inactive {
-        @apply hover:bg-white/10;
-    }
-
-    /* Container utilities for all breakpoints */
-    .container-responsive {
-        @apply w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20;
-    }
-
-    .max-width-responsive {
-        @apply max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl;
+    .scroll-snap-item {
+        @apply snap-start flex-shrink-0;
     }
 }
 
-@layer base {
-    html {
-        font-family: 'Poppins', system-ui, sans-serif;
+/* =============================================================================
+   SAFE AREA INSETS (for notched devices)
+   ============================================================================= */
+
+@supports (padding: env(safe-area-inset-top)) {
+    .safe-top {
+        padding-top: env(safe-area-inset-top);
+    }
+
+    .safe-bottom {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .safe-x {
+        padding-left: max(16px, env(safe-area-inset-left));
+        padding-right: max(16px, env(safe-area-inset-right));
+    }
+}
+
+/* =============================================================================
+   BLOG CONTENT STYLING (CMS HTML Content)
+   ============================================================================= */
+
+/**
+ * Styling for HTML content retrieved from Strapi CMS
+ * Applied to .blog-content wrapper in BlogArticle component
+ *
+ * Typography follows design system tokens:
+ * - body-md: 16px/28px (base paragraph)
+ * - body-lg: 18px/30px (lead paragraphs)
+ * - Display sizes for headings
+ */
+
+.blog-content {
+    /* Base Typography */
+    @apply text-body-md text-neutral-900;
+    font-family: 'Poppins', system-ui, sans-serif;
+}
+
+/* Headings */
+.blog-content h1 {
+    @apply text-display-md md:text-display-lg font-bold text-neutral-900;
+    @apply mt-12 mb-6 first:mt-0;
+    letter-spacing: -0.02em;
+}
+
+.blog-content h2 {
+    @apply text-display-xs md:text-display-sm font-bold text-neutral-900;
+    @apply mt-10 mb-4;
+    letter-spacing: -0.02em;
+}
+
+.blog-content h3 {
+    @apply text-body-xl md:text-body-2xl font-semibold text-neutral-900;
+    @apply mt-8 mb-3;
+    letter-spacing: -0.02em;
+}
+
+.blog-content h4 {
+    @apply text-body-lg md:text-body-xl font-semibold text-neutral-900;
+    @apply mt-6 mb-2;
+    letter-spacing: -0.02em;
+}
+
+.blog-content h5,
+.blog-content h6 {
+    @apply text-body-md md:text-body-lg font-semibold text-neutral-900;
+    @apply mt-4 mb-2;
+    letter-spacing: -0.02em;
+}
+
+/* Paragraphs */
+.blog-content p {
+    @apply text-body-md md:text-body-lg text-neutral-700;
+    @apply mb-6 leading-relaxed;
+    letter-spacing: -0.02em;
+}
+
+.blog-content p:first-of-type {
+    @apply text-body-lg md:text-body-xl text-neutral-800;
+}
+
+/* Links */
+.blog-content a {
+    @apply text-primary-light font-medium;
+    @apply no-underline hover:underline;
+    @apply transition-colors duration-200;
+}
+
+.blog-content a:hover {
+    @apply text-accent-blue;
+}
+
+/* Lists */
+.blog-content ul,
+.blog-content ol {
+    @apply my-6 pl-6;
+}
+
+.blog-content ul {
+    @apply list-disc;
+}
+
+.blog-content ol {
+    @apply list-decimal;
+}
+
+.blog-content li {
+    @apply text-body-md text-neutral-700 mb-3;
+    @apply pl-2;
+    letter-spacing: -0.02em;
+}
+
+.blog-content li::marker {
+    @apply text-primary-light;
+}
+
+/* Nested lists */
+.blog-content ul ul,
+.blog-content ol ol,
+.blog-content ul ol,
+.blog-content ol ul {
+    @apply mt-3 mb-0;
+}
+
+/* Blockquotes */
+.blog-content blockquote {
+    @apply my-8 pl-6 py-4;
+    @apply border-l-4 border-primary-light;
+    @apply bg-neutral-50 rounded-r-lg;
+}
+
+.blog-content blockquote p {
+    @apply text-body-lg italic text-neutral-600;
+    @apply mb-0;
+}
+
+.blog-content blockquote cite {
+    @apply block mt-4 text-body-sm text-neutral-500 not-italic;
+}
+
+/* Code */
+.blog-content code {
+    @apply text-primary-light font-mono text-body-sm;
+    @apply bg-accent-blue/10 px-1.5 py-0.5 rounded;
+}
+
+.blog-content pre {
+    @apply my-6 p-4 rounded-lg overflow-x-auto;
+    @apply bg-neutral-900 text-neutral-100;
+}
+
+.blog-content pre code {
+    @apply bg-transparent p-0 text-neutral-100;
+}
+
+/* Tables */
+.blog-content table {
+    @apply w-full my-8 border-collapse;
+}
+
+.blog-content thead {
+    @apply bg-neutral-100;
+}
+
+.blog-content th {
+    @apply text-body-sm font-semibold text-neutral-900;
+    @apply px-4 py-3 text-left;
+    @apply border-b-2 border-neutral-200;
+}
+
+.blog-content td {
+    @apply text-body-sm text-neutral-700;
+    @apply px-4 py-3;
+    @apply border-b border-neutral-100;
+}
+
+.blog-content tbody tr:hover {
+    @apply bg-neutral-50;
+}
+
+/* Images */
+.blog-content img {
+    @apply my-8 rounded-xl shadow-lg;
+    @apply max-w-full h-auto;
+}
+
+.blog-content figure {
+    @apply my-8;
+}
+
+.blog-content figcaption {
+    @apply mt-3 text-body-sm text-neutral-500 text-center italic;
+}
+
+/* Horizontal Rule */
+.blog-content hr {
+    @apply my-12 border-0 h-px;
+    @apply bg-gradient-to-r from-transparent via-neutral-300 to-transparent;
+}
+
+/* Strong & Emphasis */
+.blog-content strong {
+    @apply font-semibold text-neutral-900;
+}
+
+.blog-content em {
+    @apply italic;
+}
+
+/* Mark/Highlight */
+.blog-content mark {
+    @apply bg-accent-blue/20 text-neutral-900 px-1 rounded;
+}
+
+/* Subscript & Superscript */
+.blog-content sub,
+.blog-content sup {
+    @apply text-body-xs;
+}
+
+/* Definition Lists */
+.blog-content dl {
+    @apply my-6;
+}
+
+.blog-content dt {
+    @apply font-semibold text-neutral-900 mb-1;
+}
+
+.blog-content dd {
+    @apply text-neutral-700 ml-4 mb-4;
+}
+
+/* Video/Embed Containers */
+.blog-content iframe,
+.blog-content video {
+    @apply my-8 rounded-xl overflow-hidden;
+    @apply max-w-full;
+}
+
+.blog-content .video-container {
+    @apply relative my-8 pb-[56.25%] h-0 overflow-hidden rounded-xl;
+}
+
+.blog-content .video-container iframe {
+    @apply absolute top-0 left-0 w-full h-full m-0;
+}
+
+/* RTL Support for Arabic */
+[dir="rtl"] .blog-content {
+    @apply text-right;
+}
+
+[dir="rtl"] .blog-content ul,
+[dir="rtl"] .blog-content ol {
+    @apply pr-6 pl-0;
+}
+
+[dir="rtl"] .blog-content li {
+    @apply pr-2 pl-0;
+}
+
+[dir="rtl"] .blog-content blockquote {
+    @apply pr-6 pl-0;
+    @apply border-l-0 border-r-4;
+    @apply rounded-r-none rounded-l-lg;
+}
+
+[dir="rtl"] .blog-content dd {
+    @apply mr-4 ml-0;
+}
+
+/* =============================================================================
+   PRINT STYLES
+   ============================================================================= */
+
+@media print {
+    .no-print {
+        display: none !important;
     }
 
     body {
-        @apply text-body-md text-white bg-primary;
+        @apply bg-white text-black;
     }
 
-    h1 {
-        @apply text-display-md md:text-display-lg lg:text-display-xl xl:text-display-2xl font-bold;
+    .blog-content {
+        @apply text-black;
     }
 
-    h2 {
-        @apply text-display-sm md:text-display-md lg:text-display-lg xl:text-display-xl font-semibold;
+    .blog-content a {
+        @apply text-black underline;
     }
 
-    h3 {
-        @apply text-display-xs md:text-display-sm lg:text-display-md font-semibold;
-    }
-
-    p {
-        @apply text-responsive-md;
+    .blog-content pre {
+        @apply bg-neutral-100 text-black;
+        @apply border border-neutral-300;
     }
 }

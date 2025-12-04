@@ -1,3 +1,9 @@
+/**
+ * OurWorksSection Component - Design System
+ * Uses design tokens for consistent styling
+ * Mobile-first responsive design
+ */
+
 import React from "react";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { Badge } from "@/components/ui/Badge";
@@ -54,51 +60,36 @@ export async function OurWorksSection({
     }
 
     return (
-        <div
-            className={`min-h-screen relative bg-gray-100 py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24 ${className}`}
-        >
-            <div
-                className="absolute inset-0 z-0 flex flex-col justify-start items-center "
-                style={{ top: -100 }}
-            >
+        <div className={`min-h-screen relative bg-neutral-100 section-py-lg ${className}`}>
+            {/* Background Logo */}
+            <div className="absolute inset-0 z-0 flex flex-col justify-start items-center -top-16 sm:-top-20 md:-top-24">
                 <img
                     src="/images/laqta_logo_courbe.svg"
                     alt="LAQTA Logo Curve"
                     className="w-2/3 aspect-square object-fill z-0 opacity-40"
                 />
             </div>
-            {/*<div*/}
-            {/*    className={"absolute bg-amber-300 w-full top-0"}*/}
-            {/*    style={{*/}
-            {/*        height: 1000,*/}
-            {/*        top: 0,*/}
-            {/*    }}*/}
-            {/*></div>*/}
-            <div className="px-3 sm:px-6 md:px-12 lg:px-12 xl:px-24 2xl:px-32 z-10">
+
+            <div className="section-px z-10 relative">
                 {/* Header Section */}
-                <div
-                    className="text-center flex flex-col
-                items-center gap-2 md:gap-6 lg:gap-5 xl:gap-6 md:pb-8"
-                >
+                <div className="text-center flex flex-col items-center grid-gap-sm pb-6 sm:pb-8 md:pb-12">
                     <div className="animate-slide-down" style={{ opacity: 0 }}>
-                        <Badge variant="default" className="">
+                        <Badge size="sm" variant="accent">
                             {badge || t("badge")}
                         </Badge>
                     </div>
 
-                    <h2 className="text-gray-900 animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>{title || t("title")}</h2>
+                    <h2 className="text-neutral-900 animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>
+                        {title || t("title")}
+                    </h2>
 
-                    <p
-                        className="text-secondary-gray text-responsive-lg text-justify px-4 md:px-10 md:text-center
-                    lg:px-24 xl:px-32 2xl:px-40 max-w-4xl animate-fade-in"
-                        style={{ opacity: 0, animationDelay: "300ms" }}
-                    >
+                    <p className="text-secondary-gray text-body-sm sm:text-body-md text-justify sm:text-center max-w-4xl animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
                         {description || t("description")}
                     </p>
                 </div>
 
                 {/* Projects Section */}
-                <div className="space-y-2 sm:space-y-4 md:space-y-6 lg:space-y-12 xl:space-y-16 flex flex-col animate-fade-in" style={{ opacity: 0, animationDelay: "450ms" }}>
+                <div className="stack-gap-lg flex flex-col animate-fade-in" style={{ opacity: 0, animationDelay: "450ms" }}>
                     {hasError ? (
                         <ErrorFallback
                             title="Unable to load projects"

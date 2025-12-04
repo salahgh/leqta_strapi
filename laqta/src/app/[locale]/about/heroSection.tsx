@@ -14,7 +14,7 @@ export const HeroSection = async () => {
         <section className="flex lg:flex-row flex-col items-center px-4 md:px-8 lg:px-12 py-12 md:py-16 lg:py-20 gap-8 md:gap-12 lg:gap-16 max-w-7xl mx-auto">
             <div className="flex-1 space-y-4 md:space-y-6 lg:space-y-8">
                 <div className="animate-slide-down" style={{ opacity: 0 }}>
-                    <Badge>{t('badge')}</Badge>
+                    <Badge size="sm" variant="default">{t('badge')}</Badge>
                 </div>
 
                 <h2 className="text-gray-200 leading-tight py-2 animate-slide-up" style={{ opacity: 0 }}>

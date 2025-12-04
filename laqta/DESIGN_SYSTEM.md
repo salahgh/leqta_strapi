@@ -1,6 +1,6 @@
 # Laqta Design System Documentation
 
-This document outlines the design system used in the Laqta project, including colors, typography, spacing, and component styles.
+This document outlines the design system used in the Laqta project, including colors, typography, spacing, and component styles. The design system follows **mobile-first responsive design** principles with touch-friendly minimums.
 
 ## Table of Contents
 
@@ -8,7 +8,7 @@ This document outlines the design system used in the Laqta project, including co
 - [Typography](#typography)
 - [Spacing](#spacing)
 - [Components](#components)
-- [Icons](#icons)
+- [Utility Classes](#utility-classes)
 - [Responsive Design](#responsive-design)
 - [Design Tokens](#design-tokens)
 - [Best Practices](#best-practices)
@@ -21,86 +21,57 @@ The color palette is defined in `tailwind.config.js` and includes the following 
 
 ```javascript
 primary: {
-  DEFAULT: '#7F56D9',
-  light: '#F9F5FF',
-  dark: '#53389E',
+  DEFAULT: '#0D1137',  // Deep navy blue - main brand color
+  light: '#1370AD',    // Bright blue - accents and links
 },
 ```
-
-- **Primary Default**: Used for primary buttons, links, and accents
-- **Primary Light**: Used for backgrounds, hover states, and subtle accents
-- **Primary Dark**: Used for text on light backgrounds and hover states
-
-### Secondary Colors
-
-```javascript
-secondary: {
-  DEFAULT: '#F4EBFF',
-  light: '#F9F5FF',
-  dark: '#53389E',
-},
-```
-
-- **Secondary Default**: Used for secondary buttons and accents
-- **Secondary Light**: Used for backgrounds and subtle accents
-- **Secondary Dark**: Used for text on light backgrounds
 
 ### Background Colors
 
 ```javascript
-background: {
-  DEFAULT: '#FFFFFF',
-  light: '#F9FAFB',
-  dark: '#101828',
-},
+background: '#141733',  // Dark background for forms and cards
 ```
-
-- **Background Default**: Used for main page backgrounds
-- **Background Light**: Used for alternate sections and cards
-- **Background Dark**: Used for dark mode backgrounds
-
-### Neutral Colors
-
-```javascript
-neutral: {
-  50: '#F9FAFB',
-  100: '#F3F4F6',
-  200: '#E5E7EB',
-  300: '#D1D5DB',
-  400: '#9CA3AF',
-  500: '#6B7280',
-  600: '#4B5563',
-  700: '#374151',
-  800: '#1F2937',
-  900: '#111827',
-},
-```
-
-- **Neutral 50-200**: Used for backgrounds, borders, and dividers
-- **Neutral 300-500**: Used for secondary text, icons, and disabled states
-- **Neutral 600-900**: Used for primary text and headings
 
 ### Brand Colors
 
 ```javascript
 brand: {
-  purple: '#7F56D9',
-  blue: '#2970FF',
-  cyan: '#06AED4',
-  orange: '#FF5722',
-  yellow: '#F79009',
-  green: '#12B76A',
-  red: '#F04438',
+  aqua: '#94D7E0',     // Aqua cyan - service cards, accents
+  yellow: '#EFD27E',   // Warm yellow - highlights
+  pink: '#E438D5',     // Vibrant pink - accents
 },
 ```
 
-- **Purple**: Primary brand color
-- **Blue**: Used for links and information
-- **Cyan**: Used for accents and highlights
-- **Orange**: Used for warnings and attention
-- **Yellow**: Used for caution and notifications
-- **Green**: Used for success and positive states
-- **Red**: Used for errors and negative states
+### Form Colors
+
+```javascript
+form: {
+  text: '#D2D2D3',     // Light gray text for form inputs
+  bg: '#141733',       // Dark background for form inputs
+},
+```
+
+### Accent Colors
+
+```javascript
+accent: {
+  blue: '#54B3F1',     // Bright accent blue - badges, borders
+  social: '#1787ba',   // Social icon backgrounds
+  purple: '#7C3AED',   // Purple - blog category fallback
+  success: '#93d5de',  // Success step accent
+},
+```
+
+### Secondary/Neutral Colors
+
+```javascript
+'secondary-gray': '#C6BBBB',  // Secondary text color
+neutral: {
+  100: '#FBFBFB',
+  200: '#F0F0F0',
+  // ... up to 900
+},
+```
 
 ## Typography
 
@@ -116,275 +87,338 @@ fontFamily: {
 - **Poppins**: Primary font used for most text
 - **Gotham**: Used for headings and display text
 
-### Font Sizes
+### Font Sizes (Responsive)
 
 ```javascript
 fontSize: {
-  'display-2xl': ['4.5rem', { lineHeight: '5.625rem', letterSpacing: '-0.02em' }],
-  'display-xl': ['3.75rem', { lineHeight: '4.5rem', letterSpacing: '-0.02em' }],
-  'display-lg': ['3rem', { lineHeight: '3.75rem', letterSpacing: '-0.02em' }],
-  'display-md': ['2.25rem', { lineHeight: '2.75rem', letterSpacing: '-0.02em' }],
-  'display-sm': ['1.875rem', { lineHeight: '2.375rem' }],
-  'display-xs': ['1.5rem', { lineHeight: '2rem' }],
-  'body-xl': ['1.25rem', { lineHeight: '1.875rem' }],
-  'body-lg': ['1.125rem', { lineHeight: '1.75rem' }],
-  'body-md': ['1rem', { lineHeight: '1.5rem' }],
-  'body-sm': ['0.875rem', { lineHeight: '1.25rem' }],
-  'body-xs': ['0.75rem', { lineHeight: '1.125rem' }],
+  'display-2xl': ['4.5rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],  // 72px
+  'display-xl': ['3.75rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],  // 60px
+  'display-lg': ['3rem', { lineHeight: '1.2', letterSpacing: '-0.02em' }],     // 48px
+  'display-md': ['2.25rem', { lineHeight: '1.2', letterSpacing: '-0.02em' }],  // 36px
+  'display-sm': ['1.875rem', { lineHeight: '1.3' }],  // 30px
+  'display-xs': ['1.5rem', { lineHeight: '1.4' }],    // 24px
+  'body-xl': ['1.25rem', { lineHeight: '1.6' }],      // 20px
+  'body-lg': ['1.125rem', { lineHeight: '1.6' }],     // 18px
+  'body-md': ['1rem', { lineHeight: '1.5' }],         // 16px - minimum for iOS
+  'body-sm': ['0.875rem', { lineHeight: '1.4' }],     // 14px
+  'body-xs': ['0.75rem', { lineHeight: '1.4' }],      // 12px
 },
 ```
-
-- **Display Sizes**: Used for headings and large text
-- **Body Sizes**: Used for body text and smaller elements
-
-### Font Weights
-
-The project uses the standard Tailwind font weights:
-
-- **font-thin**: 100
-- **font-extralight**: 200
-- **font-light**: 300
-- **font-normal**: 400
-- **font-medium**: 500
-- **font-semibold**: 600
-- **font-bold**: 700
-- **font-extrabold**: 800
-- **font-black**: 900
 
 ## Spacing
 
-The spacing scale is defined in `tailwind.config.js` and includes the following values:
+The spacing system uses an **8px base unit** (industry standard). Custom utility classes provide responsive spacing:
 
-```javascript
-spacing: {
-  xs: '0.5rem',    // 8px
-  sm: '0.75rem',   // 12px
-  md: '1rem',      // 16px
-  lg: '1.25rem',   // 20px
-  xl: '1.5rem',    // 24px
-  '2xl': '2rem',   // 32px
-  '3xl': '2.5rem', // 40px
-  '4xl': '3rem',   // 48px
-  '5xl': '4rem',   // 64px
-  '6xl': '5rem',   // 80px
-},
+### Section Spacing
+
+```css
+/* Vertical Section Padding */
+.section-py-sm    { @apply py-6 sm:py-8 md:py-12; }                         /* 24→32→48px */
+.section-py-md    { @apply py-8 sm:py-10 md:py-12 lg:py-16 xl:py-20; }      /* 32→40→48→64→80px */
+.section-py-lg    { @apply py-12 sm:py-14 md:py-16 lg:py-20 xl:py-24 2xl:py-32; }
+
+/* Horizontal Section Padding */
+.section-px       { @apply px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20; }
 ```
 
-These spacing values are used for margins, paddings, gaps, and other layout properties.
+### Card Padding
+
+```css
+.card-p-sm        { @apply p-3 sm:p-4 md:p-6; }
+.card-p-md        { @apply p-4 sm:p-5 md:p-6 lg:p-8; }
+.card-p-lg        { @apply p-6 sm:p-7 md:p-8 lg:p-10 xl:p-12; }
+```
+
+### Grid Gaps
+
+```css
+.grid-gap-xs      { @apply gap-2 sm:gap-3 md:gap-4; }
+.grid-gap-sm      { @apply gap-3 sm:gap-4 md:gap-6; }
+.grid-gap-md      { @apply gap-4 sm:gap-5 md:gap-6 lg:gap-8; }
+.grid-gap-lg      { @apply gap-6 sm:gap-7 md:gap-8 lg:gap-10 xl:gap-12; }
+```
+
+### Stack Gaps
+
+```css
+.stack-gap-sm     { @apply space-y-2 sm:space-y-3 md:space-y-4; }
+.stack-gap-md     { @apply space-y-3 sm:space-y-4 md:space-y-6; }
+.stack-gap-lg     { @apply space-y-4 sm:space-y-6 md:space-y-8; }
+```
 
 ## Components
 
 ### Buttons
 
-Buttons are defined in the `Button.tsx` component and have the following variants and sizes:
-
-#### Variants
-
-- **Primary**: Gradient background with white text
-  ```jsx
-  <Button variant="primary">Primary Button</Button>
-  ```
-
-- **Secondary**: White background with primary text and border
-  ```jsx
-  <Button variant="secondary">Secondary Button</Button>
-  ```
+Buttons are defined in `components/ui/Button.tsx` with the following system:
 
 #### Sizes
 
-- **Small (sm)**: Smaller padding and font size
-  ```jsx
-  <Button size="sm">Small Button</Button>
-  ```
+```jsx
+<Button size="xs">Extra Small</Button>
+<Button size="sm">Small</Button>
+<Button size="md">Medium (default)</Button>
+<Button size="lg">Large</Button>
+<Button size="xl">Extra Large</Button>
+```
 
-- **Medium (md)**: Default size
-  ```jsx
-  <Button size="md">Medium Button</Button>
-  ```
+Button sizes use responsive heights with 44px minimum for touch targets:
+- `btn-xs`: 36→32px (mobile larger)
+- `btn-sm`: 40px always
+- `btn-md`: 44→48px
+- `btn-lg`: 48→56px
+- `btn-xl`: 56→64px
 
-- **Large (lg)**: Larger padding and font size
-  ```jsx
-  <Button size="lg">Large Button</Button>
-  ```
+#### Variants
+
+```jsx
+<Button variant="primary">Primary Button</Button>   // Gradient background
+<Button variant="secondary">Secondary Button</Button> // Outline style
+<Button variant="ghost">Ghost Button</Button>       // Transparent
+```
 
 #### Icons
 
-Buttons can include left and right icons:
-
 ```jsx
-<Button leftIcon={<Icon />}>Button with Left Icon</Button>
-<Button rightIcon={<Icon />}>Button with Right Icon</Button>
+<Button leftIcon={<Rocket />}>With Left Icon</Button>
+<Button rightIcon={<ArrowRight />}>With Right Icon</Button>
 ```
 
 ### Form Inputs
 
-Form inputs are defined in the `FormInput.tsx` component and support both text inputs and textareas:
+Form inputs are defined in `components/ui/FormInput.tsx`:
 
 ```jsx
 <FormInput
   label="Email Address"
   name="email"
-  placeholder="e.g. sarah.benyamina@email.com"
-  value={formik.values.email}
-  onChange={formik.handleChange}
-  error={formik.touched.email && formik.errors.email}
+  type="email"
+  placeholder="e.g. sarah@email.com"
+  size="md"
+  className="bg-form-bg text-form-text"
+  value={value}
+  onChange={onChange}
+  error={error}
 />
 ```
+
+#### Sizes
+
+- `size="sm"`: 40px height (compact)
+- `size="md"`: 44→48px height (default, touch-friendly)
+- `size="lg"`: 48→56px height (large)
+
+#### Textarea
 
 ```jsx
 <FormInput
   as="textarea"
   label="Message"
-  name="message"
-  placeholder="Your message here"
-  value={formik.values.message}
-  onChange={formik.handleChange}
-  error={formik.touched.message && formik.errors.message}
+  rows={4}
+  className="bg-form-bg text-form-text min-h-[150px]"
 />
 ```
 
-### Cards
+### Badges
 
-The project uses various card components, including `PlanCard.jsx` for service plans:
+Badges are defined in `components/ui/Badge.tsx`:
 
 ```jsx
-<PlanCard
-  title="Basic Plan"
-  features={["Feature 1", "Feature 2", "Feature 3"]}
-  equipment={["Equipment 1", "Equipment 2"]}
-  price="$99"
+<Badge size="sm" variant="default">Default Badge</Badge>
+<Badge size="md" variant="accent">Accent Badge</Badge>
+<Badge size="lg" variant="solid">Solid Badge</Badge>
+<Badge size="sm" variant="outline">Outline Badge</Badge>
+```
+
+#### Sizes
+
+- `badge-xs`: Tiny tags
+- `badge-sm`: 10→12px padding
+- `badge-md`: 12→16px padding
+- `badge-lg`: 16→20px padding
+
+### Service Cards
+
+Service cards use a gradient variant system:
+
+```jsx
+<ServiceCard
+  title="Service Title"
+  description="Service description"
+  gradientVariant="aqua"  // "aqua" | "yellow" | "pink" | "blue"
 />
 ```
 
-## Icons
+## Utility Classes
 
-The project uses Lucide React for icons. Icons are imported from the `lucide-react` package:
+### Gradient Backgrounds
 
-```jsx
-import { Rocket, Menu, X, ChevronDown } from 'lucide-react';
+```css
+.bg-gradient-primary-button   /* Linear gradient for primary buttons */
+.bg-gradient-hero-fade        /* Fade to black for hero overlays */
+.bg-gradient-contact-outer    /* Contact section outer gradient */
+.bg-gradient-contact-inner    /* Contact section inner gradient */
+.bg-gradient-service-overlay  /* Service card overlay gradient */
+.bg-gradient-blog-hero        /* Blog page hero gradient */
 ```
 
-Icons are typically used with a size and color:
+### Service Gradients
 
-```jsx
-<Rocket className="h-4 w-4 text-primary" />
+```css
+.gradient-service-aqua        /* #94D7E0 → #000000 */
+.gradient-service-yellow      /* #EFD27E → #000000 */
+.gradient-service-pink        /* #E438D5 → #000000 */
+.gradient-service-blue        /* #1370AD → #000000 */
+```
+
+### Glassmorphism
+
+```css
+.glassmorphism                /* Glass effect with blur and border */
+```
+
+### Navigation
+
+```css
+.nav-h                        /* h-14 sm:h-16 md:h-20 */
+.nav-h-scrolled               /* h-12 sm:h-14 md:h-16 */
+.nav-spacer                   /* Matches nav height */
+.nav-spacer-scrolled          /* Matches scrolled nav height */
+```
+
+### Touch Targets
+
+```css
+.touch-target                 /* min-h-[44px] min-w-[44px] */
+```
+
+### Form Utilities
+
+```css
+.form-group                   /* space-y-3 sm:space-y-4 */
+.form-label                   /* block text-white font-medium mb-1 */
+.form-error                   /* text-red-400 text-xs sm:text-sm mt-1 */
+.input-base                   /* Base input styles with focus states */
+.input-sm / .input-md / .input-lg  /* Input sizes */
+```
+
+### Social Icons
+
+```css
+.social-icon-btn              /* Round social icon button with hover */
 ```
 
 ## Responsive Design
 
-The project uses Tailwind's responsive utilities for responsive design. The breakpoints are defined in `tailwind.config.js`:
+### Breakpoints
 
 ```javascript
 screens: {
-  sm: '640px',
-  md: '768px',
-  lg: '1024px',
-  xl: '1280px',
-  '2xl': '1536px',
+  sm: '640px',    // Small tablets
+  md: '768px',    // Tablets
+  lg: '1024px',   // Laptops
+  xl: '1280px',   // Desktops
+  '2xl': '1536px', // Large desktops
 },
 ```
 
-Responsive classes are used throughout the project:
+### Mobile-First Approach
+
+All base values target mobile screens (< 640px). Use progressive enhancement:
 
 ```jsx
-<div className="text-sm md:text-base lg:text-lg">Responsive Text</div>
+// Mobile-first responsive text
+<h1 className="text-display-sm sm:text-display-md md:text-display-lg lg:text-display-xl">
+  Responsive Heading
+</h1>
+
+// Mobile-first responsive spacing
+<div className="section-px section-py-md">
+  Content with responsive padding
+</div>
+```
+
+### Container Widths
+
+```css
+.max-w-container              /* 94.625rem (1514px) */
 ```
 
 ## Design Tokens
 
-The project has a basic design token system in `design/tokens.ts`:
+Design tokens are centralized in `design/tokens.ts`:
 
 ```typescript
-export const colors = {
-  primary: {
-    default: '#7F56D9',
-    light: '#F9F5FF',
-    dark: '#53389E',
-  },
-  // Other colors...
-};
+import { designTokens } from '@/design/tokens';
 
-export const spacing = {
-  xs: '0.5rem',
-  sm: '0.75rem',
-  md: '1rem',
-  lg: '1.25rem',
-  xl: '1.5rem',
-};
+// Access colors
+designTokens.colors.primary.DEFAULT  // '#0D1137'
+designTokens.colors.accent.blue      // '#54B3F1'
 
-export const typography = {
-  size: {
-    xs: '0.75rem',
-    sm: '0.875rem',
-    base: '1rem',
-    lg: '1.125rem',
-    xl: '1.25rem',
-  },
-  // Other typography properties...
-};
+// Access gradients
+designTokens.gradients.primaryButton
+designTokens.gradients.heroFade
+
+// Access spacing
+designTokens.spacing.md             // '1rem'
+
+// Access typography
+designTokens.typography.display.xl
+designTokens.typography.body.md
 ```
-
-These tokens should be used instead of hardcoded values for better consistency and maintainability.
 
 ## Best Practices
 
 ### Using Colors
 
-- Use the primary color for main actions and accents
-- Use the secondary color for less important actions and accents
-- Use neutral colors for text and backgrounds
-- Use brand colors for specific meanings (success, error, etc.)
+- Use `bg-primary` for main dark backgrounds
+- Use `bg-form-bg` and `text-form-text` for form inputs
+- Use `text-accent-blue` for links and interactive elements
+- Use `text-secondary-gray` for secondary text
 
 ### Using Typography
 
-- Use display sizes for headings and large text
-- Use body sizes for body text and smaller elements
-- Use the appropriate font weight for emphasis
-- Maintain a consistent hierarchy with typography
+- Use display sizes for headings (`text-display-sm` through `text-display-2xl`)
+- Use body sizes for paragraph text (`text-body-xs` through `text-body-xl`)
+- Always use responsive typography (e.g., `text-display-sm md:text-display-lg`)
 
 ### Using Spacing
 
-- Use the spacing scale for all margins, paddings, and gaps
-- Maintain consistent spacing between related elements
-- Use larger spacing for section separations
+- Use section utilities (`section-px`, `section-py-md`) for page sections
+- Use card utilities (`card-p-sm`, `card-p-md`) for card padding
+- Use grid gaps (`grid-gap-sm`, `grid-gap-md`) for grid layouts
+- Use stack gaps (`stack-gap-sm`, `stack-gap-md`) for vertical stacking
 
-### Using Components
+### Touch Targets
 
-- Use the provided components instead of creating new ones
-- Follow the component API for props and variants
-- Maintain consistency in component usage
+- All interactive elements should have minimum 44px touch target
+- Use `touch-target` class or `btn-sm`/`btn-md` sizes
+- Form inputs use `size="md"` by default (44px minimum)
 
-### Responsive Design
+### Form Styling
 
-- Design for mobile first, then add responsive classes for larger screens
-- Test on different screen sizes
-- Use the appropriate breakpoints for different devices
+```jsx
+// Recommended form input pattern
+<FormInput
+  label="Field Label"
+  name="fieldName"
+  size="sm"
+  className="bg-form-bg text-form-text"
+/>
 
-## Future Improvements
+// For select dropdowns
+<select className="input-sm bg-form-bg text-form-text rounded-full w-full">
+```
 
-### Design Token Implementation
+### Component Migration
 
-The design token system should be expanded and fully implemented across all components. This would involve:
+When updating existing components, replace:
 
-1. Expanding the tokens in `design/tokens.ts`
-2. Creating a comprehensive set of design tokens for all design properties
-3. Updating components to use design tokens instead of hardcoded values
-4. Documenting the design token system
-
-### Component Library
-
-A more comprehensive component library should be developed, including:
-
-1. More variants for existing components
-2. Additional components for common UI patterns
-3. Better documentation for component usage
-4. Storybook integration for component development and documentation
-
-### Design System Documentation
-
-The design system documentation should be expanded to include:
-
-1. More detailed guidelines for component usage
-2. Examples of common patterns and layouts
-3. Accessibility guidelines
-4. Performance considerations
+| Old Pattern | New Pattern |
+|-------------|-------------|
+| `style={{ backgroundColor: '#141733' }}` | `className="bg-form-bg"` |
+| `style={{ color: '#D2D2D3' }}` | `className="text-form-text"` |
+| `style={{ fontSize: 56 }}` | `className="text-display-xl"` |
+| `variant="compact"` | `size="sm"` |
+| `px-4 md:px-8 lg:px-16` | `section-px` |
+| `space-y-4` | `form-group` or `stack-gap-sm` |

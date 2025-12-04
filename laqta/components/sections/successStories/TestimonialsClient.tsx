@@ -83,7 +83,7 @@ export const TestimonialsClient = ({
             {/* Header section */}
             <div className="text-center px-3 space-y-6">
                 <div className="animate-slide-down" style={{ opacity: 0 }}>
-                    <Badge>{t("badge")}</Badge>
+                    <Badge size="sm" variant="default">{t("badge")}</Badge>
                 </div>
 
                 <h1 className="leading-tight text-gray-800 animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>

@@ -140,35 +140,25 @@ const ProjectInfoStep = ({
                 <FormInput
                     placeholder={undefined}
                     label="Project Description"
-                    variant={"compact"}
+                    size="sm"
                     {...useFormInput<ProjectInfoStepValues>("projectDescription", formik)}
                     as="textarea"
-                    style={{
-                        backgroundColor: "#141733",
-                        color: "#D2D2D3",
-                        width: "100%",
-                        height: 150,
-                    }}
+                    className="bg-form-bg text-form-text w-full min-h-[150px]"
                 />
 
                 {/* Project Goals */}
                 <FormInput
                     placeholder={undefined}
-                    variant={"compact"}
+                    size="sm"
                     label="Project Goals & Success Metrics"
                     {...useFormInput<ProjectInfoStepValues>("goals", formik)}
                     as="textarea"
-                    style={{
-                        backgroundColor: "#141733",
-                        color: "#D2D2D3",
-                        width: "100%",
-                        height: 150,
-                    }}
+                    className="bg-form-bg text-form-text w-full min-h-[150px]"
                 />
 
                 {/* Character Count for Goals */}
                 {formik.values.goals && (
-                    <div className="text-right text-sm text-slate-400">
+                    <div className="text-right text-body-sm text-secondary-gray">
                         {formik.values.goals.length}/500 characters
                     </div>
                 )}

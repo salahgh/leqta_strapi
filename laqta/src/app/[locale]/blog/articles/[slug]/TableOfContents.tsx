@@ -29,10 +29,10 @@ export const TableOfContents: React.FC<{
     if (headings.length === 0) return null;
 
     return (
-        <div className="sticky top-24 bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
-            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+        <div className="sticky top-24 bg-white rounded-2xl card-p-sm shadow-lg border border-neutral-200 hover:shadow-xl transition-shadow duration-300">
+            <h3 className="text-body-lg font-bold text-neutral-900 mb-4 flex items-center gap-2">
                 <svg
-                    className="w-5 h-5 text-blue-600"
+                    className="w-5 h-5 text-primary-light"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -51,10 +51,10 @@ export const TableOfContents: React.FC<{
                     <a
                         key={heading.id}
                         href={`#${heading.id}`}
-                        className={`block text-sm transition-colors ${
+                        className={`block text-body-sm transition-colors ${
                             activeId === heading.id
-                                ? "text-blue-600 font-semibold"
-                                : "text-gray-600 hover:text-blue-600"
+                                ? "text-primary-light font-semibold"
+                                : "text-neutral-600 hover:text-primary-light"
                         }`}
                         style={{ paddingLeft: `${(heading.level - 1) * 12}px` }}
                     >

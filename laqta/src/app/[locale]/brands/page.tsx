@@ -14,23 +14,16 @@ export default async function BrandsPage({
             <div className="bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex flex-col justify-center items-center">
                 <Navigation />
                 <div className="mb-8 mt-32 animate-slide-down" style={{ opacity: 0 }}>
-                    <span
-                        className="inline-block border px-6 py-4 rounded-full"
-                        style={{
-                            color: "#54B3F1",
-                            borderColor: "#54B3F1",
-                            fontSize: 20,
-                        }}
-                    >
+                    <span className="badge-lg badge-outline text-accent-blue border-accent-blue">
                         Our Partners
                     </span>
                 </div>
-                <p style={{ fontSize: 56, opacity: 0, animationDelay: "150ms" }} className={"text-white animate-slide-up"}>
+                <h1 className="text-display-lg md:text-display-xl lg:text-display-2xl text-white animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>
                     Brands That Trust LEQTA
-                </p>
+                </h1>
                 <p
-                    style={{ color: "#C6BBBB", fontSize: 24, maxWidth: 900, opacity: 0, animationDelay: "300ms" }}
-                    className="mt-4 mb-8 text-center animate-fade-in"
+                    className="mt-4 mb-8 text-center animate-fade-in text-secondary-gray text-body-lg md:text-body-xl max-w-4xl section-px"
+                    style={{ opacity: 0, animationDelay: "300ms" }}
                 >
                     We're proud to collaborate with leading brands, bold
                     startups, and visionary changemakers. Together we create
@@ -42,8 +35,8 @@ export default async function BrandsPage({
                     className="animate-fade-in"
                     style={{ opacity: 0, animationDelay: "450ms" }}
                 />
-                <div className={"mt-8 mb-16 flex justify-center h-16 animate-fade-in"} style={{ opacity: 0, animationDelay: "600ms" }}>
-                    <Button leftIcon={undefined} rightIcon={undefined}>
+                <div className="mt-8 mb-16 flex justify-center h-16 animate-fade-in" style={{ opacity: 0, animationDelay: "600ms" }}>
+                    <Button leftIcon={undefined} rightIcon={undefined} size="lg">
                         Become a partner
                     </Button>
                 </div>

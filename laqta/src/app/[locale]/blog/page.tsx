@@ -66,17 +66,13 @@ const BlogPage = async ({
 
     return (
         <div
-            className="min-h-screen"
-            style={{
-                background:
-                    "linear-gradient(135deg, #1e293b 0%, #1e3a8a 50%, #1e293b 100%)",
-            }}
+            className="min-h-screen bg-gradient-blog-hero"
             dir={locale === "ar" ? "rtl" : "ltr"}
         >
             <Navigation />
 
             {/* Hero Section with Logo Background */}
-            <section className="relative px-4 md:px-8 pt-20 md:pt-28 pb-16 md:pb-24">
+            <section className="relative section-px pt-20 md:pt-28 pb-16 md:pb-24">
                 {/* LAQTA Logo Background Overlay */}
                 <div className="absolute inset-0 opacity-5 overflow-hidden pointer-events-none">
                     <Image
@@ -95,14 +91,14 @@ const BlogPage = async ({
                             className="inline-block mb-8 animate-slide-down"
                             style={{ opacity: 0 }}
                         >
-                            <span className="px-5 py-2.5 bg-white/10 backdrop-blur-sm text-white text-sm font-medium rounded-full border border-white/30">
+                            <span className="badge-md badge-default">
                                 {t("badge")}
                             </span>
                         </div>
 
                         {/* Main Heading */}
                         <h1
-                            className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 animate-slide-up"
+                            className="text-display-lg md:text-display-xl lg:text-display-2xl font-bold text-white mb-6 animate-slide-up"
                             style={{ opacity: 0, animationDelay: "150ms" }}
                         >
                             {t("title")}
@@ -110,7 +106,7 @@ const BlogPage = async ({
 
                         {/* Description */}
                         <p
-                            className="text-base md:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed animate-fade-in"
+                            className="text-body-md md:text-body-lg text-secondary-gray max-w-2xl mx-auto leading-relaxed animate-fade-in"
                             style={{ opacity: 0, animationDelay: "300ms" }}
                         >
                             {t("description")}
@@ -120,7 +116,7 @@ const BlogPage = async ({
                     {/* Blog Grid - smaller spacing, equal aspect ratio */}
                     {latestBlogs.length > 0 ? (
                         <div
-                            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in"
+                            className="grid md:grid-cols-2 lg:grid-cols-3 grid-gap-md animate-fade-in"
                             style={{ opacity: 0, animationDelay: "450ms" }}
                         >
                             {latestBlogs.map((blog) => (
@@ -133,8 +129,8 @@ const BlogPage = async ({
                             ))}
                         </div>
                     ) : (
-                        <div className="text-center py-16">
-                            <p className="text-gray-300 text-lg">
+                        <div className="text-center section-py-md">
+                            <p className="text-secondary-gray text-body-lg">
                                 {t("noArticles")}
                             </p>
                         </div>

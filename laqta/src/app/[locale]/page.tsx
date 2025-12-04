@@ -37,7 +37,7 @@ export default async function Home({
     return (
         <div className="w-full">
             {/*<Navigation />*/}
-            <div className="w-full xl:max-w-[1514px] xl:mx-auto">
+            <div className="w-full xl:max-w-container xl:mx-auto">
                 <HeroSection />
                 <AboutSection illustration={<CustomIllustration />} />
                 <ServicesSection locale={locale} />

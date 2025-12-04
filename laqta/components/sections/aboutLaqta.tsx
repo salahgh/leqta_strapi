@@ -1,3 +1,9 @@
+/**
+ * AboutSection Component - Design System
+ * Uses design tokens for consistent styling
+ * Mobile-first responsive design
+ */
+
 import { Rocket } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -9,11 +15,14 @@ import "./styles.css";
 const AboutSection = ({
     illustration,
     className = "",
+}: {
+    illustration?: React.ReactNode;
+    className?: string;
 }) => {
     const t = useTranslations('about');
-    
+
     return (
-        <div className={`relative overflow-hidden ${className} rounded-3xl`}>
+        <div className={`relative overflow-hidden ${className} rounded-2xl sm:rounded-3xl`}>
             {/* Linear Gradient Background */}
             <div className="absolute inset-0 z-0 blue_gradient" />
 
@@ -27,14 +36,16 @@ const AboutSection = ({
             </div>
 
             {/* Content Layer */}
-            <div className="relative z-20 bg-transparent rounded-2xl md:rounded-3xl shadow-2xl pt-8 md:p-12 md:flex p-4 md:gap-12 lg:gap-16">
+            <div className="relative z-20 bg-transparent rounded-2xl md:rounded-3xl shadow-2xl card-p-md md:card-p-lg md:flex grid-gap-lg">
                 {/* Content Section */}
-                <div className="space-y-6 flex-1">
+                <div className="stack-gap-md flex-1">
                     {/* Badge */}
                     <div className="items-center justify-center animate-slide-down" style={{ opacity: 0 }}>
-                        <Badge className="h-12 md:h-16 flex items-center">{t('badge')}</Badge>
+                        <Badge size="sm" variant="accent">
+                            {t('badge')}
+                        </Badge>
                     </div>
-                    <h2 className="text-black text-display-md md:text-display-lg xl:text-display-xl leading-tight animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>
+                    <h2 className="text-neutral-900 text-display-sm sm:text-display-md md:text-display-lg xl:text-display-xl leading-tight animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>
                         {t('title').split(" ").map((word, index) => (
                             <span
                                 key={index}
@@ -44,7 +55,7 @@ const AboutSection = ({
                                 }}
                                 className={
                                     word === "LEQTA"
-                                        ? "bg-gradient-to-b from-[#1370AD] to-[#ABDEFF] bg-clip-text text-transparent"
+                                        ? "bg-gradient-text-blue bg-clip-text text-transparent"
                                         : ""
                                 }
                             >
@@ -53,43 +64,43 @@ const AboutSection = ({
                         ))}
                     </h2>
                     {/* Description */}
-                    <p className="text-secondary-gray leading-relaxed text-responsive-lg animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
+                    <p className="text-secondary-gray leading-relaxed text-body-sm sm:text-body-md lg:text-body-lg animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
                         {t('description')}
                     </p>
-                    {/*Buttons*/}
-                    <div className="flex gap-4 animate-fade-in" style={{ opacity: 0, animationDelay: "450ms" }}>
-                        <div className={"h-12 md:h-16 w-36 md:w-44"}>
-                            <Link href="/contact">
-                                <Button
-                                    variant="primary"
-                                    className=""
-                                    rightIcon={<Rocket className="w-4 h-4 ml-2" />}
-                                    leftIcon={null}
-                                >
-                                    {t('getStarted')}
-                                </Button>
-                            </Link>
-                        </div>
-                        <div className={"h-12 md:h-16 w-36 md:w-44"}>
-                            <Link href="/about">
-                                <Button
-                                    variant="secondary"
-                                    className="text-blue-300"
-                                    leftIcon={null}
-                                    rightIcon={null}
-                                >
-                                    {t('learnMore')}
-                                </Button>
-                            </Link>
-                        </div>
+                    {/* Buttons */}
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-fade-in" style={{ opacity: 0, animationDelay: "450ms" }}>
+                        <Link href="/contact" className="w-full sm:w-auto">
+                            <Button
+                                variant="primary"
+                                size="lg"
+                                fullWidth
+                                className="sm:w-40 md:w-44"
+                                rightIcon={<Rocket className="w-4 h-4 ml-2" />}
+                                leftIcon={null}
+                            >
+                                {t('getStarted')}
+                            </Button>
+                        </Link>
+                        <Link href="/about" className="w-full sm:w-auto">
+                            <Button
+                                variant="secondary"
+                                size="lg"
+                                fullWidth
+                                className="sm:w-40 md:w-44"
+                                leftIcon={null}
+                                rightIcon={null}
+                            >
+                                {t('learnMore')}
+                            </Button>
+                        </Link>
                     </div>
                 </div>
                 {/* Illustration Section */}
-                <div className="flex justify-center items-center md:max-w-80 lg:max-w-xl animate-fade-in" style={{ opacity: 0, animationDelay: "600ms" }}>
+                <div className="flex justify-center items-center md:max-w-80 lg:max-w-xl animate-fade-in mt-6 md:mt-0" style={{ opacity: 0, animationDelay: "600ms" }}>
                     {illustration || (
                         // Fallback illustration if none provided
-                        <div className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl p-8 aspect-square flex items-center justify-center">
-                            <div className="text-6xl text-blue-500">🎬</div>
+                        <div className="bg-gradient-to-br from-primary-light/20 to-primary-light/40 rounded-2xl p-6 sm:p-8 aspect-square flex items-center justify-center">
+                            <div className="text-4xl sm:text-6xl text-primary-light">🎬</div>
                         </div>
                     )}
                 </div>

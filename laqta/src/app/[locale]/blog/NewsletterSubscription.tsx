@@ -29,16 +29,16 @@ export const NewsletterSubscription: React.FC = () => {
     };
 
     return (
-        <section className="px-4 md:px-8 pb-16">
+        <section className="section-px section-py-md">
             <div className="max-w-4xl mx-auto">
-                <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 md:p-12 text-center">
-                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                <div className="bg-gradient-primary rounded-2xl card-p-lg text-center">
+                    <h3 className="text-display-xs md:text-display-sm font-bold text-white mb-4">
                         Stay Updated with Our Latest Stories
                     </h3>
-                    <p className="text-blue-100 text-lg mb-8">
+                    <p className="text-white/80 text-body-lg mb-8">
                         Get the latest insights, tips, and stories delivered straight to your inbox.
                     </p>
-                    
+
                     <form onSubmit={handleSubmit} className="max-w-md mx-auto">
                         <div className="flex flex-col sm:flex-row gap-4">
                             <input
@@ -47,20 +47,20 @@ export const NewsletterSubscription: React.FC = () => {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
-                                className="flex-1 px-4 py-3 rounded-lg border-0 focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                                className="flex-1 px-4 py-3 rounded-lg border-0 text-neutral-900 focus:ring-2 focus:ring-white focus:ring-opacity-50"
                             />
                             <button
                                 type="submit"
                                 disabled={status === 'loading'}
-                                className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-50 disabled:opacity-50 transition-colors"
+                                className="px-6 py-3 bg-white text-primary-light font-semibold rounded-lg hover:bg-neutral-50 disabled:opacity-50 transition-colors whitespace-nowrap"
                             >
                                 {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
                             </button>
                         </div>
-                        
+
                         {message && (
-                            <p className={`mt-4 text-sm ${
-                                status === 'success' ? 'text-green-200' : 'text-red-200'
+                            <p className={`mt-4 text-body-sm ${
+                                status === 'success' ? 'text-accent-success' : 'text-red-300'
                             }`}>
                                 {message}
                             </p>

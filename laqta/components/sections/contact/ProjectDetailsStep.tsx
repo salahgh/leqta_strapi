@@ -65,18 +65,18 @@ const ProjectDetailsStep: React.FC<ProjectDetailsStepProps> = ({
   });
 
   return (
-    <div className="space-y-6">
+    <div className="stack-gap-lg">
       <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-white mb-2">
+        <h2 className="text-display-xs font-bold text-white mb-2">
           {t('projectDetails')}
         </h2>
-        <p className="text-gray-300">
+        <p className="text-secondary-gray">
           Tell us about your project requirements
         </p>
       </div>
 
-      <form onSubmit={formik.handleSubmit} className="space-y-6">
-        <div className="space-y-4">
+      <form onSubmit={formik.handleSubmit} className="stack-gap-lg">
+        <div className="form-group">
           <FormInput
             label={t('projectDescription')}
             name="projectDescription"
@@ -89,8 +89,9 @@ const ProjectDetailsStep: React.FC<ProjectDetailsStepProps> = ({
                 ? formik.errors.projectDescription
                 : ""
             }
-            variant="compact"
+            size="sm"
             rows={4}
+            className="bg-form-bg text-form-text"
           />
 
           <FormInput
@@ -103,43 +104,44 @@ const ProjectDetailsStep: React.FC<ProjectDetailsStepProps> = ({
             error={
               formik.touched.goals ? formik.errors.goals : ""
             }
-            variant="compact"
+            size="sm"
             rows={3}
+            className="bg-form-bg text-form-text"
           />
         </div>
 
         {submitError && (
-          <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
-            <p className="text-red-400 text-sm">{submitError}</p>
+          <div className="bg-red-500/10 border border-red-500/20 rounded-lg card-p-sm">
+            <p className="text-red-400 text-body-sm">{submitError}</p>
           </div>
         )}
 
         {/* Summary of all collected data */}
-        <div className="bg-gray-800/50 rounded-lg p-4 mt-6">
-          <h3 className="text-lg font-semibold text-white mb-3">Review Your Information</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+        <div className="bg-neutral-800/50 rounded-lg card-p-sm mt-6">
+          <h3 className="text-body-lg font-semibold text-white mb-3">Review Your Information</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 grid-gap-sm text-body-sm">
             <div>
-              <span className="text-gray-400">Name:</span>
+              <span className="text-secondary-gray">Name:</span>
               <span className="text-white ml-2">{allFormData.fullName}</span>
             </div>
             <div>
-              <span className="text-gray-400">Email:</span>
+              <span className="text-secondary-gray">Email:</span>
               <span className="text-white ml-2">{allFormData.email}</span>
             </div>
             <div>
-              <span className="text-gray-400">Company:</span>
+              <span className="text-secondary-gray">Company:</span>
               <span className="text-white ml-2">{allFormData.companyName}</span>
             </div>
             <div>
-              <span className="text-gray-400">Project Type:</span>
+              <span className="text-secondary-gray">Project Type:</span>
               <span className="text-white ml-2">{allFormData.projectType}</span>
             </div>
             <div>
-              <span className="text-gray-400">Budget:</span>
+              <span className="text-secondary-gray">Budget:</span>
               <span className="text-white ml-2">{allFormData.budget}</span>
             </div>
             <div>
-              <span className="text-gray-400">Timeline:</span>
+              <span className="text-secondary-gray">Timeline:</span>
               <span className="text-white ml-2">{allFormData.timeline}</span>
             </div>
           </div>
@@ -149,16 +151,16 @@ const ProjectDetailsStep: React.FC<ProjectDetailsStepProps> = ({
           <button
             type="button"
             onClick={onBack}
-            className="px-6 py-2 border border-gray-600 text-gray-300 rounded-lg hover:bg-gray-700 transition-colors"
+            className="btn-sm btn-outline touch-target"
             disabled={isSubmitting}
           >
             {tButtons('goBack')}
           </button>
-          
+
           <SubmitButton
             isSubmitting={isSubmitting}
             text={tButtons('submit')}
-            className="px-8 py-2"
+            className="btn-sm"
           />
         </div>
       </form>

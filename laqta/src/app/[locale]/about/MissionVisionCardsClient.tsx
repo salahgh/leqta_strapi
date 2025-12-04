@@ -26,7 +26,7 @@ export const MissionVisionCardsClient: React.FC<
             {/* Section Header */}
             <div className="text-center space-y-4 mb-12 max-w-3xl mx-auto animate-fade-in" style={{ opacity: 0 }}>
                 <div className="flex justify-center animate-slide-down" style={{ opacity: 0 }}>
-                    <Badge>Our Foundation</Badge>
+                    <Badge size="sm" variant="default">Our Foundation</Badge>
                 </div>
                 <h2 className="text-white font-bold animate-slide-up" style={{ animationDelay: "150ms", opacity: 0 }}>
                     Mission, Vision & Values

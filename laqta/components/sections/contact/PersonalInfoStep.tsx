@@ -45,43 +45,34 @@ const PersonalInfoStep = ({ initialValues, onSubmit }: { initialValues?: Partial
     return (
         <div>
             <div className="mb-6">
-                <h2 className="text-2xl font-bold text-white mb-2">Personal Information</h2>
-                <p className="text-slate-300">Let's start with your basic contact information.</p>
+                <h2 className="text-display-xs font-bold text-white mb-2">Personal Information</h2>
+                <p className="text-secondary-gray">Let's start with your basic contact information.</p>
             </div>
-            
-            <form onSubmit={formik.handleSubmit} className="space-y-4" id="step-1-form">
+
+            <form onSubmit={formik.handleSubmit} className="form-group" id="step-1-form">
                 <FormInput
                     label={t('fullName')}
                     {...useFormInput<PersonalInfoStepValues>("fullName", formik)}
                     placeholder={t('fullNamePlaceholder')}
-                    variant={"compact"}
-                    style={{
-                        backgroundColor: "#141733",
-                        color: "#D2D2D3",
-                    }}
+                    size="sm"
+                    className="bg-form-bg text-form-text"
                 />
 
                 <FormInput
                     label={t('email')}
                     {...useFormInput<PersonalInfoStepValues>("email", formik)}
                     placeholder={t('emailPlaceholder')}
-                    variant={"compact"}
+                    size="sm"
                     type="email"
-                    style={{
-                        backgroundColor: "#141733",
-                        color: "#D2D2D3",
-                    }}
+                    className="bg-form-bg text-form-text"
                 />
 
                 <FormInput
                     label={t('phoneNumber')}
                     {...useFormInput<PersonalInfoStepValues>("phoneNumber", formik)}
-                    variant={"compact"}
+                    size="sm"
                     placeholder={t('phoneNumberPlaceholder')}
-                    style={{
-                        backgroundColor: "#141733",
-                        color: "#D2D2D3",
-                    }}
+                    className="bg-form-bg text-form-text"
                 />
             </form>
         </div>

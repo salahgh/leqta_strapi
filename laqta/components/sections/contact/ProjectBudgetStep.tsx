@@ -63,73 +63,61 @@ const ProjectBudgetStep = ({ initialValues, onSubmit }: { initialValues?: Partia
     });
 
     return (
-        <form onSubmit={formik.handleSubmit} className="space-y-4" id="step-3-form">
+        <form onSubmit={formik.handleSubmit} className="form-group" id="step-3-form">
             <div className="spacing-form-tight">
-                <label className="form-label-base text-responsive-lg mb-0.5 md:mb-1">
+                <label className="form-label text-body-md sm:text-body-lg">
                     {t('projectType')}
                 </label>
                 <select
                     {...useFormInput<ProjectBudgetStepValues>("projectType", formik)}
-                    className="form-input-base text-responsive-lg padding-responsive-sm rounded-full w-full"
-                    style={{
-                        backgroundColor: "#141733",
-                        color: "#D2D2D3",
-                    }}
+                    className="input-sm text-body-md sm:text-body-lg rounded-full w-full bg-form-bg text-form-text"
                 >
                     {projectTypeOptions.map((option) => (
-                        <option key={option.value} value={option.value} style={{ backgroundColor: "#141733", color: "#D2D2D3" }}>
+                        <option key={option.value} value={option.value} className="bg-form-bg text-form-text">
                             {option.label}
                         </option>
                     ))}
                 </select>
                 {formik.touched.projectType && formik.errors.projectType && (
-                    <div className="text-red-400 mt-0.5 md:mt-1">{formik.errors.projectType}</div>
+                    <div className="form-error">{formik.errors.projectType}</div>
                 )}
             </div>
 
             <div className="spacing-form-tight">
-                <label className="form-label-base text-responsive-lg mb-0.5 md:mb-1">
+                <label className="form-label text-body-md sm:text-body-lg">
                     {t('budget')}
                 </label>
                 <select
                     {...useFormInput<ProjectBudgetStepValues>("budget", formik)}
-                    className="form-input-base text-responsive-lg padding-responsive-sm rounded-full w-full"
-                    style={{
-                        backgroundColor: "#141733",
-                        color: "#D2D2D3",
-                    }}
+                    className="input-sm text-body-md sm:text-body-lg rounded-full w-full bg-form-bg text-form-text"
                 >
                     {budgetOptions.map((option) => (
-                        <option key={option.value} value={option.value} style={{ backgroundColor: "#141733", color: "#D2D2D3" }}>
+                        <option key={option.value} value={option.value} className="bg-form-bg text-form-text">
                             {option.label}
                         </option>
                     ))}
                 </select>
                 {formik.touched.budget && formik.errors.budget && (
-                    <div className="text-red-400 mt-0.5 md:mt-1">{formik.errors.budget}</div>
+                    <div className="form-error">{formik.errors.budget}</div>
                 )}
             </div>
 
             <div className="spacing-form-tight">
-                <label className="form-label-base text-responsive-lg mb-0.5 md:mb-1">
+                <label className="form-label text-body-md sm:text-body-lg">
                     {t('timeline')}
                 </label>
                 <select
                     {...useFormInput<ProjectBudgetStepValues>("timeline", formik)}
-                    className="form-input-base text-responsive-lg padding-responsive-sm rounded-full w-full"
-                    style={{
-                        backgroundColor: "#141733",
-                        color: "#D2D2D3",
-                    }}
+                    className="input-sm text-body-md sm:text-body-lg rounded-full w-full bg-form-bg text-form-text"
                 >
                     {timelineOptions.map((option) => (
-                        <option key={option.value} value={option.value} style={{ backgroundColor: "#141733", color: "#D2D2D3" }}>
+                        <option key={option.value} value={option.value} className="bg-form-bg text-form-text">
                             {option.label}
                         </option>
                     ))}
                 </select>
                 {formik.touched.timeline && formik.errors.timeline && (
-                    <div className="text-red-400 mt-0.5 md:mt-1">{formik.errors.timeline}</div>
+                    <div className="form-error">{formik.errors.timeline}</div>
                 )}
             </div>
         </form>

@@ -1,3 +1,9 @@
+/**
+ * ServicesSection Component - Design System
+ * Uses design tokens for consistent styling
+ * Mobile-first responsive design
+ */
+
 import { ArrowRight, ChartColumnBig, Film, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ServiceCard } from "@/components/ui/ServiceCard";
@@ -94,41 +100,39 @@ export default async function ServicesSection({
     return (
         <section className={`relative overflow-hidden bg-primary ${className}`}>
             {/* Amber Gradient Layer - from bottom to mid */}
-            <div
-                className="absolute top-1/4 left-0 right-0 bottom-0 z-10"
-                style={{
-                    background:
-                        "linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(245, 158, 11, 0) 50%, transparent 100%)",
-                }}
-            />
+            <div className="absolute top-1/4 left-0 right-0 bottom-0 z-10 bg-gradient-to-t from-black via-transparent to-transparent" />
 
             {/* Vector Curve SVG Layer */}
-            <div className="absolute inset-0 z-10 flex justify-center ">
+            <div className="absolute inset-0 z-10 flex justify-center">
                 <img
                     src="/images/vector_courbe.svg"
                     alt="Vector Curve Background"
-                    className="w-full h-full object-fill "
+                    className="w-full h-full object-fill"
                 />
             </div>
 
             {/* Content Layer */}
             <div className="relative z-20 flex flex-col">
-                {/* Header - Fully Responsive */}
-                <div className="text-center flex flex-col items-center gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-7 2xl:gap-8 py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24 2xl:py-32">
+                {/* Header - Using design system spacing */}
+                <div className="text-center flex flex-col items-center grid-gap-sm section-py-lg">
                     <div className="animate-slide-down" style={{ opacity: 0 }}>
-                        <Badge variant="default" className="h-12 md:h-16 flex items-center">{finalBadge}</Badge>
+                        <Badge size="sm" variant="default">
+                            {finalBadge}
+                        </Badge>
                     </div>
 
-                    <h2 className="text-white text-center animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>{t("title")}</h2>
+                    <h2 className="text-white text-center animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>
+                        {t("title")}
+                    </h2>
 
-                    <p className="text-secondary-gray text-justify px-4 sm:max-w-sm md:max-w-2xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xlsm:px-6 md:px-8 animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
+                    <p className="text-secondary-gray text-body-sm sm:text-body-md text-justify section-px sm:max-w-sm md:max-w-2xl lg:max-w-4xl xl:max-w-5xl animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
                         {finalDescription}
                     </p>
                 </div>
 
-                {/* Services Grid - Fully Responsive */}
+                {/* Services Grid - Using design system spacing */}
                 <div
-                    className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 animate-fade-in"
+                    className="section-px animate-fade-in"
                     style={{ opacity: 0, animationDelay: "450ms" }}
                 >
                     {servicesError ? (
@@ -143,16 +147,13 @@ export default async function ServicesSection({
                             </p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3
-                            gap-4 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12 2xl:gap-14 justify-center items-stretch">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-gap-lg justify-center items-stretch">
                             {servicesToRender.map((service, index) => (
                                 <div key={index} className="w-full">
                                     <ServiceCard
                                         title={service.title}
                                         description={service.description}
                                         tags={service.tags}
-                                        gradientFrom={service.gradientFrom}
-                                        gradientTo={service.gradientTo}
                                         icon={service.icon}
                                         featured_image={service.featured_image}
                                         slug={service.slug}
@@ -164,24 +165,19 @@ export default async function ServicesSection({
                     )}
                 </div>
 
-                {/* CTA Button - Fully Responsive */}
+                {/* CTA Button - Using design system spacing */}
                 <div
-                    className="text-center flex items-center justify-center mt-8 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24
-                2xl:mt-28 pb-8 sm:pb-12 md:pb-16 lg:pb-20 xl:pb-24 2xl:pb-32 animate-fade-in"
+                    className="text-center flex items-center justify-center section-py-lg animate-fade-in"
                     style={{ opacity: 0, animationDelay: "600ms" }}
                 >
-                    <div className="h-10 sm:h-11 md:h-12 lg:h-14 xl:h-16 2xl:h-18">
-                        <Button
-                            variant="primary"
-                            leftIcon={null}
-                            rightIcon={
-                                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-5 md:h-5 lg:w-6 lg:h-6" />
-                            }
-                            className=""
-                        >
-                            {finalButtonText}
-                        </Button>
-                    </div>
+                    <Button
+                        variant="primary"
+                        size="lg"
+                        leftIcon={null}
+                        rightIcon={<ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />}
+                    >
+                        {finalButtonText}
+                    </Button>
                 </div>
             </div>
         </section>

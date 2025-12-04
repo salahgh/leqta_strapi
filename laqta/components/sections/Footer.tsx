@@ -1,9 +1,15 @@
 import React from "react";
-import { Logo } from "@/components/ui/Logo";
 import NewsletterForm from "@/components/ui/NewsletterForm";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/src/i18n/navigation";
 import { socialMediaApi, SocialMedia } from "@/lib/strapi";
+
+/**
+ * Footer Component - Design System
+ * Uses design tokens for consistent styling
+ * Mobile-first responsive design
+ * Layout: Logo+Newsletter (left) | Company Links (center-right) | Utility Pages (far right)
+ */
 
 interface FooterProps {
     locale: string;
@@ -26,26 +32,31 @@ const Footer = async ({ locale }: FooterProps) => {
     }
 
     return (
-        <div className="bg-gray-100">
-            {/* Main content area - light gray background */}
+        <footer className="bg-primary text-white">
+            {/* Main Footer Content */}
+            <div className="section-px pt-16 pb-8 md:pt-20 md:pb-12">
+                <div className="max-w-7xl mx-auto">
+                    {/* Top Section - 3 Column Layout */}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16">
 
-            {/* Footer */}
-            <footer className="bg-slate-900 text-white px-6 py-16">
-                <div>
-                    <div className="flex  md:flex-row flex-col justify-between p-16">
-                        {/* Left - Logo and Newsletter */}
-                        <div className="lg:col-span-1 invisible md:visible">
-                            {/* Logo */}
-                            <Logo />
+                        {/* Left Column - Logo and Newsletter */}
+                        <div className="md:col-span-5 lg:col-span-5">
+                            {/* Logo with LEQTA text */}
+                            <div className="flex items-center gap-4 mb-8">
+                                <img
+                                    src="/images/laqta.svg"
+                                    alt="LEQTA Logo"
+                                    className="h-8 w-auto"
+                                />
+                                <span className="text-white font-bold text-xl tracking-wide">LEQTA</span>
+                            </div>
 
-                            <div className={"mt-12"}>
-                                <h3 className="font-semibold mb-2 text-body-xl">
+                            {/* Newsletter Section */}
+                            <div>
+                                <h3 className="font-semibold mb-2 text-body-md">
                                     {t('newsletter')}
                                 </h3>
-                                <p
-                                    className=" mb-6"
-                                    style={{ fontSize: 16, color: "#D9D9D9" }}
-                                >
+                                <p className="mb-4 text-body-sm text-neutral-400 max-w-sm">
                                     {t('newsletterDescription')}
                                 </p>
 
@@ -53,115 +64,117 @@ const Footer = async ({ locale }: FooterProps) => {
                             </div>
                         </div>
 
-                        {/* Middle - Company Links */}
-                        <div className={"flex md:flex-col flex-row gap-16"}>
-                            <div className="lg:col-span-1">
-                                <h3 className="text-lg font-semibold mb-6">
-                                    {t('company')}
-                                </h3>
-                                <ul className="space-y-4">
-                                    <li>
-                                        <Link
-                                            href="/about"
-                                            className="text-gray-400 hover:text-white transition-colors duration-200"
-                                        >
-                                            {t('aboutUs')}
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            href="/services"
-                                            className="text-gray-400 hover:text-white transition-colors duration-200"
-                                        >
-                                            {t('ourServices')}
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="/#works"
-                                            className="text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer"
-                                        >
-                                            {t('ourWorks')}
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="/#testimonials"
-                                            className="text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer"
-                                        >
-                                            {t('testimonials')}
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            href="/contact"
-                                            className="text-gray-400 hover:text-white transition-colors duration-200"
-                                        >
-                                            {t('contactUs')}
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="/#faq"
-                                            className="text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer"
-                                        >
-                                            {t('faq')}
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            href="/blog"
-                                            className="text-gray-400 hover:text-white transition-colors duration-200"
-                                        >
-                                            {t('blog')}
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </div>
+                        {/* Center-Right Column - Company Links */}
+                        <div className="md:col-span-3 lg:col-span-3 md:ml-auto">
+                            <h3 className="text-body-md font-semibold mb-4">
+                                {t('company')}
+                            </h3>
+                            <ul className="space-y-3">
+                                <li>
+                                    <Link
+                                        href="/about"
+                                        className="text-neutral-400 hover:text-white transition-colors duration-200 text-body-sm"
+                                    >
+                                        {t('aboutUs')}
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        href="/services"
+                                        className="text-neutral-400 hover:text-white transition-colors duration-200 text-body-sm"
+                                    >
+                                        {t('ourServices')}
+                                    </Link>
+                                </li>
+                                <li>
+                                    <a
+                                        href="/#works"
+                                        className="text-neutral-400 hover:text-white transition-colors duration-200 cursor-pointer text-body-sm"
+                                    >
+                                        {t('ourWorks')}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="/#testimonials"
+                                        className="text-neutral-400 hover:text-white transition-colors duration-200 cursor-pointer text-body-sm"
+                                    >
+                                        {t('testimonials')}
+                                    </a>
+                                </li>
+                                <li>
+                                    <Link
+                                        href="/contact"
+                                        className="text-neutral-400 hover:text-white transition-colors duration-200 text-body-sm"
+                                    >
+                                        {t('contactUs')}
+                                    </Link>
+                                </li>
+                                <li>
+                                    <a
+                                        href="/#faq"
+                                        className="text-neutral-400 hover:text-white transition-colors duration-200 cursor-pointer text-body-sm"
+                                    >
+                                        {t('faq')}
+                                    </a>
+                                </li>
+                                <li>
+                                    <Link
+                                        href="/blog"
+                                        className="text-neutral-400 hover:text-white transition-colors duration-200 text-body-sm"
+                                    >
+                                        {t('blog')}
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
 
-                            {/* Right - Utility Pages */}
-                            <div className="lg:col-span-1">
-                                <h3 className="text-lg font-semibold mb-6">
-                                    {t('utilityPages')}
-                                </h3>
-                                <ul className="space-y-4">
-                                    <li>
-                                        <Link
-                                            href="/PrivacyPolicy"
-                                            className="text-gray-400 hover:text-white transition-colors duration-200"
-                                        >
-                                            {t('termsCondition')}
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            href="/PrivacyPolicy"
-                                            className="text-gray-400 hover:text-white transition-colors duration-200"
-                                        >
-                                            {t('privacyPolicy')}
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </div>
+                        {/* Far Right Column - Utility Pages */}
+                        <div className="md:col-span-3 lg:col-span-3">
+                            <h3 className="text-body-md font-semibold mb-4">
+                                {t('utilityPages')}
+                            </h3>
+                            <ul className="space-y-3">
+                                <li>
+                                    <Link
+                                        href="/PrivacyPolicy"
+                                        className="text-neutral-400 hover:text-white transition-colors duration-200 text-body-sm"
+                                    >
+                                        {t('termsCondition')}
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        href="/PrivacyPolicy"
+                                        className="text-neutral-400 hover:text-white transition-colors duration-200 text-body-sm"
+                                    >
+                                        {t('privacyPolicy')}
+                                    </Link>
+                                </li>
+                            </ul>
                         </div>
                     </div>
 
-                    {/* Large LEQTA text */}
-                    <div className="mb-16 w-full flex justify-center mt-40">
-                        <img src="/images/laqta_1.svg" alt="Logo" />
+                    {/* Large LEQTA Watermark */}
+                    <div className="relative mt-16 md:mt-24 mb-8">
+                        <div className="flex justify-center items-end overflow-hidden">
+                            <img
+                                src="/images/laqta_1.svg"
+                                alt=""
+                                className="w-full max-w-3xl h-auto opacity-30"
+                                aria-hidden="true"
+                            />
+                        </div>
                     </div>
 
-                    {/* Bottom section with copyright and social icons */}
-                    <div
-                        className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white"
-                        style={{ marginTop: -100 }}
-                    >
-                        <p className="text-gray-400 text-body-md mb-4 md:mb-0">
+                    {/* Bottom Section - Copyright and Social Icons */}
+                    <div className="flex flex-col md:flex-row justify-between items-center pt-6 border-t border-white/20">
+                        <p className="text-neutral-400 text-body-sm mb-4 md:mb-0">
                             {t('copyright')}
                         </p>
 
                         {/* Social Media Icons */}
-                        <div className="flex space-x-4">
+                        <div className="flex space-x-3">
                             {socialMediaLinks.length > 0 ? (
                                 socialMediaLinks.map((social) => (
                                     <a
@@ -169,19 +182,14 @@ const Footer = async ({ locale }: FooterProps) => {
                                         href={social.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity duration-200"
-                                        style={{
-                                            backgroundColor: social.backgroundColor || "#1787ba",
-                                            width: 35,
-                                            height: 35,
-                                        }}
+                                        className="social-icon-btn touch-target"
                                         aria-label={social.ariaLabel || `Visit our ${social.platform} page`}
                                     >
                                         {social.icon && (
                                             <img
                                                 src={social.icon}
                                                 alt={social.platform}
-                                                className="w-5 h-5"
+                                                className="w-4 h-4"
                                             />
                                         )}
                                     </a>
@@ -191,43 +199,39 @@ const Footer = async ({ locale }: FooterProps) => {
                                 <>
                                     <a
                                         href="#"
-                                        className="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity duration-200"
-                                        style={{ backgroundColor: "#1787ba", width: 35, height: 35 }}
-                                        aria-label="Social media"
+                                        className="social-icon-btn touch-target"
+                                        aria-label="X (Twitter)"
                                     >
-                                        <img src="/icons/socialicon.svg" alt="Social" className="w-5 h-5" />
+                                        <img src="/icons/socialicon.svg" alt="X" className="w-4 h-4" />
                                     </a>
                                     <a
                                         href="#"
-                                        className="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity duration-200"
-                                        style={{ backgroundColor: "#1787ba", width: 35, height: 35 }}
+                                        className="social-icon-btn touch-target"
                                         aria-label="Facebook"
                                     >
-                                        <img src="/icons/facebook.svg" alt="Facebook" className="w-5 h-5" />
+                                        <img src="/icons/facebook.svg" alt="Facebook" className="w-4 h-4" />
                                     </a>
                                     <a
                                         href="#"
-                                        className="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity duration-200"
-                                        style={{ backgroundColor: "#1787ba", width: 35, height: 35 }}
+                                        className="social-icon-btn touch-target"
                                         aria-label="Instagram"
                                     >
-                                        <img src="/icons/instagram.svg" alt="Instagram" className="w-5 h-5" />
+                                        <img src="/icons/instagram.svg" alt="Instagram" className="w-4 h-4" />
                                     </a>
                                     <a
                                         href="#"
-                                        className="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity duration-200"
-                                        style={{ backgroundColor: "#1787ba", width: 35, height: 35 }}
+                                        className="social-icon-btn touch-target"
                                         aria-label="LinkedIn"
                                     >
-                                        <img src="/icons/linkedIn.svg" alt="LinkedIn" className="w-5 h-5" />
+                                        <img src="/icons/linkedIn.svg" alt="LinkedIn" className="w-4 h-4" />
                                     </a>
                                 </>
                             )}
                         </div>
                     </div>
                 </div>
-            </footer>
-        </div>
+            </div>
+        </footer>
     );
 };
 

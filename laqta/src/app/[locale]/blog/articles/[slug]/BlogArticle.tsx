@@ -6,6 +6,7 @@ import { Link } from "@/src/i18n/navigation";
 import { Blog, utils } from "@/lib/strapi";
 import { ReadingProgress } from "./ReadingProgress";
 import { TableOfContents } from "@/src/app/[locale]/blog/articles/[slug]/TableOfContents";
+import { useTranslations } from "next-intl";
 
 // Extract headings from HTML content for table of contents
 const extractHeadings = (content: string) => {
@@ -26,6 +27,7 @@ export const BlogArticle: React.FC<{
     relatedBlogs: Blog[];
     locale?: string;
 }> = ({ blog, relatedBlogs, locale = "en" }) => {
+    const t = useTranslations("blog");
     const [headings, setHeadings] = useState<
         Array<{ id: string; text: string; level: number }>
     >([]);
@@ -85,23 +87,13 @@ export const BlogArticle: React.FC<{
 
     return (
         <div
-            className="min-h-screen"
-            style={{
-                background:
-                    "linear-gradient(135deg, #1e293b 0%, #1e3a8a 50%, #1e293b 100%)",
-            }}
+            className="min-h-screen bg-gradient-blog-hero"
             dir={locale === "ar" ? "rtl" : "ltr"}
         >
             <ReadingProgress />
 
             {/* Blue Header with LAQTA Logo Background */}
-            <div
-                className="relative pt-60 md:pt-24"
-                style={{
-                    background:
-                        "linear-gradient(45deg, #1e293b 0%, #1e3a8a 50%, #1e293b 100%)",
-                }}
-            >
+            <div className="relative pt-60 md:pt-24 bg-gradient-blog-hero">
                 {/* LAQTA Logo Background - larger and more visible */}
                 <div
                     className="absolute inset-0 opacity-5 overflow-hidden pt-20"
@@ -120,14 +112,14 @@ export const BlogArticle: React.FC<{
                 </div>
 
                 {/* Title - 2/3 width, centered */}
-                <div className="relative z-10 max-w-7xl px-4 sm:px-6 lg:px-8 md:pb-24 pt-10 pb-30">
-                    <div className="max-w-4xl mx-auto  pt-14 pb-14">
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 w-2/3">
+                <div className="relative z-10 max-w-7xl mx-auto section-px section-py-md md:pb-24">
+                    <div className="max-w-4xl mx-auto">
+                        <h1 className="text-display-md md:text-display-lg lg:text-display-xl font-bold text-white mb-6 w-full md:w-2/3">
                             {blog.title}
                         </h1>
                         {/* Description under title */}
                         {blog.excerpt && (
-                            <p className="text-lg md:text-xl text-gray-300 leading-relaxed w-2/3">
+                            <p className="text-body-lg md:text-body-xl text-neutral-300 w-full md:w-2/3">
                                 {blog.excerpt}
                             </p>
                         )}
@@ -137,14 +129,7 @@ export const BlogArticle: React.FC<{
 
             {/* Header Image */}
             {blog.header_image && (
-                <div
-                    className="relative w-full h-64 md:h-96 lg:h-[32rem] overflow-hidden rounded-t-2xl"
-                    style={{
-                        borderTopLeftRadius: 50,
-                        borderTopRightRadius: 50,
-                        marginTop: -50,
-                    }}
-                >
+                <div className="relative w-full h-64 md:h-96 lg:h-[32rem] overflow-hidden rounded-t-[50px] -mt-12">
                     <Image
                         src={utils.getFileUrl(blog.header_image.url)}
                         alt={blog.header_image.alternativeText || blog.title}
@@ -158,8 +143,8 @@ export const BlogArticle: React.FC<{
             )}
 
             {/* Main Content Area */}
-            <div className="px-16 sm:px-6 lg:px-40 py-12 md:py-16 bg-white">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+            <div className="section-px section-py-md bg-white">
+                <div className="grid grid-cols-1 lg:grid-cols-12 grid-gap-md lg:gap-12">
                     {/* Left Sidebar - Table of Contents */}
                     <aside className="lg:col-span-3 hidden lg:block">
                         <TableOfContents headings={headings} />
@@ -167,21 +152,20 @@ export const BlogArticle: React.FC<{
 
                     {/* Right Side - Blog Content */}
                     <article className="lg:col-span-9">
-                        <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12">
-                            <div className="prose prose-lg max-w-none blog-content prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-900 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-code:text-blue-600 prose-code:bg-blue-50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded text-gray-900">
+                        <div className="bg-white rounded-3xl shadow-xl card-p-md">
+                            {/* Blog content uses dedicated .blog-content styles from globals.css */}
+                            <div className="blog-content max-w-none">
                                 {/* First part of content */}
                                 {blog.content_image && contentParts.before ? (
                                     <>
                                         <div
-                                            className="text-gray-900"
-                                            style={{ color: "#111827" }}
                                             dangerouslySetInnerHTML={{
                                                 __html: contentParts.before,
                                             }}
                                         />
 
                                         {/* Content Image - inserted in the middle */}
-                                        <div className="my-12 not-prose">
+                                        <div className="my-12">
                                             <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
                                                 <Image
                                                     src={utils.getFileUrl(
@@ -202,8 +186,6 @@ export const BlogArticle: React.FC<{
 
                                         {/* Second part of content */}
                                         <div
-                                            className="text-gray-900"
-                                            style={{ color: "#111827" }}
                                             dangerouslySetInnerHTML={{
                                                 __html: contentParts.after,
                                             }}
@@ -211,8 +193,6 @@ export const BlogArticle: React.FC<{
                                     </>
                                 ) : (
                                     <div
-                                        className="text-gray-900"
-                                        style={{ color: "#111827" }}
                                         dangerouslySetInnerHTML={{
                                             __html: blog.content,
                                         }}
@@ -226,18 +206,18 @@ export const BlogArticle: React.FC<{
 
             {/* You Might Also Like Section */}
             {relatedBlogs.length > 0 && (
-                <div className="py-16 md:py-20">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">
-                            You Might Also Like
+                <div className="section-py-md">
+                    <div className="max-w-7xl mx-auto section-px">
+                        <h2 className="text-display-sm md:text-display-md font-bold text-white mb-10">
+                            {t("youMightAlsoLike")}
                         </h2>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 grid-gap-md">
                             {relatedBlogs.slice(0, 2).map((relatedBlog) => (
                                 <Link
                                     key={relatedBlog.id}
                                     href={`/blog/articles/${relatedBlog.slug}`}
-                                    className="group block bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-blue-200 hover:-translate-y-1"
+                                    className="group block bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-100 hover:border-accent-blue/30 hover:-translate-y-1"
                                 >
                                     <div className="flex h-full">
                                         {/* Image on Left */}
@@ -262,19 +242,19 @@ export const BlogArticle: React.FC<{
                                         )}
 
                                         {/* Details on Right */}
-                                        <div className="flex-1 p-6 flex flex-col justify-between">
+                                        <div className="flex-1 card-p-sm flex flex-col justify-between">
                                             <div>
                                                 {/* Category */}
                                                 {relatedBlog.category && (
                                                     <div className="mb-3">
                                                         <span
-                                                            className="inline-block px-3 py-1 text-xs font-semibold rounded-full text-white"
+                                                            className="inline-block px-3 py-1.5 text-body-xs font-semibold rounded-full text-white"
                                                             style={{
                                                                 backgroundColor:
                                                                     relatedBlog
                                                                         .category
                                                                         .color ||
-                                                                    "#7C3AED",
+                                                                    "rgb(124, 58, 237)",
                                                             }}
                                                         >
                                                             {
@@ -287,22 +267,22 @@ export const BlogArticle: React.FC<{
                                                 )}
 
                                                 {/* Title */}
-                                                <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-blue-600 transition-colors line-clamp-2">
+                                                <h3 className="text-body-lg font-bold text-neutral-900 mb-3 leading-tight group-hover:text-primary-light transition-colors line-clamp-2">
                                                     {relatedBlog.title}
                                                 </h3>
 
                                                 {/* Excerpt */}
-                                                <p className="text-gray-600 text-sm leading-relaxed line-clamp-2">
+                                                <p className="text-neutral-600 text-body-sm leading-relaxed line-clamp-2">
                                                     {relatedBlog.excerpt}
                                                 </p>
                                             </div>
 
                                             {/* Meta */}
-                                            <div className="mt-4 text-sm text-gray-500">
+                                            <div className="mt-4 text-body-sm text-neutral-500">
                                                 {relatedBlog.read_time && (
                                                     <span>
                                                         {relatedBlog.read_time}{" "}
-                                                        min read
+                                                        {t("minRead")}
                                                     </span>
                                                 )}
                                             </div>

@@ -53,7 +53,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = (props) => {
 
                 {/* Project Content - Updated to take remaining 70% width */}
                 <div className="flex-1 lg:w-[70%] space-y-3 sm:space-y-4 md:space-y-5 lg:space-y-6">
-                    <Badge variant="compact" className="">
+                    <Badge size="sm" variant="accent">
                         {category}
                     </Badge>
 

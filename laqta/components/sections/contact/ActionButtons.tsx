@@ -13,13 +13,15 @@ export const ActionButtons = ({
     const t = useTranslations('contactPage.buttons');
     
     return (
-        <div className={"flex w-full justify-end items-center gap-4 h-12"}>
+        <div className="flex w-full justify-end items-center grid-gap-sm h-12">
             <Button
                 type="button"
                 variant="secondary"
+                size="md"
                 leftIcon={<ArrowLeft className="w-4 h-4" />}
                 rightIcon={null}
                 onClick={handleGoBack}
+                className="touch-target"
             >
                 {t('goBack')}
             </Button>
@@ -28,9 +30,11 @@ export const ActionButtons = ({
                 type="submit"
                 form={formId}
                 variant="primary"
+                size="md"
                 rightIcon={<ArrowRight className="w-4 h-4" />}
                 leftIcon={null}
                 disabled={isSubmitting}
+                className="touch-target"
             >
                 {currentStep === totalSteps ? t('submit') : t('next')} {currentStep}/{totalSteps}
             </Button>

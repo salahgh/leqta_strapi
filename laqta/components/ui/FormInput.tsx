@@ -1,6 +1,13 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 
+/**
+ * FormInput Component - Design System
+ * Uses design tokens from globals.css and tailwind.config.js
+ * Mobile-first with touch-friendly sizes (min 44px height)
+ * Uses 16px minimum font-size to prevent iOS zoom on focus
+ */
+
 interface FormInputProps {
     label: string;
     name: string;
@@ -16,9 +23,13 @@ interface FormInputProps {
     ) => void;
     error?: string;
     className?: string;
-    style?: React.CSSProperties;
-    variant?: "default" | "compact";
+    size?: "sm" | "md" | "lg";
     rows?: number;
+    pill?: boolean;
+    /** @deprecated Use size="sm" instead of variant="compact" */
+    variant?: "default" | "compact";
+    /** @deprecated Use className instead - styles are handled via design tokens */
+    style?: React.CSSProperties;
 }
 
 export const FormInput: React.FC<FormInputProps> = ({
@@ -32,30 +43,32 @@ export const FormInput: React.FC<FormInputProps> = ({
     onBlur,
     error,
     className,
-    style = {},
-    variant = "default",
+    size,
     rows = 3,
+    pill = true,
+    variant,
+    style,
 }) => {
-    const containerSpacing =
-        variant === "compact" ? "spacing-form-tight" : "spacing-form-normal";
-    const inputPadding =
-        variant === "compact"
-            ? "padding-responsive-sm"
-            : "padding-responsive-md";
+    // Handle deprecated variant prop - map to size
+    const effectiveSize = size || (variant === "compact" ? "sm" : "md");
+
+    const inputSizeClasses = {
+        sm: "input-sm",
+        md: "input-md",
+        lg: "input-lg",
+    };
 
     const baseInputClasses = cn(
-        "form-input-base text-responsive-lg",
-        inputPadding,
+        "input-base",
+        inputSizeClasses[effectiveSize],
         className,
     );
 
+    const radiusClass = as === "textarea" ? "rounded-lg" : (pill ? "rounded-full" : "rounded-lg");
+
     return (
-        <div className={containerSpacing}>
-            <label
-                className={cn(
-                    "form-label-base text-responsive-lg mb-0.5 md:mb-1",
-                )}
-            >
+        <div className="form-group">
+            <label className="form-label">
                 {label}
             </label>
             {as === "textarea" ? (
@@ -66,7 +79,7 @@ export const FormInput: React.FC<FormInputProps> = ({
                     onChange={onChange}
                     onBlur={onBlur}
                     rows={rows}
-                    className={cn(baseInputClasses, "rounded-lg")}
+                    className={cn(baseInputClasses, "textarea-base", radiusClass)}
                     style={style}
                 />
             ) : (
@@ -77,12 +90,12 @@ export const FormInput: React.FC<FormInputProps> = ({
                     value={value}
                     onChange={onChange}
                     onBlur={onBlur}
-                    className={cn(baseInputClasses, "rounded-full ")}
-                    style={{ color: "#D2D2D3", ...style }}
+                    className={cn(baseInputClasses, radiusClass)}
+                    style={style}
                 />
             )}
             {error && (
-                <div className="text-red-400 mt-0.5 md:mt-1">{error}</div>
+                <p className="form-error">{error}</p>
             )}
         </div>
     );

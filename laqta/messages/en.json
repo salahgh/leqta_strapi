@@ -34,11 +34,18 @@
     "description": "We offer comprehensive digital solutions to help your business grow"
   },
   "servicesPage": {
+    "header": {
+      "badge": "Our Plans",
+      "title": "Basic Production",
+      "description": "Leqta offers flexible production options to match your content needs and brand ambitions. Choose between our efficient Basic Plan or a fully tailored Premium Plan designed around your objectives."
+    },
     "basicPlan": {
       "title": "Basic Plan",
       "description": "Ideal for brands needing a simple, fast production for a small batch of video content.",
       "price": "126,900 DZD",
       "buttonText": "Get Started",
+      "featuresTitle": "What's Included",
+      "equipmentTitle": "Equipment Included",
       "features": [
         "Filming of 5 content pieces",
         "1 full day of shooting",
@@ -53,8 +60,9 @@
     },
     "premiumPlan": {
       "title": "Premium Plan",
-      "description": "Brands with larger content needs, creative ambitions, or advanced technical requirements. This plan is 100% customized to your brand, objectives, and creative vision. We design the content, structure, and production workflow with your brand team.",
+      "description": "For brands with larger content needs, creative ambitions, or advanced technical requirements. This plan is 100% customized to your brand, objectives, and creative vision.",
       "buttonText": "Contact Us",
+      "featuresTitle": "What's Included",
       "features": [
         "More than 5 video content pieces",
         "Multi-day filming sessions",

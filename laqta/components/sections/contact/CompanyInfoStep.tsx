@@ -65,31 +65,27 @@ const CompanyInfoStep = ({ initialValues, onSubmit }: { initialValues?: Partial<
     return (
         <div>
             <div className="mb-6">
-                <h2 className="text-2xl font-bold text-white mb-2">Company & Industry Information</h2>
-                <p className="text-slate-300">Tell us about your company and role.</p>
+                <h2 className="text-display-xs font-bold text-white mb-2">Company & Industry Information</h2>
+                <p className="text-secondary-gray">Tell us about your company and role.</p>
             </div>
-            
-            <form onSubmit={formik.handleSubmit} className="space-y-4" id="step-2-form">
+
+            <form onSubmit={formik.handleSubmit} className="form-group" id="step-2-form">
                 <div className="spacing-form-tight">
-                    <label className="form-label-base text-responsive-lg mb-0.5 md:mb-1">
+                    <label className="form-label text-body-md sm:text-body-lg">
                         {t('industry')}
                     </label>
                     <select
                         {...useFormInput<CompanyInfoFormValues>("industry", formik)}
-                        className="form-input-base text-responsive-lg padding-responsive-sm rounded-full w-full"
-                        style={{
-                            backgroundColor: "#141733",
-                            color: "#D2D2D3",
-                        }}
+                        className="input-sm text-body-md sm:text-body-lg rounded-full w-full bg-form-bg text-form-text"
                     >
                         {industryOptions.map((option) => (
-                            <option key={option.value} value={option.value} style={{ backgroundColor: "#141733", color: "#D2D2D3" }}>
+                            <option key={option.value} value={option.value} className="bg-form-bg text-form-text">
                                 {option.label}
                             </option>
                         ))}
                     </select>
                     {formik.touched.industry && formik.errors.industry && (
-                        <div className="text-red-400 mt-0.5 md:mt-1">{formik.errors.industry}</div>
+                        <div className="form-error">{formik.errors.industry}</div>
                     )}
                 </div>
 
@@ -98,11 +94,8 @@ const CompanyInfoStep = ({ initialValues, onSubmit }: { initialValues?: Partial<
                         label={t('otherIndustry')}
                         {...useFormInput<CompanyInfoFormValues>("otherIndustry", formik)}
                         placeholder={t('otherIndustryPlaceholder')}
-                        variant={"compact"}
-                        style={{
-                            backgroundColor: "#141733",
-                            color: "#D2D2D3",
-                        }}
+                        size="sm"
+                        className="bg-form-bg text-form-text"
                     />
                 )}
 
@@ -110,34 +103,25 @@ const CompanyInfoStep = ({ initialValues, onSubmit }: { initialValues?: Partial<
                     label={t('companyName')}
                     {...useFormInput<CompanyInfoFormValues>("companyName", formik)}
                     placeholder={t('companyNamePlaceholder')}
-                    variant={"compact"}
-                    style={{
-                        backgroundColor: "#141733",
-                        color: "#D2D2D3",
-                    }}
+                    size="sm"
+                    className="bg-form-bg text-form-text"
                 />
 
                 <FormInput
                     label={t('jobTitle')}
                     {...useFormInput<CompanyInfoFormValues>("jobTitle", formik)}
                     placeholder={t('jobTitlePlaceholder')}
-                    variant={"compact"}
-                    style={{
-                        backgroundColor: "#141733",
-                        color: "#D2D2D3",
-                    }}
+                    size="sm"
+                    className="bg-form-bg text-form-text"
                 />
 
                 <FormInput
                     label={t('website')}
                     {...useFormInput<CompanyInfoFormValues>("website", formik)}
                     placeholder={t('websitePlaceholder')}
-                    variant={"compact"}
+                    size="sm"
                     type="url"
-                    style={{
-                        backgroundColor: "#141733",
-                        color: "#D2D2D3",
-                    }}
+                    className="bg-form-bg text-form-text"
                 />
             </form>
         </div>

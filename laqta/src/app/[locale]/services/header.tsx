@@ -1,13 +1,29 @@
 // Header Component
 import React from "react";
+import { Badge } from "@/components/ui/Badge";
+import { getTranslations } from "next-intl/server";
 
-export const Header = () => (
-    <div className="px-4 md:px-8 text-center py-4 md:py-6 space-y-3 md:space-y-4 animate-fade-in" style={{ opacity: 0 }}>
-        <h1 className="font-semibold text-white animate-slide-down" style={{ opacity: 0 }}>Basic Production</h1>
-        <p className="leading-relaxed text-secondary-gray text-responsive-lg max-w-4xl mx-auto animate-slide-up" style={{ animationDelay: "200ms", opacity: 0 }}>
-            Leqta offers flexible production options to match your content needs
-            and brand ambitions. Choose between our efficient Basic Plan or a
-            fully tailored Premium Plan designed around your objectives.
-        </p>
-    </div>
-);
+export const Header = async () => {
+    const t = await getTranslations("servicesPage");
+
+    return (
+        <div className="section-px text-center section-py-md max-w-4xl mx-auto">
+            {/* Badge */}
+            <div className="mb-6 animate-slide-down" style={{ opacity: 0 }}>
+                <Badge size="sm" variant="default">
+                    {t("header.badge")}
+                </Badge>
+            </div>
+
+            {/* Title */}
+            <h1 className="text-white mb-4 animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>
+                {t("header.title")}
+            </h1>
+
+            {/* Description */}
+            <p className="text-secondary-gray text-body-md md:text-body-lg max-w-2xl mx-auto animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
+                {t("header.description")}
+            </p>
+        </div>
+    );
+};

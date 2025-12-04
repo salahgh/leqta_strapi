@@ -33,7 +33,7 @@ export const CompetitiveEdge = async () => {
         >
             <div className="text-center space-y-4 md:space-y-6 py-6 md:py-8 flex flex-col items-center animate-fade-in" style={{ opacity: 0 }}>
                 <div className="animate-slide-down" style={{ opacity: 0 }}>
-                    <Badge>{t('badge')}</Badge>
+                    <Badge size="sm" variant="default">{t('badge')}</Badge>
                 </div>
 
                 <h2 className="text-white max-w-2xl leading-tight animate-slide-up" style={{ animationDelay: "150ms", opacity: 0 }}>

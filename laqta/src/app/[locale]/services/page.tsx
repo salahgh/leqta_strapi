@@ -7,10 +7,11 @@ import { getTranslations } from "next-intl/server";
 
 export const metadata = {
     title: "Services | Laqta",
+    description: "Explore Laqta's production services - Basic and Premium plans tailored to your content needs.",
 };
 
 // Main Component
-const BasicProductionPage = async ({
+const ServicesPage = async ({
     params,
 }: {
     params: Promise<{ locale: string }>;
@@ -40,55 +41,66 @@ const BasicProductionPage = async ({
     ];
 
     return (
-        <div className="relative bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 min-h-screen flex flex-col">
-            {/* Fixed gradient background to prevent flickering */}
-            <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 pointer-events-none z-0" style={{ willChange: 'opacity' }} />
+        <div className="relative min-h-screen flex flex-col bg-primary">
+            {/* Background gradient */}
+            <div
+                className="absolute inset-0 pointer-events-none z-0"
+                style={{
+                    background: "linear-gradient(135deg, #0D1137 0%, #1a1f4e 50%, #2d1b4e 100%)",
+                    willChange: 'opacity'
+                }}
+            />
+
+            {/* Decorative elements */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+                <div className="absolute top-1/4 -left-32 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl" />
+                <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
+            </div>
 
             <Navigation />
-            <div className="relative z-0 flex-1">
-                <div className="space-y-4 md:space-y-8 pb-8 pt-8">
-                    <Header />
-                </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 mb-12 px-4 md:px-8 lg:px-16 max-w-7xl mx-auto">
-                    {/* Basic Plan */}
-                    <div className="animate-fade-in" style={{ animationDelay: "300ms", opacity: 0 }}>
-                        <PlanCard
-                            frameId="Frame 170480111"
-                            title={t("basicPlan.title")}
-                            description={t("basicPlan.description")}
-                            price={t("basicPlan.price")}
-                            buttonText={t("basicPlan.buttonText")}
-                            buttonColor="bg-blue-500 hover:bg-blue-600 text-white"
-                            features={basicPlanFeatures}
-                            equipment={basicPlanEquipment}
-                            gradient="bg-gradient-to-br from-gray-800 to-gray-900"
-                        />
-                    </div>
+            <main className="relative z-10 flex-1">
+                {/* Header Section */}
+                {/* @ts-expect-error Server Component */}
+                <Header />
 
-                    {/* Premium Plan */}
-                    <div className="animate-fade-in" style={{ animationDelay: "500ms", opacity: 0 }}>
-                        <PlanCard
-                            title={t("premiumPlan.title")}
-                            description={t("premiumPlan.description")}
-                            buttonText={t("premiumPlan.buttonText")}
-                            buttonColor="bg-teal-500 hover:bg-teal-600 text-white"
-                            features={premiumPlanFeatures}
-                            gradient="bg-gradient-to-br from-purple-800 via-pink-700 to-purple-900"
-                            price={undefined}
-                            equipment={undefined}
-                            frameId={undefined}
-                        />
+                {/* Plan Cards Section */}
+                <div className="section-px section-py-md">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 grid-gap-lg max-w-6xl mx-auto">
+                        {/* Basic Plan */}
+                        <div className="animate-fade-in" style={{ animationDelay: "300ms", opacity: 0 }}>
+                            <PlanCard
+                                title={t("basicPlan.title")}
+                                description={t("basicPlan.description")}
+                                price={t("basicPlan.price")}
+                                buttonText={t("basicPlan.buttonText")}
+                                features={basicPlanFeatures}
+                                equipment={basicPlanEquipment}
+                                variant="basic"
+                                featuresTitle={t("basicPlan.featuresTitle")}
+                                equipmentTitle={t("basicPlan.equipmentTitle")}
+                            />
+                        </div>
+
+                        {/* Premium Plan */}
+                        <div className="animate-fade-in" style={{ animationDelay: "450ms", opacity: 0 }}>
+                            <PlanCard
+                                title={t("premiumPlan.title")}
+                                description={t("premiumPlan.description")}
+                                buttonText={t("premiumPlan.buttonText")}
+                                features={premiumPlanFeatures}
+                                variant="premium"
+                                featuresTitle={t("premiumPlan.featuresTitle")}
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
+            </main>
 
             {/* Footer */}
-            <div className="relative z-0 mt-auto">
-                <Footer locale={locale} />
-            </div>
+            <Footer locale={locale} />
         </div>
     );
 };
 
-export default BasicProductionPage;
+export default ServicesPage;

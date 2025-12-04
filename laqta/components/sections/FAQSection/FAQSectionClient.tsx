@@ -25,7 +25,7 @@ export const FAQSectionClient: React.FC<FAQSectionClientProps> = ({ faqs, error 
             <div className="container mx-auto px-6 space-y-4">
                 <div className="text-center space-y-4">
                     <div className="animate-slide-down" style={{ opacity: 0 }}>
-                        <Badge variant="default" className="">
+                        <Badge size="sm" variant="default">
                             {t('badge')}
                         </Badge>
                     </div>

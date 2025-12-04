@@ -1,10 +1,16 @@
 "use client";
 
+/**
+ * LanguageSelector Component - Design System
+ * Uses design tokens for touch-friendly sizing
+ */
+
 import { useState, useTransition } from "react";
 import { ChevronDown } from "lucide-react";
-import { useRouter, usePathname } from "@/src/i18n/navigation"; // Use next-intl navigation
+import { useRouter, usePathname } from "@/src/i18n/navigation";
 import { useLocale } from "next-intl";
 import React from "react";
+import { cn } from "@/lib/utils";
 
 // Define locale type
 type Locale = "en" | "ar" | "fr";
@@ -92,15 +98,18 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({ className = 
     };
 
     return (
-        <div className={`text-left relative h-full ${className}`}>
+        <div className={cn("text-left relative h-full", className)}>
             {/* Selected Language Button */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 disabled={isPending}
-                className="flex items-center justify-center p-2 gap-2 border border-gray-50
-                rounded-full transition-colors disabled:opacity-50"
+                className={cn(
+                    "flex items-center justify-center p-2 gap-2",
+                    "border border-white/20 rounded-full",
+                    "transition-colors disabled:opacity-50",
+                    "touch-target"
+                )}
                 dir={selectedLang?.dir}
-                style={{ borderColor: "rgba(255, 255, 255, 0.2)" }}
             >
                 <div className={"h-full aspect-square"}>
                     {selectedLang && <selectedLang.flag />}
@@ -121,17 +130,22 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({ className = 
                             key={language.code}
                             onClick={() => handleLanguageSelect(language.code)}
                             disabled={isPending}
-                            className={`h-12 flex items-center gap-2 px-3 py-2 text-left hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors disabled:opacity-50 ${
+                            className={cn(
+                                "h-12 flex items-center gap-2 px-3 py-2 text-left",
+                                "hover:bg-neutral-100 focus:outline-none focus:bg-neutral-100",
+                                "transition-colors disabled:opacity-50",
                                 locale === language.code
-                                    ? "bg-blue-50 text-blue-700"
-                                    : "text-gray-700"
-                            }`}
+                                    ? "bg-primary-light/10 text-primary-light"
+                                    : "text-neutral-700"
+                            )}
                             dir={language.dir}
                         >
-                            <language.flag className="w-5 h-5 rounded-sm" />
+                            <div className="w-5 h-5 rounded-sm overflow-hidden">
+                                <language.flag />
+                            </div>
                             <span className="font-medium">{language.name}</span>
                             {locale === language.code && (
-                                <div className="ml-auto w-2 h-2 bg-blue-600 rounded-full"></div>
+                                <div className="ml-auto w-2 h-2 bg-primary-light rounded-full"></div>
                             )}
                         </button>
                     ))}

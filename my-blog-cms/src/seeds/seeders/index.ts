@@ -21,37 +21,37 @@ import {seedSocialMedias} from "./socialMediaSeeder";
 
 export const runSeeds = async (strapi: any) => {
     try {
-        console.log('🌱 Starting internationalized seeding process...');
-
-        //Seed Authors first (required for blog relations)
-        await seedAuthors(strapi, authorsData);
-
-        // Seed Categories (required for blog relations)
-        await seedCategories(strapi, categoriesData);
-
-        // Seed Tags (required for blog relations)
-        await seedTags(strapi, tagsData);
-
-        // Seed Services
-        await seedServices(strapi, servicesData);
-
-        //Seed Projects
-        await seedProjects(strapi, projectsData);
-
-        // Seed Testimonials
-        await seedTestimonials(strapi, testimonialsData);
-
-        // Seed FAQs
-        await seedFAQs(strapi, faqsData);
-
-        // Seed Missions
-        await seedMissions(strapi, missionsData);
-
-        // Seed Social Medias
-        // await seedSocialMedias(strapi);
-
-        // Seed Blogs (requires authors, categories, and tags)
-        await seedBlogs(strapi, blogsData);
+        // console.log('🌱 Starting internationalized seeding process...');
+        //
+        // //Seed Authors first (required for blog relations)
+        // await seedAuthors(strapi, authorsData);
+        //
+        // // Seed Categories (required for blog relations)
+        // await seedCategories(strapi, categoriesData);
+        //
+        // // Seed Tags (required for blog relations)
+        // await seedTags(strapi, tagsData);
+        //
+        // // Seed Services
+        // await seedServices(strapi, servicesData);
+        //
+        // //Seed Projects
+        // await seedProjects(strapi, projectsData);
+        //
+        // // Seed Testimonials
+        // await seedTestimonials(strapi, testimonialsData);
+        //
+        // // Seed FAQs
+        // await seedFAQs(strapi, faqsData);
+        //
+        // // Seed Missions
+        // await seedMissions(strapi, missionsData);
+        //
+        // // Seed Social Medias
+        // // await seedSocialMedias(strapi);
+        //
+        // // Seed Blogs (requires authors, categories, and tags)
+        // await seedBlogs(strapi, blogsData);
 
         console.log('🎉 All internationalized seeding completed successfully!');
 

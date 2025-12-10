@@ -1,4 +1,4 @@
 .blue_gradient {
     background: #54B3F1;
-    background: linear-gradient(180deg, rgb(116, 193, 245) 0%, rgba(212, 236, 250, 1) 17%, rgba(255, 255, 255, 1) 31%);
+    background: linear-gradient(180deg, rgba(116, 193, 245, 0.54) 0%, rgba(212, 236, 250, 1) 17%, rgb(255, 255, 255) 31%);
 }

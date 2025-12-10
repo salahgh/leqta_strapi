@@ -18,7 +18,9 @@ export async function generateMetadata({
 
     return {
         title: "About Us | Leqta",
-        description: t("description") || "Learn more about Leqta, a creative agency specializing in content marketing and production services.",
+        description:
+            t("description") ||
+            "Learn more about Leqta, a creative agency specializing in content marketing and production services.",
         openGraph: {
             title: "About Us | Leqta",
             description: t("description"),
@@ -39,7 +41,10 @@ export default async function AboutPage({
             {/* Background Layers Container - Optimized for performance */}
             <div className="absolute inset-0 pointer-events-none z-0">
                 {/* Union SVG Layer */}
-                <div className="absolute w-full inset-0" style={{ willChange: 'opacity' }}>
+                <div
+                    className="absolute w-full inset-0"
+                    style={{ willChange: "opacity" }}
+                >
                     <Image
                         src="/images/union.svg"
                         alt="Union Background"
@@ -54,13 +59,17 @@ export default async function AboutPage({
                 <div
                     className="absolute inset-0 opacity-90"
                     style={{
-                        background: "linear-gradient(to bottom, #FFFFFF00, #000000)",
-                        willChange: 'opacity'
+                        background:
+                            "linear-gradient(to bottom, #FFFFFF00, #000000)",
+                        willChange: "opacity",
                     }}
                 />
 
                 {/* Vector Courbe SVG Layer */}
-                <div className="absolute w-[80%] lg:w-1/2 top-0 left-1/2 transform -translate-x-1/2 opacity-40" style={{ willChange: 'opacity, transform' }}>
+                <div
+                    className="absolute w-[80%] lg:w-1/2 top-0 left-1/2 transform -translate-x-1/2 opacity-40"
+                    style={{ willChange: "opacity, transform" }}
+                >
                     <Image
                         src="/images/vector_courbe.svg"
                         alt="Vector Curve Background"

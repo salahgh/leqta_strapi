@@ -23,7 +23,9 @@ interface ServicesSectionProps {
 }
 
 // Server-side function to fetch services with revalidation and locale support
-async function getServices(locale: string): Promise<{ data: Service[], error?: string }> {
+async function getServices(
+    locale: string,
+): Promise<{ data: Service[]; error?: string }> {
     try {
         const response = await servicesApi.getAll({
             populate: "featured_image", // Make sure to populate the featured_image
@@ -35,7 +37,10 @@ async function getServices(locale: string): Promise<{ data: Service[], error?: s
         console.error("Error fetching services:", error);
         return {
             data: [],
-            error: error instanceof Error ? error.message : 'Failed to load services'
+            error:
+                error instanceof Error
+                    ? error.message
+                    : "Failed to load services",
         };
     }
 }
@@ -64,12 +69,14 @@ const transformStrapiService = (service: Service) => ({
     icon: getIconComponent(service.icon),
     slug: service.slug, // Add slug for linking
     // Add featured_image with full URL
-    featured_image: service.featured_image ? {
-        ...service.featured_image,
-        url: service.featured_image.url.startsWith('http')
-            ? service.featured_image.url
-            : `${process.env.NEXT_PUBLIC_STRAPI_URL_2}${service.featured_image.url}`
-    } : null,
+    featured_image: service.featured_image
+        ? {
+              ...service.featured_image,
+              url: service.featured_image.url.startsWith("http")
+                  ? service.featured_image.url
+                  : `${process.env.NEXT_PUBLIC_STRAPI_URL_2}${service.featured_image.url}`,
+          }
+        : null,
 });
 
 // Main Services Section Component - Server-side with revalidation
@@ -81,13 +88,14 @@ export default async function ServicesSection({
     locale,
 }: ServicesSectionProps) {
     const t = await getTranslations("services");
-    
+
     // Use translations as fallback values
     const finalBadge = badge || t("badge");
     const finalDescription = description || t("description");
     const finalButtonText = buttonText || "Go to services";
 
-    const { data: strapiServices, error: servicesError } = await getServices(locale);
+    const { data: strapiServices, error: servicesError } =
+        await getServices(locale);
 
     // Determine which services to render
     const servicesToRender = (() => {
@@ -116,16 +124,23 @@ export default async function ServicesSection({
                 {/* Header - Using design system spacing */}
                 <div className="text-center flex flex-col items-center grid-gap-sm section-py-lg">
                     <div className="animate-slide-down" style={{ opacity: 0 }}>
-                        <Badge size="sm" variant="default">
+                        <Badge size="md" variant="accent">
                             {finalBadge}
                         </Badge>
                     </div>
 
-                    <h2 className="text-white text-center animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>
+                    <h2
+                        className="text-white text-center animate-slide-up"
+                        style={{ opacity: 0, animationDelay: "150ms" }}
+                    >
                         {t("title")}
                     </h2>
 
-                    <p className="text-secondary-gray text-body-sm sm:text-body-md text-justify section-px sm:max-w-sm md:max-w-2xl lg:max-w-4xl xl:max-w-5xl animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
+                    <p
+                        className="text-secondary-gray text-body-sm sm:text-body-md lg:text-body-lg xl:text-xl  section-px sm:max-w-sm md:max-w-2xl
+                         lg:max-w-4xl xl:max-w-5xl animate-fade-in"
+                        style={{ opacity: 0, animationDelay: "300ms" }}
+                    >
                         {finalDescription}
                     </p>
                 </div>
@@ -174,7 +189,9 @@ export default async function ServicesSection({
                         variant="primary"
                         size="lg"
                         leftIcon={null}
-                        rightIcon={<ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />}
+                        rightIcon={
+                            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                        }
                     >
                         {finalButtonText}
                     </Button>

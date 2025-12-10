@@ -1,0 +1,41 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1_2024)">
+<rect x="20" y="20" width="80" height="80" rx="40" fill="url(#paint0_linear_1_2024)"/>
+<path d="M53.34 64H44C41.8 64 40 65.8 40 68V80H53.34V64Z" stroke="white" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M62.6603 56H57.3203C55.1203 56 53.3203 57.8 53.3203 60V80H66.6603V60C66.6603 57.8 64.8803 56 62.6603 56Z" stroke="white" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M76.0002 70H66.6602V80H80.0002V74C80.0002 71.8 78.2002 70 76.0002 70Z" stroke="white" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M61.0405 40.1396L62.1005 42.2596C62.2405 42.5596 62.6205 42.8396 62.9405 42.8796L64.8605 43.1996C66.0805 43.3996 66.3805 44.2996 65.5005 45.1596L64.0005 46.6596C63.7405 46.9196 63.6005 47.3996 63.6805 47.7396L64.1005 49.5796C64.4405 51.0396 63.6605 51.5997 62.3805 50.8397L60.5805 49.7797C60.2605 49.5797 59.7205 49.5797 59.4005 49.7797L57.6005 50.8397C56.3205 51.5997 55.5405 51.0396 55.8805 49.5796L56.3005 47.7396C56.3805 47.3996 56.2405 46.8996 55.9805 46.6596L54.5005 45.1796C53.6205 44.2996 53.9005 43.4196 55.1405 43.2196L57.0605 42.8997C57.3805 42.8397 57.7605 42.5597 57.9005 42.2797L58.9605 40.1596C59.5405 38.9996 60.4605 38.9996 61.0405 40.1396Z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<g filter="url(#filter0_f_1_2024)">
+<circle cx="81.7405" cy="86.7405" r="18.7405" fill="#483CC9" fill-opacity="0.6"/>
+</g>
+</g>
+<rect x="3" y="3" width="114" height="114" rx="57" stroke="url(#paint1_linear_1_2024)" stroke-width="6"/>
+<defs>
+<filter id="filter0_f_1_2024" x="39.4008" y="44.4008" width="84.6799" height="84.6789" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="11.7996" result="effect1_foregroundBlur_1_2024"/>
+</filter>
+<linearGradient id="paint0_linear_1_2024" x1="32.6963" y1="12.6624" x2="87.3842" y2="107.291" gradientUnits="userSpaceOnUse">
+<stop stop-color="#1370AD"/>
+<stop offset="0.09" stop-color="#115F98"/>
+<stop offset="0.27" stop-color="#104375"/>
+<stop offset="0.45" stop-color="#0E2D5A"/>
+<stop offset="0.63" stop-color="#0D1D46"/>
+<stop offset="0.81" stop-color="#0D143A"/>
+<stop offset="1" stop-color="#0D1137"/>
+</linearGradient>
+<linearGradient id="paint1_linear_1_2024" x1="19.0444" y1="-11.0064" x2="101.076" y2="130.937" gradientUnits="userSpaceOnUse">
+<stop stop-color="#1370AD"/>
+<stop offset="0.09" stop-color="#115F98"/>
+<stop offset="0.27" stop-color="#104375"/>
+<stop offset="0.45" stop-color="#0E2D5A"/>
+<stop offset="0.63" stop-color="#0D1D46"/>
+<stop offset="0.81" stop-color="#0D143A"/>
+<stop offset="1" stop-color="#0D1137"/>
+</linearGradient>
+<clipPath id="clip0_1_2024">
+<rect width="120" height="120" rx="60" fill="white"/>
+</clipPath>
+</defs>
+</svg>

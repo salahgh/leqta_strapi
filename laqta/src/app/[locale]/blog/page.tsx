@@ -7,6 +7,7 @@ import { NewsletterSubscription } from "./NewsletterSubscription";
 import { Blog, blogsApi, categoriesApi, Category } from "@/lib/strapi";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/src/i18n/navigation";
+import { Badge } from "@/components/ui/Badge";
 
 // Static generation with revalidation every hour
 export const revalidate = 3600;
@@ -91,22 +92,22 @@ const BlogPage = async ({
                             className="inline-block mb-8 animate-slide-down"
                             style={{ opacity: 0 }}
                         >
-                            <span className="badge-md badge-default">
+                            <Badge size={"md"} variant={"accent"}>
                                 {t("badge")}
-                            </span>
+                            </Badge>
                         </div>
 
                         {/* Main Heading */}
-                        <h1
-                            className="text-display-lg md:text-display-xl lg:text-display-2xl font-bold text-white mb-6 animate-slide-up"
+                        <h2
+                            className="mb-6 animate-slide-up"
                             style={{ opacity: 0, animationDelay: "150ms" }}
                         >
                             {t("title")}
-                        </h1>
+                        </h2>
 
                         {/* Description */}
                         <p
-                            className="text-body-md md:text-body-lg text-secondary-gray max-w-2xl mx-auto leading-relaxed animate-fade-in"
+                            className="text-display-2xl md:text-body-lg text-secondary-gray max-w-3xl mx-auto leading-relaxed animate-fade-in"
                             style={{ opacity: 0, animationDelay: "300ms" }}
                         >
                             {t("description")}
@@ -116,7 +117,7 @@ const BlogPage = async ({
                     {/* Blog Grid - smaller spacing, equal aspect ratio */}
                     {latestBlogs.length > 0 ? (
                         <div
-                            className="grid md:grid-cols-2 lg:grid-cols-3 grid-gap-md animate-fade-in"
+                            className="grid md:grid-cols-2 lg:grid-cols-3 grid-gap-sm animate-fade-in"
                             style={{ opacity: 0, animationDelay: "450ms" }}
                         >
                             {latestBlogs.map((blog) => (
@@ -139,7 +140,6 @@ const BlogPage = async ({
             </section>
 
             {/* Newsletter Subscription */}
-            <NewsletterSubscription />
             <Footer locale={locale} />
         </div>
     );

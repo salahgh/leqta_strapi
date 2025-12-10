@@ -24,7 +24,7 @@ interface ContactFormValues {
 }
 
 const ContactForm = () => {
-    const t = useTranslations('contact.form');
+    const t = useTranslations("contact.form");
 
     const formik = useFormik<ContactFormValues>({
         initialValues: {
@@ -34,13 +34,13 @@ const ContactForm = () => {
             message: "",
         },
         validationSchema: Yup.object({
-            fullname: Yup.string().trim().required(t('fullnameRequired')),
+            fullname: Yup.string().trim().required(t("fullnameRequired")),
             email: Yup.string()
                 .trim()
-                .email(t('invalidEmail'))
-                .required(t('emailRequired')),
-            phone: Yup.string().trim().required(t('phoneRequired')),
-            message: Yup.string().trim().required(t('messageRequired')),
+                .email(t("invalidEmail"))
+                .required(t("emailRequired")),
+            phone: Yup.string().trim().required(t("phoneRequired")),
+            message: Yup.string().trim().required(t("messageRequired")),
         }),
         onSubmit: async (values, { setSubmitting, resetForm }) => {
             try {
@@ -56,13 +56,13 @@ const ContactForm = () => {
                 );
 
                 if (response.ok) {
-                    alert(t('successMessage'));
+                    alert(t("successMessage"));
                     resetForm();
                 } else {
                     throw new Error("Failed to send message");
                 }
             } catch (error) {
-                alert(t('errorMessage'));
+                alert(t("errorMessage"));
                 console.error("Error:", error);
             } finally {
                 setSubmitting(false);
@@ -71,20 +71,23 @@ const ContactForm = () => {
     });
 
     return (
-        <div className="bg-primary flex flex-col md:flex-row items-center justify-center section-py-md">
-            <div className="animate-slide-right" style={{ opacity: 0 }}>
+        <div className="bg-primary flex md:flex-row gap-16  section-py-md px-16 py-32 pb-44">
+            <div className="animate-slide-right flex-1" style={{ opacity: 0 }}>
                 <ContactInfo />
             </div>
 
-            <div className="w-full md:w-auto p-2 sm:p-4 md:p-8 lg:p-12 mt-2 md:mt-4 animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
+            <div
+                className="flex-1 md:w-auto  animate-fade-in"
+                style={{ opacity: 0, animationDelay: "300ms" }}
+            >
                 {/* Outer gradient border wrapper */}
-                <div className="bg-gradient-contact-outer p-0.5 rounded-2xl shadow-2xl pt-2 md:pt-8 relative z-20">
+                <div className=" bg-primary p-0.5 rounded-2xl shadow-2xl pt-2 md:pt-8 relative z-20">
                     {/* Inner content */}
-                    <div className="bg-gradient-contact-inner rounded-2xl shadow-2xl w-full card-p-sm sm:card-p-md relative z-10">
+                    <div className=" rounded-2xl shadow-2xl w-full card-p-sm sm:card-p-md relative z-10">
                         <form onSubmit={formik.handleSubmit} className="h-full">
                             <div className="form-group p-1 sm:p-2 lg:p-3">
                                 <FormInput
-                                    label={t('fullname')}
+                                    label={t("fullname")}
                                     name="fullname"
                                     placeholder="Benyamina Sarah"
                                     value={formik.values.fullname}
@@ -94,11 +97,11 @@ const ContactForm = () => {
                                             ? formik.errors.fullname
                                             : ""
                                     }
-                                    size="sm"
+                                    size="lg"
                                 />
 
                                 <FormInput
-                                    label={t('email')}
+                                    label={t("email")}
                                     name="email"
                                     type="email"
                                     placeholder="sarah.benyamina@email.com"
@@ -109,11 +112,11 @@ const ContactForm = () => {
                                             ? formik.errors.email
                                             : ""
                                     }
-                                    size="sm"
+                                    size="lg"
                                 />
 
                                 <FormInput
-                                    label={t('phone')}
+                                    label={t("phone")}
                                     name="phone"
                                     placeholder="05 0000 00 00"
                                     value={formik.values.phone}
@@ -123,11 +126,11 @@ const ContactForm = () => {
                                             ? formik.errors.phone
                                             : ""
                                     }
-                                    size="sm"
+                                    size="lg"
                                 />
 
                                 <FormInput
-                                    label={t('message')}
+                                    label={t("message")}
                                     name="message"
                                     as="textarea"
                                     placeholder="Tell us more about what you're looking for..."
@@ -138,13 +141,16 @@ const ContactForm = () => {
                                             ? formik.errors.message
                                             : ""
                                     }
-                                    size="sm"
+                                    size="lg"
                                 />
                             </div>
-                            <div className="mt-2 sm:mt-3 md:mt-4">
+
+                            <div className={"py-6"}>
                                 <SubmitButton
                                     isSubmitting={formik.isSubmitting}
-                                    text={t('submit')}
+                                    text={t("submit")}
+                                    className={"w-full"}
+                                    buttonClassname={""}
                                 />
                             </div>
                         </form>

@@ -19,10 +19,12 @@ const AboutSection = ({
     illustration?: React.ReactNode;
     className?: string;
 }) => {
-    const t = useTranslations('about');
+    const t = useTranslations("about");
 
     return (
-        <div className={`relative overflow-hidden ${className} rounded-2xl sm:rounded-3xl`}>
+        <div
+            className={`relative overflow-hidden ${className} rounded-2xl sm:rounded-3xl`}
+        >
             {/* Linear Gradient Background */}
             <div className="absolute inset-0 z-0 blue_gradient" />
 
@@ -36,39 +38,60 @@ const AboutSection = ({
             </div>
 
             {/* Content Layer */}
-            <div className="relative z-20 bg-transparent rounded-2xl md:rounded-3xl shadow-2xl card-p-md md:card-p-lg md:flex grid-gap-lg">
+            <div
+                className="relative z-20 bg-transparent rounded-2xl md:rounded-3xl shadow-2xl card-p-md md:card-p-lg md:flex grid-gap-lg p-16
+            "
+            >
                 {/* Content Section */}
-                <div className="stack-gap-md flex-1">
+                <div className="stack-gap-md flex-1 py-16">
                     {/* Badge */}
-                    <div className="items-center justify-center animate-slide-down" style={{ opacity: 0 }}>
-                        <Badge size="sm" variant="accent">
-                            {t('badge')}
-                        </Badge>
+                    <div
+                        className="items-center justify-center animate-slide-down"
+                        style={{ opacity: 0 }}
+                    >
+                        <Badge variant="accent">{t("badge")}</Badge>
                     </div>
-                    <h2 className="text-neutral-900 text-display-sm sm:text-display-md md:text-display-lg xl:text-display-xl leading-tight animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>
-                        {t('title').split(" ").map((word, index) => (
-                            <span
-                                key={index}
-                                style={{
-                                    fontWeight:
-                                        word === "LEQTA" ? "700" : "500",
-                                }}
-                                className={
-                                    word === "LEQTA"
-                                        ? "bg-gradient-text-blue bg-clip-text text-transparent"
-                                        : ""
-                                }
-                            >
-                                {word}{" "}
-                            </span>
-                        ))}
+                    <h2
+                        className="text-neutral-900 text-display-sm sm:text-display-md md:text-display-lg xl:text-display-xl leading-tight animate-slide-up"
+                        style={{ opacity: 0, animationDelay: "150ms" }}
+                    >
+                        {t("title")
+                            .split(" ")
+                            .map((word, index) => {
+                                console.log(word, index);
+                                return (
+                                    <span
+                                        key={index}
+                                        style={{
+                                            fontWeight:
+                                                word?.toString().trim() ===
+                                                "LEQTA"
+                                                    ? "700"
+                                                    : "600",
+                                        }}
+                                        className={
+                                            word?.toString().trim() === "LEQTA"
+                                                ? "bg-gradient-to-b from-[#3a8bc0] to-blue-300 bg-clip-text text-transparent"
+                                                : ""
+                                        }
+                                    >
+                                        {word}{" "}
+                                    </span>
+                                );
+                            })}
                     </h2>
                     {/* Description */}
-                    <p className="text-secondary-gray leading-relaxed text-body-sm sm:text-body-md lg:text-body-lg animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
-                        {t('description')}
+                    <p
+                        className="text-secondary-gray leading-relaxed text-body-sm sm:text-body-md lg:text-body-xl animate-fade-in pr-32"
+                        style={{ opacity: 0, animationDelay: "300ms" }}
+                    >
+                        {t("description")}
                     </p>
                     {/* Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-fade-in" style={{ opacity: 0, animationDelay: "450ms" }}>
+                    <div
+                        className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-fade-in"
+                        style={{ opacity: 0, animationDelay: "450ms" }}
+                    >
                         <Link href="/contact" className="w-full sm:w-auto">
                             <Button
                                 variant="primary"
@@ -78,7 +101,7 @@ const AboutSection = ({
                                 rightIcon={<Rocket className="w-4 h-4 ml-2" />}
                                 leftIcon={null}
                             >
-                                {t('getStarted')}
+                                {t("getStarted")}
                             </Button>
                         </Link>
                         <Link href="/about" className="w-full sm:w-auto">
@@ -86,21 +109,26 @@ const AboutSection = ({
                                 variant="secondary"
                                 size="lg"
                                 fullWidth
-                                className="sm:w-40 md:w-44"
+                                className="sm:w-40 md:w-44 text-black"
                                 leftIcon={null}
                                 rightIcon={null}
                             >
-                                {t('learnMore')}
+                                {t("learnMore")}
                             </Button>
                         </Link>
                     </div>
                 </div>
                 {/* Illustration Section */}
-                <div className="flex justify-center items-center md:max-w-80 lg:max-w-xl animate-fade-in mt-6 md:mt-0" style={{ opacity: 0, animationDelay: "600ms" }}>
+                <div
+                    className="fex flex-1 justify-center items-center md:max-w-80 lg:max-w-xl animate-fade-in mt-6 md:mt-0"
+                    style={{ opacity: 0, animationDelay: "600ms" }}
+                >
                     {illustration || (
                         // Fallback illustration if none provided
                         <div className="bg-gradient-to-br from-primary-light/20 to-primary-light/40 rounded-2xl p-6 sm:p-8 aspect-square flex items-center justify-center">
-                            <div className="text-4xl sm:text-6xl text-primary-light">🎬</div>
+                            <div className="text-4xl sm:text-6xl text-primary-light">
+                                🎬
+                            </div>
                         </div>
                     )}
                 </div>

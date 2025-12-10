@@ -93,7 +93,7 @@ export const BlogArticle: React.FC<{
             <ReadingProgress />
 
             {/* Blue Header with LAQTA Logo Background */}
-            <div className="relative pt-60 md:pt-24 bg-gradient-blog-hero">
+            <div className="relative py-60 md:pt-24 bg-gradient-blog-hero">
                 {/* LAQTA Logo Background - larger and more visible */}
                 <div
                     className="absolute inset-0 opacity-5 overflow-hidden pt-20"
@@ -106,15 +106,15 @@ export const BlogArticle: React.FC<{
                         src="/images/logo.svg"
                         alt="LAQTA"
                         fill
-                        className="object-contain mt-10"
-                        style={{ transform: "scale(0.65)" }}
+                        className="object-contain mt-1 ml-32"
+                        style={{ transform: "scale(0.70)" }}
                     />
                 </div>
 
                 {/* Title - 2/3 width, centered */}
-                <div className="relative z-10 max-w-7xl mx-auto section-px section-py-md md:pb-24">
+                <div className="relative z-10 max-w-7xl mx-auto section-px md:pb-24">
                     <div className="max-w-4xl mx-auto">
-                        <h1 className="text-display-md md:text-display-lg lg:text-display-xl font-bold text-white mb-6 w-full md:w-2/3">
+                        <h1 className="text-display-lg md:text-display-lg lg:text-display-2xl font-semibold text-white mb-6 w-full md:w-2/3">
                             {blog.title}
                         </h1>
                         {/* Description under title */}

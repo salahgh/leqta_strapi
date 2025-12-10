@@ -3,10 +3,10 @@ import React from "react";
 
 export const TestimonialCard = ({ testimonial, author, role, avatar }) => {
     return (
-        <div className="flex flex-col justify-center items-center max-w-4xl mx-auto h-full">
+        <div className="flex flex-col justify-center items-center w-2/3 space-y-12 mx-auto h-full">
             <StarRating />
 
-            <blockquote className="text-secondary-gray leading-relaxed text-responsive-md text-center py-2 flex-1 md:px-6">
+            <blockquote className="leading-relaxed lg:text-body-2xl font-medium text-center py-2 flex-1 md:px-6 text-gray-900">
                 "{testimonial}"
             </blockquote>
 

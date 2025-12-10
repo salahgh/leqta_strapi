@@ -7,7 +7,8 @@ import { getTranslations } from "next-intl/server";
 
 export const metadata = {
     title: "Services | Laqta",
-    description: "Explore Laqta's production services - Basic and Premium plans tailored to your content needs.",
+    description:
+        "Explore Laqta's production services - Basic and Premium plans tailored to your content needs.",
 };
 
 // Main Component
@@ -46,8 +47,9 @@ const ServicesPage = async ({
             <div
                 className="absolute inset-0 pointer-events-none z-0"
                 style={{
-                    background: "linear-gradient(135deg, #0D1137 0%, #1a1f4e 50%, #2d1b4e 100%)",
-                    willChange: 'opacity'
+                    background:
+                        "linear-gradient(135deg, #0D1137 0%, #1a1f4e 50%, #2d1b4e 100%)",
+                    willChange: "opacity",
                 }}
             />
 
@@ -68,7 +70,10 @@ const ServicesPage = async ({
                 <div className="section-px section-py-md">
                     <div className="grid grid-cols-1 lg:grid-cols-2 grid-gap-lg max-w-6xl mx-auto">
                         {/* Basic Plan */}
-                        <div className="animate-fade-in" style={{ animationDelay: "300ms", opacity: 0 }}>
+                        <div
+                            className="animate-fade-in"
+                            style={{ animationDelay: "300ms", opacity: 0 }}
+                        >
                             <PlanCard
                                 title={t("basicPlan.title")}
                                 description={t("basicPlan.description")}
@@ -83,7 +88,10 @@ const ServicesPage = async ({
                         </div>
 
                         {/* Premium Plan */}
-                        <div className="animate-fade-in" style={{ animationDelay: "450ms", opacity: 0 }}>
+                        <div
+                            className="animate-fade-in"
+                            style={{ animationDelay: "450ms", opacity: 0 }}
+                        >
                             <PlanCard
                                 title={t("premiumPlan.title")}
                                 description={t("premiumPlan.description")}

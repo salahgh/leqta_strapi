@@ -82,6 +82,25 @@
     "title": "Consistent Growth in Just a Simple 3-Steps",
     "description": "We follow a structured, data-driven process to ensure your marketing strategy delivers consistent growth and measurable results."
   },
+  "missionVision": {
+    "badge": "Our Foundation",
+    "title": "Built with Purpose",
+    "description": "At Leqta, clarity of purpose meets creative intent. Our vision, mission, and essence define how we think, work, and grow.",
+    "cards": {
+      "vision": {
+        "title": "Vision",
+        "description": "Leading Algeria's creative industry with impactful video content"
+      },
+      "mission": {
+        "title": "Mission",
+        "description": "Empowering businesses through innovative content and filmmaking"
+      },
+      "signature": {
+        "title": "Signature",
+        "description": "Where creativity meets strategy"
+      }
+    }
+  },
   "competitiveEdge": {
     "badge": "The Leqta Difference",
     "title": "Our Competitive Edge",
@@ -105,7 +124,7 @@
   },
   "faq": {
     "badge": "Questions?",
-    "title": "Frequently Asked Questions",
+    "title": "Answers to Your Top Questions",
     "description": "Find answers to common questions about our subscription marketing services."
   },
   "contact": {

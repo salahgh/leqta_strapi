@@ -79,7 +79,17 @@ export const TestimonialsClient = ({
     }, [currentTestimonial]);
 
     return (
-        <div className="relative bg-gray-200 md:pt-20 pt-12 flex flex-col gap-8 space-y-8">
+        <div className="relative bg-gray-200 md:pt-20 pt-12 flex flex-col gap-8 space-y-8 overflow-hidden">
+            {/* Background LAQTA Logo */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <img
+                    src="/images/laqta_01.svg"
+                    alt=""
+                    className="w-full h-full object-cover opacity-5"
+                    aria-hidden="true"
+                />
+            </div>
+
             {/* Header section */}
             <div className="text-center px-3 space-y-6">
                 <div className="animate-slide-down" style={{ opacity: 0 }}>

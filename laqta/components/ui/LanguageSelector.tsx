@@ -134,21 +134,25 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
                             onClick={() => handleLanguageSelect(language.code)}
                             disabled={isPending}
                             className={cn(
-                                "h-12 flex items-center gap-2 px-3 py-2 text-left",
+                                "h-12 w-full flex items-center gap-2 px-3 py-2",
                                 "hover:bg-neutral-100 focus:outline-none focus:bg-neutral-100",
                                 "transition-colors disabled:opacity-50",
                                 locale === language.code
                                     ? "bg-primary-light/10 text-primary-light"
                                     : "text-neutral-700",
+                                language.dir === "rtl" ? "flex-row-reverse text-right" : "text-left",
                             )}
                             dir={language.dir}
                         >
-                            <div className="w-5 h-5 rounded-sm overflow-hidden">
+                            <div className="w-5 h-5 rounded-sm overflow-hidden flex-shrink-0">
                                 <language.flag />
                             </div>
                             <span className="font-medium">{language.name}</span>
                             {locale === language.code && (
-                                <div className="ml-auto w-2 h-2 bg-primary-light rounded-full"></div>
+                                <div className={cn(
+                                    "w-2 h-2 bg-primary-light rounded-full flex-shrink-0",
+                                    language.dir === "rtl" ? "mr-auto" : "ml-auto"
+                                )}></div>
                             )}
                         </button>
                     ))}

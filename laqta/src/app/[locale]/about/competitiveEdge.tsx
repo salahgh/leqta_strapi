@@ -1,30 +1,35 @@
 // Competitive Edge Component
-import { Clock, Edit, Eye, RefreshCw } from "lucide-react";
 import React from "react";
 import { Badge } from "@/components/ui/Badge";
 import { getTranslations } from "next-intl/server";
+import Image from "next/image";
+
+interface Advantage {
+    iconSrc: string;
+    titleKey: "creativity" | "resilience" | "attention" | "commitment";
+}
+
+const advantages: Advantage[] = [
+    {
+        iconSrc: "/images/creativity.svg",
+        titleKey: "creativity",
+    },
+    {
+        iconSrc: "/images/resilience.svg",
+        titleKey: "resilience",
+    },
+    {
+        iconSrc: "/images/attention.svg",
+        titleKey: "attention",
+    },
+    {
+        iconSrc: "/images/commitement.svg",
+        titleKey: "commitment",
+    },
+];
 
 export const CompetitiveEdge = async () => {
     const t = await getTranslations("competitiveEdge");
-
-    const advantages = [
-        {
-            icon: <Edit className="w-6 h-6" />,
-            title: t("advantages.creativity"),
-        },
-        {
-            icon: <RefreshCw className="w-6 h-6" />,
-            title: t("advantages.resilience"),
-        },
-        {
-            icon: <Eye className="w-6 h-6" />,
-            title: t("advantages.attention"),
-        },
-        {
-            icon: <Clock className="w-6 h-6" />,
-            title: t("advantages.commitment"),
-        },
-    ];
 
     return (
         <section
@@ -59,23 +64,52 @@ export const CompetitiveEdge = async () => {
                 {advantages.map((advantage, index) => (
                     <div
                         key={index}
-                        className="group bg-gradient-to-br from-blue-900/40 to-purple-900/30 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-blue-400/20 flex items-center
-                        hover:from-blue-800/50 hover:to-purple-800/40 hover:border-blue-400/40 hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-500/20
+                        className="group relative overflow-hidden bg-primary rounded-2xl p-6 md:p-8 border border-blue-400/20 flex items-center
+                        hover:border-blue-400/40 hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-500/20
                         transition-all duration-500 cursor-default animate-fade-in"
                         style={{
                             animationDelay: `${450 + index * 150}ms`,
                             opacity: 0,
                         }}
                     >
-                        <div
-                            className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center mr-4 md:mr-6 text-blue-400
-                        group-hover:from-blue-500/40 group-hover:to-purple-500/40 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg group-hover:shadow-xl"
-                        >
-                            {advantage.icon}
+                        {/* Leqta Courbe SVG Background */}
+                        <div className="absolute inset-0 flex items-center justify-center opacity-20 group-hover:opacity-30 transition-opacity duration-500">
+                            <Image
+                                src="/images/leqta_courbe.svg"
+                                alt=""
+                                width={300}
+                                height={300}
+                                className="w-full h-full object-cover"
+                            />
                         </div>
-                        <h3 className="text-white font-semibold text-lg md:text-xl group-hover:translate-x-2 transition-transform duration-500">
-                            {advantage.title}
-                        </h3>
+
+                        {/* Blue Gradient Light from Bottom */}
+                        <div
+                            className="absolute inset-0 z-10"
+                            style={{
+                                background:
+                                    "linear-gradient(to top, rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0.1) 40%, transparent 70%)",
+                            }}
+                        />
+
+                        {/* Content */}
+                        <div className="relative z-20 flex items-center w-full">
+                            <div
+                                className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center mr-4 md:mr-6
+                            group-hover:from-blue-500/40 group-hover:to-purple-500/40 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg group-hover:shadow-xl"
+                            >
+                                <Image
+                                    src={advantage.iconSrc}
+                                    alt={t(`advantages.${advantage.titleKey}`)}
+                                    width={32}
+                                    height={32}
+                                    className="w-8 h-8 object-contain group-hover:scale-110 transition-transform duration-500"
+                                />
+                            </div>
+                            <h3 className="text-white font-semibold text-lg md:text-xl group-hover:translate-x-2 transition-transform duration-500">
+                                {t(`advantages.${advantage.titleKey}`)}
+                            </h3>
+                        </div>
                     </div>
                 ))}
             </div>

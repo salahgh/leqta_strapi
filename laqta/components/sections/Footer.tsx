@@ -32,9 +32,28 @@ const Footer = async ({ locale }: FooterProps) => {
     }
 
     return (
-        <footer className="bg-primary text-white">
+        <footer className="relative bg-primary text-white overflow-hidden">
+            {/* Background LAQTA Logo */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <img
+                    src="/images/laqta_01.svg"
+                    alt=""
+                    className="w-full h-full object-cover opacity-10"
+                    aria-hidden="true"
+                />
+            </div>
+
+            {/* Gradient Overlay from bottom (black to transparent) */}
+            <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                    background:
+                        "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 30%, transparent 60%)",
+                }}
+            />
+
             {/* Main Footer Content */}
-            <div className="section-px pt-16 pb-8 md:pt-20 md:pb-12 ">
+            <div className="relative z-10 section-px pt-16 pb-8 md:pt-20 md:pb-12 ">
                 {/* Top Section - 3 Column Layout */}
                 <div className="flex flex-row  justify-between">
                     {/* Left Column - Logo and Newsletter */}

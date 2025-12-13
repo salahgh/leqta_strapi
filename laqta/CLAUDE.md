@@ -162,8 +162,10 @@ Forms use Formik + Yup for validation:
 
 ## Related Documentation
 
-- `DOCUMENTATION.md` - Detailed project documentation
-- `DESIGN_SYSTEM.md` - Design system specifications
-- `DEVELOPMENT_GUIDE.md` - Development best practices
-- `COMPONENTS.md` - Component documentation
-- `ENHANCEMENT_ROADMAP.md` - Future improvements
+- `docs/DOCUMENTATION.md` - Detailed project documentation
+- `DESIGN_SYSTEM.md` - Design system specifications (root)
+- `docs/DEVELOPMENT_GUIDE.md` - Development best practices
+- `docs/COMPONENTS.md` - Component documentation
+- `docs/ENHANCEMENT_ROADMAP.md` - Future improvements
+- `docs/COMPREHENSIVE_ANALYSIS_REPORT.md` - Full codebase analysis
+- `docs/PHASE_1_IMPLEMENTATION_SUMMARY.md` - Phase 1 implementation details

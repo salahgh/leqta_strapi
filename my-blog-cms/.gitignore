@@ -31,4 +31,6 @@ build
 *.swo
 
 # PM2 production ecosystem (contains secrets)
-ecosystem.production.js
+ecosystem.production.js.env
+.env.local
+.env.production

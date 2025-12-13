@@ -13,3 +13,9 @@ logs/
 Thumbs.db
 deploy.sh
 .idea/workspace.xml
+
+laqta/package-lock.json
+
+my-blog-cms/package-lock.json
+
+my-blog-cms/nul

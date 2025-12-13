@@ -80,7 +80,7 @@ cd "$STRAPI_DIR"
 
 if [ "$SKIP_BUILD" = false ]; then
     echo "  Installing dependencies..."
-    npm ci --production=false
+    npm install
 
     echo "  Building Strapi..."
     npm run build
@@ -114,7 +114,7 @@ cd "$LAQTA_DIR"
 
 if [ "$SKIP_BUILD" = false ]; then
     echo "  Installing dependencies..."
-    npm ci --production=false
+    npm install
 
     echo "  Building Next.js..."
     npm run build

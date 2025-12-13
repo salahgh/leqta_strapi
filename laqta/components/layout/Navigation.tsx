@@ -80,6 +80,8 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
         };
     }, [isDrawerOpen]);
 
+    console.log("scrolled", scrolled);
+
     return (
         <>
             <nav
@@ -88,23 +90,23 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                     text-responsive-md
                     ${
                         scrolled
-                            ? "shadow-lg bg-primary backdrop-blur-md border-blue-700/30 nav-h-scrolled glassmorphism"
+                            ? "bg-primary backdrop-blur-md border-blue-700/30 nav-h-scrolled glassmorphism"
                             : "nav-h"
                     }
                     ${className}
-
                 `}
             >
                 {/* Desktop Navigation */}
                 <div
-                    className="hidden xl:flex items-center justify-between mx-auto px-6 xl:px-8 h-full py-3 w-full max-w-container"
+                    className={`hidden transition-all xl:flex items-center justify-between mx-auto px-6 xl:px-8 h-full ${
+                        scrolled ? "py-1" : "py-4"
+                    }  w-full max-w-container`}
                 >
                     <div className="transition-all duration-300 hidden md:block">
                         <Logo />
                     </div>
-
-                    {/* Navigation Links - Desktop */}
-                    <div className="flex items-center gap-8 h-full ">
+                    {/*Navigation Links - Desktop*/}
+                    <div className="flex items-center gap-8 h-full">
                         <div
                             className="flex items-center justify-center gap-8 rounded-full border border-white/20 px-8 bg-white/5 backdrop-blur-sm
                          h-full
@@ -119,7 +121,7 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                                             isActive={isActive}
                                             className={`
                                                 relative padding-responsive-sm rounded-full transition-all duration-300 ease-in-out
-                                                text-white/90 hover:text-white md:h-32
+                                                text-white/90 hover:text-white md:h-36
                                                 ${
                                                     isActive
                                                         ? "text-white font-semibold brightness-110"
@@ -139,13 +141,13 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
 
                         <LanguageSelector className={"flex"} />
                     </div>
-
-                    <div className="flex items-center  h-full">
+                    <div className="flex items-center h-full">
                         <Link href="/contact">
                             <Button
                                 leftIcon={null}
                                 rightIcon={<Rocket className="ml-2 h-4 w-4" />}
                                 className=""
+                                size={scrolled ? "lg" : "xl"}
                             >
                                 {t("getStarted")}
                             </Button>
@@ -180,13 +182,14 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                     </button>
 
                     {/* Mobile Right Section */}
-                    <div className="flex items-center gap-3 h-full py-2">
-                        <LanguageSelector className="flex h-full" />
+                    <div className="flex items-center gap-3 h-full">
+                        <LanguageSelector className="flex h-full w-full" />
                         <Link href="/contact">
                             <Button
                                 leftIcon={null}
                                 rightIcon={<Rocket className="ml-1 h-3 w-3" />}
                                 className=""
+                                size={"xl"}
                             >
                                 {t("getStarted")}
                             </Button>
@@ -281,7 +284,7 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                             <div onClick={closeDrawer}>
                                 <Link href="/contact">
                                     <Button
-                                        size="lg"
+                                        size="xl"
                                         leftIcon={null}
                                         rightIcon={
                                             <Rocket className="ml-2 h-4 w-4" />

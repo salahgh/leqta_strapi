@@ -7,8 +7,8 @@ module.exports = {
 
     bootstrap({ strapi }) {
         // Run modular seeding with i18n support
-        setTimeout(async () => {
-            await runSeeds(strapi);
-        }, 6000);
+        // setTimeout(async () => {
+        //     await runSeeds(strapi);
+        // }, 6000);
     },
 };

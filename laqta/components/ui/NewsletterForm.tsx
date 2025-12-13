@@ -19,7 +19,7 @@ const validationSchema = Yup.object({
         .email("Invalid email address")
         .matches(
             /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            "Please enter a valid email"
+            "Please enter a valid email",
         )
         .required("Email is required"),
 });
@@ -31,9 +31,9 @@ interface NewsletterFormProps {
 
 export default function NewsletterForm({
     variant = "footer",
-    className = ""
+    className = "",
 }: NewsletterFormProps) {
-    const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+    const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
     const [message, setMessage] = useState("");
 
     const formik = useFormik({
@@ -45,7 +45,7 @@ export default function NewsletterForm({
             try {
                 const result = await newsletterApi.subscribe(values.email);
 
-                setStatus(result.success ? 'success' : 'error');
+                setStatus(result.success ? "success" : "error");
                 setMessage(result.message);
 
                 if (result.success) {
@@ -54,12 +54,12 @@ export default function NewsletterForm({
 
                 // Reset status after 5 seconds
                 setTimeout(() => {
-                    setStatus('idle');
+                    setStatus("idle");
                     setMessage("");
                 }, 5000);
             } catch (error) {
-                setStatus('error');
-                setMessage('An unexpected error occurred. Please try again.');
+                setStatus("error");
+                setMessage("An unexpected error occurred. Please try again.");
             } finally {
                 setSubmitting(false);
             }
@@ -75,10 +75,14 @@ export default function NewsletterForm({
                             Stay Updated with Our Latest Stories
                         </h3>
                         <p className="text-blue-100 text-body-md sm:text-body-lg mb-6 sm:mb-8">
-                            Get the latest insights, tips, and stories delivered straight to your inbox.
+                            Get the latest insights, tips, and stories delivered
+                            straight to your inbox.
                         </p>
 
-                        <form onSubmit={formik.handleSubmit} className="max-w-md mx-auto">
+                        <form
+                            onSubmit={formik.handleSubmit}
+                            className="max-w-md mx-auto"
+                        >
                             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                                 <input
                                     type="email"
@@ -87,14 +91,17 @@ export default function NewsletterForm({
                                     value={formik.values.email}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
-                                    className="input-md flex-1 bg-white text-neutral-900 placeholder-neutral-500 rounded-lg border-0 focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                                    className="input-lg  flex-1 bg-white text-neutral-900 placeholder-neutral-500 rounded-lg border-0 focus:ring-2
+                                    focus:ring-white focus:ring-opacity-50"
                                 />
                                 <button
                                     type="submit"
                                     disabled={formik.isSubmitting}
                                     className="btn-md bg-white text-primary-light font-semibold rounded-lg hover:bg-neutral-100 disabled:opacity-50 transition-colors"
                                 >
-                                    {formik.isSubmitting ? 'Subscribing...' : 'Subscribe'}
+                                    {formik.isSubmitting
+                                        ? "Subscribing..."
+                                        : "Subscribe"}
                                 </button>
                             </div>
 
@@ -107,10 +114,14 @@ export default function NewsletterForm({
 
                             {/* Show submission status */}
                             {message && (
-                                <p className={cn(
-                                    "mt-3 sm:mt-4 text-body-sm",
-                                    status === 'success' ? 'text-green-200' : 'text-red-200'
-                                )}>
+                                <p
+                                    className={cn(
+                                        "mt-3 sm:mt-4 text-body-sm",
+                                        status === "success"
+                                            ? "text-green-200"
+                                            : "text-red-200",
+                                    )}
+                                >
                                     {message}
                                 </p>
                             )}
@@ -151,10 +162,9 @@ export default function NewsletterForm({
                     >
                         {formik.isSubmitting
                             ? "Subscribing..."
-                            : status === 'success'
-                            ? "Subscribed!"
-                            : "Subscribe Now"
-                        }
+                            : status === "success"
+                              ? "Subscribed!"
+                              : "Subscribe Now"}
                     </Button>
                 </div>
             </form>
@@ -167,11 +177,15 @@ export default function NewsletterForm({
             )}
 
             {/* Show submission status */}
-            {message && status !== 'idle' && (
-                <p className={cn(
-                    "text-center mt-2 sm:mt-3 text-body-xs sm:text-body-sm",
-                    status === 'success' ? 'text-green-500' : 'text-red-500'
-                )}>
+            {message && status !== "idle" && (
+                <p
+                    className={cn(
+                        "text-center mt-2 sm:mt-3 text-body-xs sm:text-body-sm",
+                        status === "success"
+                            ? "text-green-500"
+                            : "text-red-500",
+                    )}
+                >
                     {message}
                 </p>
             )}

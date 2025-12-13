@@ -35,7 +35,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = (props) => {
 
     const cardContent = (
         <div
-            className={`bg-white rounded-xl sm:rounded-2xl p-2 sm:p-3 md:p-4 lg:p-6 xl:p-8 shadow-lg border border-gray-200 transition-all duration-300 hover:shadow-2xl hover:scale-[1.01] ${slug ? 'cursor-pointer' : ''} ${className}`}
+            className={`bg-white rounded-xl sm:rounded-2xl p-2 sm:p-3 md:p-4 lg:p-6 xl:p-8 shadow-lg border border-gray-200 transition-all duration-300 hover:shadow-2xl hover:scale-[1.01] ${slug ? "cursor-pointer" : ""} ${className}`}
         >
             <div
                 className={`flex gap-3 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12 ${
@@ -43,7 +43,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = (props) => {
                 } flex-col lg:items-center`}
             >
                 {/* Project Image - Updated to be square and 30% width */}
-                <div className="flex w-full lg:w-[30%] justify-center items-center flex-shrink-0">
+                <div className="flex w-full lg:w-[32%] justify-center items-center flex-shrink-0">
                     <img
                         src={imageUrl}
                         alt={imageAlt}
@@ -61,17 +61,14 @@ export const ProjectCard: React.FC<ProjectCardProps> = (props) => {
                         {title}
                     </h1>
 
-                    <p
-                        className="text-responsive-lg text-secondary-gray
-                    leading-relaxed"
-                    >
+                    <p className="text-responsive-lg text-gray-900 leading-relaxed ">
                         {description}
                     </p>
 
                     {metrics && (
                         <p
-                            className="text-body-sm sm:text-body-md md:text-display-xs lg:text-display-sm
-                        xl:text-display-md text-gray-600 font-medium"
+                            className="text-responsive-lg text-secondary-gray
+                    leading-relaxed"
                         >
                             {metrics}
                         </p>

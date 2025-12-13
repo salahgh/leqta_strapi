@@ -10,7 +10,6 @@ import FAQSectionWrapper from "@/components/sections/FAQSection/FAQSectionWrappe
 import { HeroSection } from "@/components/sections/HeroSection";
 import { getTranslations } from "next-intl/server";
 import Footer from "@/components/sections/Footer";
-import { Navigation } from "@/components/layout/Navigation";
 
 export async function generateMetadata({
     params,
@@ -52,8 +51,8 @@ export default async function Home({
                     <FAQSectionWrapper locale={locale} />
                 </div>
                 <ContactUs />
+                <Footer locale={locale} />
             </div>
-            <Footer locale={locale} />
         </div>
     );
 }

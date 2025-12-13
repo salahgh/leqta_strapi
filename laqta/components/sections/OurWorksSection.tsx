@@ -37,7 +37,7 @@ export async function OurWorksSection({
 
     let works: Work[] = [];
     let hasError = false;
-    let errorMessage = '';
+    let errorMessage = "";
 
     // Determine which works to use
     if (providedWorks && providedWorks.length > 0) {
@@ -54,13 +54,18 @@ export async function OurWorksSection({
             works = response.data;
         } catch (error) {
             hasError = true;
-            errorMessage = error instanceof Error ? error.message : 'Failed to load projects';
-            console.error('Error fetching works:', error);
+            errorMessage =
+                error instanceof Error
+                    ? error.message
+                    : "Failed to load projects";
+            console.error("Error fetching works:", error);
         }
     }
 
     return (
-        <div className={`min-h-screen relative bg-neutral-100 section-py-lg ${className}`}>
+        <div
+            className={`min-h-screen relative bg-neutral-100 rounded-3xl section-py-lg ${className}`}
+        >
             {/* Background Logo */}
             <div className="absolute inset-0 z-0 flex flex-col justify-start items-center -top-16 sm:-top-20 md:-top-24">
                 <img
@@ -74,22 +79,29 @@ export async function OurWorksSection({
                 {/* Header Section */}
                 <div className="text-center flex flex-col items-center grid-gap-sm pb-6 sm:pb-8 md:pb-12">
                     <div className="animate-slide-down" style={{ opacity: 0 }}>
-                        <Badge size="sm" variant="accent">
-                            {badge || t("badge")}
-                        </Badge>
+                        <Badge variant="accent">{badge || t("badge")}</Badge>
                     </div>
 
-                    <h2 className="text-neutral-900 animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>
+                    <h2
+                        className="text-neutral-900 animate-slide-up "
+                        style={{ opacity: 0, animationDelay: "150ms" }}
+                    >
                         {title || t("title")}
                     </h2>
 
-                    <p className="text-secondary-gray text-body-sm sm:text-body-md text-justify sm:text-center max-w-4xl animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
+                    <p
+                        className="text-secondary-gray text-body-sm md:text-body-md lg:text-body-xl sm:text-body-md text-justify sm:text-center max-w-4xl animate-fade-in"
+                        style={{ opacity: 0, animationDelay: "300ms" }}
+                    >
                         {description || t("description")}
                     </p>
                 </div>
 
                 {/* Projects Section */}
-                <div className="stack-gap-lg flex flex-col animate-fade-in" style={{ opacity: 0, animationDelay: "450ms" }}>
+                <div
+                    className="stack-gap-lg flex flex-col animate-fade-in"
+                    style={{ opacity: 0, animationDelay: "450ms" }}
+                >
                     {hasError ? (
                         <ErrorFallback
                             title="Unable to load projects"
@@ -103,53 +115,56 @@ export async function OurWorksSection({
                         </div>
                     ) : (
                         works.map((work, index) => {
-                        const workData = work;
+                            const workData = work;
 
-                        // Updated image handling to prioritize featured_image
-                        let imageUrl = "/images/workImage.jpg"; // default fallback
-                        let imageAlt = workData?.title || "Project image";
+                            // Updated image handling to prioritize featured_image
+                            let imageUrl = "/images/workImage.jpg"; // default fallback
+                            let imageAlt = workData?.title || "Project image";
 
-                        if (workData?.featured_image?.url) {
-                            // Use the new featured_image structure
-                            imageUrl = utils.getFileUrl(
-                                workData.featured_image.url,
+                            if (workData?.featured_image?.url) {
+                                // Use the new featured_image structure
+                                imageUrl = utils.getFileUrl(
+                                    workData.featured_image.url,
+                                );
+                                imageAlt =
+                                    workData.featured_image.alternativeText ||
+                                    workData.title;
+                            } else if (
+                                (workData as any)?.image?.data?.attributes?.url
+                            ) {
+                                // Fallback to old image structure for backward compatibility
+                                imageUrl = utils.getFileUrl(
+                                    (workData as any).image.data.attributes.url,
+                                );
+                                imageAlt =
+                                    (workData as any).image.data.attributes
+                                        .alternativeText || workData.title;
+                            }
+
+                            return (
+                                <ProjectCard
+                                    key={work.id || index}
+                                    imagePosition={
+                                        workData?.imagePosition ||
+                                        workData?.image_position ||
+                                        "left"
+                                    }
+                                    category={workData?.category}
+                                    title={workData?.title}
+                                    description={workData?.description}
+                                    metrics={workData?.metrics || ""}
+                                    ctaText={
+                                        workData?.ctaText ||
+                                        workData?.cta_text ||
+                                        tNav("learnMore")
+                                    }
+                                    imageUrl={imageUrl}
+                                    imageAlt={imageAlt}
+                                    slug={workData?.slug}
+                                />
                             );
-                            imageAlt =
-                                workData.featured_image.alternativeText ||
-                                workData.title;
-                        } else if ((workData as any)?.image?.data?.attributes?.url) {
-                            // Fallback to old image structure for backward compatibility
-                            imageUrl = utils.getFileUrl(
-                                (workData as any).image.data.attributes.url,
-                            );
-                            imageAlt =
-                                (workData as any).image.data.attributes
-                                    .alternativeText || workData.title;
-                        }
-
-                        return (
-                            <ProjectCard
-                                key={work.id || index}
-                                imagePosition={
-                                    workData?.imagePosition ||
-                                    workData?.image_position ||
-                                    "left"
-                                }
-                                category={workData?.category}
-                                title={workData?.title}
-                                description={workData?.description}
-                                metrics={workData?.metrics || ""}
-                                ctaText={
-                                    workData?.ctaText ||
-                                    workData?.cta_text ||
-                                    tNav("learnMore")
-                                }
-                                imageUrl={imageUrl}
-                                imageAlt={imageAlt}
-                                slug={workData?.slug}
-                            />
-                        );
-                    }))}
+                        })
+                    )}
                 </div>
             </div>
         </div>

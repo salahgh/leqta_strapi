@@ -41,7 +41,10 @@ export const HeroSection: React.FC = () => {
             {/* Content Layer */}
             <div className="relative z-40 w-full">
                 <Navigation />
-                <div className="pt-4 flex justify-center animate-fade-in" style={{ opacity: 0 }}>
+                <div
+                    className="pt-4 flex justify-center animate-fade-in"
+                    style={{ opacity: 0 }}
+                >
                     <Logo className="md:hidden" />
                 </div>
                 <img
@@ -51,10 +54,14 @@ export const HeroSection: React.FC = () => {
                     style={{ opacity: 0, animationDelay: "150ms" }}
                 />
                 <p
-                    className="text-body-sm sm:text-body-md lg:text-body-lg font-medium text-secondary-gray
-                    section-px max-w-3xl mx-auto leading-relaxed
+                    className="text-body-md sm:text-body-lg lg:text-body-xl font-medium text-secondary-gray
+                    section-px max-w-4xl mx-auto leading-relaxed
                     text-justify sm:text-center md:text-justify lg:text-center animate-fade-in"
-                    style={{ opacity: 0, animationDelay: "300ms", lineHeight: "1.8" }}
+                    style={{
+                        opacity: 0,
+                        animationDelay: "300ms",
+                        lineHeight: "1.8",
+                    }}
                 >
                     {t("description")}
                 </p>
@@ -69,7 +76,7 @@ export const HeroSection: React.FC = () => {
                 >
                     <Link href="/services" className="w-full sm:w-auto">
                         <Button
-                            size="lg"
+                            size="xl"
                             fullWidth
                             className="sm:w-48"
                             leftIcon={null}
@@ -81,7 +88,7 @@ export const HeroSection: React.FC = () => {
                     <Link href="/contact" className="w-full sm:w-auto">
                         <Button
                             variant="secondary"
-                            size="lg"
+                            size="xl"
                             fullWidth
                             className="sm:w-48"
                             leftIcon={null}

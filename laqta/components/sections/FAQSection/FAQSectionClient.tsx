@@ -12,9 +12,12 @@ interface FAQSectionClientProps {
     error?: string | null;
 }
 
-export const FAQSectionClient: React.FC<FAQSectionClientProps> = ({ faqs, error }) => {
+export const FAQSectionClient: React.FC<FAQSectionClientProps> = ({
+    faqs,
+    error,
+}) => {
     const [openIndex, setOpenIndex] = useState(0);
-    const t = useTranslations('faq');
+    const t = useTranslations("faq");
 
     const handleToggle = (index: number) => {
         setOpenIndex(openIndex === index ? -1 : index);
@@ -22,44 +25,51 @@ export const FAQSectionClient: React.FC<FAQSectionClientProps> = ({ faqs, error 
 
     return (
         <section className="bg-white py-8 md:py-24">
-            <div className="container mx-auto px-6 space-y-4">
-                <div className="text-center space-y-4">
+            <div className="container px-6 space-y-4">
+                <div className="text-center space-y-12">
                     <div className="animate-slide-down" style={{ opacity: 0 }}>
-                        <Badge size="sm" variant="default">
-                            {t('badge')}
-                        </Badge>
+                        <Badge variant="accent">{t("badge")}</Badge>
                     </div>
-                    <h2 className="font-bold text-gray-900 mx-auto max-w-2xl animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>
-                        {t('title')}
+                    <h2
+                        className="text-gray-900 mx-auto animate-slide-up"
+                        style={{ opacity: 0, animationDelay: "150ms" }}
+                    >
+                        {t("title")}
                     </h2>
-                    <p className="text-secondary-gray text-responsive-lg max-w-3xl md:max-w-xl mx-auto animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
-                        {t('description')}
+                    <p
+                        className="text-secondary-gray text-responsive-2xl max-w-3xl md:max-w-xl mx-auto animate-fade-in"
+                        style={{ opacity: 0, animationDelay: "300ms" }}
+                    >
+                        {t("description")}
                     </p>
 
-                    <div className="animate-fade-in" style={{ opacity: 0, animationDelay: "450ms" }}>
-                    {error ? (
-                        <ErrorFallback
-                            title="Unable to load FAQs"
-                            message={error}
-                        />
-                    ) : !faqs || faqs.length === 0 ? (
-                        <div className="text-center py-12">
-                            <p className="text-neutral-600 text-body-lg">
-                                No FAQs available at the moment.
-                            </p>
-                        </div>
-                    ) : (
-                        faqs.map((faq, index) => (
-                            <FAQItem
-                                key={faq.id}
-                                question={faq.question}
-                                answer={faq.answer}
-                                isOpen={openIndex === index}
-                                onToggle={() => handleToggle(index)}
-                                isLast={index === faqs.length - 1}
+                    <div
+                        className="animate-fade-in border-gray-200 mx-auto max-w-screen-xl rounded-3xl border-2 p-16"
+                        style={{ opacity: 0, animationDelay: "450ms" }}
+                    >
+                        {error ? (
+                            <ErrorFallback
+                                title="Unable to load FAQs"
+                                message={error}
                             />
-                        ))
-                    )}
+                        ) : !faqs || faqs.length === 0 ? (
+                            <div className="text-center py-12">
+                                <p className="text-neutral-600 text-body-lg">
+                                    No FAQs available at the moment.
+                                </p>
+                            </div>
+                        ) : (
+                            faqs.map((faq, index) => (
+                                <FAQItem
+                                    key={faq.id}
+                                    question={faq.question}
+                                    answer={faq.answer}
+                                    isOpen={openIndex === index}
+                                    onToggle={() => handleToggle(index)}
+                                    isLast={index === faqs.length - 1}
+                                />
+                            ))
+                        )}
                     </div>
                 </div>
             </div>

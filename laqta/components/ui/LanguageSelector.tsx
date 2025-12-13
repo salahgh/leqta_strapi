@@ -47,14 +47,16 @@ const UKFlag: React.FC = () => (
 
 // French Flag Component
 const FrenchFlag: React.FC = () => (
-    <div className="aspect-square h-full flex rounded-full overflow-hidden">
-        <div className="w-1/3 bg-blue-600"></div>
-        <div className="w-1/3 bg-white"></div>
-        <div className="w-1/3 bg-red-600"></div>
-    </div>
+    <img
+        src="/images/france.png"
+        alt="English"
+        className="aspect-square h-full"
+    />
 );
 
-export const LanguageSelector: React.FC<LanguageSelectorProps> = ({ className = "" }) => {
+export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
+    className = "",
+}) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [isPending, startTransition] = useTransition();
     const router = useRouter();
@@ -78,6 +80,7 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({ className = 
             code: "fr",
             name: "Français",
             flag: FrenchFlag,
+            // flag: AlgerianFlag,
             dir: "ltr",
         },
     ];
@@ -107,7 +110,7 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({ className = 
                     "flex items-center justify-center p-2 gap-2",
                     "border border-white/20 rounded-full",
                     "transition-colors disabled:opacity-50",
-                    "touch-target"
+                    "touch-target",
                 )}
                 dir={selectedLang?.dir}
             >
@@ -131,21 +134,25 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({ className = 
                             onClick={() => handleLanguageSelect(language.code)}
                             disabled={isPending}
                             className={cn(
-                                "h-12 flex items-center gap-2 px-3 py-2 text-left",
+                                "h-12 w-full flex items-center gap-2 px-3 py-2",
                                 "hover:bg-neutral-100 focus:outline-none focus:bg-neutral-100",
                                 "transition-colors disabled:opacity-50",
                                 locale === language.code
                                     ? "bg-primary-light/10 text-primary-light"
-                                    : "text-neutral-700"
+                                    : "text-neutral-700",
+                                language.dir === "rtl" ? "flex-row-reverse text-right" : "text-left",
                             )}
                             dir={language.dir}
                         >
-                            <div className="w-5 h-5 rounded-sm overflow-hidden">
+                            <div className="w-5 h-5 rounded-sm overflow-hidden flex-shrink-0">
                                 <language.flag />
                             </div>
                             <span className="font-medium">{language.name}</span>
                             {locale === language.code && (
-                                <div className="ml-auto w-2 h-2 bg-primary-light rounded-full"></div>
+                                <div className={cn(
+                                    "w-2 h-2 bg-primary-light rounded-full flex-shrink-0",
+                                    language.dir === "rtl" ? "mr-auto" : "ml-auto"
+                                )}></div>
                             )}
                         </button>
                     ))}

@@ -82,6 +82,25 @@
     "title": "Croissance Constante en Seulement 3 Étapes Simples",
     "description": "Nous suivons un processus structuré et axé sur les données pour garantir que votre stratégie marketing offre une croissance constante et des résultats mesurables."
   },
+  "missionVision": {
+    "badge": "Notre Fondation",
+    "title": "Construit avec Intention",
+    "description": "Chez Leqta, la clarté de l'objectif rencontre l'intention créative. Notre vision, notre mission et notre essence définissent comment nous pensons, travaillons et grandissons.",
+    "cards": {
+      "vision": {
+        "title": "Vision",
+        "description": "Mener l'industrie créative algérienne avec du contenu vidéo percutant"
+      },
+      "mission": {
+        "title": "Mission",
+        "description": "Accompagner les entreprises grâce au contenu innovant et à la production cinématographique"
+      },
+      "signature": {
+        "title": "Signature",
+        "description": "Là où la créativité rencontre la stratégie"
+      }
+    }
+  },
   "competitiveEdge": {
     "badge": "La Différence Leqta",
     "title": "Notre Avantage Concurrentiel",
@@ -105,7 +124,7 @@
   },
   "faq": {
     "badge": "Questions?",
-    "title": "Questions Fréquemment Posées",
+    "title": "Réponses à Vos Questions Principales",
     "description": "Trouvez des réponses aux questions courantes sur nos services de marketing par abonnement."
   },
   "contact": {

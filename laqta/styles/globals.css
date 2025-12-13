@@ -16,7 +16,7 @@
 :root {
     /* Gradients */
     --gradient-primary-button: linear-gradient(to right, #1370AD, #62C1FF);
-    --gradient-hero-fade: linear-gradient(to bottom, transparent, #000000);
+    /*--gradient-hero-fade: "bg-amber-200";*/
     --gradient-contact-outer: linear-gradient(358deg, rgba(0,0,0,0.8) 0%, rgba(255,255,255,0.2) 100%);
     --gradient-contact-inner: linear-gradient(180deg, rgba(29,34,53,1) 0%, rgba(18,19,24,1) 100%);
     --gradient-service-overlay: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 40%, transparent 100%);
@@ -61,7 +61,7 @@ html {
     }
 
     h2 {
-        @apply text-display-xs sm:text-display-sm md:text-display-md lg:text-display-lg xl:text-display-xl font-semibold;
+        @apply text-display-xs sm:text-display-sm md:text-display-md lg:text-display-lg xl:text-display-xl;
     }
 
     h3 {
@@ -328,7 +328,7 @@ html {
     }
 
     .badge-accent {
-        @apply bg-accent-blue/10 text-accent-blue border border-accent-blue;
+        @apply text-accent-blue border border-accent-blue;
     }
 
     .badge-solid {
@@ -431,7 +431,7 @@ html {
 
     /* Navigation Heights */
     .nav-h {
-        @apply h-14 sm:h-16 md:h-20;
+        @apply h-14 sm:h-16 md:h-24;
     }
 
     .nav-h-scrolled {
@@ -588,7 +588,7 @@ html {
     }
 
     .text-responsive-lg {
-        @apply text-body-md sm:text-body-lg md:text-body-xl lg:text-body-2xl xl:text-body-2xl 2xl:text-body-2xl;
+        @apply text-body-md sm:text-body-lg md:text-body-xl lg:text-body-2xl xl:text-body-2xl 2xl:text-body-2xl font-medium;
     }
 
     .text-responsive-display {

@@ -1,4 +1,4 @@
-import { cache } from 'react';
+import { cache } from "react";
 
 // Types for Services
 export interface Service {
@@ -50,7 +50,8 @@ export interface ApiError {
 }
 
 // Configuration
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL_2 || "http://localhost:1337";
+// const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL_2 || "http://localhost:1337";
+const STRAPI_URL = "http://localhost:1337";
 const API_BASE = `${STRAPI_URL}/api`;
 
 // Base fetch wrapper with caching
@@ -77,7 +78,7 @@ const fetchApi = cache(async function <T>(
     };
 
     // Handle endpoints that already have query parameters
-    const [basePath, queryString] = endpoint.split('?');
+    const [basePath, queryString] = endpoint.split("?");
     const url = new URL(`${API_BASE}${basePath}`);
 
     // Add existing query parameters if any
@@ -671,7 +672,7 @@ export interface Newsletter {
     id: number;
     documentId?: string;
     email: string;
-    status: 'active' | 'unsubscribed';
+    status: "active" | "unsubscribed";
     subscribedAt: string;
     unsubscribedAt?: string;
     source?: string;
@@ -698,9 +699,13 @@ export interface SocialMedia {
 // Updated Blogs API
 // Ensure these methods support locale parameter
 export const blogsApi = {
-    async getBySlug(slug: string, locale?: string, fields?: string[]): Promise<ApiResponse<Blog[]>> {
+    async getBySlug(
+        slug: string,
+        locale?: string,
+        fields?: string[],
+    ): Promise<ApiResponse<Blog[]>> {
         const params = new URLSearchParams();
-        params.set('filters[slug][$eq]', slug);
+        params.set("filters[slug][$eq]", slug);
 
         // Add field selection if provided
         if (fields && fields.length > 0) {
@@ -710,11 +715,11 @@ export const blogsApi = {
         }
 
         // Always populate relations
-        params.set('populate[0]', 'header_image');
-        params.set('populate[1]', 'content_image');
-        params.set('populate[2]', 'category');
-        params.set('populate[3]', 'author.avatar');
-        params.set('populate[4]', 'tags');
+        params.set("populate[0]", "header_image");
+        params.set("populate[1]", "content_image");
+        params.set("populate[2]", "category");
+        params.set("populate[3]", "author.avatar");
+        params.set("populate[4]", "tags");
 
         return fetchApi<ApiResponse<Blog[]>>(
             `/blogs?${params.toString()}`,
@@ -731,11 +736,11 @@ export const blogsApi = {
         searchParams.set("filters[category][slug][$eq]", categorySlug);
 
         // Explicitly populate all relations for Strapi v5
-        searchParams.set('populate[0]', 'header_image');
-        searchParams.set('populate[1]', 'content_image');
-        searchParams.set('populate[2]', 'category');
-        searchParams.set('populate[3]', 'author.avatar');
-        searchParams.set('populate[4]', 'tags');
+        searchParams.set("populate[0]", "header_image");
+        searchParams.set("populate[1]", "content_image");
+        searchParams.set("populate[2]", "category");
+        searchParams.set("populate[3]", "author.avatar");
+        searchParams.set("populate[4]", "tags");
 
         if (params?.page)
             searchParams.set("pagination[page]", params.page.toString());
@@ -762,11 +767,11 @@ export const blogsApi = {
         searchParams.set("filters[featured][$eq]", "true");
 
         // Explicitly populate all relations for Strapi v5
-        searchParams.set('populate[0]', 'header_image');
-        searchParams.set('populate[1]', 'content_image');
-        searchParams.set('populate[2]', 'category');
-        searchParams.set('populate[3]', 'author.avatar');
-        searchParams.set('populate[4]', 'tags');
+        searchParams.set("populate[0]", "header_image");
+        searchParams.set("populate[1]", "content_image");
+        searchParams.set("populate[2]", "category");
+        searchParams.set("populate[3]", "author.avatar");
+        searchParams.set("populate[4]", "tags");
 
         if (params?.page)
             searchParams.set("pagination[page]", params.page.toString());
@@ -775,8 +780,7 @@ export const blogsApi = {
                 "pagination[pageSize]",
                 params.pageSize.toString(),
             );
-        if (params?.sort)
-            searchParams.set("sort", params.sort);
+        if (params?.sort) searchParams.set("sort", params.sort);
 
         return fetchApi<ApiResponse<Blog[]>>(
             `/blogs?${searchParams.toString()}`,
@@ -804,11 +808,11 @@ export const blogsApi = {
             });
         } else {
             // Explicitly populate all relations for Strapi v5
-            searchParams.set('populate[0]', 'header_image');
-            searchParams.set('populate[1]', 'content_image');
-            searchParams.set('populate[2]', 'category');
-            searchParams.set('populate[3]', 'author.avatar');
-            searchParams.set('populate[4]', 'tags');
+            searchParams.set("populate[0]", "header_image");
+            searchParams.set("populate[1]", "content_image");
+            searchParams.set("populate[2]", "category");
+            searchParams.set("populate[3]", "author.avatar");
+            searchParams.set("populate[4]", "tags");
         }
 
         if (params?.page)
@@ -862,11 +866,11 @@ export const blogsApi = {
         searchParams.set("filters[id][$ne]", blogId.toString());
 
         // Explicitly populate all relations for Strapi v5
-        searchParams.set('populate[0]', 'header_image');
-        searchParams.set('populate[1]', 'content_image');
-        searchParams.set('populate[2]', 'category');
-        searchParams.set('populate[3]', 'author.avatar');
-        searchParams.set('populate[4]', 'tags');
+        searchParams.set("populate[0]", "header_image");
+        searchParams.set("populate[1]", "content_image");
+        searchParams.set("populate[2]", "category");
+        searchParams.set("populate[3]", "author.avatar");
+        searchParams.set("populate[4]", "tags");
 
         searchParams.set("pagination[pageSize]", limit.toString());
         searchParams.set("sort", "publishedAt:desc");
@@ -917,18 +921,23 @@ export const newsletterApi = {
                 "/newsletters/subscribe",
                 {
                     method: "POST",
-                    body: JSON.stringify({ email, source: 'website' }),
+                    body: JSON.stringify({ email, source: "website" }),
                 },
                 locale,
             );
             return {
                 success: true,
-                message: response.message || "Successfully subscribed to newsletter!",
+                message:
+                    response.message ||
+                    "Successfully subscribed to newsletter!",
             };
         } catch (error) {
             return {
                 success: false,
-                message: error instanceof Error ? error.message : "Failed to subscribe. Please try again.",
+                message:
+                    error instanceof Error
+                        ? error.message
+                        : "Failed to subscribe. Please try again.",
             };
         }
     },
@@ -948,12 +957,17 @@ export const newsletterApi = {
             );
             return {
                 success: true,
-                message: response.message || "Successfully unsubscribed from newsletter.",
+                message:
+                    response.message ||
+                    "Successfully unsubscribed from newsletter.",
             };
         } catch (error) {
             return {
                 success: false,
-                message: error instanceof Error ? error.message : "Failed to unsubscribe. Please try again.",
+                message:
+                    error instanceof Error
+                        ? error.message
+                        : "Failed to unsubscribe. Please try again.",
             };
         }
     },
@@ -969,8 +983,13 @@ export const socialMediaApi = {
     }): Promise<ApiResponse<SocialMedia[]>> {
         const searchParams = new URLSearchParams();
 
-        if (params?.page) searchParams.set("pagination[page]", params.page.toString());
-        if (params?.pageSize) searchParams.set("pagination[pageSize]", params.pageSize.toString());
+        if (params?.page)
+            searchParams.set("pagination[page]", params.page.toString());
+        if (params?.pageSize)
+            searchParams.set(
+                "pagination[pageSize]",
+                params.pageSize.toString(),
+            );
         if (params?.sort) searchParams.set("sort", params.sort);
 
         // Filter for active social media links only
@@ -979,7 +998,11 @@ export const socialMediaApi = {
         const query = searchParams.toString();
         const endpoint = `/social-medias${query ? `?${query}` : ""}`;
 
-        return fetchApi<ApiResponse<SocialMedia[]>>(endpoint, {}, params?.locale);
+        return fetchApi<ApiResponse<SocialMedia[]>>(
+            endpoint,
+            {},
+            params?.locale,
+        );
     },
 };
 

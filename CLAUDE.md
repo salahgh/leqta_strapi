@@ -15,10 +15,21 @@ Both applications support three languages: English (en), Arabic (ar), and French
 
 ```
 leqta_strapi/
-├── laqta/              # Next.js frontend application
-│   └── CLAUDE.md       # Frontend-specific guidance
-└── my-blog-cms/        # Strapi CMS backend
-    └── CLAUDE.md       # Backend-specific guidance
+├── laqta/                    # Next.js frontend application
+│   └── CLAUDE.md             # Frontend-specific guidance
+├── my-blog-cms/              # Strapi CMS backend
+│   └── CLAUDE.md             # Backend-specific guidance
+├── docs/                     # Documentation
+│   ├── deployment/           # Deployment guides & CI/CD setup
+│   ├── server/               # Server configuration (Nginx, HestiaCP, VPS)
+│   └── troubleshooting/      # Bug fixes & problem documentation
+├── scripts/                  # Shell scripts for deployment & maintenance
+├── assets/                   # Images and documents
+├── config/                   # Configuration file backups
+├── notes/                    # Private notes (gitignored)
+├── CLAUDE.md                 # Main project guidance
+├── ENHANCEMENTS.md           # Enhancement documentation
+└── ecosystem.config.js       # PM2 configuration
 ```
 
 **Important**: Each subdirectory has its own detailed CLAUDE.md file. When working in a specific project, refer to that project's CLAUDE.md for detailed guidance.
@@ -239,3 +250,6 @@ For detailed information about each project, refer to:
 - **Frontend**: `laqta/CLAUDE.md`, `laqta/DESIGN_SYSTEM.md`, `laqta/DEVELOPMENT_GUIDE.md`
 - **Backend**: `my-blog-cms/CLAUDE.md`
 - **Enhancements**: `ENHANCEMENTS.md` - Complete enhancement documentation
+- **Deployment**: `docs/deployment/` - Deployment guides, VPS setup, CI/CD configuration
+- **Server Config**: `docs/server/` - Nginx, HestiaCP, FTP, SSL configuration guides
+- **Troubleshooting**: `docs/troubleshooting/` - Bug fixes and problem resolution

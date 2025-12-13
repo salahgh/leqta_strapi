@@ -11,14 +11,25 @@ logs/
 # OS files
 .DS_Store
 Thumbs.db
-deploy.sh
 .idea/workspace.xml
 
-laqta/package-lock.json
+# Notes folder (contains sensitive credentials)
+notes/
 
+# Scripts with sensitive data
+scripts/deploy.sh
+deploy.sh
+
+# Package locks
+laqta/package-lock.json
 my-blog-cms/package-lock.json
 
+# Misc
 my-blog-cms/nul
+
+# Environment files
 **/.env
 **/.env.local
 **/.env.production
+**/.env.server
+**/.env.example

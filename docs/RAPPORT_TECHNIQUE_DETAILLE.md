@@ -1,697 +1,821 @@
 # Rapport Technique Détaillé
-## Déploiement et Configuration Serveur VPS Laqta & Shohraty
+## Travaux de Déploiement et Configuration VPS
 
-**Projet:** Plateforme Agence Créative Laqta + Migration WordPress Shohraty
 **Période:** Novembre - Décembre 2025
 **Serveur:** server2.leqta.com (197.140.18.185)
 **OS:** Debian/Ubuntu Linux avec HestiaCP
 
 ---
 
-## Table des Matières
+# PARTIE A : PROJET LAQTA (leqta.com)
 
-1. [Configuration Initiale VPS](#1-configuration-initiale-vps)
-2. [Panneau de Contrôle HestiaCP](#2-panneau-de-contrôle-hestiacp)
-3. [Configuration Base de Données](#3-configuration-base-de-données)
-4. [Déploiement Applications Laqta](#4-déploiement-applications-laqta)
-5. [Migration WordPress Shohraty](#5-migration-wordpress-shohraty)
-6. [Configuration Serveur Web](#6-configuration-serveur-web)
-7. [Implémentation SSL/HTTPS](#7-implémentation-sslhttps)
-8. [Configuration Serveur FTP](#8-configuration-serveur-ftp)
-9. [Configuration Serveur Mail](#9-configuration-serveur-mail)
-10. [Interface Bureau à Distance](#10-interface-bureau-à-distance)
-11. [Configuration Pare-feu Ecosnet](#11-configuration-pare-feu-ecosnet)
-12. [Implémentation Sécurité](#12-implémentation-sécurité)
-13. [Automatisation et Scripts](#13-automatisation-et-scripts)
-14. [Dépannage et Corrections](#14-dépannage-et-corrections)
-15. [Documentation Créée](#15-documentation-créée)
+*Plateforme marketing multilingue - Next.js + Strapi CMS*
 
 ---
 
-## 1. Configuration Initiale VPS
+## A1. Déploiement Backend Strapi CMS
 
-### Tâches Accomplies
+### Description
+Strapi est un CMS headless open-source qui fournit l'API REST pour le contenu du site Laqta.
 
-#### Mises à Jour Système et Prérequis
-- Mise à jour des paquets système (`apt update && apt upgrade`)
-- Installation des outils de compilation pour les modules Node natifs
-- Installation de Git pour le contrôle de version et le déploiement
-- Configuration des locales et du fuseau horaire système
+### Travaux Réalisés
 
-#### Installation Node.js 20.x
-- Installation de Node.js 20.x via le dépôt NodeSource
-- Vérification de l'installation npm 10.x
-- Configuration des permissions du répertoire global npm
+#### Installation et Configuration
+- Clonage du dépôt vers `/var/www/leqta/my-blog-cms`
+- Installation des dépendances npm (Node.js 20.x)
+- Configuration des variables d'environnement production
 
-#### Gestionnaire de Processus PM2
-- Installation globale de PM2 pour la gestion des processus
-- Configuration du script de démarrage PM2 pour auto-restart au redémarrage serveur
-- Mise en place du monitoring et de la journalisation des processus
-
-#### Détails Techniques
-```bash
-# Installation Node.js
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt install -y nodejs
-
-# Configuration PM2
-sudo npm install -g pm2
-pm2 startup systemd
-```
-
----
-
-## 2. Panneau de Contrôle HestiaCP
-
-### Tâches Accomplies
-
-#### Configuration du Panneau
-- Configuration de l'accès admin HestiaCP sur le port 8083
-- Création des comptes utilisateurs avec permissions appropriées
-- Configuration des templates serveur web pour applications Node.js
-
-#### Services Gérés
-- Nginx (serveur web principal)
-- Apache (traitement backend)
-- MariaDB (serveur de base de données)
-- Exim4 (agent de transfert mail)
-- Dovecot (serveur IMAP/POP3)
-- vsftpd (serveur FTP)
-
-#### Configuration d'Accès
-- URL: https://server2.leqta.com:8083
-- Alternative: https://197.140.18.185:8083
-- Sécurisé avec certificat SSL
-
----
-
-## 3. Configuration Base de Données
-
-### Tâches Accomplies
-
-#### Configuration MariaDB
-- Création base de données production: `laqta_strapi`
-- Création base de données WordPress: `shohraty_wp`
-- Création utilisateurs base de données avec privilèges limités
-- Configuration encodage UTF-8 (utf8mb4_unicode_ci)
-- Configuration accès phpMyAdmin via HestiaCP
-
-#### Mesures de Sécurité
-- Utilisateurs base de données restreints à localhost uniquement
-- Suppression utilisateurs anonymes et base de données test
-- Mot de passe root sécurisé
-- Accès distant base de données désactivé
-
-#### Accès phpMyAdmin
-- URL: https://server2.leqta.com:8083/phpmyadmin/
-- Configuration alias Apache pour phpMyAdmin
-- Ajout règle pare-feu pour port 8083
-
----
-
-## 4. Déploiement Applications Laqta
-
-### Backend Strapi CMS
-
-#### Étapes d'Installation
-1. Clonage du dépôt vers `/var/www/leqta/my-blog-cms`
-2. Installation des dépendances npm
-3. Configuration des variables d'environnement production:
-   - Connexion base de données (MariaDB)
-   - Clés de sécurité (APP_KEYS, secrets JWT)
-   - Intégration stockage Supabase
-4. Build du panneau admin Strapi
-5. Configuration processus PM2
-
-#### Configuration
+#### Variables d'Environnement Configurées
 ```env
 HOST=0.0.0.0
 PORT=1337
 NODE_ENV=production
+
+# Sécurité (générés avec openssl rand -base64 32)
+APP_KEYS=clé1,clé2,clé3,clé4
+API_TOKEN_SALT=...
+ADMIN_JWT_SECRET=...
+JWT_SECRET=...
+
+# Base de données
 DATABASE_CLIENT=mysql
 DATABASE_HOST=localhost
 DATABASE_PORT=3306
 DATABASE_NAME=laqta_strapi
+DATABASE_USERNAME=strapi_user
+DATABASE_PASSWORD=***
+
+# Stockage Supabase
+SUPABASE_API_URL=https://xxx.supabase.co
+SUPABASE_API_KEY=***
+SUPABASE_BUCKET=uploads
 ```
 
-### Frontend Next.js
+#### Build et Démarrage
+- Build du panneau admin Strapi
+- Configuration processus PM2 avec auto-restart
+- Health check endpoint: `/api/health`
 
-#### Étapes d'Installation
-1. Clonage du dépôt vers `/var/www/leqta/laqta`
-2. Installation des dépendances npm
-3. Configuration des variables d'environnement:
-   - URL API Strapi
-   - Intégration Odoo (si applicable)
-4. Build du bundle production
-5. Configuration processus PM2
-
-#### Configuration Écosystème PM2
-Création de `ecosystem.config.js` avec:
-- Noms de processus: `strapi` et `laqta`
-- Auto-restart en cas d'échec
-- Limites mémoire (1GB par processus)
-- Configuration fichiers de log
-- Délai de restart avec backoff exponentiel
+### Accès
+- **Admin Panel:** https://api.leqta.com/admin
+- **API REST:** https://api.leqta.com/api/*
 
 ---
 
-## 5. Migration WordPress Shohraty
+## A2. Déploiement Frontend Next.js
 
-### Tâches Accomplies
+### Description
+Application Next.js 15 avec App Router, support multilingue (EN/AR/FR), et intégration Strapi.
 
-#### Migration Site Web
-- Création du domaine shohraty.dz dans HestiaCP
-- Configuration du répertoire web `/home/mail_user/web/shohraty.dz/public_html`
-- Transfert des fichiers WordPress (thèmes, plugins, uploads)
-- Migration de la base de données MySQL/MariaDB
+### Travaux Réalisés
 
-#### Configuration Base de Données
+#### Installation et Configuration
+- Clonage vers `/var/www/leqta/laqta`
+- Installation des dépendances npm
+- Configuration next-intl pour i18n
+
+#### Variables d'Environnement
+```env
+NEXT_PUBLIC_STRAPI_URL_2=https://api.leqta.com
+NODE_ENV=production
+```
+
+#### Build Production
+- Build optimisé Next.js
+- Génération pages statiques
+- Optimisation des assets
+
+### Accès
+- **Site Public:** https://leqta.com
+- **Port Local:** 3000
+
+---
+
+## A3. Configuration PM2 (Laqta)
+
+### Description
+PM2 gère les processus Node.js avec auto-restart et monitoring.
+
+### Configuration ecosystem.config.js
+```javascript
+module.exports = {
+  apps: [
+    {
+      name: 'strapi',
+      cwd: '/var/www/leqta/my-blog-cms',
+      script: 'npm',
+      args: 'run start',
+      max_memory_restart: '1G',
+      autorestart: true,
+    },
+    {
+      name: 'laqta',
+      cwd: '/var/www/leqta/laqta',
+      script: 'npm',
+      args: 'run start',
+      max_memory_restart: '1G',
+      autorestart: true,
+    }
+  ]
+};
+```
+
+### Commandes Utiles
+```bash
+pm2 status          # Statut des processus
+pm2 logs strapi     # Logs Strapi
+pm2 logs laqta      # Logs Next.js
+pm2 restart all     # Redémarrer tout
+```
+
+---
+
+## A4. Configuration Nginx (Laqta)
+
+### Description
+Nginx agit comme proxy inverse pour router le trafic vers les applications Node.js.
+
+### Configuration Frontend (leqta.com)
+```nginx
+server {
+    listen 443 ssl http2;
+    server_name leqta.com www.leqta.com;
+
+    ssl_certificate /path/to/leqta.com.crt;
+    ssl_certificate_key /path/to/leqta.com.key;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Cache fichiers statiques Next.js
+    location /_next/static {
+        proxy_pass http://127.0.0.1:3000;
+        expires 30d;
+        add_header Cache-Control "public, immutable";
+    }
+}
+```
+
+### Configuration API (api.leqta.com)
+```nginx
+server {
+    listen 443 ssl http2;
+    server_name api.leqta.com;
+
+    client_max_body_size 100M;  # Pour uploads médias
+
+    location / {
+        proxy_pass http://127.0.0.1:1337;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_read_timeout 120s;
+    }
+}
+```
+
+---
+
+## A5. Base de Données Laqta
+
+### Création Base de Données
 ```sql
--- Création base de données WordPress
-CREATE DATABASE shohraty_wp CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE laqta_strapi
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
--- Création utilisateur
-CREATE USER 'shohraty_user'@'localhost' IDENTIFIED BY 'mot_de_passe_securise';
+CREATE USER 'strapi_user'@'localhost'
+  IDENTIFIED BY 'mot_de_passe_securise';
 
--- Attribution des privilèges
-GRANT ALL PRIVILEGES ON shohraty_wp.* TO 'shohraty_user'@'localhost';
+GRANT ALL PRIVILEGES ON laqta_strapi.*
+  TO 'strapi_user'@'localhost';
+
 FLUSH PRIVILEGES;
 ```
 
-#### Configuration wp-config.php
-- Mise à jour des informations de connexion base de données
-- Configuration des clés de sécurité WordPress
-- Configuration URL du site (WP_HOME, WP_SITEURL)
-- Activation du mode debug si nécessaire
+---
 
-#### Vérifications Post-Migration
-- Test de toutes les pages du site
-- Vérification des liens et images
-- Test des formulaires de contact
-- Vérification des plugins et thèmes
+## A6. Certificats SSL Laqta
+
+### Domaines Couverts
+- leqta.com
+- www.leqta.com
+- api.leqta.com
+- mail.leqta.com
+- webmail.leqta.com
+
+### Installation Let's Encrypt
+```bash
+sudo certbot --nginx -d leqta.com -d www.leqta.com -d api.leqta.com
+```
+
+### Renouvellement Automatique
+- Timer certbot configuré
+- Renouvellement tous les 90 jours
 
 ---
 
-## 6. Configuration Serveur Web
+## A7. Serveur Mail Laqta
 
-### Proxy Inverse Nginx
+### Configuration Exim4 (SMTP)
+- Port 25 (SMTP)
+- Port 465 (SMTPS)
+- Port 587 (Submission)
 
-#### Configuration Frontend Laqta (leqta.com)
-- Proxy pass vers localhost:3000
-- Support WebSocket pour Next.js HMR
-- Cache fichiers statiques (_next/static, images)
-- Compression Gzip activée
-- En-têtes de sécurité (X-Frame-Options, X-Content-Type-Options, etc.)
+### Configuration Dovecot (IMAP/POP3)
+- Port 993 (IMAPS)
+- Port 995 (POP3S)
+- Port 143 (IMAP)
+- Port 110 (POP3)
 
-#### Configuration API Backend (api.leqta.com)
-- Proxy pass vers localhost:1337
-- Taille upload max: 50-100MB pour les médias
-- Timeouts étendus pour le panneau admin
-- Support WebSocket pour admin Strapi
+### Enregistrements DNS Configurés
+| Type | Nom | Valeur |
+|------|-----|--------|
+| A | mail.leqta.com | 197.140.18.185 |
+| MX | leqta.com | mail.leqta.com (priorité 10) |
+| TXT | leqta.com | v=spf1 a mx ip4:197.140.18.185 ~all |
+| TXT | _dmarc.leqta.com | v=DMARC1; p=quarantine |
+| TXT | default._domainkey | Clé DKIM |
 
-#### Configuration WordPress (shohraty.dz)
-- Configuration PHP-FPM pour WordPress
-- Règles de réécriture pour permaliens
-- Cache des fichiers statiques
-- Protection des fichiers sensibles (.htaccess, wp-config.php)
+---
 
-#### Optimisations de Performance
-```nginx
-# Cache fichiers statiques
-location ~* \.(css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2)$ {
-    expires 30d;
-    add_header Cache-Control "public, immutable";
-}
+## A8. Mode Maintenance
 
-# Compression Gzip
-gzip on;
-gzip_vary on;
-gzip_min_length 1024;
-gzip_types text/plain text/css application/json application/javascript;
+### Description
+Système permettant de mettre le site en maintenance tout en permettant à l'équipe d'y accéder via un cookie.
+
+### Fonctionnement
+1. Visiteurs voient la page maintenance (503)
+2. Équipe accède via: `https://leqta.com/unlock?key=SECRET_KEY`
+3. Cookie de bypass valide 7 jours
+
+### Fichiers Créés
+- `/public_html/maintenance.html` - Page maintenance
+- `/public_html/unlock/index.html` - Page déblocage
+
+---
+
+## A9. Scripts de Déploiement
+
+### deploy.sh
+Script automatisé pour les mises à jour :
+```bash
+#!/bin/bash
+# Pull code, install deps, build, restart PM2
+cd /var/www/leqta
+git pull origin main
+cd my-blog-cms && npm install && npm run build
+cd ../laqta && npm install && npm run build
+pm2 restart all
+```
+
+**Usage:**
+```bash
+./scripts/deploy.sh              # Déploiement complet
+./scripts/deploy.sh --skip-build # Sans rebuild
 ```
 
 ---
 
-## 7. Implémentation SSL/HTTPS
+# PARTIE B : PROJET SHOHRATY (shohraty.dz)
 
-### Tâches Accomplies
-
-#### Certificats Let's Encrypt
-- Installation de Certbot avec plugin Nginx
-- Obtention de certificats pour:
-  - leqta.com
-  - www.leqta.com
-  - api.leqta.com
-  - mail.leqta.com
-  - webmail.leqta.com
-  - shohraty.dz
-  - www.shohraty.dz
-  - mail.shohraty.dz
-
-#### Renouvellement Automatique
-- Timer Certbot configuré pour renouvellement automatique
-- Test avec `certbot renew --dry-run`
-- Renouvellement certificat tous les 90 jours
-
-#### Enforcement HTTPS
-- Redirection HTTP vers HTTPS configurée
-- En-tête HSTS activé
-- Protocoles TLS modernes (TLSv1.2, TLSv1.3)
-- Suites de chiffrement fortes
+*Migration site WordPress existant*
 
 ---
 
-## 8. Configuration Serveur FTP
+## B1. Migration WordPress
 
-### Configuration vsftpd
+### Description
+Migration complète d'un site WordPress existant vers le nouveau serveur VPS.
 
-#### Comptes Utilisateurs Créés
-| Utilisateur | Objectif | Accès |
-|-------------|----------|-------|
-| leqta | Uploads client | `/srv/jail/leqta/upload` |
-| shohrati | Uploads client | `/srv/jail/shohrati/upload` |
-| ftpadmin | Accès admin | Les deux dossiers |
+### Travaux Réalisés
 
-#### Fonctionnalités de Sécurité
-- Chroot jail pour isolation des utilisateurs
-- Pas d'accès SSH (shell: /sbin/nologin)
-- Bind mounts pour persistance des données
-- Mode passif configuré (ports 12000-12100)
+#### Transfert des Fichiers
+- Thèmes WordPress (`/wp-content/themes/`)
+- Plugins (`/wp-content/plugins/`)
+- Uploads médias (`/wp-content/uploads/`)
+- Fichiers core WordPress
 
-#### Structure des Répertoires
+#### Structure Répertoire
+```
+/home/mail_user/web/shohraty.dz/public_html/
+├── wp-admin/
+├── wp-content/
+│   ├── themes/
+│   ├── plugins/
+│   └── uploads/
+├── wp-includes/
+├── wp-config.php
+└── index.php
+```
+
+---
+
+## B2. Migration Base de Données
+
+### Export depuis Ancien Serveur
+```bash
+mysqldump -u user -p old_database > shohraty_backup.sql
+```
+
+### Import sur Nouveau Serveur
+```bash
+mysql -u shohraty_user -p shohraty_wp < shohraty_backup.sql
+```
+
+### Mise à Jour URLs
+```sql
+UPDATE wp_options SET option_value = 'https://shohraty.dz'
+  WHERE option_name = 'siteurl';
+UPDATE wp_options SET option_value = 'https://shohraty.dz'
+  WHERE option_name = 'home';
+```
+
+---
+
+## B3. Configuration wp-config.php
+
+### Paramètres Configurés
+```php
+// Base de données
+define('DB_NAME', 'shohraty_wp');
+define('DB_USER', 'shohraty_user');
+define('DB_PASSWORD', '***');
+define('DB_HOST', 'localhost');
+define('DB_CHARSET', 'utf8mb4');
+
+// URLs
+define('WP_HOME', 'https://shohraty.dz');
+define('WP_SITEURL', 'https://shohraty.dz');
+
+// Sécurité (clés uniques générées)
+define('AUTH_KEY', '...');
+define('SECURE_AUTH_KEY', '...');
+define('LOGGED_IN_KEY', '...');
+// etc.
+
+// SSL
+define('FORCE_SSL_ADMIN', true);
+```
+
+---
+
+## B4. Configuration Nginx WordPress
+
+### Configuration Serveur
+```nginx
+server {
+    listen 443 ssl http2;
+    server_name shohraty.dz www.shohraty.dz;
+
+    root /home/mail_user/web/shohraty.dz/public_html;
+    index index.php index.html;
+
+    ssl_certificate /path/to/shohraty.dz.crt;
+    ssl_certificate_key /path/to/shohraty.dz.key;
+
+    # Permaliens WordPress
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    # PHP-FPM
+    location ~ \.php$ {
+        fastcgi_pass unix:/run/php/php-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    # Protection fichiers sensibles
+    location ~ /\.(htaccess|htpasswd) {
+        deny all;
+    }
+
+    location = /wp-config.php {
+        deny all;
+    }
+
+    # Cache statique
+    location ~* \.(css|js|jpg|jpeg|png|gif|ico|svg)$ {
+        expires 30d;
+        add_header Cache-Control "public";
+    }
+}
+```
+
+---
+
+## B5. Certificats SSL Shohraty
+
+### Domaines Couverts
+- shohraty.dz
+- www.shohraty.dz
+
+### Installation
+```bash
+sudo certbot --nginx -d shohraty.dz -d www.shohraty.dz
+```
+
+---
+
+## B6-B7. Serveur Mail Shohraty
+
+### Configuration Mail avec SSL
+- Création domaine mail dans HestiaCP
+- Certificats Let's Encrypt pour mail.shohraty.dz
+- Configuration Exim4/Dovecot
+
+### Enregistrements DNS
+| Type | Nom | Valeur |
+|------|-----|--------|
+| A | mail.shohraty.dz | 197.140.18.185 |
+| MX | shohraty.dz | mail.shohraty.dz (priorité 10) |
+| TXT | shohraty.dz | v=spf1 a mx ip4:197.140.18.185 ~all |
+| TXT | _dmarc.shohraty.dz | v=DMARC1; p=quarantine |
+
+---
+
+## B8. Tests Post-Migration
+
+### Vérifications Effectuées
+- [x] Pages principales accessibles
+- [x] Images et médias affichés correctement
+- [x] Liens internes fonctionnels
+- [x] Formulaires de contact opérationnels
+- [x] Plugins activés et fonctionnels
+- [x] Panneau admin accessible
+- [x] SSL actif et valide
+
+---
+
+# PARTIE C : INFRASTRUCTURE VPS GÉNÉRALE
+
+*Services partagés et configuration serveur*
+
+---
+
+## C1. Configuration Initiale VPS
+
+### Mises à Jour Système
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y curl git build-essential
+```
+
+### Installation Node.js 20.x
+```bash
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs
+```
+
+### Vérification
+```bash
+node -v  # v20.x.x
+npm -v   # 10.x.x
+```
+
+---
+
+## C2. Installation HestiaCP
+
+### Description
+HestiaCP est un panneau de contrôle web open-source pour gérer le serveur.
+
+### Services Gérés
+- Nginx + Apache (serveur web)
+- MariaDB (base de données)
+- Exim4 + Dovecot (mail)
+- vsftpd (FTP)
+- Bind (DNS)
+- Let's Encrypt (SSL)
+
+### Accès
+- **URL:** https://server2.leqta.com:8083
+- **Alternative:** https://197.140.18.185:8083
+
+---
+
+## C3. Configuration MariaDB
+
+### Sécurisation
+```bash
+sudo mysql_secure_installation
+```
+- Mot de passe root défini
+- Utilisateurs anonymes supprimés
+- Base test supprimée
+- Connexion root distante désactivée
+
+### phpMyAdmin
+- **URL:** https://server2.leqta.com:8083/phpmyadmin/
+- Configuré via Apache alias
+
+---
+
+## C4. Serveur FTP (vsftpd)
+
+### Description
+Serveur FTP avec isolation des utilisateurs via chroot jail.
+
+### Comptes Créés
+| Utilisateur | Accès | Répertoire |
+|-------------|-------|------------|
+| leqta | Lecture/Écriture | `/srv/jail/leqta/upload` |
+| shohrati | Lecture/Écriture | `/srv/jail/shohrati/upload` |
+| ftpadmin | Admin (tous) | `/srv/jail/ftpadmin/` |
+
+### Structure
 ```
 /srv/
-├── ftpdata/          # Stockage réel des données
+├── ftpdata/           # Données réelles
 │   ├── leqta/
 │   └── shohrati/
-└── jail/             # Jails Chroot
+└── jail/              # Jails chroot
     ├── leqta/upload/
     ├── shohrati/upload/
     └── ftpadmin/
 ```
 
-#### Fichiers de Configuration
-- `/etc/vsftpd.conf` - Configuration principale
-- `/etc/vsftpd.userlist` - Utilisateurs autorisés
-- `/etc/fstab` - Persistance des bind mounts
+### Configuration vsftpd
+```conf
+listen=YES
+anonymous_enable=NO
+local_enable=YES
+write_enable=YES
+chroot_local_user=YES
+allow_writeable_chroot=NO
+local_root=/srv/jail/%u
+pasv_enable=YES
+pasv_min_port=12000
+pasv_max_port=12100
+```
 
 ---
 
-## 9. Configuration Serveur Mail
+## C5. Bureau à Distance (XFCE + xrdp)
 
-### Domaine leqta.com
+### Description
+Interface graphique pour administration serveur via Remote Desktop Protocol (RDP).
 
-#### Composants Configurés
-
-##### Exim4 (SMTP)
-- Ports: 25, 465 (SMTPS), 587 (Submission)
-- Chiffrement SSL/TLS activé
-- Enregistrement SPF configuré
-- Signature DKIM activée
-
-##### Dovecot (IMAP/POP3)
-- Ports: 110 (POP3), 143 (IMAP), 993 (IMAPS), 995 (POP3S)
-- Certificats SSL configurés
-- Configuration SSL par domaine
-
-#### Enregistrements DNS Configurés (leqta.com)
-| Type | Nom | Objectif |
-|------|-----|----------|
-| A | mail.leqta.com | IP serveur mail |
-| A | webmail.leqta.com | Accès webmail |
-| MX | leqta.com | Routage mail |
-| TXT | leqta.com | Enregistrement SPF |
-| TXT | _dmarc.leqta.com | Politique DMARC |
-| TXT | default._domainkey | Clé DKIM |
-
-### Domaine shohraty.dz
-
-#### Configuration Mail avec SSL
-- Création du domaine mail dans HestiaCP
-- Génération certificats Let's Encrypt pour mail.shohraty.dz
-- Configuration Exim4 pour le domaine
-- Configuration Dovecot avec SSL par domaine
-
-#### Enregistrements DNS Configurés (shohraty.dz)
-| Type | Nom | Objectif |
-|------|-----|----------|
-| A | mail.shohraty.dz | IP serveur mail |
-| MX | shohraty.dz | Routage mail (priorité 10) |
-| TXT | shohraty.dz | Enregistrement SPF |
-| TXT | _dmarc.shohraty.dz | Politique DMARC |
-| TXT | default._domainkey | Clé DKIM |
-
-#### Accès Webmail
-- URL leqta.com: https://webmail.leqta.com
-- Interface webmail Roundcube
-
----
-
-## 10. Interface Bureau à Distance
-
-### Installation Environnement de Bureau XFCE
-
-#### Tâches Accomplies
-- Installation de l'environnement de bureau XFCE (léger et performant)
-- Installation du serveur xrdp pour accès RDP
-- Configuration du port 3389 pour Remote Desktop Protocol
-- Test de connexion depuis Windows Remote Desktop
-
-#### Commandes d'Installation
+### Installation
 ```bash
-# Installation XFCE
-sudo apt update
+# Environnement bureau XFCE
 sudo apt install xfce4 xfce4-goodies -y
 
-# Installation xrdp
+# Serveur RDP
 sudo apt install xrdp -y
 
-# Configuration xrdp pour utiliser XFCE
+# Configuration
 echo "xfce4-session" > ~/.xsession
 
-# Activation et démarrage du service
+# Activation service
 sudo systemctl enable xrdp
 sudo systemctl start xrdp
 ```
 
-#### Accès Bureau à Distance
-- **Protocole:** RDP (Remote Desktop Protocol)
+### Accès
+- **Protocole:** RDP
 - **Port:** 3389
-- **Client:** Bureau à distance Windows (mstsc.exe)
 - **Adresse:** 197.140.18.185:3389
+- **Client Windows:** mstsc.exe (Bureau à distance)
 
-#### Avantages
-- Interface graphique pour administration serveur
-- Compatible avec clients RDP Windows natifs
-- Consommation mémoire minimale
-- Accès aux outils graphiques (navigateur, éditeurs, etc.)
+### Avantages
+- Interface graphique légère
+- Compatible clients RDP Windows natifs
+- Administration visuelle du serveur
+- Accès aux outils graphiques
 
 ---
 
-## 11. Configuration Pare-feu Ecosnet
+## C6. Pare-feu Ecosnet
 
-### Tâches Accomplies
+### Description
+Configuration des ports au niveau du fournisseur VPS (Ecosnet) via leur tableau de bord.
 
-#### Configuration dans le Tableau de Bord Ecosnet
-Accès au pare-feu du fournisseur VPS (Ecosnet) pour ouvrir les ports nécessaires au niveau infrastructure.
+### Ports Ouverts
 
-#### Ports Configurés dans Ecosnet
+| Port | Service | Description |
+|------|---------|-------------|
+| 20-21 | FTP | Transfert fichiers |
+| 22 | SSH | Accès distant sécurisé |
+| 25, 465, 587 | SMTP | Envoi emails |
+| 80, 443 | HTTP/HTTPS | Sites web |
+| 110, 143 | POP3/IMAP | Réception emails |
+| 993, 995 | IMAPS/POP3S | Emails sécurisés |
+| 1337 | Strapi | API Backend |
+| 3000 | Next.js | Frontend |
+| 3306 | MySQL | Base de données |
+| 3389 | RDP | Bureau à distance |
+| 8083 | HestiaCP | Panneau admin |
+| 12000-12100 | FTP Passif | Mode passif |
 
-| Port | Protocole | Service | Description |
-|------|-----------|---------|-------------|
-| 20 | TCP | FTP Data | Transfert données FTP |
-| 21 | TCP | FTP Control | Connexion FTP |
-| 22 | TCP | SSH | Accès distant sécurisé |
-| 25 | TCP | SMTP | Envoi email |
-| 80 | TCP | HTTP | Web non sécurisé |
-| 110 | TCP | POP3 | Réception email |
-| 143 | TCP | IMAP | Réception email |
-| 443 | TCP | HTTPS | Web sécurisé |
-| 465 | TCP | SMTPS | Envoi email sécurisé |
-| 587 | TCP | Submission | Soumission email |
-| 993 | TCP | IMAPS | IMAP sécurisé |
-| 995 | TCP | POP3S | POP3 sécurisé |
-| 1337 | TCP | Strapi API | Backend CMS Strapi |
-| 3000 | TCP | Next.js | Application Laqta |
-| 3306 | TCP | MySQL/MariaDB | Base de données |
-| 3389 | TCP | RDP | Bureau distant |
-| 8080 | TCP | HTTP Alt | Applications secondaires |
-| 8083 | TCP | HestiaCP | Panneau d'administration |
-| 12000-12100 | TCP | FTP Passif | Mode passif vsftpd |
+---
 
-#### Double Couche de Sécurité
+## C7. Pare-feu Local (UFW/HestiaCP)
+
+### Configuration Double Couche
 ```
-Internet
-    │
-    ▼
-┌─────────────────────────────────────────┐
-│         Pare-feu Ecosnet                 │
-│      (Ports autorisés - Niveau ISP)      │
-└─────────────────────────────────────────┘
-    │
-    ▼
-┌─────────────────────────────────────────┐
-│         Pare-feu HestiaCP                │
-│     (Filtrage secondaire - Niveau OS)    │
-└─────────────────────────────────────────┘
-    │
-    ▼
-         Serveur VPS
+Internet → Ecosnet Firewall → HestiaCP/UFW → Services
 ```
 
----
-
-## 12. Implémentation Sécurité
-
-### Configuration Pare-feu Local
-
-#### Ports Configurés (HestiaCP/UFW)
-| Port | Service | Statut |
-|------|---------|--------|
-| 22 | SSH | Ouvert |
-| 80 | HTTP | Ouvert |
-| 443 | HTTPS | Ouvert |
-| 21 | FTP | Ouvert |
-| 25, 465, 587 | SMTP | Ouvert |
-| 110, 143, 993, 995 | IMAP/POP3 | Ouvert |
-| 1337 | API Strapi | Interne |
-| 3000 | Next.js | Interne |
-| 3389 | RDP | Ouvert |
-| 8083 | HestiaCP | Ouvert |
-
-#### Mesures de Sécurité
-- Authentification par clé SSH recommandée
-- Connexion SSH root désactivée
-- Fail2ban pour protection contre force brute
-- Règles UFW/iptables configurées
-
-### Sécurité Applications
-- Fichiers d'environnement protégés (.env non dans git)
-- Utilisateur base de données avec privilèges minimaux
-- Clés sécurité Strapi générées avec `openssl rand -base64 32`
-- En-têtes de sécurité HTTP activés
-
----
-
-## 13. Automatisation et Scripts
-
-### Scripts Créés
-
-#### deploy.sh
-**Objectif:** Déploiement automatisé pour les mises à jour
-**Fonctionnalités:**
-- Pull du dernier code depuis GitHub
-- Sauvegarde et restauration des fichiers .env
-- Installation des dépendances
-- Build des deux applications
-- Redémarrage des processus PM2
-- Vérification santé pour Strapi
-
-**Utilisation:**
+### Règles Configurées
 ```bash
-./scripts/deploy.sh              # Déploiement complet
-./scripts/deploy.sh --skip-build # Sans build (plus rapide)
+# SSH
+ufw allow 22/tcp
+
+# Web
+ufw allow 80/tcp
+ufw allow 443/tcp
+
+# Mail
+ufw allow 25/tcp
+ufw allow 465/tcp
+ufw allow 587/tcp
+ufw allow 993/tcp
+ufw allow 995/tcp
+
+# FTP
+ufw allow 21/tcp
+ufw allow 12000:12100/tcp
+
+# RDP
+ufw allow 3389/tcp
+
+# HestiaCP
+ufw allow 8083/tcp
 ```
 
-#### setup.sh
-**Objectif:** Configuration initiale du serveur
-**Fonctionnalités:**
-- Installation Node.js et PM2
-- Création des répertoires projet
-- Génération des templates .env
-
-#### ftp_config.bash
-**Objectif:** Configuration serveur FTP
-**Fonctionnalités:**
-- Création utilisateurs FTP
-- Configuration des jails chroot
-- Configuration des bind mounts
-
-#### Scripts de Sauvegarde
-- Sauvegarde base de données avec mysqldump
-- Nettoyage automatique des anciennes sauvegardes
-- Tâche cron pour sauvegardes planifiées
-
 ---
 
-## 14. Dépannage et Corrections
+## C8. Sécurisation Serveur
 
-### Problèmes Résolus
+### Mesures Implémentées
 
-#### Erreur SSL Dovecot
-**Problème:** `Can't load SSL certificate: error:0A00008B:SSL routines::unknown command`
+#### SSH Hardening
+- Connexion root désactivée
+- Authentification par clé recommandée
+- Port SSH par défaut modifié (optionnel)
 
-**Cause:** Configuration OpenSSL corrompue avec entrées HestiaCP invalides
-
-**Solution:**
-1. Édition de `/etc/ssl/openssl.cnf`
-2. Suppression/commentaire des lignes problématiques:
-   ```
-   [system_default]
-   system_default = hestia_openssl_sect
-   [hestia_openssl_sect]
-   ```
-3. Redémarrage de Dovecot
-
-#### Erreur 404 HestiaCP
-**Problème:** Panneau HestiaCP affichant des erreurs 404
-
-**Cause:** Configuration `open_basedir` corrompue
-
-**Solution:** Correction de `/usr/local/hestia/nginx/conf/nginx.conf`
-
-#### Correction Navigation Blog
-- Documenté dans `docs/troubleshooting/FIX_BLOG_NAVIGATION.md`
-- Problème de routage frontend résolu
-
----
-
-## 15. Documentation Créée
-
-### Guides de Déploiement
-| Fichier | Objectif |
-|---------|----------|
-| DEPLOYMENT.md | Guide complet déploiement HestiaCP |
-| VPS_DEPLOYMENT_GUIDE.md | Déploiement VPS Linux depuis zéro |
-| SERVER_DEPLOYMENT.md | Référence rapide déploiement |
-
-### Guides Configuration Serveur
-| Fichier | Objectif |
-|---------|----------|
-| NGINX_CONFIG.md | Configuration proxy inverse Nginx HTTPS |
-| FTP_SERVER_GUIDE.md | Configuration et utilisation serveur FTP |
-| GUI_FTP_SERVER_GUIDE.md | Guide configuration client FTP |
-| PV_VPS_CONFIGURATION.md | Procès-verbal configuration serveur complet |
-
-### Guides HestiaCP
-| Fichier | Objectif |
-|---------|----------|
-| HESTIACP_SSL_FIX.md | Dépannage SSL/Dovecot |
-| HESTIACP_PHPMYADMIN.md | Configuration phpMyAdmin |
-| HESTIACP_MAIL_LOGS.md | Référence logs serveur mail |
-
-### Guides Additionnels
-| Fichier | Objectif |
-|---------|----------|
-| MAINTENANCE_MODE_SETUP.md | Mode maintenance basé sur cookies |
-| wordpress-installation-guide.md | Référence installation WordPress |
-
----
-
-## Résumé Technique
-
-### Architecture Déployée
-
-```
-Internet
-    │
-    ▼
-┌─────────────────────────────────────────────────────────┐
-│                  Pare-feu Ecosnet                        │
-└─────────────────────────────────────────────────────────┘
-    │
-    ▼
-┌─────────────────────────────────────────────────────────┐
-│                 Serveur VPS Ubuntu                       │
-│                  197.140.18.185                          │
-│                                                          │
-│  ┌──────────────────────────────────────────────────┐   │
-│  │              Nginx (80/443)                       │   │
-│  │           Proxy Inverse + SSL                     │   │
-│  └──────────────────────────────────────────────────┘   │
-│       │              │                │                  │
-│       ▼              ▼                ▼                  │
-│  ┌─────────┐  ┌───────────┐  ┌──────────────────┐       │
-│  │ Next.js │  │  Strapi   │  │    WordPress     │       │
-│  │  :3000  │  │   :1337   │  │   (PHP-FPM)      │       │
-│  │ (Laqta) │  │ (Backend) │  │  (shohraty.dz)   │       │
-│  └─────────┘  └─────┬─────┘  └────────┬─────────┘       │
-│                     │                  │                 │
-│                     ▼                  ▼                 │
-│              ┌─────────────────────────────┐            │
-│              │         MariaDB             │            │
-│              │          :3306              │            │
-│              │  laqta_strapi | shohraty_wp │            │
-│              └─────────────────────────────┘            │
-│                                                          │
-│  ┌──────────────────────────────────────────────────┐   │
-│  │              Services Mail                        │   │
-│  │  Exim4: 25, 465, 587                             │   │
-│  │  Dovecot: 110, 143, 993, 995                     │   │
-│  │  Domaines: leqta.com, shohraty.dz                │   │
-│  └──────────────────────────────────────────────────┘   │
-│                                                          │
-│  ┌──────────────────────────────────────────────────┐   │
-│  │              Autres Services                      │   │
-│  │  SSH: 22 │ FTP: 21 │ RDP: 3389 │ HestiaCP: 8083 │   │
-│  └──────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────┘
-```
-
-### Aperçu de la Stack Technique
-- **OS:** Debian/Ubuntu Linux
-- **Panneau de Contrôle:** HestiaCP
-- **Serveur Web:** Nginx + Apache
-- **Base de Données:** MariaDB
-- **Backend:** Strapi CMS v5 (Node.js)
-- **Frontend:** Next.js 15 (React)
-- **CMS:** WordPress (shohraty.dz)
-- **Gestionnaire de Processus:** PM2
-- **SSL:** Let's Encrypt (Certbot)
-- **FTP:** vsftpd
-- **Mail:** Exim4 + Dovecot
-- **Bureau à Distance:** XFCE + xrdp
-
----
-
-## Résumé Identifiants et Accès
-
-| Service | URL/Accès | Notes |
-|---------|-----------|-------|
-| HestiaCP | https://server2.leqta.com:8083 | Panneau de contrôle |
-| Admin Strapi | https://api.leqta.com/admin | Admin CMS |
-| Frontend Laqta | https://leqta.com | Site web public |
-| WordPress | https://shohraty.dz | Site WordPress |
-| Admin WordPress | https://shohraty.dz/wp-admin | Admin WordPress |
-| phpMyAdmin | https://server2.leqta.com:8083/phpmyadmin | Base de données |
-| Webmail Laqta | https://webmail.leqta.com | Accès email |
-| FTP | ftp://server2.leqta.com:21 | Transfert fichiers |
-| SSH | ssh user@197.140.18.185 | Accès serveur |
-| Bureau à Distance | 197.140.18.185:3389 | RDP Windows |
-
----
-
-## Référence Rapide Commandes de Maintenance
-
+#### Fail2ban
 ```bash
-# Commandes PM2
-pm2 status              # Vérifier statut
-pm2 logs                # Voir tous les logs
-pm2 logs strapi         # Logs Strapi
-pm2 logs laqta          # Logs Frontend
-pm2 restart all         # Redémarrer services
-pm2 monit               # Monitoring temps réel
+sudo apt install fail2ban -y
+sudo systemctl enable fail2ban
+```
 
-# Commandes Nginx
-sudo nginx -t                    # Tester config
-sudo systemctl reload nginx      # Appliquer changements
+#### Permissions
+- Fichiers .env protégés (chmod 600)
+- Répertoires web avec permissions appropriées
+- Utilisateurs avec privilèges minimaux
 
-# Sauvegarde Base de Données
-mysqldump -u strapi_user -p laqta_strapi > backup_laqta.sql
-mysqldump -u shohraty_user -p shohraty_wp > backup_shohraty.sql
+---
 
-# Test Renouvellement SSL
-sudo certbot renew --dry-run
+## C9. Résolution Problèmes SSL Dovecot
 
-# Déploiement
-cd /var/www/leqta && ./scripts/deploy.sh
+### Problème Rencontré
+```
+Error: Failed to initialize SSL server context:
+Can't load SSL certificate: error:0A00008B:SSL routines::unknown command
+```
 
-# Redémarrage Services Mail
-sudo systemctl restart exim4
+### Cause
+Entrées invalides dans `/etc/ssl/openssl.cnf` ajoutées par HestiaCP.
+
+### Solution
+```bash
+# Éditer le fichier
+sudo nano /etc/ssl/openssl.cnf
+
+# Supprimer ou commenter ces lignes:
+# [system_default]
+# system_default = hestia_openssl_sect
+# [hestia_openssl_sect]
+
+# Redémarrer Dovecot
 sudo systemctl restart dovecot
+```
 
-# Accès Bureau à Distance
-# Depuis Windows: mstsc.exe -> 197.140.18.185:3389
+---
+
+## C10. Documentation Créée
+
+### Liste des Documents
+
+| Fichier | Description |
+|---------|-------------|
+| DEPLOYMENT.md | Guide déploiement HestiaCP complet |
+| VPS_DEPLOYMENT_GUIDE.md | Guide déploiement VPS Linux |
+| SERVER_DEPLOYMENT.md | Référence rapide déploiement |
+| NGINX_CONFIG.md | Configuration Nginx HTTPS |
+| FTP_SERVER_GUIDE.md | Guide serveur FTP |
+| GUI_FTP_SERVER_GUIDE.md | Guide client FTP |
+| PV_VPS_CONFIGURATION.md | Procès-verbal configuration |
+| HESTIACP_SSL_FIX.md | Dépannage SSL Dovecot |
+| HESTIACP_PHPMYADMIN.md | Configuration phpMyAdmin |
+| HESTIACP_MAIL_LOGS.md | Référence logs mail |
+| MAINTENANCE_MODE_SETUP.md | Mode maintenance |
+| wordpress-installation-guide.md | Guide WordPress |
+
+---
+
+# ANNEXES
+
+## Architecture Globale
+
+```
+                         Internet
+                            │
+                            ▼
+              ┌─────────────────────────────┐
+              │     Pare-feu Ecosnet        │
+              └─────────────────────────────┘
+                            │
+                            ▼
+┌───────────────────────────────────────────────────────────┐
+│                    Serveur VPS Ubuntu                      │
+│                    197.140.18.185                          │
+│                                                            │
+│  ┌────────────────────────────────────────────────────┐   │
+│  │                 Nginx (80/443)                      │   │
+│  │              Proxy Inverse + SSL                    │   │
+│  └────────────────────────────────────────────────────┘   │
+│         │                │                │                │
+│         ▼                ▼                ▼                │
+│  ┌───────────┐   ┌───────────┐   ┌───────────────┐        │
+│  │  Next.js  │   │  Strapi   │   │   WordPress   │        │
+│  │  :3000    │   │   :1337   │   │   (PHP-FPM)   │        │
+│  │  Laqta    │   │  Backend  │   │  Shohraty.dz  │        │
+│  └───────────┘   └─────┬─────┘   └───────┬───────┘        │
+│                        │                  │                │
+│                        ▼                  ▼                │
+│              ┌─────────────────────────────────┐          │
+│              │          MariaDB :3306          │          │
+│              │  laqta_strapi  │  shohraty_wp   │          │
+│              └─────────────────────────────────┘          │
+│                                                            │
+│  ┌────────────────────────────────────────────────────┐   │
+│  │                  Services Mail                      │   │
+│  │  Exim4 (SMTP) + Dovecot (IMAP/POP3)                │   │
+│  │  leqta.com  │  shohraty.dz                         │   │
+│  └────────────────────────────────────────────────────┘   │
+│                                                            │
+│  ┌────────────────────────────────────────────────────┐   │
+│  │                 Autres Services                     │   │
+│  │  FTP:21 │ SSH:22 │ RDP:3389 │ HestiaCP:8083       │   │
+│  └────────────────────────────────────────────────────┘   │
+└───────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Récapitulatif Accès
+
+| Service | URL/Accès |
+|---------|-----------|
+| HestiaCP | https://server2.leqta.com:8083 |
+| Laqta (site) | https://leqta.com |
+| Strapi Admin | https://api.leqta.com/admin |
+| Shohraty (site) | https://shohraty.dz |
+| WordPress Admin | https://shohraty.dz/wp-admin |
+| phpMyAdmin | https://server2.leqta.com:8083/phpmyadmin |
+| Webmail | https://webmail.leqta.com |
+| FTP | ftp://server2.leqta.com:21 |
+| SSH | ssh user@197.140.18.185 |
+| Bureau à Distance | 197.140.18.185:3389 (RDP) |
+
+---
+
+## Commandes de Maintenance
+
+```bash
+# === PM2 ===
+pm2 status                    # Statut processus
+pm2 logs                      # Tous les logs
+pm2 restart all               # Redémarrer tout
+
+# === Nginx ===
+sudo nginx -t                 # Tester config
+sudo systemctl reload nginx   # Recharger
+
+# === Base de Données ===
+mysqldump -u user -p db > backup.sql  # Sauvegarde
+
+# === SSL ===
+sudo certbot renew --dry-run  # Test renouvellement
+
+# === Services ===
+sudo systemctl status nginx
+sudo systemctl status mariadb
+sudo systemctl status dovecot
+sudo systemctl status exim4
+sudo systemctl status vsftpd
+sudo systemctl status xrdp
 ```
 
 ---

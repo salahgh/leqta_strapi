@@ -44,13 +44,15 @@
       "required": true
     },
     "avatar": {
-      "type": "string",
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"],
       "pluginOptions": {
         "i18n": {
-          "localized": true
+          "localized": false
         }
-      },
-      "required": false
+      }
     },
     "company": {
       "type": "string",
@@ -65,7 +67,7 @@
       "type": "integer",
       "pluginOptions": {
         "i18n": {
-          "localized": true
+          "localized": false
         }
       },
       "default": 5,
@@ -76,7 +78,7 @@
       "type": "boolean",
       "pluginOptions": {
         "i18n": {
-          "localized": true
+          "localized": false
         }
       },
       "default": false

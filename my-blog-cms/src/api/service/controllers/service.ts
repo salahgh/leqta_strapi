@@ -5,6 +5,18 @@
 import { factories } from '@strapi/strapi'
 
 export default factories.createCoreController('api::service.service', ({ strapi }) => ({
+  // Override default find to sort by order field
+  async find(ctx) {
+    // Add default sort by order if not specified
+    if (!ctx.query.sort) {
+      ctx.query.sort = { order: 'asc', createdAt: 'desc' };
+    }
+
+    // Call the default find method
+    const { data, meta } = await super.find(ctx);
+    return { data, meta };
+  },
+
   // Get published service by title
   async findByTitle(ctx) {
 

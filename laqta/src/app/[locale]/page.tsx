@@ -38,9 +38,18 @@ export default async function Home({
             {/*<Navigation />*/}
             <div className="w-full xl:max-w-container xl:mx-auto">
                 <HeroSection />
-                <AboutSection illustration={<CustomIllustration />} />
+                <div
+                    className={"bg-white rounded-2xl sm:rounded-3xl"}
+                    style={{ backgroundColor: "#d5ebf9" }}
+                >
+                    <AboutSection illustration={<CustomIllustration />} />
+                </div>
                 <ServicesSection locale={locale} />
-                <div id="works">
+                <div
+                    id="works"
+                    className={"rounded-2xl"}
+                    style={{ backgroundColor: "#d5ebf9" }}
+                >
                     <OurWorks locale={locale} />
                 </div>
                 <YourPerfectPartner locale={locale} />

@@ -8,12 +8,16 @@ import { Button } from "@/components/ui/Button";
 import { Rocket } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { Navigation } from "@/components/layout/Navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/src/i18n/navigation";
 import React from "react";
 
 export const HeroSection: React.FC = () => {
     const t = useTranslations("hero");
+    const locale = useLocale();
+    const heroImage = locale === "ar"
+        ? "/images/where_creativity_arabic.svg"
+        : "/images/wherecreativitymeetsstrategy.svg";
 
     return (
         <div className="relative bg-primary flex flex-col items-center justify-center w-full text-center p-4 sm:p-8 md:p-12 md:pb-24 lg:pb-36 overflow-hidden">
@@ -48,7 +52,7 @@ export const HeroSection: React.FC = () => {
                     <Logo className="md:hidden" />
                 </div>
                 <img
-                    src="/images/wherecreativitymeetsstrategy.svg"
+                    src={heroImage}
                     alt={t("title")}
                     className="w-full pt-2 px-2 lg:px-44 animate-slide-up"
                     style={{ opacity: 0, animationDelay: "150ms" }}

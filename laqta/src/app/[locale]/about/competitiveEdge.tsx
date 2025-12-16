@@ -33,13 +33,20 @@ export const CompetitiveEdge = async () => {
 
     return (
         <section
-            className="rounded-3xl border border-gray-700/30 p-6 md:p-10 lg:p-12
+            className="rounded-3xl relative border border-gray-700/30 p-16
             shadow-2xl hover:border-gray-600/40 transition-all duration-500 "
+            style={{ backgroundColor: "#a3d4f6" }}
         >
-            <div
-                className="text-center space-y-4 md:space-y-6 py-6 md:py-8 flex flex-col items-center animate-fade-in"
-                style={{ opacity: 0 }}
-            >
+            <div className="absolute inset-0 z-1 flex px-12 items-center justify-center">
+                <img
+                    src="/images/laqta_logo_courbe.svg"
+                    alt="LAQTA Logo Curve"
+                    className="object-contain opacity-90 "
+                />
+            </div>
+
+            <div className="absolute inset-0 z-5 blue_gradient" />
+            <div className="text-center relative space-y-4 md:space-y-6  md:py-8 flex flex-col items-center animate-fade-in">
                 <div className="animate-slide-down" style={{ opacity: 0 }}>
                     <Badge size="md" variant="accent">
                         {t("badge")}
@@ -47,8 +54,8 @@ export const CompetitiveEdge = async () => {
                 </div>
 
                 <h2
-                    className="leading-tight animate-slide-up "
-                    style={{ animationDelay: "150ms", opacity: 0 }}
+                    className="leading-tight text-gray-800 animate-slide-up "
+                    style={{ animationDelay: "150ms" }}
                 >
                     {t("title")}
                 </h2>
@@ -60,7 +67,7 @@ export const CompetitiveEdge = async () => {
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mt-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mt-8 p-6">
                 {advantages.map((advantage, index) => (
                     <div
                         key={index}
@@ -73,13 +80,14 @@ export const CompetitiveEdge = async () => {
                         }}
                     >
                         {/* Leqta Courbe SVG Background */}
-                        <div className="absolute inset-0 flex items-center justify-center opacity-20 group-hover:opacity-30 transition-opacity duration-500">
-                            <Image
+                        <div
+                            className="absolute inset-0 flex items-center justify-center
+                        group-hover:opacity-30 transition-opacity duration-500"
+                        >
+                            <img
                                 src="/images/leqta_courbe.svg"
                                 alt=""
-                                width={300}
-                                height={300}
-                                className="w-full h-full object-cover"
+                                className="object-fill scale-75 mb-32"
                             />
                         </div>
 
@@ -93,19 +101,13 @@ export const CompetitiveEdge = async () => {
                         />
 
                         {/* Content */}
-                        <div className="relative z-20 flex items-center w-full">
-                            <div
-                                className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center mr-4 md:mr-6
-                            group-hover:from-blue-500/40 group-hover:to-purple-500/40 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg group-hover:shadow-xl"
-                            >
-                                <Image
-                                    src={advantage.iconSrc}
-                                    alt={t(`advantages.${advantage.titleKey}`)}
-                                    width={32}
-                                    height={32}
-                                    className="w-8 h-8 object-contain group-hover:scale-110 transition-transform duration-500"
-                                />
-                            </div>
+                        <div className="flex flex-col items-center w-full">
+                            <img
+                                src={advantage.iconSrc}
+                                alt={t(`advantages.${advantage.titleKey}`)}
+                                className="object-contain group-hover:scale-110 transition-transform duration-500"
+                            />
+
                             <h3 className="text-white font-semibold text-lg md:text-xl group-hover:translate-x-2 transition-transform duration-500">
                                 {t(`advantages.${advantage.titleKey}`)}
                             </h3>

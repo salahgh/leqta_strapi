@@ -148,7 +148,7 @@ const BlogArticlePage = async ({ params }: BlogPageProps) => {
                 <Navigation />
             </div>
             <div
-                className="animate-fade-in bg-amber-900"
+                className="animate-fade-in"
                 style={{ opacity: 0, animationDelay: "150ms" }}
             >
                 <BlogArticle

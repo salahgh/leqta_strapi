@@ -64,7 +64,7 @@ const ServicesPage = async ({
             <main className="relative z-10 flex-1">
                 {/* Header Section */}
                 {/* @ts-expect-error Server Component */}
-                <Header />
+                {/*<Header />*/}
 
                 {/* Plan Cards Section */}
                 <div className="section-px section-py-md">

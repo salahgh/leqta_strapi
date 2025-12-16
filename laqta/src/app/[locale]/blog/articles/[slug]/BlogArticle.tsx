@@ -86,14 +86,11 @@ export const BlogArticle: React.FC<{
     }, [blog.content, blog.content_image]);
 
     return (
-        <div
-            className="min-h-screen bg-gradient-blog-hero"
-            dir={locale === "ar" ? "rtl" : "ltr"}
-        >
+        <div className="min-h-screen" dir={locale === "ar" ? "rtl" : "ltr"}>
             <ReadingProgress />
 
             {/* Blue Header with LAQTA Logo Background */}
-            <div className="relative py-60 md:pt-24 bg-gradient-blog-hero">
+            <div className="relative py-60 md:pt-24">
                 {/* LAQTA Logo Background - larger and more visible */}
                 <div
                     className="absolute inset-0 opacity-5 overflow-hidden pt-20"
@@ -106,24 +103,51 @@ export const BlogArticle: React.FC<{
                         src="/images/logo.svg"
                         alt="LAQTA"
                         fill
-                        className="object-contain mt-1 ml-32"
-                        style={{ transform: "scale(0.70)" }}
+                        className="object-contain mt-1"
+                        style={{
+                            transform: locale === "ar" ? "scale(0.70) scaleX(-1)" : "scale(0.70)",
+                            marginLeft: locale === "ar" ? undefined : "14rem",
+                            marginRight: locale === "ar" ? "14rem" : undefined,
+                        }}
                     />
                 </div>
 
-                {/* Title - 2/3 width, centered */}
-                <div className="relative z-10 max-w-7xl mx-auto section-px md:pb-24">
-                    <div className="max-w-4xl mx-auto">
-                        <h1 className="text-display-lg md:text-display-lg lg:text-display-2xl font-semibold text-white mb-6 w-full md:w-2/3">
-                            {blog.title}
-                        </h1>
-                        {/* Description under title */}
-                        {blog.excerpt && (
-                            <p className="text-body-lg md:text-body-xl text-neutral-300 w-full md:w-2/3">
-                                {blog.excerpt}
-                            </p>
-                        )}
-                    </div>
+                <div
+                    className="absolute inset-0 overflow-hidden pt-52"
+                    style={{
+                        transform: locale === "ar" ? "scaleX(-1)" : undefined,
+                    }}
+                >
+                    <img
+                        src="/images/vector9.svg"
+                        alt="LAQTA"
+                        className="object-contain"
+                        style={{ transform: "scale(1)" }}
+                    />
+                </div>
+
+                <div
+                    className="w-2/3 pt-24"
+                    style={{
+                        marginLeft: locale === "ar" ? undefined : "6rem",
+                        marginRight: locale === "ar" ? "6rem" : undefined,
+                    }}
+                >
+                    <h1
+                        className="text-white leading-relaxed w-full"
+                        style={{ lineHeight: 1.4 }}
+                    >
+                        {blog.title}
+                    </h1>
+                    {/* Description under title */}
+                    {blog.excerpt && (
+                        <p
+                            style={{ lineHeight: 1.7 }}
+                            className="text-body-lg md:text-body-xl text-neutral-300 w-full md:w-2/3"
+                        >
+                            {blog.excerpt}
+                        </p>
+                    )}
                 </div>
             </div>
 

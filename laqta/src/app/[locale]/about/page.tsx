@@ -41,56 +41,60 @@ export default async function AboutPage({
             {/* Background Layers Container - Optimized for performance */}
             <div className="absolute inset-0 pointer-events-none z-0">
                 {/* Union SVG Layer */}
-                <div
-                    className="absolute w-full inset-0"
-                    style={{ willChange: "opacity" }}
-                >
-                    <Image
+                <div className="absolute inset-0" style={{ willChange: "" }}>
+                    <img
                         src="/images/union.svg"
                         alt="Union Background"
-                        width={1920}
-                        height={1080}
-                        className="object-fill w-full h-full"
-                        priority
+                        className=" w-full"
                     />
                 </div>
 
                 {/* Gradient Overlay Layer */}
-                <div
-                    className="absolute inset-0 opacity-90"
-                    style={{
-                        background:
-                            "linear-gradient(to bottom, #FFFFFF00, #000000)",
-                        willChange: "opacity",
-                    }}
-                />
+                {/*<div*/}
+                {/*    className="absolute inset-0 opacity-50"*/}
+                {/*    style={{*/}
+                {/*        background:*/}
+                {/*            "linear-gradient(to bottom, #FFFFFF00, #000000)",*/}
+                {/*        willChange: "opacity",*/}
+                {/*    }}*/}
+                {/*/>*/}
 
                 {/* Vector Courbe SVG Layer */}
                 <div
-                    className="absolute w-[80%] lg:w-1/2 top-0 left-1/2 transform -translate-x-1/2 opacity-40"
+                    className="absolute w-[80%] lg:w-1/2 top-0 left-1/2 transform -translate-x-1/2 opacity-70"
                     style={{ willChange: "opacity, transform" }}
                 >
-                    <Image
+                    <img
                         src="/images/vector_courbe.svg"
                         alt="Vector Curve Background"
                         width={800}
                         height={800}
                         className="h-full aspect-square object-cover"
-                        priority
+                    />
+                </div>
+                <div
+                    className="absolute left-0 opacity-80"
+                    style={{ willChange: "opacity, transform", marginTop: 700 }}
+                >
+                    <img
+                        src="/images/vector9.svg"
+                        alt="Vector Curve Background"
+                        width={800}
+                        height={800}
+                        className="object-cover w-3/4 scale-120"
                     />
                 </div>
             </div>
 
             {/* Navigation */}
             <Navigation />
-
             {/* Content Layer */}
             <div className="relative z-0 w-full flex-1">
-                <div className="stack-gap-lg">
+                <div className="">
                     <HeroSection />
                     {/* @ts-expect-error Server Component */}
                     <MissionVisionCards />
-                    <div className="section-px max-w-7xl mx-auto">
+                    <div className="px-28">
                         <CompetitiveEdge />
                     </div>
                 </div>

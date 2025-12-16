@@ -7,19 +7,22 @@ export interface Service {
     description: string;
     slug?: string;
     icon?: string;
+    icon_image?: {
+        url: string;
+        alternativeText?: string;
+        width?: number;
+        height?: number;
+    };
     gradientFrom?: string;
     gradientTo?: string;
-    tags?: Array<{
-        id: number;
-        name: string;
-        slug: string;
-    }>;
+    tags?: string[];
     featured_image?: {
         url: string;
         alternativeText?: string;
         width?: number;
         height?: number;
     };
+    order?: number;
     publishedAt: string;
     createdAt: string;
     updatedAt: string;
@@ -50,8 +53,7 @@ export interface ApiError {
 }
 
 // Configuration
-// const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL_2 || "http://localhost:1337";
-const STRAPI_URL = "http://localhost:1337";
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL_2 || "http://localhost:1337";
 const API_BASE = `${STRAPI_URL}/api`;
 
 // Base fetch wrapper with caching
@@ -334,7 +336,17 @@ export interface Testimonial {
     testimonial: string;
     author: string;
     role: string;
-    avatar?: string;
+    avatar?: {
+        url?: string;
+        alternativeText?: string;
+        // Strapi v4 nested format
+        data?: {
+            attributes?: {
+                url?: string;
+                alternativeText?: string;
+            };
+        };
+    } | null;
     company?: string;
     rating?: number;
     featured?: boolean;

@@ -64,18 +64,23 @@ export async function OurWorksSection({
 
     return (
         <div
-            className={`min-h-screen relative bg-neutral-100 rounded-3xl section-py-lg ${className}`}
+            className={`min-h-screen relative rounded-3xl section-py-lg ${className}`}
         >
             {/* Background Logo */}
             <div className="absolute inset-0 z-0 flex flex-col justify-start items-center -top-16 sm:-top-20 md:-top-24">
                 <img
                     src="/images/laqta_logo_courbe.svg"
                     alt="LAQTA Logo Curve"
-                    className="w-2/3 aspect-square object-fill z-0 opacity-40"
+                    className="w-2/3 aspect-square object-fill z-0 opacity-70"
                 />
             </div>
 
-            <div className="section-px z-10 relative">
+            <div
+                className="absolute inset-0 top-0 z-5 blue_gradient_two"
+                style={{ height: "100%" }}
+            />
+
+            <div className="section-px z-10 relative bg-transparent">
                 {/* Header Section */}
                 <div className="text-center flex flex-col items-center grid-gap-sm pb-6 sm:pb-8 md:pb-12">
                     <div className="animate-slide-down" style={{ opacity: 0 }}>

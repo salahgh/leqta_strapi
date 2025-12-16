@@ -5,15 +5,15 @@ export const FAQItem = ({ question, answer, isOpen, onToggle, isLast }) => {
         <div className="rounded-2xl mb-4 overflow-hidden">
             <button
                 onClick={onToggle}
-                className="w-full md:px-8 md:py-6 px-6 py-4 text-left flex items-center justify-between transition-colors"
+                className="w-full md:px-8 md:py-6 px-6 py-4 text-start flex items-center justify-between transition-colors"
             >
-                <span className="font-semibold text-black pr-4 text-body-2xl">
+                <span className="font-semibold text-black pe-4 text-body-2xl">
                     {question}
                 </span>
-                <div className="flex-shrink-0">
+                <div className="flex-shrink-0 rtl:rotate-180">
                     <img
                         src="/icons/arrowUp.svg"
-                        alt="Logo"
+                        alt="Toggle"
                         className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
                     />
                 </div>
@@ -21,13 +21,13 @@ export const FAQItem = ({ question, answer, isOpen, onToggle, isLast }) => {
 
             {isOpen && (
                 <div className="px-8 pb-6">
-                    <div className=" leading-relaxed text-responsive-lg text-gray-500 text-left">
+                    <div className="leading-relaxed text-responsive-lg text-gray-500 text-start">
                         {answer}
                     </div>
                 </div>
             )}
             {!isLast && (
-                <div className={"border-2 border-gray-100 px-32"}></div>
+                <div className="border-2 border-gray-100 px-32"></div>
             )}
         </div>
     );

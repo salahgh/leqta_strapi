@@ -8,7 +8,15 @@
       "Bash(git commit:*)",
       "Bash(git remote add:*)",
       "Bash(git push:*)",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "Bash(del \"C:\\Users\\My PC\\Documents\\GitHub\\leqta_strapi\\docs\\INVOICE_VPS_DEPLOYMENT.md\" \"C:\\Users\\My PC\\Documents\\GitHub\\leqta_strapi\\docs\\DETAILED_WORK_REPORT.md\")",
+      "Bash(node:*)",
+      "Bash(dir:*)",
+      "WebSearch",
+      "WebFetch(domain:arbfonts.com)",
+      "Bash(curl:*)",
+      "Bash(if exist .next rmdir /s /q .next)",
+      "Bash(findstr:*)"
     ],
     "deny": [],
     "ask": []

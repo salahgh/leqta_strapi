@@ -34,12 +34,13 @@ const Footer = async ({ locale }: FooterProps) => {
     return (
         <footer className="relative bg-primary text-white overflow-hidden">
             {/* Background LAQTA Logo */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="absolute bottom-0 w-full flex items-center justify-center pointer-events-none">
                 <img
                     src="/images/laqta_01.svg"
                     alt=""
-                    className="w-full h-full object-cover opacity-10"
+                    className="object-cover opacity-30"
                     aria-hidden="true"
+                    style={{ marginBottom: -50 }}
                 />
             </div>
 
@@ -63,7 +64,7 @@ const Footer = async ({ locale }: FooterProps) => {
                             <img
                                 src="/images/logo.svg"
                                 alt="LEQTA Logo"
-                                className="h-10 w-auto"
+                                className="h-14 w-auto"
                             />
                             <img
                                 src="/images/laqta.svg"
@@ -80,7 +81,6 @@ const Footer = async ({ locale }: FooterProps) => {
                             <p className="mb-4 text-body-sm text-neutral-400 max-w-sm">
                                 {t("newsletterDescription")}
                             </p>
-
                             <NewsletterForm variant="footer" />
                         </div>
                     </div>
@@ -177,98 +177,97 @@ const Footer = async ({ locale }: FooterProps) => {
                         </div>
                     </div>
                 </div>
-
                 {/* Large LEQTA Watermark */}
-                <div className="relative mt-16 md:mt-24 mb-8 ">
-                    <div className="flex justify-center items-end overflow-hidden">
-                        <img
-                            src="/images/laqta_1.svg"
-                            alt=""
-                            className="w-full max-w-3xl h-auto opacity-30"
-                            aria-hidden="true"
-                        />
-                    </div>
+                <div className="flex justify-center items-end overflow-hidden">
+                    <img
+                        src="/images/laqta_1.svg"
+                        alt=""
+                        className=""
+                        aria-hidden="true"
+                    />
                 </div>
-
                 {/* Bottom Section - Copyright and Social Icons */}
-                <div className="flex flex-col md:flex-row justify-between items-center pt-6 border-t border-white/20 ">
+                <div
+                    className="flex flex-col md:flex-row justify-between items-center pt-6 border-t border-white/20"
+                    style={{ marginTop: -45 }}
+                >
                     <p className="text-neutral-400 text-body-sm mb-4 md:mb-0">
                         {t("copyright")}
                     </p>
+                    {/* Social Media Icons - Right aligned */}
+                    <div className="flex space-x-3">
+                        {socialMediaLinks.length > 0 ? (
+                            socialMediaLinks.map((social) => (
+                                <a
+                                    key={social.id}
+                                    href={social.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="social-icon-btn touch-target"
+                                    aria-label={
+                                        social.ariaLabel ||
+                                        `Visit our ${social.platform} page`
+                                    }
+                                >
+                                    {social.icon && (
+                                        <img
+                                            src={social.icon}
+                                            alt={social.platform}
+                                            className="w-4 h-4"
+                                        />
+                                    )}
+                                </a>
+                            ))
+                        ) : (
+                            <>
+                                <a
+                                    href="#"
+                                    className="social-icon-btn touch-target"
+                                    aria-label="X (Twitter)"
+                                >
+                                    <img
+                                        src="/icons/socialicon.svg"
+                                        alt="X"
+                                        className="w-4 h-4"
+                                    />
+                                </a>
+                                <a
+                                    href="#"
+                                    className="social-icon-btn touch-target"
+                                    aria-label="Facebook"
+                                >
+                                    <img
+                                        src="/icons/facebook.svg"
+                                        alt="Facebook"
+                                        className="w-4 h-4"
+                                    />
+                                </a>
+                                <a
+                                    href="#"
+                                    className="social-icon-btn touch-target"
+                                    aria-label="Instagram"
+                                >
+                                    <img
+                                        src="/icons/instagram.svg"
+                                        alt="Instagram"
+                                        className="w-4 h-4"
+                                    />
+                                </a>
+                                <a
+                                    href="#"
+                                    className="social-icon-btn touch-target"
+                                    aria-label="LinkedIn"
+                                >
+                                    <img
+                                        src="/icons/linkedIn.svg"
+                                        alt="LinkedIn"
+                                        className="w-4 h-4"
+                                    />
+                                </a>
+                            </>
+                        )}
+                    </div>
                 </div>
-                {/* Social Media Icons */}
-                {/*<div className="flex space-x-3">*/}
-                {/*    {socialMediaLinks.length > 0 ? (*/}
-                {/*        socialMediaLinks.map((social) => (*/}
-                {/*            <a*/}
-                {/*                key={social.id}*/}
-                {/*                href={social.url}*/}
-                {/*                target="_blank"*/}
-                {/*                rel="noopener noreferrer"*/}
-                {/*                className="social-icon-btn touch-target"*/}
-                {/*                aria-label={*/}
-                {/*                    social.ariaLabel ||*/}
-                {/*                    `Visit our ${social.platform} page`*/}
-                {/*                }*/}
-                {/*            >*/}
-                {/*                {social.icon && (*/}
-                {/*                    <img*/}
-                {/*                        src={social.icon}*/}
-                {/*                        alt={social.platform}*/}
-                {/*                        className="w-4 h-4"*/}
-                {/*                    />*/}
-                {/*                )}*/}
-                {/*            </a>*/}
-                {/*        ))*/}
-                {/*    ) : (*/}
-                {/*        <>*/}
-                {/*            <a*/}
-                {/*                href="#"*/}
-                {/*                className="social-icon-btn touch-target"*/}
-                {/*                aria-label="X (Twitter)"*/}
-                {/*            >*/}
-                {/*                <img*/}
-                {/*                    src="/icons/socialicon.svg"*/}
-                {/*                    alt="X"*/}
-                {/*                    className="w-4 h-4"*/}
-                {/*                />*/}
-                {/*            </a>*/}
-                {/*            <a*/}
-                {/*                href="#"*/}
-                {/*                className="social-icon-btn touch-target"*/}
-                {/*                aria-label="Facebook"*/}
-                {/*            >*/}
-                {/*                <img*/}
-                {/*                    src="/icons/facebook.svg"*/}
-                {/*                    alt="Facebook"*/}
-                {/*                    className="w-4 h-4"*/}
-                {/*                />*/}
-                {/*            </a>*/}
-                {/*            <a*/}
-                {/*                href="#"*/}
-                {/*                className="social-icon-btn touch-target"*/}
-                {/*                aria-label="Instagram"*/}
-                {/*            >*/}
-                {/*                <img*/}
-                {/*                    src="/icons/instagram.svg"*/}
-                {/*                    alt="Instagram"*/}
-                {/*                    className="w-4 h-4"*/}
-                {/*                />*/}
-                {/*            </a>*/}
-                {/*            <a*/}
-                {/*                href="#"*/}
-                {/*                className="social-icon-btn touch-target"*/}
-                {/*                aria-label="LinkedIn"*/}
-                {/*            >*/}
-                {/*                <img*/}
-                {/*                    src="/icons/linkedIn.svg"*/}
-                {/*                    alt="LinkedIn"*/}
-                {/*                    className="w-4 h-4"*/}
-                {/*                />*/}
-                {/*            </a>*/}
-                {/*        </>*/}
-                {/*    )}*/}
-                {/*</div>*/}
             </div>
         </footer>
     );

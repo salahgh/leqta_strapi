@@ -42,14 +42,14 @@ export default async function LocaleLayout({
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" />
                 <link
-                    href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+                    href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Alexandria:wght@100;200;300;400;500;600;700;800;900&display=swap"
                     rel="stylesheet"
                 />
                 <title>Laqta</title>
             </head>
             <body
-                className={`min-h-screen font-sans antialiased bg-black flex flex-col items-center ${
-                    locale === "ar" ? "font-arabic" : ""
+                className={`min-h-screen antialiased bg-black flex flex-col items-center ${
+                    locale === "ar" ? "font-arabic-body" : "font-sans"
                 }`}
             >
                 {/* Skip Navigation Link for Accessibility */}

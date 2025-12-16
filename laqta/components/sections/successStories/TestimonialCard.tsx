@@ -1,7 +1,44 @@
 import { StarRating } from "@/components/sections/successStories/StarRating";
+import { utils } from "@/lib/strapi";
 import React from "react";
 
-export const TestimonialCard = ({ testimonial, author, role, avatar }) => {
+interface TestimonialCardProps {
+    testimonial: string;
+    author: string;
+    role: string;
+    avatar?: {
+        url?: string;
+        alternativeText?: string;
+        data?: {
+            attributes?: {
+                url?: string;
+                alternativeText?: string;
+            };
+        };
+    } | null;
+}
+
+export const TestimonialCard = ({ testimonial, author, role, avatar }: TestimonialCardProps) => {
+    // Handle different Strapi response formats
+    const getAvatarUrl = () => {
+        if (!avatar) return "/images/avatar.png";
+        // Direct format (Strapi v5 flat response)
+        if (avatar.url) return utils.getFileUrl(avatar.url);
+        // Nested format (Strapi v4 style)
+        if (avatar.data?.attributes?.url) return utils.getFileUrl(avatar.data.attributes.url);
+        return "/images/avatar.png";
+    };
+
+    const getAvatarAlt = () => {
+        if (!avatar) return author;
+        if (avatar.alternativeText) return avatar.alternativeText;
+        if (avatar.data?.attributes?.alternativeText) return avatar.data.attributes.alternativeText;
+        return author;
+    };
+
+    const avatarUrl = getAvatarUrl();
+    const avatarAlt = getAvatarAlt();
+
     return (
         <div className="flex flex-col justify-center items-center w-2/3 space-y-12 mx-auto h-full">
             <StarRating />
@@ -11,17 +48,16 @@ export const TestimonialCard = ({ testimonial, author, role, avatar }) => {
             </blockquote>
 
             <div
-                className="bg-gray-100 gap-4 border rounded-full flex items-center justify-center p-2 pr-3 min-w-max"
-                // style={{ maxWidth: 300 }}
+                className="bg-gray-100 gap-4 border rounded-full flex items-center justify-center p-2 pe-3 min-w-max"
             >
-                <div className="md:w-14 md:h-14 w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center">
+                <div className="md:w-14 md:h-14 w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center overflow-hidden">
                     <img
-                        src="/images/avatar.png"
-                        alt="Logo"
-                        className="w-full h-full"
+                        src={avatarUrl}
+                        alt={avatarAlt}
+                        className="w-full h-full object-cover"
                     />
                 </div>
-                <div className="text-left text-body-xs md:text-body-xl">
+                <div className="text-start text-body-xs md:text-body-xl">
                     <div className="font-semibold text-gray-900">{author}</div>
                     <div className="text-gray-500 text-body-xs md:text-body-xl">
                         {role}

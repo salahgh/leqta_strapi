@@ -40,7 +40,7 @@ export const MissionVisionCardsClient: React.FC<
             {/* Section Header */}
             <div
                 className="text-center space-y-4 mb-12 max-w-3xl mx-auto animate-fade-in"
-                style={{ opacity: 0 }}
+                // style={{ opacity: 0 }}
             >
                 <div
                     className="flex justify-center animate-slide-down"
@@ -63,42 +63,32 @@ export const MissionVisionCardsClient: React.FC<
             </div>
 
             {/* Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 mx-16">
                 {cardsData.map((card, index) => (
                     <div
                         key={card.key}
-                        className="animate-fade-in"
-                        style={{
-                            animationDelay: `${450 + index * 150}ms`,
-                            opacity: 0,
-                        }}
+                        className=" relative rounded-3xl"
+                        style={{ backgroundColor: "#9fd2f5" }}
                     >
-                        <div className="group relative rounded-2xl overflow-hidden aspect-[4/5] cursor-default hover:scale-[1.02] transition-all duration-500">
-                            {/* Blue Background Layer */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-blue-800 z-0" />
-
-                            {/* LAQTA Logo SVG Layer */}
-                            <div className="absolute inset-0 flex items-center justify-center z-10">
-                                <Image
-                                    src="/images/laqta_01.svg"
-                                    alt="LAQTA Logo"
-                                    width={400}
-                                    height={400}
-                                    className="w-full h-full object-cover opacity-30 group-hover:opacity-40 transition-opacity duration-500"
-                                />
-                            </div>
-
-                            {/* White Gradient Overlay (bottom to top) */}
-                            <div
-                                className="absolute inset-0 z-20"
-                                style={{
-                                    background:
-                                        "linear-gradient(to top, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.5) 30%, rgba(255,255,255,0) 60%)",
-                                }}
+                        <div className="absolute inset-0 z-1 p-8">
+                            <img
+                                src="/images/laqta_logo_courbe.svg"
+                                alt="LAQTA Logo Curve"
+                                className="object-contain opacity-60"
                             />
+                        </div>
 
-                            {/* Content Layer */}
-                            <div className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6 group-hover:translate-y-[-4px] transition-transform duration-500">
+                        <div className="absolute inset-0 z-10 blue_gradient_three" />
+
+                        <div
+                            className="group relative rounded-2xl  overflow-hidden
+                        aspect-square transition-all duration-300"
+                            // style={{ backgroundColor: "#d5e9f8" }}
+                        >
+                            <div
+                                className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6
+                            group-hover:translate-y-[-4px] transition-transform duration-500"
+                            >
                                 {/* Icon */}
                                 <div className="w-20 h-20 md:w-24 md:h-24 mb-6 flex items-center justify-center">
                                     <Image
@@ -106,7 +96,7 @@ export const MissionVisionCardsClient: React.FC<
                                         alt={t(`cards.${card.key}.title`)}
                                         width={96}
                                         height={96}
-                                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
+                                        className="w-full h-full object-contain  transition-transform duration-500"
                                     />
                                 </div>
 
@@ -116,7 +106,10 @@ export const MissionVisionCardsClient: React.FC<
                                 </h3>
 
                                 {/* Description */}
-                                <p className="text-gray-700 text-center text-responsive-lg leading-relaxed px-4 group-hover:text-gray-800 transition-colors duration-500">
+                                <p
+                                    className="text-gray-600 text-center
+                                text-body-lg leading-relaxed px-4 group-hover:text-gray-800 transition-colors duration-500"
+                                >
                                     {t(`cards.${card.key}.description`)}
                                 </p>
                             </div>

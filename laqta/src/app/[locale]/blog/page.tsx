@@ -66,23 +66,54 @@ const BlogPage = async ({
     }
 
     return (
-        <div
-            className="min-h-screen bg-gradient-blog-hero"
-            dir={locale === "ar" ? "rtl" : "ltr"}
-        >
+        <div className="bg-primary" dir={locale === "ar" ? "rtl" : "ltr"}>
             <Navigation />
 
             {/* Hero Section with Logo Background */}
             <section className="relative section-px pt-20 md:pt-28 pb-16 md:pb-24">
                 {/* LAQTA Logo Background Overlay */}
-                <div className="absolute inset-0 opacity-5 overflow-hidden pointer-events-none">
-                    <Image
-                        src="/images/logo.svg"
-                        alt="LAQTA"
-                        fill
-                        className="object-contain"
-                        style={{ transform: "scale(1.2)" }}
-                    />
+
+                <div className="absolute inset-0 pointer-events-none z-0">
+                    {/* Union SVG Layer */}
+                    <div
+                        className="absolute inset-0"
+                        style={{ willChange: "" }}
+                    >
+                        <img
+                            src="/images/union.svg"
+                            alt="Union Background"
+                            className=" w-full"
+                        />
+                    </div>
+
+                    {/* Vector Courbe SVG Layer */}
+                    <div
+                        className="absolute w-[80%] lg:w-1/2 top-0 left-1/2 transform -translate-x-1/2 opacity-70"
+                        style={{ willChange: "opacity, transform" }}
+                    >
+                        <img
+                            src="/images/vector_courbe.svg"
+                            alt="Vector Curve Background"
+                            width={800}
+                            height={800}
+                            className="h-full aspect-square object-cover"
+                        />
+                    </div>
+                    <div
+                        className="absolute left-0 opacity-80"
+                        style={{
+                            willChange: "opacity, transform",
+                            marginTop: 700,
+                        }}
+                    >
+                        <img
+                            src="/images/vector9.svg"
+                            alt="Vector Curve Background"
+                            width={800}
+                            height={800}
+                            className="object-cover w-3/4 scale-120"
+                        />
+                    </div>
                 </div>
 
                 <div className="max-w-7xl mx-auto relative z-10">
@@ -117,7 +148,7 @@ const BlogPage = async ({
                     {/* Blog Grid - smaller spacing, equal aspect ratio */}
                     {latestBlogs.length > 0 ? (
                         <div
-                            className="grid md:grid-cols-2 lg:grid-cols-3 grid-gap-sm animate-fade-in"
+                            className="grid md:grid-cols-2 lg:grid-cols-3 grid-gap-xs animate-fade-in"
                             style={{ opacity: 0, animationDelay: "450ms" }}
                         >
                             {latestBlogs.map((blog) => (
@@ -138,9 +169,8 @@ const BlogPage = async ({
                     )}
                 </div>
             </section>
-
-            {/* Newsletter Subscription */}
             <Footer locale={locale} />
+            {/* Newsletter Subscription */}
         </div>
     );
 };

@@ -8,7 +8,7 @@ import { ArrowRight, ChartColumnBig, Film, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ServiceCard } from "@/components/ui/ServiceCard";
 import { Badge } from "@/components/ui/Badge";
-import { Service, servicesApi } from "@/lib/strapi";
+import { Service, servicesApi, utils } from "@/lib/strapi";
 import { getTranslations } from "next-intl/server";
 import { ErrorFallback } from "@/components/ui/ErrorFallback";
 
@@ -28,7 +28,7 @@ async function getServices(
 ): Promise<{ data: Service[]; error?: string }> {
     try {
         const response = await servicesApi.getAll({
-            populate: "featured_image", // Make sure to populate the featured_image
+            populate: "*", // Populate all relations including featured_image and icon_image
             pageSize: 10,
             locale: locale,
         });
@@ -67,14 +67,19 @@ const transformStrapiService = (service: Service) => ({
     gradientFrom: service.gradientFrom,
     gradientTo: service.gradientTo,
     icon: getIconComponent(service.icon),
-    slug: service.slug, // Add slug for linking
+    slug: service.slug,
+    // Add icon_image with full URL
+    icon_image: service.icon_image
+        ? {
+              ...service.icon_image,
+              url: utils.getFileUrl(service.icon_image.url),
+          }
+        : null,
     // Add featured_image with full URL
     featured_image: service.featured_image
         ? {
               ...service.featured_image,
-              url: service.featured_image.url.startsWith("http")
-                  ? service.featured_image.url
-                  : `${process.env.NEXT_PUBLIC_STRAPI_URL_2}${service.featured_image.url}`,
+              url: utils.getFileUrl(service.featured_image.url),
           }
         : null,
 });
@@ -170,8 +175,11 @@ export default async function ServicesSection({
                                         description={service.description}
                                         tags={service.tags}
                                         icon={service.icon}
+                                        icon_image={service.icon_image}
                                         featured_image={service.featured_image}
                                         slug={service.slug}
+                                        gradientFrom={service.gradientFrom}
+                                        gradientTo={service.gradientTo}
                                         className="h-full"
                                     />
                                 </div>

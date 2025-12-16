@@ -12,6 +12,7 @@ import { Link } from "@/src/i18n/navigation";
 import "./styles.css";
 
 // Main About Section Component
+
 const AboutSection = ({
     illustration,
     className = "",
@@ -26,22 +27,24 @@ const AboutSection = ({
             className={`relative overflow-hidden ${className} rounded-2xl sm:rounded-3xl`}
         >
             {/* Linear Gradient Background */}
-            <div className="absolute inset-0 z-0 blue_gradient" />
 
-            {/* LAQTA Logo SVG in the middle */}
-            <div className="absolute inset-0 z-10 flex items-center justify-center">
+            <div
+                className="absolute inset-0 z-0"
+                style={{ backgroundColor: "rgba(249,213,213,0)" }}
+            />
+
+            <div className="absolute inset-0 z-1 flex items-center justify-center p-8">
                 <img
                     src="/images/laqta_logo_courbe.svg"
                     alt="LAQTA Logo Curve"
-                    className="w-full h-full object-contain opacity-20"
+                    className="w-full h-full object-contain opacity-60"
                 />
             </div>
 
+            <div className="absolute inset-0 z-5 blue_gradient" />
+
             {/* Content Layer */}
-            <div
-                className="relative z-20 bg-transparent rounded-2xl md:rounded-3xl shadow-2xl card-p-md md:card-p-lg md:flex grid-gap-lg p-16
-            "
-            >
+            <div className="relative z-20 bg-transparent rounded-2xl md:rounded-3xl shadow-2xl card-p-md md:card-p-lg md:flex grid-gap-lg p-16">
                 {/* Content Section */}
                 <div className="stack-gap-md flex-1 py-16">
                     {/* Badge */}

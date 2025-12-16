@@ -79,16 +79,23 @@ export const TestimonialsClient = ({
     }, [currentTestimonial]);
 
     return (
-        <div className="relative bg-gray-200 md:pt-20 pt-12 flex flex-col gap-8 space-y-8 overflow-hidden">
+        <div
+            className="relative md:pt-20 pt-12 flex flex-col gap-8 space-y-8 overflow-hidden"
+            style={{ backgroundColor: "#d5ebf9" }}
+        >
             {/* Background LAQTA Logo */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="absolute inset-0 z-0 flex flex-col justify-start items-center -top-16 sm:-top-20 md:-top-24">
                 <img
-                    src="/images/laqta_01.svg"
-                    alt=""
-                    className="w-full h-full object-cover opacity-5"
-                    aria-hidden="true"
+                    src="/images/laqta_logo_courbe.svg"
+                    alt="LAQTA Logo Curve"
+                    className="w-2/3 aspect-square object-fill z-0 opacity-70"
                 />
             </div>
+
+            <div
+                className="absolute inset-0 z-5 blue_gradient"
+                style={{ height: "60%" }}
+            />
 
             {/* Header section */}
             <div className="text-center px-3 space-y-6">
@@ -129,6 +136,7 @@ export const TestimonialsClient = ({
                 {/* Testimonial content with touch handlers */}
                 <div
                     className="overflow-hidden"
+                    dir="ltr"
                     onTouchStart={handleTouchStart}
                     onTouchMove={handleTouchMove}
                     onTouchEnd={handleTouchEnd}
@@ -143,17 +151,13 @@ export const TestimonialsClient = ({
                             <div
                                 key={testimonial.id || index}
                                 className="w-full flex-shrink-0"
+                                dir="auto"
                             >
                                 <TestimonialCard
                                     testimonial={testimonial.testimonial}
                                     author={testimonial.author}
                                     role={testimonial.role}
-                                    avatar={
-                                        testimonial.avatar ||
-                                        testimonial.author
-                                            .substring(0, 2)
-                                            .toUpperCase()
-                                    }
+                                    avatar={testimonial.avatar}
                                 />
                             </div>
                         ))}

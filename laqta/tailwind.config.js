@@ -165,6 +165,12 @@ module.exports = {
                 sans: ["Poppins", "system-ui", "sans-serif"],
                 display: ["Poppins", "system-ui", "sans-serif"],
                 gotham: ["Gotham", "Poppins", "system-ui", "sans-serif"],
+                // Arabic fonts
+                // Titles: Alexandria only
+                // Content: RH-ZAK with Alexandria fallback
+                arabic: ["RH-ZAK", "Alexandria", "system-ui", "sans-serif"],
+                "arabic-title": ["Alexandria", "system-ui", "sans-serif"],
+                "arabic-body": ["RH-ZAK", "Alexandria", "system-ui", "sans-serif"],
             },
 
             // Border Radius
@@ -194,6 +200,7 @@ module.exports = {
                 "slide-up": "slideUp 0.8s ease-out forwards",
                 "slide-down": "slideDown 0.8s ease-out forwards",
                 "slide-right": "slideRight 0.8s ease-out forwards",
+                "marquee": "marquee 15s linear infinite",
             },
 
             // Keyframes
@@ -213,6 +220,10 @@ module.exports = {
                 slideRight: {
                     from: { opacity: "0", transform: "translateX(-30px)" },
                     to: { opacity: "1", transform: "translateX(0)" },
+                },
+                marquee: {
+                    from: { transform: "translateX(0)" },
+                    to: { transform: "translateX(-50%)" },
                 },
             },
 

@@ -17,11 +17,11 @@ interface MetaItemProps {
 }
 
 // Category Badge Component - uses dynamic color from CMS
-const CategoryBadge: React.FC<{ color?: string; children: React.ReactNode; className?: string }> = ({
-    color,
-    children,
-    className = ""
-}) => (
+const CategoryBadge: React.FC<{
+    color?: string;
+    children: React.ReactNode;
+    className?: string;
+}> = ({ color, children, className = "" }) => (
     <span
         className={`px-3 py-1.5 text-xs font-semibold text-white rounded-full ${className}`}
         style={{ backgroundColor: color || "rgb(124, 58, 237)" }}
@@ -46,11 +46,14 @@ const formatDate = (dateString: string, locale: string = "en"): string => {
         fr: "fr-FR",
     };
 
-    return new Date(dateString).toLocaleDateString(localeMap[locale] || "en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-    });
+    return new Date(dateString).toLocaleDateString(
+        localeMap[locale] || "en-US",
+        {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+        },
+    );
 };
 
 // Icon components
@@ -86,7 +89,12 @@ const EyeIcon = ({ className = "w-3 h-3" }: { className?: string }) => (
 );
 
 const ArrowRightIcon = ({ className = "w-3 h-3" }: { className?: string }) => (
-    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg
+        className={className}
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+    >
         <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -97,8 +105,22 @@ const ArrowRightIcon = ({ className = "w-3 h-3" }: { className?: string }) => (
 );
 
 // Featured Blog Card Component
-const FeaturedBlogCard: React.FC<{ blog: Blog; blogUrl: string; locale?: string }> = ({ blog, blogUrl, locale = "en" }) => (
+const FeaturedBlogCard: React.FC<{
+    blog: Blog;
+    blogUrl: string;
+    locale?: string;
+}> = ({ blog, blogUrl, locale = "en" }) => (
     <article className="group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-neutral-100 hover:border-accent-blue/30 hover:-translate-y-1">
+        {/* Laqta circle logo background */}
+        <div className="absolute inset-0 z-0 flex items-center justify-center opacity-5 pointer-events-none">
+            <img
+                src="/images/laqta_logo_courbe.svg"
+                alt=""
+                className="w-1/2 h-1/2 object-contain"
+                aria-hidden="true"
+            />
+        </div>
+
         {/* Hover Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-accent-blue/5 to-accent-purple/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
 
@@ -115,14 +137,17 @@ const FeaturedBlogCard: React.FC<{ blog: Blog; blogUrl: string; locale?: string 
                     placeholder="blur"
                     blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
                 />
-                
+
                 {/* Image Overlay Gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-                
+
                 {/* Category Badge */}
                 {blog.category && (
                     <div className="absolute top-6 left-6 z-20">
-                        <CategoryBadge color={blog.category.color} className="px-4 py-2 text-sm hover:scale-105 transition-transform duration-300">
+                        <CategoryBadge
+                            color={blog.category.color}
+                            className="px-4 py-2 text-sm hover:scale-105 transition-transform duration-300"
+                        >
                             {blog.category.name}
                         </CategoryBadge>
                     </div>
@@ -211,9 +236,23 @@ const FeaturedBlogCard: React.FC<{ blog: Blog; blogUrl: string; locale?: string 
 );
 
 // Grid Blog Card Component (for blog list page)
-const GridBlogCard: React.FC<{ blog: Blog; blogUrl: string; locale?: string }> = ({ blog, blogUrl, locale = "en" }) => (
+const GridBlogCard: React.FC<{
+    blog: Blog;
+    blogUrl: string;
+    locale?: string;
+}> = ({ blog, blogUrl, locale = "en" }) => (
     <Link href={blogUrl} locale={locale as any} className="block group">
-        <article className="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden h-full flex flex-col hover:-translate-y-1 border border-neutral-100 hover:border-accent-blue/30">
+        <article className="relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden h-full flex flex-col hover:-translate-y-1 border border-neutral-100 hover:border-accent-blue/30">
+            {/* Laqta circle logo background */}
+            <div className="absolute inset-0 z-0 flex items-center justify-center opacity-5 pointer-events-none">
+                <img
+                    src="/images/laqta_logo_courbe.svg"
+                    alt=""
+                    className="w-3/4 h-3/4 object-contain"
+                    aria-hidden="true"
+                />
+            </div>
+
             {/* Featured Image */}
             {blog.header_image && (
                 <div className="relative h-56 md:h-60 w-full overflow-hidden">
@@ -278,18 +317,40 @@ const GridBlogCard: React.FC<{ blog: Blog; blogUrl: string; locale?: string }> =
 );
 
 // Grid Blog Card with Logo Background
-const GridBlogCardWithLogo: React.FC<{ blog: Blog; blogUrl: string; locale?: string }> = ({ blog, blogUrl, locale = "en" }) => (
+const GridBlogCardWithLogo: React.FC<{
+    blog: Blog;
+    blogUrl: string;
+    locale?: string;
+}> = ({ blog, blogUrl, locale = "en" }) => (
     <Link href={blogUrl} locale={locale as any} className="block group">
-        <article className="relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden h-full flex flex-col hover:-translate-y-1 border border-neutral-100 hover:border-accent-blue/30">
+        <article
+            className="relative bg-white rounded-2xl
+        shadow-lg hover:shadow-2xl transition-all duration-300
+        overflow-hidden h-full flex flex-col hover:-translate-y-1 border
+        border-neutral-100 hover:border-accent-blue/30"
+        >
+            {/* Laqta circle logo background */}
+            <div className="absolute inset-0 z-1 flex items-center justify-center">
+                <img
+                    src="/images/laqta_01.svg"
+                    alt=""
+                    className="p-4 -mb-12 opacity-60 object-contain"
+                    aria-hidden="true"
+                />
+            </div>
+
             {/* Content with Padding */}
-            <div className="card-p-sm flex flex-col h-full">
+            <div className="p-4 flex flex-col h-full">
                 {/* Featured Image with relative positioning for logo */}
                 <div className="relative mb-4">
                     {blog.header_image && (
-                        <div className="relative h-56 md:h-64 w-full overflow-hidden rounded-2xl">
+                        <div className="relative w-full aspect-video overflow-hidden rounded-xl">
                             <Image
                                 src={utils.getFileUrl(blog.header_image.url)}
-                                alt={blog.header_image.alternativeText || blog.title}
+                                alt={
+                                    blog.header_image.alternativeText ||
+                                    blog.title
+                                }
                                 fill
                                 className="object-cover group-hover:scale-105 transition-transform duration-500"
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -361,14 +422,32 @@ const GridBlogCardWithLogo: React.FC<{ blog: Blog; blogUrl: string; locale?: str
 );
 
 // Default Blog Card Component (keeping for backward compatibility)
-const DefaultBlogCard: React.FC<{ blog: Blog; blogUrl: string; locale?: string }> = ({ blog, blogUrl, locale = "en" }) => (
+const DefaultBlogCard: React.FC<{
+    blog: Blog;
+    blogUrl: string;
+    locale?: string;
+}> = ({ blog, blogUrl, locale = "en" }) => (
     <GridBlogCard blog={blog} blogUrl={blogUrl} locale={locale} />
 );
 
 // Horizontal Blog Card Component (for "You Might Also Like" section)
-const HorizontalBlogCard: React.FC<{ blog: Blog; blogUrl: string; locale?: string }> = ({ blog, blogUrl, locale = "en" }) => (
+const HorizontalBlogCard: React.FC<{
+    blog: Blog;
+    blogUrl: string;
+    locale?: string;
+}> = ({ blog, blogUrl, locale = "en" }) => (
     <Link href={blogUrl} locale={locale as any} className="block group">
-        <article className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden flex h-full hover:-translate-y-0.5 border border-neutral-100 hover:border-accent-blue/30">
+        <article className="relative bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden flex h-full hover:-translate-y-0.5 border border-neutral-100 hover:border-accent-blue/30">
+            {/* Laqta circle logo background */}
+            <div className="absolute inset-0 z-0 flex items-center justify-center opacity-5 pointer-events-none">
+                <img
+                    src="/images/laqta_logo_courbe.svg"
+                    alt=""
+                    className="w-1/2 h-full object-contain"
+                    aria-hidden="true"
+                />
+            </div>
+
             {/* Featured Image */}
             {blog.header_image && (
                 <div className="relative w-40 md:w-48 flex-shrink-0 overflow-hidden">
@@ -426,11 +505,13 @@ export const BlogCard: React.FC<BlogCardProps> = ({
     blog,
     variant = "default",
     className = "",
-    locale = "en"
+    locale = "en",
 }) => {
     // Check if slug exists, if not skip rendering
     if (!blog.slug) {
-        console.warn(`Blog "${blog.title}" (ID: ${blog.id}) is missing slug for locale "${locale}". Please run database migration.`);
+        console.warn(
+            `Blog "${blog.title}" (ID: ${blog.id}) is missing slug for locale "${locale}". Please run database migration.`,
+        );
         return null;
     }
 
@@ -441,23 +522,43 @@ export const BlogCard: React.FC<BlogCardProps> = ({
     const renderCard = () => {
         switch (variant) {
             case "featured":
-                return <FeaturedBlogCard blog={blog} blogUrl={blogUrl} locale={locale} />;
+                return (
+                    <FeaturedBlogCard
+                        blog={blog}
+                        blogUrl={blogUrl}
+                        locale={locale}
+                    />
+                );
             case "horizontal":
-                return <HorizontalBlogCard blog={blog} blogUrl={blogUrl} locale={locale} />;
+                return (
+                    <HorizontalBlogCard
+                        blog={blog}
+                        blogUrl={blogUrl}
+                        locale={locale}
+                    />
+                );
             case "grid":
-                return <GridBlogCard blog={blog} blogUrl={blogUrl} locale={locale} />;
+                return (
+                    <GridBlogCard
+                        blog={blog}
+                        blogUrl={blogUrl}
+                        locale={locale}
+                    />
+                );
             case "grid-with-logo":
-                return <GridBlogCardWithLogo blog={blog} blogUrl={blogUrl} locale={locale} />;
-            default:
-                return <DefaultBlogCard blog={blog} blogUrl={blogUrl} locale={locale} />;
+                return (
+                    <GridBlogCardWithLogo
+                        blog={blog}
+                        blogUrl={blogUrl}
+                        locale={locale}
+                    />
+                );
+            // default:
+            //     return <DefaultBlogCard blog={blog} blogUrl={blogUrl} locale={locale} />;
         }
     };
 
-    return (
-        <div className={className}>
-            {renderCard()}
-        </div>
-    );
+    return <div className={className}>{renderCard()}</div>;
 };
 
 export default BlogCard;

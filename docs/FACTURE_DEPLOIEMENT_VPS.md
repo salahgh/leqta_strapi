@@ -1,16 +1,15 @@
 # FACTURE - Déploiement et Configuration Serveur VPS
 
-**Numéro de Facture:** FACT-LAQTA-2025-001
+**Numéro de Facture:** FACT-2025-001
 **Date:** Décembre 2025
-**Projet:** Plateforme Laqta & Migration WordPress Shohraty
+**Serveur:** VPS Ubuntu avec HestiaCP (server2.leqta.com - 197.140.18.185)
 
 ---
 
 ## Informations Client
 
-**Client:** Laqta Creative Agency
-**Projet:** Déploiement Full-Stack (Next.js + Strapi CMS + WordPress)
-**Serveur:** VPS Ubuntu avec HestiaCP (server2.leqta.com - 197.140.18.185)
+**Client:** [Nom du Client]
+**Projets:** Laqta Creative Agency + Shohraty + Infrastructure VPS
 
 ---
 
@@ -22,105 +21,123 @@
 
 ---
 
-## Services Rendus
+# SECTION A : Projet Laqta (leqta.com)
+
+*Site web marketing multilingue avec CMS headless*
 
 | # | Service | Description | Heures |
 |---|---------|-------------|--------|
-| 1 | **Configuration Initiale VPS** | Mises à jour système, installation Node.js 20.x, outils de compilation, configuration Git | 2 |
-| 2 | **Configuration HestiaCP** | Installation panneau de contrôle, gestion utilisateurs, sécurisation du panneau | 2 |
-| 3 | **Configuration Base de Données MariaDB** | Configuration serveur de base de données, création utilisateurs, permissions, accès phpMyAdmin | 1.5 |
-| 4 | **Déploiement Strapi CMS** | Installation backend, configuration environnement, build production, configuration PM2 | 3 |
-| 5 | **Déploiement Frontend Next.js** | Installation frontend, configuration environnement, build production, configuration PM2 | 2.5 |
-| 6 | **Configuration Proxy Inverse Nginx** | Configuration proxy pour les deux applications, support WebSocket, règles de cache | 2 |
-| 7 | **Configuration SSL/HTTPS** | Certificats Let's Encrypt, renouvellement automatique, redirection HTTP vers HTTPS | 1.5 |
-| 8 | **Configuration Serveur FTP** | Installation vsftpd, configuration chroot jail, configuration multi-utilisateurs avec accès isolé | 3 |
-| 9 | **Configuration Serveur Mail (leqta.com)** | Configuration Exim4 + Dovecot, enregistrements DNS (MX, SPF, DMARC), configuration webmail | 3 |
-| 10 | **Renforcement Sécurité** | Règles pare-feu (UFW/iptables), sécurisation SSH, fail2ban, permissions utilisateurs | 2 |
-| 11 | **Gestion Processus PM2** | Configuration auto-restart, scripts de démarrage, configuration monitoring | 1 |
-| 12 | **Système Mode Maintenance** | Système bypass par cookie, page maintenance, intégration Nginx | 1.5 |
-| 13 | **Scripts de Déploiement** | Scripts de déploiement automatisé (deploy.sh, setup.sh), scripts de sauvegarde | 2 |
-| 14 | **Résolution Problèmes SSL** | Correction erreur SSL Dovecot, réparation configuration OpenSSL, vérification chaîne certificats | 1.5 |
-| 15 | **Migration WordPress (shohraty.dz)** | Migration site WordPress complet, configuration base de données, restauration fichiers | 3 |
-| 16 | **Configuration Mail (shohraty.dz)** | Serveur mail avec SSL, enregistrements DNS, certificats Let's Encrypt | 2 |
-| 17 | **Interface Bureau à Distance** | Installation environnement XFCE, configuration serveur RDP (xrdp), accès distant Windows | 2 |
-| 18 | **Configuration Pare-feu Ecosnet** | Configuration règles pare-feu dans tableau de bord Ecosnet, ouverture ports requis | 1.5 |
-| 19 | **Documentation** | Guides complets pour déploiement, configuration serveur, dépannage | 4 |
-| 20 | **Tests et Vérification** | Tests bout-en-bout, vérifications santé, vérification performances | 2 |
+| A1 | **Déploiement Strapi CMS** | Installation backend, configuration environnement production, build admin panel, intégration Supabase Storage | 3 |
+| A2 | **Déploiement Frontend Next.js** | Installation frontend Next.js 15, configuration i18n (EN/AR/FR), build production | 2.5 |
+| A3 | **Configuration PM2** | Configuration gestionnaire processus, auto-restart, monitoring, logs | 1 |
+| A4 | **Configuration Nginx (Laqta)** | Proxy inverse pour Next.js et Strapi API, support WebSocket, cache statique | 2 |
+| A5 | **Base de Données Laqta** | Création base MariaDB `laqta_strapi`, utilisateur avec permissions | 1 |
+| A6 | **Certificats SSL Laqta** | Let's Encrypt pour leqta.com, api.leqta.com, www.leqta.com | 1 |
+| A7 | **Serveur Mail Laqta** | Configuration Exim4/Dovecot, SSL, DNS (MX, SPF, DMARC, DKIM) | 2.5 |
+| A8 | **Webmail Laqta** | Configuration webmail.leqta.com avec Roundcube | 0.5 |
+| A9 | **Mode Maintenance** | Système bypass par cookie, page maintenance, intégration Nginx | 1.5 |
+| A10 | **Scripts Déploiement** | Scripts automatisés deploy.sh, setup.sh pour mises à jour | 2 |
+| A11 | **Documentation Laqta** | Guides déploiement, configuration, dépannage | 2 |
 
----
-
-## Résumé
+### Sous-total Section A
 
 | Élément | Valeur |
 |---------|--------|
-| **Total Heures** | 42 |
-| **Taux Horaire** | _____ DA / € |
-| **Sous-total** | _____ DA / € |
-| **TVA (si applicable)** | _____ DA / € |
-| **Total à Payer** | _____ DA / € |
+| **Heures Laqta** | 19 |
+| **Taux Horaire** | _____ DA/€ |
+| **Sous-total A** | _____ DA/€ |
 
 ---
 
-## Livrables Complétés
+# SECTION B : Projet Shohraty (shohraty.dz)
 
-### Infrastructure
-- Serveur VPS Ubuntu prêt pour la production
-- Panneau de contrôle HestiaCP configuré
-- Serveur base de données MariaDB avec phpMyAdmin
-- Serveur web Nginx avec proxy inverse
-- Certificats SSL (renouvellement automatique)
-- Interface bureau à distance (XFCE via RDP)
+*Migration et hébergement site WordPress*
 
-### Applications Déployées
-- Strapi CMS v5 (API Backend sur port 1337)
-- Frontend Next.js 15 (sur port 3000/3001)
-- WordPress (shohraty.dz)
-- Les deux gérés par PM2 avec auto-restart
+| # | Service | Description | Heures |
+|---|---------|-------------|--------|
+| B1 | **Migration WordPress** | Transfert fichiers (thèmes, plugins, uploads), restauration contenu | 2 |
+| B2 | **Migration Base de Données** | Export/import base MySQL, mise à jour URLs, vérification intégrité | 1.5 |
+| B3 | **Configuration wp-config.php** | Paramètres connexion BDD, clés sécurité, configuration URLs | 0.5 |
+| B4 | **Configuration Nginx WordPress** | Règles réécriture permaliens, cache statique, sécurité fichiers | 1 |
+| B5 | **Certificats SSL Shohraty** | Let's Encrypt pour shohraty.dz, www.shohraty.dz | 0.5 |
+| B6 | **Serveur Mail Shohraty** | Configuration Exim4/Dovecot avec SSL pour mail.shohraty.dz | 2 |
+| B7 | **DNS Mail Shohraty** | Configuration enregistrements MX, SPF, DMARC, DKIM | 1 |
+| B8 | **Tests Post-Migration** | Vérification pages, liens, images, formulaires, plugins | 1 |
 
-### Services Additionnels
-- Serveur FTP avec 3 comptes utilisateurs (accès isolé)
-- Serveur mail pour leqta.com (SMTP/IMAP/POP3 avec SSL)
-- Serveur mail pour shohraty.dz (SMTP/IMAP/POP3 avec SSL)
-- Pipeline de déploiement automatisé
-- Système de mode maintenance
-- Pare-feu Ecosnet configuré
+### Sous-total Section B
 
-### Documentation
-- 14+ fichiers de documentation complets
-- Guides de configuration serveur
-- Guides de dépannage
-- Scripts d'automatisation de déploiement
+| Élément | Valeur |
+|---------|--------|
+| **Heures Shohraty** | 9.5 |
+| **Taux Horaire** | _____ DA/€ |
+| **Sous-total B** | _____ DA/€ |
 
 ---
 
-## Domaines Configurés
+# SECTION C : Infrastructure VPS Générale
 
-| Domaine | Services | SSL |
-|---------|----------|-----|
-| leqta.com | Site web (Next.js) | Oui |
-| api.leqta.com | API Strapi | Oui |
-| mail.leqta.com | Serveur mail | Oui |
-| webmail.leqta.com | Webmail | Oui |
-| shohraty.dz | Site WordPress | Oui |
-| mail.shohraty.dz | Serveur mail | Oui |
+*Configuration serveur et services partagés*
+
+| # | Service | Description | Heures |
+|---|---------|-------------|--------|
+| C1 | **Configuration Initiale VPS** | Mises à jour système, installation Node.js 20.x, Git, outils compilation | 2 |
+| C2 | **Installation HestiaCP** | Panneau de contrôle, gestion utilisateurs, configuration initiale | 2 |
+| C3 | **Configuration MariaDB** | Installation serveur BDD, sécurisation, phpMyAdmin | 1.5 |
+| C4 | **Serveur FTP (vsftpd)** | Installation, 3 comptes utilisateurs, chroot jail, isolation accès | 3 |
+| C5 | **Bureau à Distance** | Installation XFCE, configuration xrdp, accès RDP port 3389 | 2 |
+| C6 | **Pare-feu Ecosnet** | Configuration ports dans tableau de bord fournisseur VPS | 1.5 |
+| C7 | **Pare-feu Local (UFW)** | Configuration règles iptables/UFW via HestiaCP | 1 |
+| C8 | **Sécurisation Serveur** | Hardening SSH, fail2ban, permissions, bonnes pratiques | 1.5 |
+| C9 | **Résolution Problèmes SSL** | Correction erreur Dovecot SSL, réparation OpenSSL config | 1.5 |
+| C10 | **Documentation VPS** | Guides configuration serveur, procès-verbal, références | 2 |
+| C11 | **Tests et Vérification** | Tests bout-en-bout, health checks, validation déploiement | 1.5 |
+
+### Sous-total Section C
+
+| Élément | Valeur |
+|---------|--------|
+| **Heures VPS** | 19.5 |
+| **Taux Horaire** | _____ DA/€ |
+| **Sous-total C** | _____ DA/€ |
 
 ---
 
-## Documentation Livrée
+# RÉCAPITULATIF GÉNÉRAL
 
-| Document | Objectif |
-|----------|----------|
-| DEPLOYMENT.md | Guide complet de déploiement VPS |
-| VPS_DEPLOYMENT_GUIDE.md | Étapes détaillées déploiement Linux |
-| SERVER_DEPLOYMENT.md | Déploiement serveur rapide |
-| NGINX_CONFIG.md | Configuration Nginx HTTPS |
-| FTP_SERVER_GUIDE.md | Guide utilisation serveur FTP |
-| HESTIACP_SSL_FIX.md | Guide dépannage SSL |
-| HESTIACP_PHPMYADMIN.md | Configuration phpMyAdmin |
-| HESTIACP_MAIL_LOGS.md | Référence logs serveur mail |
-| PV_VPS_CONFIGURATION.md | Procès-verbal configuration serveur |
-| MAINTENANCE_MODE_SETUP.md | Implémentation mode maintenance |
-| wordpress-installation-guide.md | Guide installation WordPress |
+| Section | Description | Heures | Montant |
+|---------|-------------|--------|---------|
+| **A** | Projet Laqta (leqta.com) | 19 | _____ DA/€ |
+| **B** | Projet Shohraty (shohraty.dz) | 9.5 | _____ DA/€ |
+| **C** | Infrastructure VPS Générale | 19.5 | _____ DA/€ |
+| | | | |
+| | **TOTAL HEURES** | **48** | |
+| | **TOTAL HT** | | _____ DA/€ |
+| | **TVA (19%)** | | _____ DA/€ |
+| | **TOTAL TTC** | | _____ DA/€ |
+
+---
+
+## Livrables par Projet
+
+### Projet Laqta
+- Site Next.js 15 multilingue (EN/AR/FR)
+- API Strapi CMS v5 avec panneau admin
+- Serveur mail leqta.com avec SSL
+- Scripts déploiement automatisé
+- Mode maintenance avec bypass
+
+### Projet Shohraty
+- Site WordPress migré et fonctionnel
+- Base de données restaurée
+- Serveur mail shohraty.dz avec SSL
+- Certificats SSL actifs
+
+### Infrastructure VPS
+- Serveur Ubuntu configuré avec HestiaCP
+- Serveur FTP avec 3 comptes isolés
+- Bureau à distance (XFCE/RDP)
+- Pare-feu double couche (Ecosnet + local)
+- Documentation complète
 
 ---
 
@@ -132,30 +149,16 @@
 
 ---
 
-## Notes
-
-1. Tous les identifiants serveur ont été partagés de manière sécurisée via [méthode]
-2. Accès au panneau HestiaCP: https://server2.leqta.com:8083
-3. Support inclus pendant 30 jours après déploiement pour les problèmes liés au déploiement
-4. Travaux supplémentaires ou modifications seront facturés séparément
-
----
-
 ## Coordonnées Bancaires
 
 **Banque:** [Nom de Votre Banque]
-**Titulaire du Compte:** [Votre Nom]
+**Titulaire:** [Votre Nom]
 **RIB:** [Votre RIB]
-**Numéro de Compte:** [Votre Numéro]
 
-Ou
-
-**CCP:** [Votre Numéro CCP]
+Ou **CCP:** [Votre Numéro CCP]
 
 ---
 
 **Merci pour votre confiance !**
 
----
-
-*Cette facture a été générée le 15 Décembre 2025*
+*Facture générée le 15 Décembre 2025*

@@ -10,6 +10,27 @@
 @tailwind utilities;
 
 /* =============================================================================
+   ARABIC FONTS
+   ============================================================================= */
+
+/* RH-ZAK Font - for Arabic body text */
+@font-face {
+    font-family: 'RH-ZAK';
+    src: url('/fonts/RH-ZAK.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'RH-ZAK';
+    src: url('/fonts/RH-ZAK-Bold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* =============================================================================
    CSS CUSTOM PROPERTIES (Design Tokens)
    ============================================================================= */
 
@@ -19,7 +40,7 @@
     /*--gradient-hero-fade: "bg-amber-200";*/
     --gradient-contact-outer: linear-gradient(358deg, rgba(0,0,0,0.8) 0%, rgba(255,255,255,0.2) 100%);
     --gradient-contact-inner: linear-gradient(180deg, rgba(29,34,53,1) 0%, rgba(18,19,24,1) 100%);
-    --gradient-service-overlay: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 40%, transparent 100%);
+    --gradient-service-overlay: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 25%, transparent 100%);
     --gradient-blog-hero: linear-gradient(135deg, #1e293b 0%, #1e3a8a 50%, #1e293b 100%);
     --gradient-text-blue: linear-gradient(to right, #1370AD, #ABDEFF);
 
@@ -70,6 +91,37 @@ html {
 
     p {
         @apply text-responsive-md;
+    }
+
+    /* Arabic (RTL) Typography */
+    /* Default: RH-ZAK for body/content text */
+    [dir="rtl"] {
+        font-family: 'RH-ZAK', 'Alexandria', system-ui, sans-serif;
+    }
+
+    /* Titles: Alexandria font */
+    [dir="rtl"] h1,
+    [dir="rtl"] h2,
+    [dir="rtl"] h3,
+    [dir="rtl"] h4,
+    [dir="rtl"] h5,
+    [dir="rtl"] h6,
+    [dir="rtl"] .font-arabic-title {
+        font-family: 'Alexandria', system-ui, sans-serif !important;
+    }
+
+    /* Content: RH-ZAK font */
+    [dir="rtl"] p,
+    [dir="rtl"] span,
+    [dir="rtl"] li,
+    [dir="rtl"] a,
+    [dir="rtl"] label,
+    [dir="rtl"] input,
+    [dir="rtl"] textarea,
+    [dir="rtl"] button,
+    [dir="rtl"] blockquote,
+    [dir="rtl"] .font-arabic-body {
+        font-family: 'RH-ZAK', 'Alexandria', system-ui, sans-serif;
     }
 }
 

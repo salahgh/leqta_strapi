@@ -157,7 +157,7 @@ export const servicesApi = {
         return fetchApi<ApiResponse<Service>>(endpoint, {}, params?.locale);
     },
 
-    // Get service by slug
+    // Get service by slug using filter approach (more reliable)
     async getBySlug(
         slug: string,
         params?: {
@@ -166,12 +166,20 @@ export const servicesApi = {
         },
     ): Promise<ApiResponse<Service>> {
         const searchParams = new URLSearchParams();
+        searchParams.set("filters[slug][$eq]", slug);
         if (params?.populate) searchParams.set("populate", params.populate);
 
         const query = searchParams.toString();
-        const endpoint = `/services/slug/${slug}${query ? `?${query}` : ""}`;
+        const endpoint = `/services?${query}`;
 
-        return fetchApi<ApiResponse<Service>>(endpoint, {}, params?.locale);
+        // This returns an array, we need to get the first item
+        const response = await fetchApi<ApiResponse<Service[]>>(endpoint, {}, params?.locale);
+
+        if (!response.data || response.data.length === 0) {
+            throw new Error("Service not found");
+        }
+
+        return { data: response.data[0], meta: response.meta };
     },
 
     // Update getFeatured method
@@ -299,7 +307,7 @@ export const worksApi = {
         return fetchApi<ApiResponse<Work>>(endpoint, {}, params?.locale);
     },
 
-    // Get project by slug
+    // Get project by slug using filter approach (more reliable)
     async getBySlug(
         slug: string,
         params?: {
@@ -308,12 +316,20 @@ export const worksApi = {
         },
     ): Promise<ApiResponse<Work>> {
         const searchParams = new URLSearchParams();
+        searchParams.set("filters[slug][$eq]", slug);
         if (params?.populate) searchParams.set("populate", params.populate);
 
         const query = searchParams.toString();
-        const endpoint = `/projects/slug/${slug}${query ? `?${query}` : ""}`;
+        const endpoint = `/projects?${query}`;
 
-        return fetchApi<ApiResponse<Work>>(endpoint, {}, params?.locale);
+        // This returns an array, we need to get the first item
+        const response = await fetchApi<ApiResponse<Work[]>>(endpoint, {}, params?.locale);
+
+        if (!response.data || response.data.length === 0) {
+            throw new Error("Project not found");
+        }
+
+        return { data: response.data[0], meta: response.meta };
     },
 
     async getFeatured(params?: {

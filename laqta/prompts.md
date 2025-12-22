@@ -1,0 +1,4 @@
+- after your update the chips of the sevices card are no longer moving horizontally
+- seed 9 other services
+- in this page http://localhost:3000/en/services the service card click will navigate to http://localhost:3000/en/services/:slug
+- http://localhost:3000/en/works will navigate to http://localhost:3000/en/works/:slug 

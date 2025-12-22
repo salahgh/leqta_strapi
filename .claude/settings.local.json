@@ -18,7 +18,9 @@
       "Bash(if exist .next rmdir /s /q .next)",
       "Bash(findstr:*)",
       "Bash(cat:*)",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(npm run develop:*)",
+      "Bash(ping:*)"
     ],
     "deny": [],
     "ask": []

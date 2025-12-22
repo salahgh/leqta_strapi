@@ -60,7 +60,10 @@ const TagsMarquee = ({ tags }: { tags: string[] }) => {
 
     return (
         <div className="relative overflow-hidden w-full">
-            <div className="flex animate-marquee">
+            <div
+                className="flex animate-marquee"
+                style={{ width: "max-content" }}
+            >
                 {duplicatedTags.map((tag, index) => (
                     <span
                         key={index}

@@ -31,7 +31,12 @@
   "services": {
     "badge": "Nos Services",
     "title": "Ce que nous faisons",
-    "description": "Nous offrons des solutions numériques complètes pour aider votre entreprise à croître"
+    "description": "Nous offrons des solutions numériques complètes pour aider votre entreprise à croître",
+    "buttonText": "Découvrez nos services",
+    "backToServices": "Retour aux Services",
+    "interestedInService": "Intéressé par ce service ?",
+    "contactUsDescription": "Discutons de la façon dont nous pouvons vous aider à concrétiser votre vision. Notre équipe est prête à créer quelque chose d'incroyable ensemble.",
+    "getStarted": "Commencer"
   },
   "servicesPage": {
     "header": {

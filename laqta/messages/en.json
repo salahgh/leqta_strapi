@@ -31,7 +31,12 @@
   "services": {
     "badge": "Our Services",
     "title": "What We Do",
-    "description": "At LAQTA, we deliver video content that performs. Whether you're launching a campaign, telling your brand story, or creating cinematic visuals we’ve got you covered."
+    "description": "At LAQTA, we deliver video content that performs. Whether you're launching a campaign, telling your brand story, or creating cinematic visuals we've got you covered.",
+    "buttonText": "Discover our services",
+    "backToServices": "Back to Services",
+    "interestedInService": "Interested in this service?",
+    "contactUsDescription": "Let's discuss how we can help bring your vision to life. Our team is ready to create something amazing together.",
+    "getStarted": "Get Started"
   },
   "servicesPage": {
     "header": {

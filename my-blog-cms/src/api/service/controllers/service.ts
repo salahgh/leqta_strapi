@@ -42,18 +42,19 @@ export default factories.createCoreController('api::service.service', ({ strapi 
     return this.transformResponse(sanitizedEntity);
   },
 
-  // Get published service by slug
+  // Get published service by slug with i18n support
   async findBySlug(ctx) {
     const { slug } = ctx.params;
     const { query } = ctx;
+    const locale = query.locale || 'en';
 
     const entity = await strapi.entityService.findMany('api::service.service', {
-      ...query,
       filters: {
         slug: slug,
         publishedAt: { $notNull: true }
       },
-      populate: '*', // Populate all relations including featured_image
+      populate: query.populate || '*',
+      locale: locale,
     });
 
     if (!entity || entity.length === 0) {

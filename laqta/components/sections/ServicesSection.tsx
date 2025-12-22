@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Service, servicesApi, utils } from "@/lib/strapi";
 import { getTranslations } from "next-intl/server";
 import { ErrorFallback } from "@/components/ui/ErrorFallback";
+import { Link } from "@/src/i18n/navigation";
 
 // Types
 interface ServicesSectionProps {
@@ -23,16 +24,19 @@ interface ServicesSectionProps {
 }
 
 // Server-side function to fetch services with revalidation and locale support
+// Homepage only shows 3 featured services
 async function getServices(
     locale: string,
 ): Promise<{ data: Service[]; error?: string }> {
     try {
         const response = await servicesApi.getAll({
             populate: "*", // Populate all relations including featured_image and icon_image
-            pageSize: 10,
+            pageSize: 6, // Fetch a few more to filter by slug
             locale: locale,
         });
-        return { data: response.data };
+        // Filter to only services with slugs and limit to 3 for homepage
+        const servicesWithSlugs = response.data.filter(service => service.slug);
+        return { data: servicesWithSlugs.slice(0, 3) };
     } catch (error) {
         console.error("Error fetching services:", error);
         return {
@@ -97,7 +101,7 @@ export default async function ServicesSection({
     // Use translations as fallback values
     const finalBadge = badge || t("badge");
     const finalDescription = description || t("description");
-    const finalButtonText = buttonText || "Go to services";
+    const finalButtonText = buttonText || t("buttonText");
 
     const { data: strapiServices, error: servicesError } =
         await getServices(locale);
@@ -193,16 +197,18 @@ export default async function ServicesSection({
                     className="text-center flex items-center justify-center section-py-lg animate-fade-in"
                     style={{ opacity: 0, animationDelay: "600ms" }}
                 >
-                    <Button
-                        variant="primary"
-                        size="lg"
-                        leftIcon={null}
-                        rightIcon={
-                            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                        }
-                    >
-                        {finalButtonText}
-                    </Button>
+                    <Link href="/services">
+                        <Button
+                            variant="primary"
+                            size="lg"
+                            leftIcon={null}
+                            rightIcon={
+                                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                            }
+                        >
+                            {finalButtonText}
+                        </Button>
+                    </Link>
                 </div>
             </div>
         </section>

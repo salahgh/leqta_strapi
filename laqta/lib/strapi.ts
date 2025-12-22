@@ -692,20 +692,12 @@ export interface Newsletter {
     updatedAt: string;
 }
 
-// Social Media interface
+// Social Media interface (from site-setting component)
 export interface SocialMedia {
     id: number;
-    documentId?: string;
     platform: string;
     url: string;
-    icon?: string;
-    order: number;
-    isActive: boolean;
-    ariaLabel?: string;
-    backgroundColor?: string;
-    createdAt: string;
-    updatedAt: string;
-    publishedAt: string;
+    label?: string;
 }
 
 // Updated Blogs API
@@ -985,36 +977,24 @@ export const newsletterApi = {
     },
 };
 
-// Social Media API
+// Social Media API (fetches from site-setting single type)
 export const socialMediaApi = {
     async getAll(params?: {
-        page?: number;
-        pageSize?: number;
         sort?: string;
         locale?: string;
-    }): Promise<ApiResponse<SocialMedia[]>> {
-        const searchParams = new URLSearchParams();
+    }): Promise<{ data: SocialMedia[] }> {
+        const endpoint = `/site-setting?populate=social_links`;
 
-        if (params?.page)
-            searchParams.set("pagination[page]", params.page.toString());
-        if (params?.pageSize)
-            searchParams.set(
-                "pagination[pageSize]",
-                params.pageSize.toString(),
-            );
-        if (params?.sort) searchParams.set("sort", params.sort);
+        const response = await fetchApi<{
+            data: {
+                social_links: SocialMedia[];
+            };
+        }>(endpoint, {}, params?.locale);
 
-        // Filter for active social media links only
-        searchParams.set("filters[isActive][$eq]", "true");
-
-        const query = searchParams.toString();
-        const endpoint = `/social-medias${query ? `?${query}` : ""}`;
-
-        return fetchApi<ApiResponse<SocialMedia[]>>(
-            endpoint,
-            {},
-            params?.locale,
-        );
+        // Extract social_links from the site-setting response
+        return {
+            data: response.data?.social_links || [],
+        };
     },
 };
 

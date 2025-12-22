@@ -197,27 +197,38 @@ const Footer = async ({ locale }: FooterProps) => {
                     {/* Social Media Icons - Right aligned */}
                     <div className="flex space-x-3">
                         {socialMediaLinks.length > 0 ? (
-                            socialMediaLinks.map((social) => (
-                                <a
-                                    key={social.id}
-                                    href={social.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="social-icon-btn touch-target"
-                                    aria-label={
-                                        social.ariaLabel ||
-                                        `Visit our ${social.platform} page`
-                                    }
-                                >
-                                    {social.icon && (
+                            socialMediaLinks.map((social) => {
+                                // Map platform to icon file
+                                const iconMap: Record<string, string> = {
+                                    facebook: "/icons/facebook.svg",
+                                    twitter: "/icons/socialicon.svg",
+                                    instagram: "/icons/instagram.svg",
+                                    linkedin: "/icons/linkedIn.svg",
+                                    youtube: "/icons/youtube.svg",
+                                    tiktok: "/icons/tiktok.svg",
+                                    github: "/icons/github.svg",
+                                    whatsapp: "/icons/whatsapp.svg",
+                                    telegram: "/icons/telegram.svg",
+                                };
+                                const icon = iconMap[social.platform] || "/icons/link.svg";
+
+                                return (
+                                    <a
+                                        key={social.id}
+                                        href={social.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="social-icon-btn touch-target"
+                                        aria-label={social.label || `Visit our ${social.platform} page`}
+                                    >
                                         <img
-                                            src={social.icon}
+                                            src={icon}
                                             alt={social.platform}
                                             className="w-4 h-4"
                                         />
-                                    )}
-                                </a>
-                            ))
+                                    </a>
+                                );
+                            })
                         ) : (
                             <>
                                 <a

@@ -16,7 +16,9 @@
       "WebFetch(domain:arbfonts.com)",
       "Bash(curl:*)",
       "Bash(if exist .next rmdir /s /q .next)",
-      "Bash(findstr:*)"
+      "Bash(findstr:*)",
+      "Bash(cat:*)",
+      "Bash(wc:*)"
     ],
     "deny": [],
     "ask": []

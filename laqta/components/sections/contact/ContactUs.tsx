@@ -169,10 +169,10 @@ const ContactUs = () => {
             <div className="px-6 py-4 animate-slide-right" style={{ opacity: 0 }}>
                 <button
                     onClick={handleGoToMainPage}
-                    className="flex items-center space-x-2 px-4 py-2 border border-slate-600 rounded-full hover:bg-slate-700/30
+                    className="flex items-center gap-2 px-4 py-2 border border-slate-600 rounded-full hover:bg-slate-700/30
           transition-colors text-responsive-lg text-secondary-gray"
                 >
-                    <ArrowLeft className="w-4 h-4" />
+                    <ArrowLeft className="w-4 h-4 rtl:rotate-180" />
                     <span>{t("goBack")}</span>
                 </button>
             </div>

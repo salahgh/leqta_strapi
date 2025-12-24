@@ -150,9 +150,13 @@
     "contactDescription": "Whether you have a project in mind or a question about our services, we'd love to hear from you. Fill out the form and we'll get back to you within 24 hours.",
     "form": {
       "fullname": "Full name",
+      "fullnamePlaceholder": "Enter your full name",
       "email": "Email",
+      "emailPlaceholder": "Enter your email address",
       "phone": "Phone",
+      "phonePlaceholder": "05 0000 00 00",
       "message": "Message",
+      "messagePlaceholder": "Tell us more about what you're looking for...",
       "submit": "Send Message",
       "required": "required",
       "invalidEmail": "Invalid email address",
@@ -185,12 +189,16 @@
       "goBackToMainPage": "Go Back to Main Page"
     },
     "form": {
+      "personalInfoTitle": "Personal Information",
+      "personalInfoDescription": "Let's start with your basic contact information.",
       "fullName": "Full Name",
       "fullNamePlaceholder": "Enter your full name",
       "email": "Email",
       "emailPlaceholder": "Enter your email address",
       "phoneNumber": "Phone Number",
       "phoneNumberPlaceholder": "Enter your phone number",
+      "companyInfoTitle": "Company & Industry Information",
+      "companyInfoDescription": "Tell us about your company and role.",
       "industry": "Industry",
       "selectIndustry": "Select your industry",
       "otherIndustry": "Other Industry",
@@ -202,6 +210,7 @@
       "website": "Website",
       "websitePlaceholder": "https://yourwebsite.com",
       "socialMediaLinks": "Social Media Links",
+      "socialMediaDescription": "Connect your social media profiles (optional).",
       "facebook": "Facebook",
       "facebookPlaceholder": "https://facebook.com/yourpage",
       "instagram": "Instagram",
@@ -211,6 +220,7 @@
       "linkedin": "LinkedIn",
       "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
       "projectDetails": "Project Details",
+      "projectDetailsDescription": "Tell us about your project requirements",
       "projectDescription": "Project Description",
       "projectDescriptionPlaceholder": "Tell us about your project, goals, and requirements",
       "goals": "Project Goals",
@@ -302,6 +312,10 @@
   "footer": {
     "newsletter": "Newsletter",
     "newsletterDescription": "Keep up our latest update, subscribe to our newsletter",
+    "emailPlaceholder": "Enter your email address",
+    "subscribeNow": "Subscribe Now",
+    "subscribing": "Subscribing...",
+    "subscribed": "Subscribed!",
     "company": "Company",
     "aboutUs": "About us",
     "ourServices": "Our services",
@@ -314,5 +328,50 @@
     "termsCondition": "Terms & Condition",
     "privacyPolicy": "Privacy Policy",
     "copyright": "Copyright © 2025 LEQTA. All Rights Reserved"
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "description": "At LAQTA, your privacy matters. This Privacy Policy explains how we collect, use, and protect your personal information when you visit our website or contact us.",
+    "sections": {
+      "informationCollect": {
+        "title": "Information We Collect",
+        "intro": "We may collect the following types of information:",
+        "personalInfo": "Personal Information:",
+        "personalInfoDesc": "such as your name, email address, phone number, and any other information you provide through our contact forms.",
+        "usageData": "Usage Data:",
+        "usageDataDesc": "including your IP address, browser type, device information, and pages visited, collected through cookies and analytics tools."
+      },
+      "howWeUse": {
+        "title": "How We Use Your Information",
+        "content": "We use the information we collect to provide and improve our services, communicate with you, and ensure the security of our platform. This includes responding to your inquiries, sending updates about our services, and analyzing usage patterns to enhance user experience."
+      },
+      "dataProtection": {
+        "title": "How We Protect Your Data",
+        "content": "We take appropriate security measures to protect your personal information from unauthorized access, disclosure, alteration, or destruction."
+      },
+      "sharing": {
+        "title": "Sharing of Information",
+        "content": "We do not sell, trade, or rent your personal information. We may share information with trusted service providers who help us operate the website — but only when necessary and under strict confidentiality agreements."
+      },
+      "cookies": {
+        "title": "Cookies",
+        "content": "We use cookies to understand website traffic and improve your experience. You can control or disable cookies through your browser settings."
+      },
+      "rights": {
+        "title": "Your Rights",
+        "intro": "You have the right to:",
+        "access": "Access the personal data we hold about you",
+        "corrections": "Request corrections or deletion",
+        "withdraw": "Withdraw consent at any time"
+      },
+      "thirdParty": {
+        "title": "Third-Party Links",
+        "content": "Our website may contain links to other sites. We are not responsible for their content or privacy practices."
+      },
+      "changes": {
+        "title": "Changes to This Policy",
+        "content": "We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date."
+      }
+    }
   }
 }

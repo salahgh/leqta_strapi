@@ -65,8 +65,8 @@ const CompanyInfoStep = ({ initialValues, onSubmit }: { initialValues?: Partial<
     return (
         <div>
             <div className="mb-6">
-                <h2 className="text-display-xs font-bold text-white mb-2">Company & Industry Information</h2>
-                <p className="text-secondary-gray">Tell us about your company and role.</p>
+                <h2 className="text-display-xs font-bold text-white mb-2">{t('companyInfoTitle')}</h2>
+                <p className="text-secondary-gray">{t('companyInfoDescription')}</p>
             </div>
 
             <form onSubmit={formik.handleSubmit} className="form-group" id="step-2-form">

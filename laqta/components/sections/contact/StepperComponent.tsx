@@ -65,7 +65,7 @@ export const StepperComponent: React.FC<StepperComponentProps> = ({ currentStep 
         <div className="w-full max-w-md mx-auto px-4 py-6">
             <div className="relative">
                 {/* Vertical Progress Line */}
-                <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-slate-700">
+                <div className="absolute start-6 top-0 bottom-0 w-0.5 bg-slate-700">
                     <div
                         className="w-full bg-gradient-to-b from-blue-500 to-blue-400 transition-all duration-700 ease-in-out"
                         style={{
@@ -104,13 +104,13 @@ export const StepperComponent: React.FC<StepperComponentProps> = ({ currentStep 
                                 </div>
 
                                 {/* Step Content */}
-                                <div className="ml-4 flex-1 min-w-0">
+                                <div className="ms-4 flex-1 min-w-0">
                                     <div
                                         className={`
                                             transition-all duration-300 ease-in-out
                                             ${
                                                 step.active
-                                                    ? "transform translate-x-1"
+                                                    ? "transform rtl:-translate-x-1 ltr:translate-x-1"
                                                     : ""
                                             }
                                         `}

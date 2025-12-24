@@ -37,42 +37,42 @@ const SocialMediaStep = ({ initialValues, onSubmit }: { initialValues?: Partial<
     return (
         <div>
             <div className="mb-6">
-                <h2 className="text-display-xs font-bold text-white mb-2">Social Media Links</h2>
-                <p className="text-secondary-gray">Connect your social media profiles (optional).</p>
+                <h2 className="text-display-xs font-bold text-white mb-2">{t("socialMediaLinks")}</h2>
+                <p className="text-secondary-gray">{t("socialMediaDescription")}</p>
             </div>
 
             <form onSubmit={formik.handleSubmit} className="form-group" id="step-3-form">
                 <FormInput
-                    label="Facebook"
+                    label={t("facebook")}
                     {...useFormInput<SocialMediaStepValues>("facebook", formik)}
-                    placeholder="https://facebook.com/yourpage"
+                    placeholder={t("facebookPlaceholder")}
                     size="sm"
                     type="url"
                     className="bg-form-bg text-form-text"
                 />
 
                 <FormInput
-                    label="Instagram"
+                    label={t("instagram")}
                     {...useFormInput<SocialMediaStepValues>("instagram", formik)}
-                    placeholder="https://instagram.com/yourpage"
+                    placeholder={t("instagramPlaceholder")}
                     size="sm"
                     type="url"
                     className="bg-form-bg text-form-text"
                 />
 
                 <FormInput
-                    label="TikTok"
+                    label={t("tiktok")}
                     {...useFormInput<SocialMediaStepValues>("tiktok", formik)}
-                    placeholder="https://tiktok.com/@yourpage"
+                    placeholder={t("tiktokPlaceholder")}
                     size="sm"
                     type="url"
                     className="bg-form-bg text-form-text"
                 />
 
                 <FormInput
-                    label="LinkedIn"
+                    label={t("linkedin")}
                     {...useFormInput<SocialMediaStepValues>("linkedin", formik)}
-                    placeholder="https://linkedin.com/in/yourprofile"
+                    placeholder={t("linkedinPlaceholder")}
                     size="sm"
                     type="url"
                     className="bg-form-bg text-form-text"

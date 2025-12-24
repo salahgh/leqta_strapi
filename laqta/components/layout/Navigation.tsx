@@ -107,11 +107,11 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                         <Logo />
                     </div>
                     {/*Navigation Links - Desktop*/}
-                    <div className="flex items-center gap-8 h-full">
+                    <div className={`flex items-center h-full ${locale === 'fr' ? 'gap-4' : 'gap-8'}`}>
                         <div
-                            className="flex items-center justify-center gap-8 rounded-full border border-white/20 px-8 bg-white/5 backdrop-blur-sm
-                         h-full
-                        "
+                            className={`flex items-center justify-center rounded-full border border-white/20 bg-white/5 backdrop-blur-sm h-full
+                            ${locale === 'fr' ? 'gap-4 px-5' : 'gap-8 px-8'}
+                        `}
                         >
                             {navItems.map((item) => {
                                 const isActive = isActiveRoute(item.href);
@@ -123,6 +123,7 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                                             className={`
                                                 relative padding-responsive-sm rounded-full transition-all duration-300 ease-in-out
                                                 text-white/90 hover:text-white md:h-36
+                                                ${locale === 'fr' ? 'text-sm xl:text-base' : ''}
                                                 ${
                                                     isActive
                                                         ? "text-white font-semibold brightness-110"

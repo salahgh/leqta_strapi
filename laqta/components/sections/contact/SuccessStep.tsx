@@ -46,7 +46,7 @@ const SuccessStep: React.FC<SuccessStepProps> = ({ onGoToMainPage }) => {
 
             {/* Additional Success Details */}
             <div className="bg-neutral-800/30 backdrop-blur-sm rounded-xl card-p-md border border-neutral-700/50">
-                <div className="stack-gap-sm text-left">
+                <div className="stack-gap-sm text-start">
                     <div className="flex items-center gap-3">
                         <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
                         <span className="text-secondary-gray">
@@ -73,7 +73,7 @@ const SuccessStep: React.FC<SuccessStepProps> = ({ onGoToMainPage }) => {
                 <h3 className="text-body-lg font-semibold text-blue-200 mb-3">
                     {t('contactPage.success.nextStepsTitle')}
                 </h3>
-                <div className="stack-gap-xs text-left text-body-sm text-blue-100">
+                <div className="stack-gap-xs text-start text-body-sm text-blue-100">
                     <p>
                         • {t('contactPage.success.reviewSubmission')}
                     </p>

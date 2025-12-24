@@ -66,7 +66,7 @@ export const Button = ({
             {...props}
         >
             {leftIcon && (
-                <span className="flex-shrink-0 hidden sm:inline-flex">
+                <span className="flex-shrink-0 hidden sm:inline-flex rtl:rotate-180">
                     {leftIcon}
                 </span>
             )}
@@ -74,7 +74,7 @@ export const Button = ({
             <span className="leading-none whitespace-nowrap">{children}</span>
 
             {rightIcon && (
-                <span className="flex-shrink-0 hidden sm:inline-flex">
+                <span className="flex-shrink-0 hidden sm:inline-flex rtl:rotate-180">
                     {rightIcon}
                 </span>
             )}

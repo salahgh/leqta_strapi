@@ -97,6 +97,8 @@ html {
     /* Default: RH-ZAK for body/content text */
     [dir="rtl"] {
         font-family: 'RH-ZAK', 'Alexandria', system-ui, sans-serif;
+        letter-spacing: 0.02em;
+        word-spacing: 0.05em;
     }
 
     /* Titles: Alexandria font */

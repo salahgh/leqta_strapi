@@ -49,7 +49,7 @@ const AboutSection = ({
                 <div className="stack-gap-md flex-1 py-16">
                     {/* Badge */}
                     <div
-                        className="items-center justify-center animate-slide-down"
+                        className="flex items-center justify-start animate-slide-down"
                         style={{ opacity: 0 }}
                     >
                         <Badge variant="accent">{t("badge")}</Badge>
@@ -85,7 +85,7 @@ const AboutSection = ({
                     </h2>
                     {/* Description */}
                     <p
-                        className="text-secondary-gray leading-relaxed text-body-sm sm:text-body-md lg:text-body-xl animate-fade-in pr-32"
+                        className="text-secondary-gray leading-relaxed text-body-sm sm:text-body-md lg:text-body-xl animate-fade-in pe-32 text-start"
                         style={{ opacity: 0, animationDelay: "300ms" }}
                     >
                         {t("description")}

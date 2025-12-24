@@ -56,7 +56,8 @@ export const BlogArticle: React.FC<{
             setTimeout(() => {
                 const contentDiv = document.querySelector(".blog-content");
                 if (contentDiv) {
-                    const headingElements = contentDiv.querySelectorAll("h1, h2, h3");
+                    const headingElements =
+                        contentDiv.querySelectorAll("h1, h2, h3");
                     headingElements.forEach((heading, index) => {
                         heading.id = `heading-${index}`;
                     });
@@ -83,7 +84,7 @@ export const BlogArticle: React.FC<{
             <ReadingProgress />
 
             {/* Blue Header with LAQTA Logo Background */}
-            <div className="relative py-60 md:pt-24">
+            <div className="relative py-52 md:pt-24">
                 {/* LAQTA Logo Background - larger and more visible */}
                 <div
                     className="absolute inset-0 opacity-5 overflow-hidden pt-20"
@@ -98,7 +99,10 @@ export const BlogArticle: React.FC<{
                         fill
                         className="object-contain mt-1"
                         style={{
-                            transform: locale === "ar" ? "scale(0.70) scaleX(-1)" : "scale(0.70)",
+                            transform:
+                                locale === "ar"
+                                    ? "scale(0.70) scaleX(-1)"
+                                    : "scale(0.70)",
                             marginLeft: locale === "ar" ? undefined : "14rem",
                             marginRight: locale === "ar" ? "14rem" : undefined,
                         }}
@@ -120,14 +124,14 @@ export const BlogArticle: React.FC<{
                 </div>
 
                 <div
-                    className="w-2/3 pt-24"
+                    className="w-2/3 pt-16 space-y-6"
                     style={{
                         marginLeft: locale === "ar" ? undefined : "6rem",
                         marginRight: locale === "ar" ? "6rem" : undefined,
                     }}
                 >
                     <h1
-                        className="text-white leading-relaxed w-full"
+                        className="text-white leading-relaxed w-full text-display-xs sm:text-display-sm md:text-display-md lg:text-display-lg"
                         style={{ lineHeight: 1.4 }}
                     >
                         {blog.title}
@@ -175,7 +179,9 @@ export const BlogArticle: React.FC<{
                                 {/* First part of content */}
                                 {blog.content_image && contentParts.after ? (
                                     <>
-                                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                        <ReactMarkdown
+                                            remarkPlugins={[remarkGfm]}
+                                        >
                                             {contentParts.before}
                                         </ReactMarkdown>
 
@@ -183,8 +189,14 @@ export const BlogArticle: React.FC<{
                                         <div className="my-12">
                                             <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
                                                 <Image
-                                                    src={utils.getFileUrl(blog.content_image.url)}
-                                                    alt={blog.content_image.alternativeText || "Content image"}
+                                                    src={utils.getFileUrl(
+                                                        blog.content_image.url,
+                                                    )}
+                                                    alt={
+                                                        blog.content_image
+                                                            .alternativeText ||
+                                                        "Content image"
+                                                    }
                                                     fill
                                                     className="object-cover hover:scale-105 transition-transform duration-500"
                                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
@@ -194,7 +206,9 @@ export const BlogArticle: React.FC<{
                                         </div>
 
                                         {/* Second part of content */}
-                                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                        <ReactMarkdown
+                                            remarkPlugins={[remarkGfm]}
+                                        >
                                             {contentParts.after}
                                         </ReactMarkdown>
                                     </>

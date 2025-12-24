@@ -136,7 +136,7 @@ const ServicesPage = async ({
 
             <main className="relative z-10 flex-1">
                 {/* Header Section */}
-                <div className="text-center flex flex-col items-center grid-gap-sm section-py-lg section-px">
+                <div className="text-center flex flex-col items-center grid-gap-sm section-py-sm section-px">
                     <div className="animate-slide-down" style={{ opacity: 0 }}>
                         <Badge size="md" variant="accent">
                             {t("badge")}

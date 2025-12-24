@@ -71,7 +71,7 @@ const ProjectDetailsStep: React.FC<ProjectDetailsStepProps> = ({
           {t('projectDetails')}
         </h2>
         <p className="text-secondary-gray">
-          Tell us about your project requirements
+          {t('projectDetailsDescription')}
         </p>
       </div>
 

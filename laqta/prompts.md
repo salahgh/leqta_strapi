@@ -1,5 +1,10 @@
-- the leqta coordinates
-- get in touch --> CRM leads assigned to commerciale
-- plans should be dynamic
-- titre blog is so big
-- 
+- replace the word ليقطة with لقطة in all the project
+- the about section in the home page (arabic text not properly aligned to the left especially the description)
+- the button arrows should be inverted in arabic (point to the left)
+- the arabic space between letters is too small
+- the text fileds placeholders should be in arabic when arabic is selected
+- subscribe now should be in arabic when arabic is selected
+- the privacy policy in arabic is en english (make the necessary traslations)
+- the contact us in arabic there is some english text 
+- the contect us in arabic the stepper is missaligned (rtl not working properly)
+- the back button not rendered properly

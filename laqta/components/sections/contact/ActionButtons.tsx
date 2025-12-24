@@ -18,7 +18,7 @@ export const ActionButtons = ({
                 type="button"
                 variant="secondary"
                 size="md"
-                leftIcon={<ArrowLeft className="w-4 h-4" />}
+                leftIcon={<ArrowLeft className="w-4 h-4 rtl:rotate-180" />}
                 rightIcon={null}
                 onClick={handleGoBack}
                 className="touch-target"
@@ -31,7 +31,7 @@ export const ActionButtons = ({
                 form={formId}
                 variant="primary"
                 size="md"
-                rightIcon={<ArrowRight className="w-4 h-4" />}
+                rightIcon={<ArrowRight className="w-4 h-4 rtl:rotate-180" />}
                 leftIcon={null}
                 disabled={isSubmitting}
                 className="touch-target"

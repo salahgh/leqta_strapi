@@ -44,7 +44,7 @@ export const FAQSectionClient: React.FC<FAQSectionClientProps> = ({
                     </p>
 
                     <div
-                        className="animate-fade-in border-gray-200 mx-auto max-w-screen-xl rounded-3xl border-2 p-16"
+                        className="animate-fade-in border-gray-200 mx-auto w-full max-w-screen-xl rounded-3xl border-2 p-16"
                         style={{ opacity: 0, animationDelay: "450ms" }}
                     >
                         {error ? (

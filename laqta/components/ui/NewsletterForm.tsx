@@ -12,6 +12,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { newsletterApi } from "@/lib/strapi";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 // Validation schema
 const validationSchema = Yup.object({
@@ -35,6 +36,7 @@ export default function NewsletterForm({
 }: NewsletterFormProps) {
     const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
     const [message, setMessage] = useState("");
+    const t = useTranslations("footer");
 
     const formik = useFormik({
         initialValues: {
@@ -142,7 +144,7 @@ export default function NewsletterForm({
                         <input
                             type="email"
                             name="email"
-                            placeholder="Enter your email address"
+                            placeholder={t("emailPlaceholder")}
                             value={formik.values.email}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -161,10 +163,10 @@ export default function NewsletterForm({
                         className="whitespace-nowrap"
                     >
                         {formik.isSubmitting
-                            ? "Subscribing..."
+                            ? t("subscribing")
                             : status === "success"
-                              ? "Subscribed!"
-                              : "Subscribe Now"}
+                              ? t("subscribed")
+                              : t("subscribeNow")}
                     </Button>
                 </div>
             </form>

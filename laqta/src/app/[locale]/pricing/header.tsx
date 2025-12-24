@@ -18,7 +18,7 @@ export const Header = async () => {
 
             {/* Description */}
             <p
-                className="text-secondary-gray text-body-md md:text-body-lg max-w-2xl mx-auto animate-fade-in"
+                className="text-secondary-gray text-body-sm sm:text-body-md md:text-body-lg max-w-2xl mx-auto animate-fade-in"
                 style={{ opacity: 0, animationDelay: "300ms" }}
             >
                 {t("header.description")}

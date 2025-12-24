@@ -80,7 +80,7 @@ export const TestimonialsClient = ({
 
     return (
         <div
-            className="relative md:pt-20 pt-12 flex flex-col gap-8 space-y-8 overflow-hidden"
+            className="relative md:pt-16 pt-8 flex flex-col gap-4 md:gap-8 space-y-4 md:space-y-8 overflow-hidden"
             style={{ backgroundColor: "#d5ebf9" }}
         >
             {/* Background LAQTA Logo */}

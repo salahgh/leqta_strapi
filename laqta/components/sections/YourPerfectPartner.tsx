@@ -14,14 +14,15 @@ export const YourPerfectPartner = () => {
     return (
         <div
             className="relative overflow-hidden
-            section-px min-h-section-sm md:min-h-section-md xl:min-h-section-lg py-32 bg-white h-[700px]"
+            section-px min-h-section-sm md:min-h-section-md xl:min-h-section-lg py-12 sm:py-16 md:py-24 lg:py-32 bg-white h-auto md:h-[700px]"
             style={{
                 background:
                     "linear-gradient(to bottom, #0D1137, rgba(99, 114, 239, 0.27), #0D1137)",
             }}
         >
+            {/* Desktop background image - hidden on mobile */}
             <div
-                className="absolute inset-0 z-0 mx-auto"
+                className="absolute inset-0 z-0 mx-auto hidden md:block"
                 style={{
                     backgroundImage: "url('/images/steps.svg')",
                     backgroundRepeat: "no-repeat",

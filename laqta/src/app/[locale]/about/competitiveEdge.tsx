@@ -33,7 +33,7 @@ export const CompetitiveEdge = async () => {
 
     return (
         <section
-            className="rounded-3xl relative border border-gray-700/30 p-16
+            className="rounded-2xl sm:rounded-3xl relative border border-gray-700/30 p-4 sm:p-6 md:p-8 lg:p-12 xl:p-16
             shadow-2xl hover:border-gray-600/40 transition-all duration-500 "
             style={{ backgroundColor: "#a3d4f6" }}
         >
@@ -67,7 +67,7 @@ export const CompetitiveEdge = async () => {
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mt-8 p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6 mt-6 sm:mt-8 p-2 sm:p-4 md:p-6">
                 {advantages.map((advantage, index) => (
                     <div
                         key={index}

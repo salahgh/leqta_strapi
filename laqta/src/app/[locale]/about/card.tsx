@@ -19,7 +19,7 @@ export const Card: React.FC<CardProps> = ({
 }) => {
     return (
         <div
-            className={`group aspect-square relative bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl shadow-2xl p-6 m-4 flex flex-col items-center justify-center text-center overflow-hidden
+            className={`group aspect-square relative bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl sm:rounded-2xl shadow-2xl p-4 sm:p-5 md:p-6 m-2 sm:m-3 md:m-4 flex flex-col items-center justify-center text-center overflow-hidden
             hover:shadow-3xl hover:from-white hover:to-gray-50 transition-all duration-500 ease-out cursor-default
             border border-gray-200/50 hover:border-blue-300/50 ${className}`}
         >
@@ -62,7 +62,7 @@ export const Card: React.FC<CardProps> = ({
                     </div>
                 </div>
                 {/* Title - Bigger and Bolder */}
-                <h2 className="text-gray-900 text-2xl font-bold mb-3 leading-tight group-hover:text-blue-700 transition-colors duration-500">{title}</h2>
+                <h2 className="text-gray-900 text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-3 leading-tight group-hover:text-blue-700 transition-colors duration-500">{title}</h2>
                 {/* Description */}
                 <p className="leading-relaxed text-responsive-lg text-gray-700 text-center px-2 group-hover:text-gray-800 transition-colors duration-500">{description}</p>
             </div>

@@ -87,15 +87,15 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
         <>
             <nav
                 className={`
-                    fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ease-in-out flex items-center justify-between
-                    text-responsive-md
-                    ${
-                        scrolled
-                            ? "bg-primary backdrop-blur-md border-blue-700/30 nav-h-scrolled glassmorphism"
-                            : "nav-h"
-                    }
-                    ${className}
-                `}
+                fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ease-in-out flex items-center justify-between
+                text-responsive-md
+                ${
+                    scrolled
+                        ? "bg-primary backdrop-blur-md border-blue-700/30 nav-h-scrolled glassmorphism"
+                        : "nav-h"
+                }
+                ${className}
+            `}
             >
                 {/* Desktop Navigation */}
                 <div
@@ -107,10 +107,12 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                         <Logo />
                     </div>
                     {/*Navigation Links - Desktop*/}
-                    <div className={`flex items-center h-full ${locale === 'fr' ? 'gap-4' : 'gap-8'}`}>
+                    <div
+                        className={`flex items-center h-full ${locale === "fr" ? "gap-4" : "gap-8"}`}
+                    >
                         <div
                             className={`flex items-center justify-center rounded-full border border-white/20 bg-white/5 backdrop-blur-sm h-full
-                            ${locale === 'fr' ? 'gap-4 px-5' : 'gap-8 px-8'}
+                            ${locale === "fr" ? "gap-4 px-5" : "gap-8 px-8"}
                         `}
                         >
                             {navItems.map((item) => {
@@ -123,7 +125,7 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                                             className={`
                                                 relative padding-responsive-sm rounded-full transition-all duration-300 ease-in-out
                                                 text-white/90 hover:text-white md:h-36
-                                                ${locale === 'fr' ? 'text-sm xl:text-base' : ''}
+                                                ${locale === "fr" ? "text-sm xl:text-base" : ""}
                                                 ${
                                                     isActive
                                                         ? "text-white font-semibold brightness-110"
@@ -158,7 +160,7 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                 </div>
 
                 {/* Mobile Navigation */}
-                <div className="flex xl:hidden items-center justify-between px-4 w-full h-full">
+                <div className="flex xl:hidden items-center justify-between px-4 my-4 w-full h-full">
                     {/* Mobile Menu Button */}
                     <button
                         onClick={toggleDrawer}
@@ -185,7 +187,9 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
 
                     {/* Mobile Right Section */}
                     <div className="flex items-center gap-3 h-full">
-                        <LanguageSelector className="flex h-full w-full" />
+                        <div className={"h-16"}>
+                            <LanguageSelector className="flex h-full w-full" />
+                        </div>
                         <Link href="/contact">
                             <Button
                                 leftIcon={null}
@@ -213,32 +217,30 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
             <div
                 className={`
                     fixed left-0 top-0 z-50 h-full w-80 transform transition-all duration-300 ease-out lg:hidden
-                    bg-gradient-to-b from-gray-900 to-gray-800 backdrop-blur-xl border-r border-gray-700/50
+                    bg-gradient-to-b from-primary via-primary-dark to-neutral-900 backdrop-blur-xl border-e border-primary-light/20
                     ${isDrawerOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"}
                 `}
             >
                 <div className="flex h-full flex-col">
                     {/* Drawer Header */}
-                    <div className="flex items-center justify-between border-b border-gray-700/50 p-6 bg-gray-800/50">
+                    <div className="flex items-center justify-between border-b border-primary-light/20 p-5 bg-primary/50">
                         <Logo />
                         <button
                             onClick={closeDrawer}
-                            className="p-2 rounded-full hover:bg-gray-700/50 transition-colors duration-200"
+                            className="p-2 rounded-full hover:bg-white/10 transition-colors duration-200"
                             aria-label="Close menu"
                         >
                             <X className="h-5 w-5 text-white" />
                         </button>
                     </div>
-
                     {/* Navigation Items */}
-                    <div className="flex-1 py-6 overflow-y-auto">
-                        <div className="flex flex-col">
+                    <div className="flex-1 py-4 px-4 overflow-y-auto">
+                        <div className="flex flex-col gap-2">
                             {navItems.map((item, index) => {
                                 const isActive = isActiveRoute(item.href);
                                 return (
                                     <div
                                         key={item.label}
-                                        className="px-6 mb-2"
                                         style={{
                                             animationDelay: `${index * 100}ms`,
                                         }}
@@ -248,27 +250,27 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                                                 href={item.href}
                                                 isActive={isActive}
                                                 className={`
-                                                    group relative flex items-center justify-between w-full p-4 rounded-xl transition-all duration-300
+                                                    group relative flex items-center justify-between w-full p-3 rounded-xl transition-all duration-300
                                                     ${
                                                         isActive
-                                                            ? "bg-gradient-to-r from-blue-600/30 to-purple-600/30 text-white border border-blue-500/30 shadow-lg"
-                                                            : "text-gray-300 hover:text-white hover:bg-gray-700/50"
+                                                            ? "bg-gradient-to-r from-primary-light/30 to-accent-blue/20 text-white border border-primary-light/30 shadow-lg"
+                                                            : "text-neutral-200 hover:text-white hover:bg-white/10"
                                                     }
                                                 `}
                                             >
                                                 <div className="flex items-center">
-                                                    <span className="text-lg font-medium">
+                                                    <span className="text-base font-medium">
                                                         {item.label}
                                                     </span>
                                                     {isActive && (
-                                                        <div className="ml-3 w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+                                                        <div className="ms-3 w-2 h-2 bg-primary-light rounded-full animate-pulse" />
                                                     )}
                                                 </div>
                                                 <ChevronRight
-                                                    className={`h-5 w-5 transition-all duration-300 ${
+                                                    className={`h-5 w-5 transition-all duration-300 rtl:rotate-180 ${
                                                         isActive
-                                                            ? "text-blue-400"
-                                                            : "text-gray-500 group-hover:text-white group-hover:translate-x-1"
+                                                            ? "text-primary-light"
+                                                            : "text-neutral-400 group-hover:text-white group-hover:translate-x-1 rtl:group-hover:-translate-x-1"
                                                     }`}
                                                 />
                                             </NavLink>
@@ -278,18 +280,20 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                             })}
                         </div>
                     </div>
-
                     {/* Drawer Footer */}
-                    <div className="border-t border-gray-700/50 p-6 bg-gray-800/30">
-                        <div className="flex flex-col gap-4">
-                            <LanguageSelector className="flex w-full" />
+                    <div className="border-t border-primary-light/20 p-4 bg-primary/30">
+                        <div className="flex flex-col gap-3">
+                            <div className={"h-16"}>
+                                <LanguageSelector className="flex" />
+                            </div>
                             <div onClick={closeDrawer}>
                                 <Link href="/contact">
                                     <Button
-                                        size="xl"
+                                        size="lg"
+                                        fullWidth
                                         leftIcon={null}
                                         rightIcon={
-                                            <Rocket className="ml-2 h-4 w-4" />
+                                            <Rocket className="ms-2 h-4 w-4" />
                                         }
                                     >
                                         {t("getStarted")}
@@ -301,11 +305,8 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                 </div>
             </div>
 
-            {/* Spacer for fixed navigation */}
-            <div
-                className={`transition-all duration-300 ${scrolled ? "nav-spacer-scrolled" : "nav-spacer"} hidden lg:block`}
-            />
-            <div className="nav-spacer-mobile lg:hidden" />
+            {/* Spacer for fixed navigation - matches nav height */}
+            <div className="h-24" />
         </>
     );
 };

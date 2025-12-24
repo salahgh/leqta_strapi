@@ -70,7 +70,7 @@ const BlogPage = async ({
             <Navigation />
 
             {/* Hero Section with Logo Background */}
-            <section className="relative section-px pt-20 md:pt-28 pb-16 md:pb-24">
+            <section className="relative section-px pt-16 sm:pt-20 md:pt-24 lg:pt-28 pb-12 sm:pb-16 md:pb-20 lg:pb-24">
                 {/* LAQTA Logo Background Overlay */}
 
                 <div className="absolute inset-0 pointer-events-none z-0">
@@ -117,7 +117,7 @@ const BlogPage = async ({
                 </div>
 
                 <div className="max-w-7xl mx-auto relative z-10">
-                    <div className="text-center mb-16 md:mb-20">
+                    <div className="text-center mb-8 sm:mb-12 md:mb-16 lg:mb-20">
                         {/* Badge */}
                         <div
                             className="inline-block mb-8 animate-slide-down"
@@ -138,7 +138,7 @@ const BlogPage = async ({
 
                         {/* Description */}
                         <p
-                            className="text-display-2xl md:text-body-lg text-secondary-gray max-w-3xl mx-auto leading-relaxed animate-fade-in"
+                            className="text-body-sm sm:text-body-md md:text-body-lg text-secondary-gray max-w-3xl mx-auto leading-relaxed animate-fade-in"
                             style={{ opacity: 0, animationDelay: "300ms" }}
                         >
                             {t("description")}

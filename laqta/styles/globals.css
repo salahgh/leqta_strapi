@@ -485,11 +485,11 @@ html {
 
     /* Navigation Heights */
     .nav-h {
-        @apply h-14 sm:h-16 md:h-24;
+        @apply h-24 sm:h-24 md:h-24;
     }
 
     .nav-h-scrolled {
-        @apply h-12 sm:h-14 md:h-16;
+        @apply h-16 sm:h-16 md:h-16;
     }
 
     /* Navigation Spacer (for fixed nav) */
@@ -502,7 +502,7 @@ html {
     }
 
     .nav-spacer-mobile {
-        @apply h-[60px] sm:h-16;
+        @apply h-[72px] sm:h-20;
     }
 
     /* Navigation Links */
@@ -607,7 +607,7 @@ html {
         backdrop-filter: var(--glass-blur);
         -webkit-backdrop-filter: var(--glass-blur);
         border: 1px solid var(--glass-border);
-        border-radius: 16px;
+        /*border-radius: 16px;*/
         box-shadow: var(--glass-shadow);
     }
 

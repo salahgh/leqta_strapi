@@ -36,9 +36,9 @@ const SocialMediaStep = ({ initialValues, onSubmit }: { initialValues?: Partial<
 
     return (
         <div>
-            <div className="mb-6">
-                <h2 className="text-display-xs font-bold text-white mb-2">{t("socialMediaLinks")}</h2>
-                <p className="text-secondary-gray">{t("socialMediaDescription")}</p>
+            <div className="mb-4 sm:mb-6">
+                <h2 className="text-body-lg sm:text-body-xl md:text-display-xs font-bold text-white mb-1 sm:mb-2">{t("socialMediaLinks")}</h2>
+                <p className="text-secondary-gray text-body-sm sm:text-body-md">{t("socialMediaDescription")}</p>
             </div>
 
             <form onSubmit={formik.handleSubmit} className="form-group" id="step-3-form">

@@ -11,7 +11,7 @@ export const HeroSection = async () => {
     const t = await getTranslations("aboutHero");
 
     return (
-        <section className="flex lg:flex-row flex-col items-center px-4 md:px-4  lg:px-6 py-12 md:py-16 lg:py-20 gap-8 md:gap-12 lg:gap-16 max-w-7xl mx-auto">
+        <section className="flex lg:flex-row flex-col items-center section-px py-8 sm:py-12 md:py-16 lg:py-20 gap-6 sm:gap-8 md:gap-12 lg:gap-16 max-w-7xl mx-auto">
             <div className="flex-1 space-y-2 md:space-y-4 lg:space-y-4 ">
                 <div className="animate-slide-down" style={{ opacity: 0 }}>
                     <Badge size="md" variant="accent">

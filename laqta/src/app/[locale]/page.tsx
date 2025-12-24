@@ -11,9 +11,10 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { getTranslations } from "next-intl/server";
 import Footer from "@/components/sections/Footer";
 import { siteSettingsApi } from "@/lib/strapi";
+import { Navigation } from "@/components/layout/Navigation";
 
 // Disable caching for real-time CMS updates
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
     params,

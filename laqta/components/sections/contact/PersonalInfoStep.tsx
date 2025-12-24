@@ -44,9 +44,9 @@ const PersonalInfoStep = ({ initialValues, onSubmit }: { initialValues?: Partial
 
     return (
         <div>
-            <div className="mb-6">
-                <h2 className="text-display-xs font-bold text-white mb-2">{t('personalInfoTitle')}</h2>
-                <p className="text-secondary-gray">{t('personalInfoDescription')}</p>
+            <div className="mb-4 sm:mb-6">
+                <h2 className="text-body-lg sm:text-body-xl md:text-display-xs font-bold text-white mb-1 sm:mb-2">{t('personalInfoTitle')}</h2>
+                <p className="text-secondary-gray text-body-sm sm:text-body-md">{t('personalInfoDescription')}</p>
             </div>
 
             <form onSubmit={formik.handleSubmit} className="form-group" id="step-1-form">

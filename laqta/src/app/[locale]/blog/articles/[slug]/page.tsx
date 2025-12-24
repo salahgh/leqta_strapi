@@ -144,9 +144,7 @@ const BlogArticlePage = async ({ params }: BlogPageProps) => {
     return (
         <div className="min-h-screen bg-primary">
             {/*<StructuredData data={structuredData} />*/}
-            <div className={"absolute"}>
-                <Navigation />
-            </div>
+            <Navigation />
             <div
                 className="animate-fade-in"
                 style={{ opacity: 0, animationDelay: "150ms" }}

@@ -90,13 +90,13 @@ export const BlogsClient: React.FC<BlogsClientProps> = ({
     return (
         <>
             {/* Hero Section */}
-            <section className="px-4 md:px-8 pt-8 md:pt-16 pb-12 md:pb-20">
+            <section className="section-px pt-6 sm:pt-8 md:pt-12 lg:pt-16 pb-8 sm:pb-12 md:pb-16 lg:pb-20">
                 <div className="max-w-7xl mx-auto">
-                    <div className="text-center md:text-left mb-12">
-                        <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+                    <div className="text-center md:text-left mb-8 sm:mb-10 md:mb-12">
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6">
                             {t("title")}
                         </h1>
-                        <p className="text-xl md:text-2xl text-gray-300 max-w-3xl">
+                        <p className="text-body-sm sm:text-body-md md:text-body-lg lg:text-body-xl text-gray-300 max-w-3xl">
                             {t("description")}
                         </p>
                     </div>
@@ -104,7 +104,7 @@ export const BlogsClient: React.FC<BlogsClientProps> = ({
             </section>
 
             {/* Blog Grid */}
-            <section className="px-4 md:px-8 pb-16">
+            <section className="section-px pb-12 sm:pb-14 md:pb-16">
                 <div className="max-w-7xl mx-auto">
                     {loading ? (
                         <div className="flex justify-center items-center py-12">
@@ -112,7 +112,7 @@ export const BlogsClient: React.FC<BlogsClientProps> = ({
                         </div>
                     ) : blogs.length > 0 ? (
                         <>
-                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-10 md:mb-12">
                                 {blogs.map((blog) => {
                                     console.log("blog", blog);
                                     return (

@@ -37,7 +37,7 @@ export default function EmailSubscriptionForm() {
                     {/*</div>*/}
 
                     {/* Input container */}
-                    <div className="flex-1 px-1 md:px-3">
+                    <div className="flex-1 px-1 sm:px-2 md:px-3">
                         <input
                             type="email"
                             placeholder="Enter your email address"

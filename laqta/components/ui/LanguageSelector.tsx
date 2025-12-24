@@ -140,7 +140,9 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
                                 locale === language.code
                                     ? "bg-primary-light/10 text-primary-light"
                                     : "text-neutral-700",
-                                language.dir === "rtl" ? "flex-row-reverse text-right" : "text-left",
+                                language.dir === "rtl"
+                                    ? "flex-row-reverse text-right"
+                                    : "text-left",
                             )}
                             dir={language.dir}
                         >
@@ -149,10 +151,14 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
                             </div>
                             <span className="font-medium">{language.name}</span>
                             {locale === language.code && (
-                                <div className={cn(
-                                    "w-2 h-2 bg-primary-light rounded-full flex-shrink-0",
-                                    language.dir === "rtl" ? "mr-auto" : "ml-auto"
-                                )}></div>
+                                <div
+                                    className={cn(
+                                        "w-2 h-2 bg-primary-light rounded-full flex-shrink-0",
+                                        language.dir === "rtl"
+                                            ? "mr-auto"
+                                            : "ml-auto",
+                                    )}
+                                ></div>
                             )}
                         </button>
                     ))}

@@ -1,10 +1,8 @@
-- replace the word ليقطة with لقطة in all the project
-- the about section in the home page (arabic text not properly aligned to the left especially the description)
-- the button arrows should be inverted in arabic (point to the left)
-- the arabic space between letters is too small
-- the text fileds placeholders should be in arabic when arabic is selected
-- subscribe now should be in arabic when arabic is selected
-- the privacy policy in arabic is en english (make the necessary traslations)
-- the contact us in arabic there is some english text 
-- the contect us in arabic the stepper is missaligned (rtl not working properly)
-- the back button not rendered properly
+in the mobile version :
+- hero section text adjustement not consistent across devices
+- drawer : "Navigation Items" have to be removed
+- the about section : the content should be centered and takes the hole width when in colum layout
+- what we do section : the content should be centered the md: is too shrinked
+- the cards padding is too small when in mobile (wroks , services)
+- faq text sizes not consistent
+- reanalyse the spacing and padding across devices , use well known sizes

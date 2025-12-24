@@ -67,18 +67,18 @@ export const PlanCard = ({
                 <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500" />
             )}
 
-            <div className="relative z-10 flex flex-col h-full p-5 md:p-6">
+            <div className="relative z-10 flex flex-col h-full p-4 sm:p-5 md:p-6">
                 {/* Header */}
                 <div className="mb-6">
                     <div className="flex items-center gap-2 mb-3">
                         {isPremium && (
                             <Sparkles className="w-5 h-5 text-pink-400" />
                         )}
-                        <h3 className="text-display-xs md:text-display-sm font-bold text-white">
+                        <h3 className="text-body-lg sm:text-display-xs md:text-display-sm font-bold text-white">
                             {title}
                         </h3>
                     </div>
-                    <p className="text-body-sm md:text-body-md text-neutral-300 leading-relaxed">
+                    <p className="text-body-xs sm:text-body-sm md:text-body-md text-neutral-300 leading-relaxed">
                         {description}
                     </p>
                 </div>

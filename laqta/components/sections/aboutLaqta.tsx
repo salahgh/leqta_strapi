@@ -44,12 +44,12 @@ const AboutSection = ({
             <div className="absolute inset-0 z-5 blue_gradient" />
 
             {/* Content Layer */}
-            <div className="relative z-20 bg-transparent rounded-2xl md:rounded-3xl shadow-2xl card-p-md md:card-p-lg md:flex grid-gap-lg p-16">
+            <div className="relative z-20 bg-transparent rounded-2xl md:rounded-3xl shadow-2xl flex flex-col md:flex-row items-center gap-6 md:gap-8 lg:gap-12 p-4 sm:p-6 md:p-8 lg:p-12 xl:p-16">
                 {/* Content Section */}
-                <div className="stack-gap-md flex-1 py-16">
+                <div className="stack-gap-md flex-1 py-4 sm:py-6 md:py-8 lg:py-12 w-full text-center md:text-start">
                     {/* Badge */}
                     <div
-                        className="flex items-center justify-start animate-slide-down"
+                        className="flex items-center justify-center md:justify-start animate-slide-down"
                         style={{ opacity: 0 }}
                     >
                         <Badge variant="accent">{t("badge")}</Badge>
@@ -85,14 +85,14 @@ const AboutSection = ({
                     </h2>
                     {/* Description */}
                     <p
-                        className="text-secondary-gray leading-relaxed text-body-sm sm:text-body-md lg:text-body-xl animate-fade-in pe-32 text-start"
+                        className="text-secondary-gray leading-relaxed text-body-sm sm:text-body-md lg:text-body-xl animate-fade-in md:pe-8 lg:pe-16 xl:pe-32"
                         style={{ opacity: 0, animationDelay: "300ms" }}
                     >
                         {t("description")}
                     </p>
                     {/* Buttons */}
                     <div
-                        className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-fade-in"
+                        className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-fade-in justify-center md:justify-start"
                         style={{ opacity: 0, animationDelay: "450ms" }}
                     >
                         <Link href="/contact" className="w-full sm:w-auto">
@@ -123,7 +123,7 @@ const AboutSection = ({
                 </div>
                 {/* Illustration Section */}
                 <div
-                    className="fex flex-1 justify-center items-center md:max-w-80 lg:max-w-xl animate-fade-in mt-6 md:mt-0"
+                    className="flex flex-1 justify-center items-center w-full md:max-w-80 lg:max-w-xl animate-fade-in mt-6 md:mt-0"
                     style={{ opacity: 0, animationDelay: "600ms" }}
                 >
                     {illustration || (

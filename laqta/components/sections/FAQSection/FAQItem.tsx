@@ -5,9 +5,9 @@ export const FAQItem = ({ question, answer, isOpen, onToggle, isLast }) => {
         <div className="rounded-2xl mb-4 overflow-hidden">
             <button
                 onClick={onToggle}
-                className="w-full md:px-8 md:py-6 px-6 py-4 text-start flex items-center justify-between transition-colors"
+                className="w-full px-4 sm:px-6 md:px-8 py-3 sm:py-4 md:py-6 text-start flex items-center justify-between transition-colors"
             >
-                <span className="font-semibold text-black pe-4 text-body-2xl">
+                <span className="font-semibold text-black pe-4 text-body-lg sm:text-body-xl md:text-body-2xl">
                     {question}
                 </span>
                 <div className="flex-shrink-0 rtl:rotate-180">
@@ -20,14 +20,14 @@ export const FAQItem = ({ question, answer, isOpen, onToggle, isLast }) => {
             </button>
 
             {isOpen && (
-                <div className="px-8 pb-6">
-                    <div className="leading-relaxed text-responsive-lg text-gray-500 text-start">
+                <div className="px-4 sm:px-6 md:px-8 pb-4 sm:pb-6">
+                    <div className="leading-relaxed text-body-md sm:text-body-lg text-gray-500 text-start">
                         {answer}
                     </div>
                 </div>
             )}
             {!isLast && (
-                <div className="border-2 border-gray-100 px-32"></div>
+                <div className="border-b-2 border-gray-100 mx-4 sm:mx-6 md:mx-8"></div>
             )}
         </div>
     );

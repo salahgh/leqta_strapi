@@ -51,48 +51,49 @@ const Footer = async ({ locale }: FooterProps) => {
             />
 
             {/* Main Footer Content */}
-            <div className="relative z-10 section-px pt-16 pb-8 md:pt-20 md:pb-12 ">
-                {/* Top Section - 3 Column Layout */}
-                <div className="flex flex-row  justify-between">
+            <div className="relative z-10 section-px pt-8 sm:pt-10 md:pt-16 lg:pt-20 pb-6 sm:pb-8 md:pb-12">
+                {/* Top Section - Responsive Layout */}
+                <div className="flex flex-col md:flex-row gap-8 md:gap-0 md:justify-between">
                     {/* Left Column - Logo and Newsletter */}
-                    <div className="md:col-span-5 lg:col-span-5 ">
+                    <div className="w-full md:w-auto">
                         {/* Logo with LEQTA text */}
-                        <div className="flex items-center gap-4 mb-8 ">
+                        <div className="flex items-center gap-3 mb-6 md:mb-8">
                             <img
                                 src="/images/logo.svg"
                                 alt="LEQTA Logo"
-                                className="h-14 w-auto"
+                                className="h-10 md:h-14 w-auto"
                             />
                             <img
                                 src="/images/laqta.svg"
                                 alt="LEQTA Logo"
-                                className="h-10 w-auto"
+                                className="h-8 md:h-10 w-auto"
                             />
                         </div>
 
                         {/* Newsletter Section */}
-                        <div>
-                            <h3 className="font-semibold mb-2 text-body-lg">
+                        <div className="max-w-sm">
+                            <h3 className="font-semibold mb-2 text-body-md md:text-body-lg">
                                 {t("newsletter")}
                             </h3>
-                            <p className="mb-4 text-body-sm text-neutral-400 max-w-sm">
+                            <p className="mb-4 text-body-xs md:text-body-sm text-neutral-400">
                                 {t("newsletterDescription")}
                             </p>
                             <NewsletterForm variant="footer" />
                         </div>
                     </div>
 
-                    <div className={"flex flex-row gap-16"}>
+                    {/* Links Columns - Side by side on mobile */}
+                    <div className="flex flex-row gap-8 sm:gap-12 md:gap-16">
                         {/* Center-Right Column - Company Links */}
-                        <div className="space-y-2 ">
-                            <h3 className="text-body-md font-semibold mb-4">
+                        <div className="space-y-2">
+                            <h3 className="text-body-sm md:text-body-md font-semibold mb-3 md:mb-4">
                                 {t("company")}
                             </h3>
-                            <ul className="space-y-3">
+                            <ul className="space-y-2 md:space-y-3">
                                 <li>
                                     <Link
                                         href="/about"
-                                        className="text-neutral-400 hover:text-white transition-colors duration-200 text-body-sm"
+                                        className="text-neutral-400 hover:text-white transition-colors duration-200 text-body-xs md:text-body-sm"
                                     >
                                         {t("aboutUs")}
                                     </Link>
@@ -100,7 +101,7 @@ const Footer = async ({ locale }: FooterProps) => {
                                 <li>
                                     <Link
                                         href="/services"
-                                        className="text-neutral-400 hover:text-white transition-colors duration-200 text-body-sm"
+                                        className="text-neutral-400 hover:text-white transition-colors duration-200 text-body-xs md:text-body-sm"
                                     >
                                         {t("ourServices")}
                                     </Link>
@@ -108,7 +109,7 @@ const Footer = async ({ locale }: FooterProps) => {
                                 <li>
                                     <a
                                         href="/#works"
-                                        className="text-neutral-400 hover:text-white transition-colors duration-200 cursor-pointer text-body-sm"
+                                        className="text-neutral-400 hover:text-white transition-colors duration-200 cursor-pointer text-body-xs md:text-body-sm"
                                     >
                                         {t("ourWorks")}
                                     </a>
@@ -116,7 +117,7 @@ const Footer = async ({ locale }: FooterProps) => {
                                 <li>
                                     <a
                                         href="/#testimonials"
-                                        className="text-neutral-400 hover:text-white transition-colors duration-200 cursor-pointer text-body-sm"
+                                        className="text-neutral-400 hover:text-white transition-colors duration-200 cursor-pointer text-body-xs md:text-body-sm"
                                     >
                                         {t("testimonials")}
                                     </a>
@@ -124,7 +125,7 @@ const Footer = async ({ locale }: FooterProps) => {
                                 <li>
                                     <Link
                                         href="/contact"
-                                        className="text-neutral-400 hover:text-white transition-colors duration-200 text-body-sm"
+                                        className="text-neutral-400 hover:text-white transition-colors duration-200 text-body-xs md:text-body-sm"
                                     >
                                         {t("contactUs")}
                                     </Link>
@@ -132,7 +133,7 @@ const Footer = async ({ locale }: FooterProps) => {
                                 <li>
                                     <a
                                         href="/#faq"
-                                        className="text-neutral-400 hover:text-white transition-colors duration-200 cursor-pointer text-body-sm"
+                                        className="text-neutral-400 hover:text-white transition-colors duration-200 cursor-pointer text-body-xs md:text-body-sm"
                                     >
                                         {t("faq")}
                                     </a>
@@ -140,7 +141,7 @@ const Footer = async ({ locale }: FooterProps) => {
                                 <li>
                                     <Link
                                         href="/blog"
-                                        className="text-neutral-400 hover:text-white transition-colors duration-200 text-body-sm"
+                                        className="text-neutral-400 hover:text-white transition-colors duration-200 text-body-xs md:text-body-sm"
                                     >
                                         {t("blog")}
                                     </Link>
@@ -149,15 +150,15 @@ const Footer = async ({ locale }: FooterProps) => {
                         </div>
 
                         {/* Far Right Column - Utility Pages */}
-                        <div className="md:col-span-3 lg:col-span-3 ">
-                            <h3 className="text-body-md font-semibold mb-4">
+                        <div>
+                            <h3 className="text-body-sm md:text-body-md font-semibold mb-3 md:mb-4">
                                 {t("utilityPages")}
                             </h3>
-                            <ul className="space-y-3">
+                            <ul className="space-y-2 md:space-y-3">
                                 <li>
                                     <Link
                                         href="/PrivacyPolicy"
-                                        className="text-neutral-400 hover:text-white transition-colors duration-200 text-body-sm"
+                                        className="text-neutral-400 hover:text-white transition-colors duration-200 text-body-xs md:text-body-sm"
                                     >
                                         {t("termsCondition")}
                                     </Link>
@@ -165,18 +166,17 @@ const Footer = async ({ locale }: FooterProps) => {
                                 <li>
                                     <Link
                                         href="/PrivacyPolicy"
-                                        className="text-neutral-400 hover:text-white transition-colors duration-200 text-body-sm"
+                                        className="text-neutral-400 hover:text-white transition-colors duration-200 text-body-xs md:text-body-sm"
                                     >
                                         {t("privacyPolicy")}
                                     </Link>
                                 </li>
                             </ul>
                         </div>
-
                     </div>
                 </div>
-                {/* Large LEQTA Watermark */}
-                <div className="flex justify-center items-end overflow-hidden">
+                {/* Large LEQTA Watermark - Hidden on mobile */}
+                <div className="hidden md:flex justify-center items-end overflow-hidden">
                     <img
                         src="/images/laqta_1.svg"
                         alt=""
@@ -186,8 +186,8 @@ const Footer = async ({ locale }: FooterProps) => {
                 </div>
                 {/* Bottom Section - Copyright and Social Icons */}
                 <div
-                    className="flex flex-col md:flex-row justify-between items-center pt-6 border-t border-white/20"
-                    style={{ marginTop: -45 }}
+                    className="flex flex-col md:flex-row justify-between items-center pt-6 mt-8 md:mt-0 border-t border-white/20"
+                    style={{ marginTop: undefined }}
                 >
                     <p className="text-neutral-400 text-body-sm mb-4 md:mb-0">
                         {siteSettings?.copyrightText || t("copyright")}

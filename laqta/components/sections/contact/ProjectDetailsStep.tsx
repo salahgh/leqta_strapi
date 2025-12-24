@@ -66,11 +66,11 @@ const ProjectDetailsStep: React.FC<ProjectDetailsStepProps> = ({
 
   return (
     <div className="stack-gap-lg">
-      <div className="text-center mb-6">
-        <h2 className="text-display-xs font-bold text-white mb-2">
+      <div className="text-center mb-4 sm:mb-6">
+        <h2 className="text-body-lg sm:text-body-xl md:text-display-xs font-bold text-white mb-1 sm:mb-2">
           {t('projectDetails')}
         </h2>
-        <p className="text-secondary-gray">
+        <p className="text-secondary-gray text-body-sm sm:text-body-md">
           {t('projectDetailsDescription')}
         </p>
       </div>

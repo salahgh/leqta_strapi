@@ -36,13 +36,13 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
                         />
                     </div>
                 )}
-                <div className="p-6 md:p-8">
-                    <div className="flex items-center text-gray-500 text-sm mb-3">
+                <div className="p-4 sm:p-6 md:p-8">
+                    <div className="flex items-center text-gray-500 text-xs sm:text-sm mb-2 sm:mb-3">
                         <span>{formatDate(article.publishedAt)}</span>
                         <span className="mx-2">•</span>
                         <span>{article.read_time} min read</span>
                     </div>
-                    <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 mb-3 sm:mb-4">
                         <Link
                             href={`/articles/${article.slug}`}
                             className="hover:text-blue-600 transition-colors"
@@ -80,7 +80,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
                         />
                     </div>
                 )}
-                <div className="p-6 flex flex-col justify-between flex-1">
+                <div className="p-4 sm:p-5 md:p-6 flex flex-col justify-between flex-1">
                     <div>
                         <div className="flex items-center text-gray-500 text-sm mb-2">
                             <span>{formatDate(article.publishedAt)}</span>
@@ -125,8 +125,8 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
                     />
                 </div>
             )}
-            <div className="p-6 flex flex-col flex-1">
-                <div className="flex items-center text-gray-500 text-sm mb-2">
+            <div className="p-4 sm:p-5 md:p-6 flex flex-col flex-1">
+                <div className="flex items-center text-gray-500 text-xs sm:text-sm mb-2">
                     <span>{formatDate(article.publishedAt)}</span>
                     <span className="mx-2">•</span>
                     <span>{article.read_time} min read</span>

@@ -35,7 +35,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = (props) => {
 
     const cardContent = (
         <div
-            className={`bg-white rounded-xl sm:rounded-2xl p-2 sm:p-3 md:p-4 lg:p-6 xl:p-8 shadow-lg border border-gray-200 transition-all duration-300 hover:shadow-2xl hover:scale-[1.01] ${slug ? "cursor-pointer" : ""} ${className}`}
+            className={`bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 xl:p-8 shadow-lg border border-gray-200 transition-all duration-300 hover:shadow-2xl hover:scale-[1.01] ${slug ? "cursor-pointer" : ""} ${className}`}
         >
             <div
                 className={`flex gap-3 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12 ${

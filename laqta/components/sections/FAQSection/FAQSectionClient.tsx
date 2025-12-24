@@ -24,9 +24,9 @@ export const FAQSectionClient: React.FC<FAQSectionClientProps> = ({
     };
 
     return (
-        <section className="bg-white py-8 md:py-24">
-            <div className="container px-6 space-y-4">
-                <div className="text-center flex items-center flex-col space-y-12">
+        <section className="bg-white py-8 md:py-16">
+            <div className="container px-4 md:px-6 space-y-4">
+                <div className="text-center flex items-center flex-col space-y-6 md:space-y-12">
                     <div className="animate-slide-down" style={{ opacity: 0 }}>
                         <Badge variant="accent">{t("badge")}</Badge>
                     </div>
@@ -37,14 +37,14 @@ export const FAQSectionClient: React.FC<FAQSectionClientProps> = ({
                         {t("title")}
                     </h2>
                     <p
-                        className="text-secondary-gray text-responsive-2xl max-w-4xl text-center animate-fade-in"
+                        className="text-secondary-gray text-body-md sm:text-body-lg md:text-body-xl max-w-4xl text-center animate-fade-in"
                         style={{ opacity: 0, animationDelay: "300ms" }}
                     >
                         {t("description")}
                     </p>
 
                     <div
-                        className="animate-fade-in border-gray-200 mx-auto w-full max-w-screen-xl rounded-3xl border-2 p-16"
+                        className="animate-fade-in border-gray-200 mx-auto w-full max-w-screen-xl rounded-2xl md:rounded-3xl border-2 p-4 sm:p-8 md:p-16"
                         style={{ opacity: 0, animationDelay: "450ms" }}
                     >
                         {error ? (

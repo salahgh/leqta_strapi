@@ -157,8 +157,7 @@ export default async function ServicesSection({
                     </h2>
 
                     <p
-                        className="text-secondary-gray text-body-sm sm:text-body-md lg:text-body-lg xl:text-xl  section-px sm:max-w-sm md:max-w-2xl
-                         lg:max-w-4xl xl:max-w-5xl animate-fade-in"
+                        className="text-secondary-gray text-body-sm sm:text-body-md lg:text-body-lg xl:text-xl section-px max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-5xl animate-fade-in"
                         style={{ opacity: 0, animationDelay: "300ms" }}
                     >
                         {finalDescription}
@@ -182,7 +181,7 @@ export default async function ServicesSection({
                             </p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-gap-lg justify-center items-stretch">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 grid-gap-lg justify-center items-stretch">
                             {servicesToRender.map((service, index) => (
                                 <div key={index} className="w-full">
                                     <ServiceCard

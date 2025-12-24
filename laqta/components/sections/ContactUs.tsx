@@ -78,7 +78,7 @@ const ContactForm = ({ contactEmail, contactPhone, address }: ContactFormProps) 
     });
 
     return (
-        <div className="bg-primary flex md:flex-row gap-16  section-py-md px-16 py-32 pb-44">
+        <div className="bg-primary flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-12 lg:gap-16 section-px py-8 sm:py-12 md:py-20 lg:py-32 pb-12 sm:pb-16 md:pb-32 lg:pb-44">
             <div className="animate-slide-right flex-1" style={{ opacity: 0 }}>
                 <ContactInfo
                     contactEmail={contactEmail}
@@ -88,7 +88,7 @@ const ContactForm = ({ contactEmail, contactPhone, address }: ContactFormProps) 
             </div>
 
             <div
-                className="flex-1 md:w-auto  animate-fade-in"
+                className="flex-1 w-full md:w-auto animate-fade-in"
                 style={{ opacity: 0, animationDelay: "300ms" }}
             >
                 {/* Outer gradient border wrapper */}

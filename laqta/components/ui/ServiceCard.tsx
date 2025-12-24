@@ -106,7 +106,7 @@ export const ServiceCard = ({
     const cardContent = (
         <div
             className={cn(
-                "group relative text-neutral-500 rounded-xl p-1 h-full min-h-card overflow-hidden",
+                "group relative text-neutral-500 rounded-xl p-2 sm:p-3 h-full min-h-card overflow-hidden",
                 "bg-neutral-800 border border-white/10",
                 "hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/20",
                 "transition-all duration-500 ease-out cursor-pointer",
@@ -196,9 +196,9 @@ export const ServiceCard = ({
                         </p>
                     </div>
 
-                    {/* Tags with marquee effect - full width, no padding */}
+                    {/* Tags with marquee effect */}
                     {tags && tags.length > 0 && (
-                        <div className="pb-4">
+                        <div className="pb-4 px-2 sm:px-3">
                             <TagsMarquee tags={tags} />
                         </div>
                     )}

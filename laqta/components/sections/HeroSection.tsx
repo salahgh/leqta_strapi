@@ -15,12 +15,13 @@ import React from "react";
 export const HeroSection: React.FC = () => {
     const t = useTranslations("hero");
     const locale = useLocale();
-    const heroImage = locale === "ar"
-        ? "/images/where_creativity_arabic.svg"
-        : "/images/wherecreativitymeetsstrategy.svg";
+    const heroImage =
+        locale === "ar"
+            ? "/images/where_creativity_arabic.svg"
+            : "/images/wherecreativitymeetsstrategy.svg";
 
     return (
-        <div className="relative bg-primary flex flex-col items-center justify-center w-full text-center p-4 sm:p-8 md:p-12 md:pb-24 lg:pb-36 overflow-hidden">
+        <div className="relative bg-primary flex flex-col items-center justify-center w-full text-center p-3 sm:p-6 md:p-8 lg:p-12 pb-12 sm:pb-16 md:pb-24 lg:pb-36 overflow-hidden">
             {/* Gradient overlay */}
             <div className="absolute inset-0 z-20 bg-gradient-hero-fade" />
 
@@ -43,13 +44,13 @@ export const HeroSection: React.FC = () => {
             </div>
 
             {/* Content Layer */}
+            <Navigation />
             <div className="relative z-40 w-full">
-                <Navigation />
                 <div
                     className="pt-4 flex justify-center animate-fade-in"
                     style={{ opacity: 0 }}
                 >
-                    <Logo className="md:hidden" />
+                    {/*<Logo className="md:hidden" />*/}
                 </div>
                 <img
                     src={heroImage}
@@ -58,9 +59,9 @@ export const HeroSection: React.FC = () => {
                     style={{ opacity: 0, animationDelay: "150ms" }}
                 />
                 <p
-                    className="text-body-md sm:text-body-lg lg:text-body-xl font-medium text-secondary-gray
-                    section-px max-w-4xl mx-auto leading-relaxed
-                    text-justify sm:text-center md:text-justify lg:text-center animate-fade-in"
+                    className="text-body-sm sm:text-body-md md:text-body-lg lg:text-body-xl font-medium text-secondary-gray
+                    px-2 sm:px-4 md:section-px max-w-4xl mx-auto leading-relaxed
+                    text-center animate-fade-in"
                     style={{
                         opacity: 0,
                         animationDelay: "300ms",

@@ -1,50 +1,68 @@
+// Helper function to generate slug from title
+function generateSlug(title: string): string {
+    if (!title) return '';
+    return title
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
+}
+
 export const seedServices = async (strapi: any, servicesData: any[]) => {
     try {
         console.log('🌱 Starting Services seeding with i18n...');
 
         for (const serviceData of servicesData) {
             try {
-                // Check for existing service by slug OR title to prevent duplicates
-                const existingBySlug = await strapi.entityService.findMany('api::service.service', {
-                    filters: { slug: serviceData.base.slug },
-                    locale: 'en'
-                });
-
-                const existingByTitle = await strapi.entityService.findMany('api::service.service', {
+                // Check for existing service by title
+                const existingServices = await strapi.documents('api::service.service').findMany({
                     filters: { title: serviceData.base.title },
                     locale: 'en'
                 });
 
-                if ((existingBySlug && existingBySlug.length > 0) || (existingByTitle && existingByTitle.length > 0)) {
-                    console.log(`Service "${serviceData.base.title}" already exists, skipping`);
+                const existingService = existingServices && existingServices.length > 0 ? existingServices[0] : null;
+
+                if (existingService) {
+                    // Service exists - check if slug needs updating
+                    if (!existingService.slug) {
+                        const slug = serviceData.base.slug || generateSlug(serviceData.base.title);
+                        await strapi.documents('api::service.service').update({
+                            documentId: existingService.documentId,
+                            data: { slug },
+                            locale: 'en'
+                        });
+                        console.log(`✅ Updated slug for "${serviceData.base.title}" -> "${slug}"`);
+                    } else {
+                        console.log(`Service "${serviceData.base.title}" already has slug: "${existingService.slug}"`);
+                    }
                     continue;
                 }
 
-                // Create English version first with ALL fields
-                const enService = await strapi.entityService.create('api::service.service', {
+                // Service doesn't exist - create it
+                const enService = await strapi.documents('api::service.service').create({
                     data: {
                         title: serviceData.base.title,
-                        slug: serviceData.base.slug,
+                        slug: serviceData.base.slug || generateSlug(serviceData.base.title),
                         description: serviceData.base.description,
                         gradientFrom: serviceData.base.gradientFrom,
                         gradientTo: serviceData.base.gradientTo,
                         featured: serviceData.base.featured,
                         order: serviceData.base.order,
                         tags: serviceData.base.tags || null,
-                        locale: 'en',
                         publishedAt: new Date()
-                    }
+                    },
+                    locale: 'en'
                 });
 
                 console.log(`Created English Service: "${serviceData.base.title}" (ID: ${enService.id})`);
 
-                // Create translations - only include LOCALIZED fields (title, description, tags)
-                // Non-localized fields (slug, gradientFrom, gradientTo, featured, order) are shared
+                // Create translations
                 for (const [localeCode, translation] of Object.entries(serviceData.translations)) {
                     try {
                         const trans = translation as { title: string; description: string; tags?: any };
 
-                        // Get the documentId for linking localizations in Strapi v5
                         const documentId = enService.documentId;
 
                         if (!documentId) {
@@ -52,8 +70,6 @@ export const seedServices = async (strapi: any, servicesData: any[]) => {
                             continue;
                         }
 
-                        // In Strapi v5, use the document service to create localized versions
-                        // Only pass localized fields - slug and other non-localized fields are inherited
                         const translatedService = await strapi.documents('api::service.service').update({
                             documentId: documentId,
                             locale: localeCode,
@@ -68,18 +84,15 @@ export const seedServices = async (strapi: any, servicesData: any[]) => {
                         console.log(`Created ${localeCode.toUpperCase()} translation for Service: "${trans.title}" (ID: ${translatedService.id})`);
                     } catch (transError) {
                         console.error(`Error creating ${localeCode} translation for "${serviceData.base.title}":`, transError);
-                        // Continue with other translations even if one fails
                     }
                 }
             } catch (serviceError) {
                 console.error(`Error creating service "${serviceData.base.title}":`, serviceError);
-                // Continue with other services even if one fails
             }
         }
 
         console.log('✅ Services seeding completed successfully');
     } catch (error) {
         console.error('❌ Error in Services seeding:', error);
-        // Don't throw - let Strapi continue starting
     }
 };

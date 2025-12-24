@@ -1,74 +1,84 @@
-export const seedBlogs = async (strapi, blogsData) => {
-    try {
-        console.log('🌱 Starting Blogs seeding with i18n...');
+export const seedBlogs = async (strapi: any, blogsData: any[]) => {
+    console.log('🌱 Starting Blogs seeding...');
 
-        // Get seeded authors, categories, and tags for relations
-        const authors = await strapi.entityService.findMany('api::author.author', { locale: 'en' });
-        const categories = await strapi.entityService.findMany('api::category.category', { locale: 'en' });
-        const tags = await strapi.entityService.findMany('api::tag.tag', { locale: 'en' });
-
-        for (const blogData of blogsData) {
-            console.log(`Processing blog: "${blogData.base.title}" (Slug: ${blogData.base.slug})`);
-            const existingBlog = await strapi.entityService.findMany('api::blog.blog', {
+    for (const blogData of blogsData) {
+        try {
+            // Check if blog already exists
+            const existingBlogs = await strapi.documents('api::blog.blog').findMany({
                 filters: { slug: blogData.base.slug },
                 locale: 'en'
             });
 
-            if (existingBlog.length > 0) {
-                console.log(`Blog "${blogData.base.title}" already exists, skipping`);
+            if (existingBlogs && existingBlogs.length > 0) {
+                console.log(`⏭️ Blog "${blogData.base.title}" already exists, skipping`);
                 continue;
             }
 
-            // Add relations to blog data
-            const blogWithRelations = {
-                ...blogData.base,
-                author: authors[Math.floor(Math.random() * authors.length)]?.id,
-                category: categories[Math.floor(Math.random() * categories.length)]?.id,
-                tags: tags.slice(0, 3).map(tag => tag.id)
-            };
-
-            const enBlog = await strapi.entityService.create('api::blog.blog', {
+            // Create English (base) blog
+            const enBlog = await strapi.documents('api::blog.blog').create({
                 data: {
-                    ...blogWithRelations,
-                    locale: 'en',
+                    title: blogData.base.title,
+                    slug: blogData.base.slug,
+                    excerpt: blogData.base.excerpt,
+                    content: blogData.base.content,
+                    featured: blogData.base.featured,
+                    read_time: blogData.base.read_time,
+                    views: blogData.base.views || 0,
+                    meta_title: blogData.base.meta_title,
+                    meta_description: blogData.base.meta_description,
                     publishedAt: new Date()
-                }
+                },
+                locale: 'en'
             });
 
-            console.log(`Created English Blog: "${blogData.base.title}" (ID: ${enBlog.id})`);
+            console.log(`✅ Created EN blog: "${blogData.base.title}" (ID: ${enBlog.documentId})`);
 
-            for (const [localeCode, translation] of Object.entries(blogData.translations)) {
-                // Extract only localized fields but keep non-localized fields from base
-                const translationData: any = translation;
-                const { header_image, content_image, ...translatedFields } = translationData;
-
-                const blogTranslationData = {
-                    ...translatedFields,
-                    // Use the English slug for all translations
-                    slug: blogData.base.slug,
-                    // Keep non-localized fields from the base blog
-                    header_image: blogData.base.header_image,
-                    content_image: blogData.base.content_image,
-                    // Keep relations from the base blog
-                    author: blogWithRelations.author,
-                    category: blogWithRelations.category,
-                    tags: blogWithRelations.tags,
-                    publishedAt: new Date()
-                };
-
-                const translatedBlog = await strapi.entityService.create('api::blog.blog', {
-                    data: blogTranslationData,
-                    locale: localeCode,
-                    localizations: enBlog.id
+            // Create Arabic translation
+            if (blogData.translations.ar) {
+                const arData = blogData.translations.ar;
+                await strapi.documents('api::blog.blog').create({
+                    data: {
+                        title: arData.title,
+                        slug: blogData.base.slug, // Use same slug for all locales
+                        excerpt: arData.excerpt,
+                        content: arData.content,
+                        featured: arData.featured,
+                        read_time: arData.read_time,
+                        views: arData.views || 0,
+                        meta_title: arData.meta_title,
+                        meta_description: arData.meta_description,
+                        publishedAt: new Date()
+                    },
+                    locale: 'ar'
                 });
-
-                console.log(`Created ${localeCode.toUpperCase()} translation for: "${translatedFields.title}" (ID: ${translatedBlog.id})`);
+                console.log(`✅ Created AR blog: "${arData.title}"`);
             }
-        }
 
-        console.log('✅ Blogs seeding completed successfully');
-    } catch (error) {
-        console.error('❌ Error in Blogs seeding:', error);
-        throw error;
+            // Create French translation
+            if (blogData.translations.fr) {
+                const frData = blogData.translations.fr;
+                await strapi.documents('api::blog.blog').create({
+                    data: {
+                        title: frData.title,
+                        slug: blogData.base.slug, // Use same slug for all locales
+                        excerpt: frData.excerpt,
+                        content: frData.content,
+                        featured: frData.featured,
+                        read_time: frData.read_time,
+                        views: frData.views || 0,
+                        meta_title: frData.meta_title,
+                        meta_description: frData.meta_description,
+                        publishedAt: new Date()
+                    },
+                    locale: 'fr'
+                });
+                console.log(`✅ Created FR blog: "${frData.title}"`);
+            }
+
+        } catch (error) {
+            console.error(`❌ Error creating blog "${blogData.base.title}":`, error);
+        }
     }
+
+    console.log('✅ Blogs seeding completed');
 };

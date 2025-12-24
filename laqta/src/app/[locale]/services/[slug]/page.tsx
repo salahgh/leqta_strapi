@@ -5,7 +5,13 @@ import { Navigation } from "@/components/layout/Navigation";
 import Footer from "@/components/sections/Footer";
 import { Button } from "@/components/ui/Button";
 import { Link } from "@/src/i18n/navigation";
-import { ChevronRight, ChevronLeft, ChartColumnBig, Film, Rocket } from "lucide-react";
+import {
+    ChevronRight,
+    ChevronLeft,
+    ChartColumnBig,
+    Film,
+    Rocket,
+} from "lucide-react";
 
 interface ServiceDetailPageProps {
     params: Promise<{
@@ -28,7 +34,9 @@ const getIconComponent = (iconName?: string) => {
     }
 };
 
-export default async function ServiceDetailPage({ params }: ServiceDetailPageProps) {
+export default async function ServiceDetailPage({
+    params,
+}: ServiceDetailPageProps) {
     const { locale, slug } = await params;
     const t = await getTranslations("services");
     const tNav = await getTranslations("navigation");
@@ -75,21 +83,21 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
             />
 
             {/* Vector Curve SVG Layer */}
-            <div className="absolute inset-0 z-[1] flex justify-center pointer-events-none">
-                <img
-                    src="/images/vector_courbe.svg"
-                    alt=""
-                    className="w-full h-full object-fill opacity-30"
-                    aria-hidden="true"
-                />
-            </div>
+            {/*<div className="absolute inset-0 z-[1] flex justify-center pointer-events-none">*/}
+            {/*    <img*/}
+            {/*        src="/images/vector_courbe.svg"*/}
+            {/*        alt=""*/}
+            {/*        className="w-full h-full object-fill opacity-30"*/}
+            {/*        aria-hidden="true"*/}
+            {/*    />*/}
+            {/*</div>*/}
 
             {/* Laqta Logo Background */}
             <div className="absolute inset-0 z-[2] flex items-center justify-center pointer-events-none">
                 <img
                     src="/images/laqta_logo_courbe.svg"
                     alt=""
-                    className="w-1/2 max-w-2xl aspect-square object-contain opacity-10"
+                    className="w-1/2 max-w-3xl aspect-square object-contain opacity-10"
                     aria-hidden="true"
                 />
             </div>
@@ -109,7 +117,9 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
                             className="inline-flex items-center text-neutral-400 hover:text-white transition-colors mb-8 group"
                         >
                             <ChevronLeft className="w-5 h-5 mr-1 transition-transform group-hover:-translate-x-1" />
-                            <span className="text-body-md">{t("backToServices")}</span>
+                            <span className="text-body-md">
+                                {t("backToServices")}
+                            </span>
                         </Link>
 
                         {/* Service Card Style Container */}
@@ -122,12 +132,12 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
                             {/* Featured Image Background */}
                             {featuredImageUrl && (
                                 <div
-                                    className="absolute inset-0 z-[1]"
+                                    className="absolute inset-0 z-[1] "
                                     style={{
                                         backgroundImage: `url(${featuredImageUrl})`,
                                         backgroundSize: "cover",
                                         backgroundPosition: "center",
-                                        opacity: 0.3,
+                                        opacity: 1,
                                     }}
                                 />
                             )}
@@ -177,23 +187,31 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
                                 {service.tags && service.tags.length > 0 && (
                                     <div
                                         className="flex flex-wrap gap-2 mb-8 animate-fade-in"
-                                        style={{ opacity: 0, animationDelay: "150ms" }}
+                                        style={{
+                                            opacity: 0,
+                                            animationDelay: "150ms",
+                                        }}
                                     >
-                                        {service.tags.map((tag: string, index: number) => (
-                                            <span
-                                                key={index}
-                                                className="px-4 py-2 bg-white/10 text-neutral-300 text-body-sm rounded-full border border-white/10 backdrop-blur-sm"
-                                            >
-                                                {tag}
-                                            </span>
-                                        ))}
+                                        {service.tags.map(
+                                            (tag: string, index: number) => (
+                                                <span
+                                                    key={index}
+                                                    className="px-4 py-2 bg-white/10 text-neutral-300 text-body-sm rounded-full border border-white/10 backdrop-blur-sm"
+                                                >
+                                                    {tag}
+                                                </span>
+                                            ),
+                                        )}
                                     </div>
                                 )}
 
                                 {/* Description */}
                                 <p
                                     className="text-neutral-300 text-body-lg md:text-body-xl leading-relaxed animate-fade-in"
-                                    style={{ opacity: 0, animationDelay: "300ms" }}
+                                    style={{
+                                        opacity: 0,
+                                        animationDelay: "300ms",
+                                    }}
                                 >
                                     {service.description}
                                 </p>
@@ -215,7 +233,9 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
                                 <Button
                                     variant="primary"
                                     size="lg"
-                                    rightIcon={<ChevronRight className="w-5 h-5" />}
+                                    rightIcon={
+                                        <ChevronRight className="w-5 h-5" />
+                                    }
                                 >
                                     {t("getStarted")}
                                 </Button>

@@ -47,66 +47,102 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
     const imageUrl = getImageUrl(project.featured_image?.url);
 
     return (
-        <>
+        <div className="min-h-screen" dir={locale === "ar" ? "rtl" : "ltr"}>
             <Navigation />
 
-            {/* Hero Section */}
-            <section className="relative min-h-[70vh] flex items-center justify-center bg-gradient-to-br from-purple-900 via-blue-900 to-black overflow-hidden">
-                {/* Background Image with Overlay */}
-                {imageUrl && (
-                    <>
-                        <div
-                            className="absolute inset-0 bg-cover bg-center"
-                            style={{ backgroundImage: `url(${imageUrl})` }}
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
-                    </>
-                )}
+            {/* Blue Header with LAQTA Logo Background - matching BlogArticle style */}
+            <div className="relative py-60 md:pt-24 bg-primary">
+                {/* LAQTA Logo Background - larger and more visible */}
+                <div
+                    className="absolute inset-0 opacity-5 overflow-hidden pt-20"
+                    style={{
+                        marginLeft: locale === "ar" ? "auto" : 700,
+                        marginRight: locale === "ar" ? 700 : "auto",
+                    }}
+                >
+                    <Image
+                        src="/images/logo.svg"
+                        alt="LAQTA"
+                        fill
+                        className="object-contain mt-1"
+                        style={{
+                            transform: locale === "ar" ? "scale(0.70) scaleX(-1)" : "scale(0.70)",
+                            marginLeft: locale === "ar" ? undefined : "14rem",
+                            marginRight: locale === "ar" ? "14rem" : undefined,
+                        }}
+                    />
+                </div>
 
-                {/* Animated gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-purple-600/20 to-pink-600/20 animate-pulse" />
+                {/* Curve SVG Background */}
+                <div
+                    className="absolute inset-0 overflow-hidden pt-52"
+                    style={{
+                        transform: locale === "ar" ? "scaleX(-1)" : undefined,
+                    }}
+                >
+                    <img
+                        src="/images/vector9.svg"
+                        alt="LAQTA"
+                        className="object-contain"
+                        style={{ transform: "scale(1)" }}
+                    />
+                </div>
 
                 {/* Content */}
-                <div className="relative z-10 container mx-auto px-6 py-20 text-center">
+                <div
+                    className="w-2/3 pt-24 relative z-10"
+                    style={{
+                        marginLeft: locale === "ar" ? undefined : "6rem",
+                        marginRight: locale === "ar" ? "6rem" : undefined,
+                    }}
+                >
                     {/* Category Badge */}
-                    <div className="flex justify-center mb-6 animate-slide-down" style={{ opacity: 0 }}>
+                    <div className="mb-6 animate-slide-down" style={{ opacity: 0 }}>
                         <span className="px-6 py-2 bg-white/10 backdrop-blur-md text-white text-body-md rounded-full border border-white/20">
                             {project.category}
                         </span>
                     </div>
 
                     {/* Title */}
-                    <h1 className="text-white text-display-lg md:text-display-xl lg:text-display-2xl font-bold mb-6 max-w-4xl mx-auto leading-tight animate-slide-up" style={{ opacity: 0, animationDelay: "150ms" }}>
+                    <h1
+                        className="text-white leading-relaxed w-full text-display-lg md:text-display-xl font-bold animate-slide-up"
+                        style={{ lineHeight: 1.4, opacity: 0, animationDelay: "150ms" }}
+                    >
                         {project.title}
                     </h1>
 
-                    {/* Metrics */}
+                    {/* Metrics under title */}
                     {project.metrics && (
-                        <p className="text-blue-300 text-body-xl md:text-display-xs font-semibold mb-8 animate-fade-in" style={{ opacity: 0, animationDelay: "300ms" }}>
+                        <p
+                            style={{ lineHeight: 1.7 }}
+                            className="text-body-lg md:text-body-xl text-secondary mt-4 w-full md:w-2/3 animate-fade-in"
+                        >
                             {project.metrics}
                         </p>
                     )}
                 </div>
-            </section>
+            </div>
+
+            {/* Header Image */}
+            {imageUrl && (
+                <div className="relative w-full h-64 md:h-96 lg:h-[32rem] overflow-hidden rounded-t-[50px] -mt-12">
+                    <Image
+                        src={imageUrl}
+                        alt={project.title}
+                        fill
+                        className="object-cover"
+                        priority
+                        sizes="100vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/10" />
+                </div>
+            )}
 
             {/* Project Details Section */}
             <section className="bg-white py-20">
                 <div className="container mx-auto px-6">
                     {/* Main Content */}
                     <div className="max-w-4xl mx-auto animate-fade-in" style={{ opacity: 0, animationDelay: "150ms" }}>
-                        {/* Project Image */}
-                        {imageUrl && (
-                            <div className="mb-12 rounded-2xl overflow-hidden shadow-2xl">
-                                <Image
-                                    src={imageUrl}
-                                    alt={project.title}
-                                    width={1200}
-                                    height={675}
-                                    className="w-full h-auto object-cover"
-                                />
-                            </div>
-                        )}
-
                         {/* Description */}
                         <div className="prose prose-lg max-w-none mb-12">
                             <h2 className="text-gray-900 text-display-sm font-bold mb-6">
@@ -138,19 +174,17 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
                     </div>
 
                     {/* CTA Section */}
-                    <div className="max-w-4xl mx-auto bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-12 text-center">
+                    <div className="max-w-4xl mx-auto bg-primary rounded-2xl p-12 text-center">
                         <h2 className="text-white text-display-sm font-bold mb-4">
                             {t("likeWhatYouSee")}
                         </h2>
-                        <p className="text-white/90 text-body-lg mb-6">
+                        <p className="text-secondary text-body-lg mb-6">
                             {t("letsWorkTogether")}
                         </p>
                         <Link href="/contact">
                             <Button
-                                variant="secondary"
-                                leftIcon={null}
+                                variant="primary"
                                 rightIcon={<ChevronRight className="w-5 h-5" />}
-                                className="bg-white text-primary hover:bg-gray-100"
                             >
                                 {t("startYourProject")}
                             </Button>
@@ -160,9 +194,9 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
             </section>
 
             {/* Back to Works */}
-            <section className="bg-gray-50 py-12">
+            <section className="bg-primary py-12">
                 <div className="container mx-auto px-6 text-center">
-                    <Link href="/#works" className="inline-flex items-center text-primary hover:underline text-body-lg font-medium">
+                    <Link href="/#works" className="inline-flex items-center text-white hover:text-secondary text-body-lg font-medium transition-colors">
                         <ArrowLeft className="w-5 h-5 mr-2" />
                         {t("backToWorks")}
                     </Link>
@@ -170,7 +204,7 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
             </section>
 
             <Footer locale={locale} />
-        </>
+        </div>
     );
 }
 

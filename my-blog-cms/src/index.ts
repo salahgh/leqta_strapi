@@ -1,19 +1,18 @@
 import { runSeeds } from './seeds/seeders';
 
 module.exports = {
-    register(/* { strapi } */) {
-        // Registration logic
-    },
+    register(/* { strapi } */) {},
 
-    bootstrap({ strapi }) {
-        // Run seeding after 10 seconds to ensure Strapi is ready
-        // The seeder will update existing services with slugs if missing
+    async bootstrap({ strapi }) {
+        console.log('🚀 Bootstrap: Running seeds in 3 seconds...');
+
         setTimeout(async () => {
             try {
+                console.log('🌱 Seeding started...');
                 await runSeeds(strapi);
             } catch (error) {
-                console.error('Seeding error (non-fatal):', error);
+                console.error('❌ Seeding error:', error);
             }
-        }, 10000);
+        }, 3000);
     },
 };

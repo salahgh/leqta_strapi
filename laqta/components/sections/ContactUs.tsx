@@ -15,7 +15,14 @@ import { SubmitButton } from "@/components/ui/SubmitButton";
 import { FormInput } from "@/components/ui/FormInput";
 import { ContactInfo } from "@/components/ui/CntactInfo";
 
-// Main Contact Form Component
+// Contact Form Props
+interface ContactFormProps {
+    contactEmail?: string;
+    contactPhone?: string;
+    address?: string;
+}
+
+// Form Values
 interface ContactFormValues {
     fullname: string;
     email: string;
@@ -23,7 +30,7 @@ interface ContactFormValues {
     message: string;
 }
 
-const ContactForm = () => {
+const ContactForm = ({ contactEmail, contactPhone, address }: ContactFormProps) => {
     const t = useTranslations("contact.form");
 
     const formik = useFormik<ContactFormValues>({
@@ -73,7 +80,11 @@ const ContactForm = () => {
     return (
         <div className="bg-primary flex md:flex-row gap-16  section-py-md px-16 py-32 pb-44">
             <div className="animate-slide-right flex-1" style={{ opacity: 0 }}>
-                <ContactInfo />
+                <ContactInfo
+                    contactEmail={contactEmail}
+                    contactPhone={contactPhone}
+                    address={address}
+                />
             </div>
 
             <div

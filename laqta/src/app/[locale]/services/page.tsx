@@ -8,11 +8,24 @@ import { Service, servicesApi, utils } from "@/lib/strapi";
 import { ErrorFallback } from "@/components/ui/ErrorFallback";
 import { ChartColumnBig, Film, Rocket } from "lucide-react";
 
+// Disable caching for real-time CMS updates
+export const dynamic = "force-dynamic";
+
 export const metadata = {
     title: "Services | Laqta",
     description:
         "Explore Laqta's services - Content marketing, video production, and more.",
 };
+
+// Helper function to generate slug from title
+function generateSlug(title: string): string {
+    return (
+        title
+            ?.toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/(^-|-$)/g, "") || ""
+    );
+}
 
 // Server-side function to fetch services with revalidation and locale support
 async function getServices(
@@ -24,7 +37,17 @@ async function getServices(
             pageSize: 20,
             locale: locale,
         });
-        return { data: response.data };
+
+        // Ensure all services have slugs (generate from title if missing)
+        const servicesWithSlugs = response.data.map((service) => ({
+            ...service,
+            slug:
+                service.slug ||
+                generateSlug(service.title) ||
+                service.documentId,
+        }));
+
+        return { data: servicesWithSlugs };
     } catch (error) {
         console.error("Error fetching services:", error);
         return {
@@ -90,26 +113,19 @@ const ServicesPage = async ({
         await getServices(locale);
 
     // Filter out services without slugs (they can't be navigated to)
-    const servicesWithSlugs = strapiServices.filter(service => service.slug);
+    const servicesWithSlugs = strapiServices.filter((service) => service.slug);
     const servicesToRender = servicesWithSlugs.map(transformStrapiService);
 
     return (
         <div className="relative min-h-screen flex flex-col bg-primary">
             {/* Background Logo - similar to OurWorksSection */}
-            <div className="absolute inset-0 z-0 flex flex-col justify-start items-center -top-16 sm:-top-20 md:-top-24 pointer-events-none">
-                <img
-                    src="/images/laqta_logo_courbe.svg"
-                    alt="LAQTA Logo Curve"
-                    className="w-2/3 aspect-square object-fill z-0 opacity-20"
-                />
-            </div>
 
             {/* Vector Curve SVG Layer */}
             <div className="absolute inset-0 z-5 flex justify-center pointer-events-none">
                 <img
                     src="/images/vector_courbe.svg"
                     alt="Vector Curve Background"
-                    className="w-full h-full object-fill opacity-50"
+                    className="w-2/3 h-2/3 object-fill opacity-70"
                 />
             </div>
 
@@ -121,10 +137,7 @@ const ServicesPage = async ({
             <main className="relative z-10 flex-1">
                 {/* Header Section */}
                 <div className="text-center flex flex-col items-center grid-gap-sm section-py-lg section-px">
-                    <div
-                        className="animate-slide-down"
-                        style={{ opacity: 0 }}
-                    >
+                    <div className="animate-slide-down" style={{ opacity: 0 }}>
                         <Badge size="md" variant="accent">
                             {t("badge")}
                         </Badge>

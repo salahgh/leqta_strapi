@@ -1,10 +1,21 @@
 import React from "react";
-import { Mail, MapPin, Phone, PhoneCall } from "lucide-react";
+import { Mail, MapPin, PhoneCall } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { useTranslations } from "next-intl";
 
-export const ContactInfo = () => {
+interface ContactInfoProps {
+    contactEmail?: string;
+    contactPhone?: string;
+    address?: string;
+}
+
+export const ContactInfo = ({ contactEmail, contactPhone, address }: ContactInfoProps) => {
     const t = useTranslations("contact");
+
+    // Fallback values if not provided from CMS
+    const email = contactEmail || "hello@laqta.agency";
+    const phone = contactPhone || "+213 770 123 456";
+    const addressText = address || "LAQTA Studio, 1600, Algiers, Algeria";
 
     return (
         <div className=" space-y-8">
@@ -20,21 +31,19 @@ export const ContactInfo = () => {
                 </p>
 
                 <div className={"space-y-4 text-responsive-lg"}>
-                    <div className={"flex gap-2 items-center"}>
+                    <a href={`tel:${phone}`} className={"flex gap-2 items-center hover:text-white transition-colors"}>
                         <PhoneCall className={"w-8 h-8"} />
-                        <div>+213 770 123 456</div>
-                    </div>
-                    <div className={"flex gap-2 items-center"}>
+                        <div>{phone}</div>
+                    </a>
+                    <a href={`mailto:${email}`} className={"flex gap-2 items-center hover:text-white transition-colors"}>
                         <Mail className={"w-8 h-8"} />
-                        <div>helllo@laqta.agency</div>
-                    </div>
+                        <div>{email}</div>
+                    </a>
 
                     <div className={"flex gap-1 items-center"}>
                         <MapPin className={"w-10 h-10"} />
-                        <div className="leading-relaxed">
-                            LAQTA Studio, 1600, Algiers,
-                            <br />
-                            Algeria
+                        <div className="leading-relaxed whitespace-pre-line">
+                            {addressText}
                         </div>
                     </div>
                 </div>

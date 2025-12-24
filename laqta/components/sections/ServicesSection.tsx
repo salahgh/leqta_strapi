@@ -34,9 +34,20 @@ async function getServices(
             pageSize: 6, // Fetch a few more to filter by slug
             locale: locale,
         });
-        // Filter to only services with slugs and limit to 3 for homepage
-        const servicesWithSlugs = response.data.filter(service => service.slug);
-        return { data: servicesWithSlugs.slice(0, 3) };
+
+        // Filter featured services and limit to 3 for homepage
+        // Use slug if available, otherwise generate from title
+        const servicesWithLinks = response.data.map(service => ({
+            ...service,
+            slug: service.slug || service.title?.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || service.documentId
+        }));
+
+        // Sort by order and get top 3
+        const sortedServices = servicesWithLinks
+            .sort((a, b) => (a.order || 0) - (b.order || 0))
+            .slice(0, 3);
+
+        return { data: sortedServices };
     } catch (error) {
         console.error("Error fetching services:", error);
         return {

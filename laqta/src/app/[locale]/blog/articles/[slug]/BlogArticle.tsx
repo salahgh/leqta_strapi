@@ -7,18 +7,26 @@ import { Blog, utils } from "@/lib/strapi";
 import { ReadingProgress } from "./ReadingProgress";
 import { TableOfContents } from "@/src/app/[locale]/blog/articles/[slug]/TableOfContents";
 import { useTranslations } from "next-intl";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
-// Extract headings from HTML content for table of contents
+// Extract headings from Markdown content for table of contents
 const extractHeadings = (content: string) => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(content, "text/html");
-    const headings = doc.querySelectorAll("h1, h2, h3");
+    const headingRegex = /^(#{1,3})\s+(.+)$/gm;
+    const headings: Array<{ id: string; text: string; level: number }> = [];
+    let match;
+    let index = 0;
 
-    return Array.from(headings).map((heading, index) => ({
-        id: `heading-${index}`,
-        text: heading.textContent || "",
-        level: parseInt(heading.tagName.substring(1)),
-    }));
+    while ((match = headingRegex.exec(content)) !== null) {
+        headings.push({
+            id: `heading-${index}`,
+            text: match[2].trim(),
+            level: match[1].length,
+        });
+        index++;
+    }
+
+    return headings;
 };
 
 // Blog Article Component
@@ -44,41 +52,26 @@ export const BlogArticle: React.FC<{
             const extractedHeadings = extractHeadings(blog.content);
             setHeadings(extractedHeadings);
 
-            // Add IDs to headings in the content
-            const contentDiv = document.querySelector(".blog-content");
-            if (contentDiv) {
-                const headingElements =
-                    contentDiv.querySelectorAll("h1, h2, h3");
-                headingElements.forEach((heading, index) => {
-                    heading.id = `heading-${index}`;
-                });
-            }
-
-            // Split content to insert image in the middle (if content_image exists)
-            if (blog.content_image) {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(blog.content, "text/html");
-                const paragraphs = doc.querySelectorAll("p, h2, h3");
-                const midPoint = Math.floor(paragraphs.length / 2);
-
-                if (paragraphs.length > 3 && paragraphs[midPoint]) {
-                    // Get content before and after the midpoint
-                    const beforeContent: HTMLElement[] = [];
-                    const afterContent: HTMLElement[] = [];
-
-                    paragraphs.forEach((el, index) => {
-                        if (index < midPoint) {
-                            beforeContent.push(el as HTMLElement);
-                        } else {
-                            afterContent.push(el as HTMLElement);
-                        }
+            // Add IDs to headings in the content after render
+            setTimeout(() => {
+                const contentDiv = document.querySelector(".blog-content");
+                if (contentDiv) {
+                    const headingElements = contentDiv.querySelectorAll("h1, h2, h3");
+                    headingElements.forEach((heading, index) => {
+                        heading.id = `heading-${index}`;
                     });
+                }
+            }, 100);
 
+            // Split content for image insertion (for Markdown)
+            if (blog.content_image) {
+                const lines = blog.content.split("\n");
+                const midPoint = Math.floor(lines.length / 2);
+
+                if (lines.length > 6) {
                     setContentParts({
-                        before: beforeContent
-                            .map((el) => el.outerHTML)
-                            .join(""),
-                        after: afterContent.map((el) => el.outerHTML).join(""),
+                        before: lines.slice(0, midPoint).join("\n"),
+                        after: lines.slice(midPoint).join("\n"),
                     });
                 }
             }
@@ -178,28 +171,20 @@ export const BlogArticle: React.FC<{
                     <article className="lg:col-span-9">
                         <div className="bg-white rounded-3xl shadow-xl card-p-md">
                             {/* Blog content uses dedicated .blog-content styles from globals.css */}
-                            <div className="blog-content max-w-none">
+                            <div className="blog-content max-w-none prose prose-lg prose-neutral">
                                 {/* First part of content */}
-                                {blog.content_image && contentParts.before ? (
+                                {blog.content_image && contentParts.after ? (
                                     <>
-                                        <div
-                                            dangerouslySetInnerHTML={{
-                                                __html: contentParts.before,
-                                            }}
-                                        />
+                                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                            {contentParts.before}
+                                        </ReactMarkdown>
 
                                         {/* Content Image - inserted in the middle */}
                                         <div className="my-12">
                                             <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
                                                 <Image
-                                                    src={utils.getFileUrl(
-                                                        blog.content_image.url,
-                                                    )}
-                                                    alt={
-                                                        blog.content_image
-                                                            .alternativeText ||
-                                                        "Content image"
-                                                    }
+                                                    src={utils.getFileUrl(blog.content_image.url)}
+                                                    alt={blog.content_image.alternativeText || "Content image"}
                                                     fill
                                                     className="object-cover hover:scale-105 transition-transform duration-500"
                                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
@@ -209,18 +194,14 @@ export const BlogArticle: React.FC<{
                                         </div>
 
                                         {/* Second part of content */}
-                                        <div
-                                            dangerouslySetInnerHTML={{
-                                                __html: contentParts.after,
-                                            }}
-                                        />
+                                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                            {contentParts.after}
+                                        </ReactMarkdown>
                                     </>
                                 ) : (
-                                    <div
-                                        dangerouslySetInnerHTML={{
-                                            __html: blog.content,
-                                        }}
-                                    />
+                                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                        {blog.content}
+                                    </ReactMarkdown>
                                 )}
                             </div>
                         </div>

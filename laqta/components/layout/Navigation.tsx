@@ -31,6 +31,7 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
         { label: t("home"), href: "/" },
         { label: t("about"), href: "/about" },
         { label: t("services"), href: "/services" },
+        { label: t("pricing"), href: "/pricing" },
         { label: t("blog"), href: "/blog" },
         { label: t("contact"), href: "/contact" },
     ];

@@ -10,6 +10,10 @@ import FAQSectionWrapper from "@/components/sections/FAQSection/FAQSectionWrappe
 import { HeroSection } from "@/components/sections/HeroSection";
 import { getTranslations } from "next-intl/server";
 import Footer from "@/components/sections/Footer";
+import { siteSettingsApi } from "@/lib/strapi";
+
+// Disable caching for real-time CMS updates
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({
     params,
@@ -32,6 +36,9 @@ export default async function Home({
 }) {
     const { locale } = await params;
     console.log("Home page - locale:", locale);
+
+    // Fetch site settings for contact info
+    const siteSettings = await siteSettingsApi.get(locale);
 
     return (
         <div className="w-full">
@@ -59,7 +66,11 @@ export default async function Home({
                 <div id="faq">
                     <FAQSectionWrapper locale={locale} />
                 </div>
-                <ContactUs />
+                <ContactUs
+                    contactEmail={siteSettings?.contactEmail}
+                    contactPhone={siteSettings?.contactPhone}
+                    address={siteSettings?.address}
+                />
                 <Footer locale={locale} />
             </div>
         </div>

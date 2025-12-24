@@ -3,6 +3,7 @@
     "home": "Accueil",
     "about": "À propos",
     "services": "Services",
+    "pricing": "Tarifs",
     "blog": "Blog",
     "contact": "Contactez-nous",
     "getStarted": "Commencer",
@@ -80,7 +81,14 @@
   "works": {
     "badge": "Nos Travaux",
     "title": "Nos Travaux",
-    "description": "Des entreprises de marque puissantes aux campagnes sociales audacieuses, la créativité avec la stratégie pour connecter, performer et inspirer. Voici un aperçu de ce que nous avons créé avec nos clients extraordinaires."
+    "description": "Des entreprises de marque puissantes aux campagnes sociales audacieuses, la créativité avec la stratégie pour connecter, performer et inspirer. Voici un aperçu de ce que nous avons créé avec nos clients extraordinaires.",
+    "projectOverview": "Aperçu du Projet",
+    "category": "Catégorie",
+    "results": "Résultats",
+    "likeWhatYouSee": "Vous aimez ce que vous voyez?",
+    "letsWorkTogether": "Créons quelque chose d'incroyable ensemble. Contactez-nous pour discuter de votre prochain projet.",
+    "startYourProject": "Démarrer Votre Projet",
+    "backToWorks": "Retour aux Travaux"
   },
   "perfectPartner": {
     "badge": "Votre Partenaire Parfait",

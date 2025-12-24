@@ -20,7 +20,9 @@
       "Bash(cat:*)",
       "Bash(wc:*)",
       "Bash(npm run develop:*)",
-      "Bash(ping:*)"
+      "Bash(ping:*)",
+      "Bash(mkdir:*)",
+      "Bash(npm install:*)"
     ],
     "deny": [],
     "ask": []

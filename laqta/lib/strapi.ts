@@ -55,6 +55,7 @@ export interface ApiError {
 // Configuration
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL_2 || "http://localhost:1337";
 const API_BASE = `${STRAPI_URL}/api`;
+const IS_DEV = process.env.NODE_ENV === 'development';
 
 // Base fetch wrapper with caching
 const fetchApi = cache(async function <T>(
@@ -72,9 +73,10 @@ const fetchApi = cache(async function <T>(
             ...(options.headers || {}),
         },
         ...options,
-        // Add Next.js caching configuration
-        next: {
-            revalidate: 3600, // 1 hour default revalidation
+        // Disable cache in development, use short revalidation in production
+        cache: IS_DEV ? 'no-store' : undefined,
+        next: IS_DEV ? undefined : {
+            revalidate: 60, // 1 minute in production
             ...((options as any)?.next || {}),
         },
     };
@@ -158,6 +160,7 @@ export const servicesApi = {
     },
 
     // Get service by slug using filter approach (more reliable)
+    // Falls back to matching generated slug from title if no slug field exists
     async getBySlug(
         slug: string,
         params?: {
@@ -172,14 +175,37 @@ export const servicesApi = {
         const query = searchParams.toString();
         const endpoint = `/services?${query}`;
 
-        // This returns an array, we need to get the first item
+        // First try to find by actual slug field
         const response = await fetchApi<ApiResponse<Service[]>>(endpoint, {}, params?.locale);
 
-        if (!response.data || response.data.length === 0) {
+        if (response.data && response.data.length > 0) {
+            return { data: response.data[0], meta: response.meta };
+        }
+
+        // Fallback: fetch all services and find by generated slug from title
+        const allParams = new URLSearchParams();
+        if (params?.populate) allParams.set("populate", params.populate);
+        allParams.set("pagination[pageSize]", "100");
+
+        const allQuery = allParams.toString();
+        const allEndpoint = `/services?${allQuery}`;
+        const allResponse = await fetchApi<ApiResponse<Service[]>>(allEndpoint, {}, params?.locale);
+
+        // Helper to generate slug from title
+        const generateSlug = (title: string): string =>
+            title?.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || '';
+
+        // Find service by matching generated slug
+        const matchedService = allResponse.data?.find(service => {
+            const generatedSlug = generateSlug(service.title);
+            return generatedSlug === slug || service.documentId === slug;
+        });
+
+        if (!matchedService) {
             throw new Error("Service not found");
         }
 
-        return { data: response.data[0], meta: response.meta };
+        return { data: matchedService, meta: allResponse.meta };
     },
 
     // Update getFeatured method
@@ -993,23 +1019,43 @@ export const newsletterApi = {
     },
 };
 
+// Site Settings interface
+export interface SiteSettings {
+    id: number;
+    siteName?: string;
+    siteDescription?: string;
+    contactEmail?: string;
+    contactPhone?: string;
+    address?: string;
+    footerText?: string;
+    copyrightText?: string;
+    social_links?: SocialMedia[];
+}
+
+// Site Settings API (fetches from site-setting single type)
+export const siteSettingsApi = {
+    async get(locale?: string): Promise<SiteSettings | null> {
+        const endpoint = `/site-setting?populate=social_links`;
+
+        try {
+            const response = await fetchApi<{ data: SiteSettings }>(endpoint, {}, locale);
+            return response.data || null;
+        } catch (error) {
+            console.error("Failed to fetch site settings:", error);
+            return null;
+        }
+    },
+};
+
 // Social Media API (fetches from site-setting single type)
 export const socialMediaApi = {
     async getAll(params?: {
         sort?: string;
         locale?: string;
     }): Promise<{ data: SocialMedia[] }> {
-        const endpoint = `/site-setting?populate=social_links`;
-
-        const response = await fetchApi<{
-            data: {
-                social_links: SocialMedia[];
-            };
-        }>(endpoint, {}, params?.locale);
-
-        // Extract social_links from the site-setting response
+        const settings = await siteSettingsApi.get(params?.locale);
         return {
-            data: response.data?.social_links || [],
+            data: settings?.social_links || [],
         };
     },
 };
@@ -1020,6 +1066,7 @@ export default {
     tagsApi,
     newsletterApi,
     socialMediaApi,
+    siteSettingsApi,
     servicesApi,
     worksApi,
     testimonialsApi,

@@ -2,7 +2,7 @@ import React from "react";
 import NewsletterForm from "@/components/ui/NewsletterForm";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/src/i18n/navigation";
-import { socialMediaApi, SocialMedia } from "@/lib/strapi";
+import { siteSettingsApi, SocialMedia, SiteSettings } from "@/lib/strapi";
 
 /**
  * Footer Component - Design System
@@ -18,17 +18,14 @@ interface FooterProps {
 const Footer = async ({ locale }: FooterProps) => {
     const t = await getTranslations("footer");
 
-    // Fetch social media links from Strapi
+    // Fetch site settings from Strapi
+    let siteSettings: SiteSettings | null = null;
     let socialMediaLinks: SocialMedia[] = [];
     try {
-        const response = await socialMediaApi.getAll({
-            sort: "order:asc",
-            locale: locale,
-        });
-        socialMediaLinks = response.data;
+        siteSettings = await siteSettingsApi.get(locale);
+        socialMediaLinks = siteSettings?.social_links || [];
     } catch (error) {
-        console.error("Failed to fetch social media links:", error);
-        // Fallback to empty array - component will handle gracefully
+        console.error("Failed to fetch site settings:", error);
     }
 
     return (
@@ -175,6 +172,7 @@ const Footer = async ({ locale }: FooterProps) => {
                                 </li>
                             </ul>
                         </div>
+
                     </div>
                 </div>
                 {/* Large LEQTA Watermark */}
@@ -192,7 +190,7 @@ const Footer = async ({ locale }: FooterProps) => {
                     style={{ marginTop: -45 }}
                 >
                     <p className="text-neutral-400 text-body-sm mb-4 md:mb-0">
-                        {t("copyright")}
+                        {siteSettings?.copyrightText || t("copyright")}
                     </p>
                     {/* Social Media Icons - Right aligned */}
                     <div className="flex space-x-3">

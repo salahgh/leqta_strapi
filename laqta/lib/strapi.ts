@@ -1060,6 +1060,91 @@ export const socialMediaApi = {
     },
 };
 
+// Plan interfaces
+export interface PlanPoint {
+    id: number;
+    text: string;
+    included: boolean;
+}
+
+export interface PlanSection {
+    id: number;
+    title: string;
+    points: PlanPoint[];
+}
+
+export interface Plan {
+    id: number;
+    documentId: string;
+    title: string;
+    description?: string;
+    price?: string;
+    isCustomPricing: boolean;
+    customPricingText?: string;
+    buttonText?: string;
+    buttonLink?: string;
+    featured: boolean;
+    order: number;
+    sections: PlanSection[];
+    publishedAt: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+// Plans API
+export const plansApi = {
+    async getAll(params?: {
+        page?: number;
+        pageSize?: number;
+        sort?: string;
+        locale?: string;
+    }): Promise<ApiResponse<Plan[]>> {
+        const searchParams = new URLSearchParams();
+        if (params?.page)
+            searchParams.set("pagination[page]", params.page.toString());
+        if (params?.pageSize)
+            searchParams.set("pagination[pageSize]", params.pageSize.toString());
+        if (params?.sort) searchParams.set("sort", params.sort);
+
+        // Populate sections and points
+        searchParams.set("populate[sections][populate][0]", "points");
+
+        const query = searchParams.toString();
+        const endpoint = `/plans${query ? `?${query}` : ""}`;
+
+        return fetchApi<ApiResponse<Plan[]>>(endpoint, {}, params?.locale);
+    },
+
+    async getById(
+        id: number,
+        params?: {
+            locale?: string;
+        },
+    ): Promise<ApiResponse<Plan>> {
+        const searchParams = new URLSearchParams();
+        searchParams.set("populate[sections][populate][0]", "points");
+
+        const query = searchParams.toString();
+        const endpoint = `/plans/${id}${query ? `?${query}` : ""}`;
+
+        return fetchApi<ApiResponse<Plan>>(endpoint, {}, params?.locale);
+    },
+
+    async getFeatured(params?: {
+        locale?: string;
+    }): Promise<ApiResponse<Plan[]>> {
+        const searchParams = new URLSearchParams();
+        searchParams.set("filters[featured][$eq]", "true");
+        searchParams.set("populate[sections][populate][0]", "points");
+        searchParams.set("sort", "order:asc");
+
+        const query = searchParams.toString();
+        const endpoint = `/plans?${query}`;
+
+        return fetchApi<ApiResponse<Plan[]>>(endpoint, {}, params?.locale);
+    },
+};
+
 export default {
     blogsApi,
     categoriesApi,
@@ -1072,5 +1157,6 @@ export default {
     testimonialsApi,
     faqsApi,
     missionsApi,
+    plansApi,
     utils,
 };

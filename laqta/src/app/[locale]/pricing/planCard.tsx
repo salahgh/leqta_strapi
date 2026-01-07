@@ -1,8 +1,9 @@
 // Plan Card Component
-import { Check, Sparkles } from "lucide-react";
+import { Check, X, Sparkles } from "lucide-react";
 import React from "react";
 import { Link } from "@/src/i18n/navigation";
 import { Button } from "@/components/ui/Button";
+import { Plan } from "@/lib/strapi";
 
 interface PlanCardProps {
     title: string;
@@ -16,6 +17,7 @@ interface PlanCardProps {
     equipmentTitle?: string;
 }
 
+// Legacy static PlanCard (kept for backwards compatibility)
 export const PlanCard = ({
     title,
     description,
@@ -169,6 +171,162 @@ export const PlanCard = ({
                             darkMode
                         >
                             {buttonText}
+                        </Button>
+                    </Link>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// Dynamic PlanCard that uses Strapi Plan data
+interface DynamicPlanCardProps {
+    plan: Plan;
+}
+
+export const DynamicPlanCard = ({ plan }: DynamicPlanCardProps) => {
+    const isFeatured = plan.featured;
+
+    return (
+        <div
+            className={`
+                relative rounded-2xl md:rounded-3xl overflow-hidden h-full
+                ${
+                    isFeatured
+                        ? "bg-gradient-to-b from-primary/60 to-pink-600/80 scale-105 z-10"
+                        : "bg-primary/80 border border-white/10"
+                }
+                backdrop-blur-sm shadow-2xl
+                hover:shadow-3xl hover:border-white/20 transition-all duration-300
+            `}
+        >
+            {/* Featured background logo */}
+            {isFeatured && (
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+                    <img
+                        src="/images/vector_courbe.svg"
+                        alt=""
+                        className="w-full h-full object-contain"
+                        aria-hidden="true"
+                    />
+                    <div
+                        className="absolute inset-0"
+                        style={{
+                            background:
+                                "linear-gradient(to bottom, rgba(88, 28, 135, 0.80) 0%, rgba(88, 28, 135, 0.7) 20%, transparent 50%)",
+                        }}
+                    />
+                </div>
+            )}
+
+            {/* Featured highlight bar */}
+            {isFeatured && (
+                <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500" />
+            )}
+
+            <div className="relative z-10 flex flex-col h-full p-4 sm:p-5 md:p-6">
+                {/* Header */}
+                <div className="mb-6">
+                    <div className="flex items-center gap-2 mb-3">
+                        {isFeatured && (
+                            <Sparkles className="w-5 h-5 text-pink-400" />
+                        )}
+                        <h3 className="text-body-lg sm:text-display-xs md:text-display-sm font-bold text-white">
+                            {plan.title}
+                        </h3>
+                    </div>
+                    {plan.description && (
+                        <p className="text-body-xs sm:text-body-sm md:text-body-md text-neutral-300 leading-relaxed">
+                            {plan.description}
+                        </p>
+                    )}
+                </div>
+
+                {/* Sections with Points */}
+                {plan.sections && plan.sections.length > 0 && (
+                    <div className="space-y-6 mb-6">
+                        {plan.sections.map((section, sectionIndex) => (
+                            <div key={sectionIndex}>
+                                <h4 className="text-body-md font-semibold text-white mb-4">
+                                    {section.title}
+                                </h4>
+                                <ul className="space-y-3">
+                                    {section.points?.map((point, pointIndex) => (
+                                        <li
+                                            key={pointIndex}
+                                            className="flex items-start gap-3"
+                                        >
+                                            <div
+                                                className={`
+                                                    flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5
+                                                    ${point.included
+                                                        ? isFeatured
+                                                            ? "bg-pink-500/20"
+                                                            : "bg-green-500/20"
+                                                        : "bg-red-500/10"
+                                                    }
+                                                `}
+                                            >
+                                                {point.included ? (
+                                                    <Check
+                                                        className={`w-3 h-3 ${isFeatured ? "text-pink-400" : "text-green-400"}`}
+                                                    />
+                                                ) : (
+                                                    <X className="w-3 h-3 text-red-400/60" />
+                                                )}
+                                            </div>
+                                            <span
+                                                className={`text-body-sm ${
+                                                    point.included
+                                                        ? "text-neutral-300"
+                                                        : "text-neutral-500"
+                                                }`}
+                                            >
+                                                {point.text}
+                                            </span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+                {/* Spacer */}
+                <div className="flex-1" />
+
+                {/* Divider */}
+                <div
+                    className={`border-t ${isFeatured ? "border-pink-500/20" : "border-white/10"} my-4`}
+                />
+
+                {/* Footer with Price and CTA */}
+                <div className="flex items-center justify-between gap-4">
+                    {plan.isCustomPricing ? (
+                        <div className="text-body-sm text-neutral-300 font-medium">
+                            {plan.customPricingText || "Custom pricing"}
+                        </div>
+                    ) : plan.price ? (
+                        <div>
+                            <span className="text-display-xs md:text-display-sm font-bold text-white">
+                                {plan.price}
+                            </span>
+                        </div>
+                    ) : (
+                        <div className="text-body-sm text-neutral-400">
+                            Contact us
+                        </div>
+                    )}
+
+                    <Link href={plan.buttonLink || "/contact"}>
+                        <Button
+                            variant={isFeatured ? "primary" : "secondary"}
+                            size="md"
+                            leftIcon={null}
+                            rightIcon={null}
+                            darkMode
+                        >
+                            {plan.buttonText || "Get Started"}
                         </Button>
                     </Link>
                 </div>

@@ -1,15 +1,34 @@
 import React from "react";
 import { Header } from "@/src/app/[locale]/pricing/header";
-import { PlanCard } from "@/src/app/[locale]/pricing/planCard";
+import { DynamicPlanCard } from "@/src/app/[locale]/pricing/planCard";
 import { Navigation } from "@/components/layout/Navigation";
 import Footer from "@/components/sections/Footer";
 import { getTranslations } from "next-intl/server";
+import { plansApi, Plan } from "@/lib/strapi";
+import { ErrorFallback } from "@/components/ui/ErrorFallback";
 
 export const metadata = {
     title: "Pricing | Laqta",
     description:
         "Explore Laqta's production services - Basic and Premium plans tailored to your content needs.",
 };
+
+// Fetch plans from Strapi
+async function getPlans(locale: string): Promise<{ data: Plan[]; error?: string }> {
+    try {
+        const response = await plansApi.getAll({
+            sort: "order:asc",
+            locale: locale,
+        });
+        return { data: response.data || [] };
+    } catch (error) {
+        console.error("Error fetching plans:", error);
+        return {
+            data: [],
+            error: error instanceof Error ? error.message : "Failed to load plans",
+        };
+    }
+}
 
 // Main Component
 const PricingPage = async ({
@@ -20,26 +39,8 @@ const PricingPage = async ({
     const { locale } = await params;
     const t = await getTranslations({ locale, namespace: "servicesPage" });
 
-    const basicPlanFeatures = [
-        t("basicPlan.features.0"),
-        t("basicPlan.features.1"),
-        t("basicPlan.features.2"),
-    ];
-
-    const basicPlanEquipment = [
-        t("basicPlan.equipment.0"),
-        t("basicPlan.equipment.1"),
-        t("basicPlan.equipment.2"),
-        t("basicPlan.equipment.3"),
-    ];
-
-    const premiumPlanFeatures = [
-        t("premiumPlan.features.0"),
-        t("premiumPlan.features.1"),
-        t("premiumPlan.features.2"),
-        t("premiumPlan.features.3"),
-        t("premiumPlan.features.4"),
-    ];
+    // Fetch plans from Strapi
+    const { data: plans, error: plansError } = await getPlans(locale);
 
     return (
         <div className="relative min-h-screen flex flex-col bg-primary">
@@ -68,40 +69,30 @@ const PricingPage = async ({
 
                 {/* Plan Cards Section */}
                 <div className="section-px section-py-md">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 grid-gap-lg max-w-6xl mx-auto">
-                        {/* Basic Plan */}
-                        <div
-                            className="animate-fade-in"
-                            style={{ animationDelay: "300ms", opacity: 0 }}
-                        >
-                            <PlanCard
-                                title={t("basicPlan.title")}
-                                description={t("basicPlan.description")}
-                                price={t("basicPlan.price")}
-                                buttonText={t("basicPlan.buttonText")}
-                                features={basicPlanFeatures}
-                                equipment={basicPlanEquipment}
-                                variant="basic"
-                                featuresTitle={t("basicPlan.featuresTitle")}
-                                equipmentTitle={t("basicPlan.equipmentTitle")}
-                            />
+                    {plansError ? (
+                        <ErrorFallback
+                            title="Unable to load plans"
+                            message={plansError}
+                        />
+                    ) : plans.length === 0 ? (
+                        <div className="text-center py-12">
+                            <p className="text-white text-body-lg">
+                                No plans available at the moment.
+                            </p>
                         </div>
-
-                        {/* Premium Plan */}
-                        <div
-                            className="animate-fade-in"
-                            style={{ animationDelay: "450ms", opacity: 0 }}
-                        >
-                            <PlanCard
-                                title={t("premiumPlan.title")}
-                                description={t("premiumPlan.description")}
-                                buttonText={t("premiumPlan.buttonText")}
-                                features={premiumPlanFeatures}
-                                variant="premium"
-                                featuresTitle={t("premiumPlan.featuresTitle")}
-                            />
+                    ) : (
+                        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 grid-gap-lg max-w-7xl mx-auto">
+                            {plans.map((plan, index) => (
+                                <div
+                                    key={plan.id || index}
+                                    className="animate-fade-in"
+                                    style={{ animationDelay: `${300 + index * 150}ms`, opacity: 0 }}
+                                >
+                                    <DynamicPlanCard plan={plan} />
+                                </div>
+                            ))}
                         </div>
-                    </div>
+                    )}
                 </div>
             </main>
 

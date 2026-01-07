@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_plan_plan_points",
+  "info": {
+    "displayName": "Plan Point",
+    "description": "A feature point in a plan section (included or excluded)"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "included": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    }
+  }
+}

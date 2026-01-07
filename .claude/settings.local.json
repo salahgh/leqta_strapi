@@ -22,7 +22,9 @@
       "Bash(npm run develop:*)",
       "Bash(ping:*)",
       "Bash(mkdir:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(npx kill-port:*)",
+      "Bash(taskkill:*)"
     ],
     "deny": [],
     "ask": []

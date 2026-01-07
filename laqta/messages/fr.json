@@ -150,9 +150,13 @@
     "contactDescription": "Que vous ayez un projet en tête ou une question sur nos services, nous aimerions avoir de vos nouvelles. Remplissez le formulaire et nous vous répondrons dans les 24 heures.",
     "form": {
       "fullname": "Nom complet",
+      "fullnamePlaceholder": "Entrez votre nom complet",
       "email": "Email",
+      "emailPlaceholder": "Entrez votre adresse email",
       "phone": "Téléphone",
+      "phonePlaceholder": "05 0000 00 00",
       "message": "Message",
+      "messagePlaceholder": "Dites-nous en plus sur ce que vous recherchez...",
       "submit": "Envoyer le Message",
       "required": "requis",
       "invalidEmail": "Adresse email invalide",
@@ -302,6 +306,10 @@
   "footer": {
     "newsletter": "Newsletter",
     "newsletterDescription": "Restez au courant de nos dernières mises à jour, abonnez-vous à notre newsletter",
+    "emailPlaceholder": "Entrez votre adresse email",
+    "subscribeNow": "S'abonner",
+    "subscribing": "Abonnement en cours...",
+    "subscribed": "Abonné!",
     "company": "Entreprise",
     "aboutUs": "À propos de nous",
     "ourServices": "Nos services",
@@ -314,5 +322,10 @@
     "termsCondition": "Termes et Conditions",
     "privacyPolicy": "Politique de Confidentialité",
     "copyright": "Copyright © 2025 LEQTA. Tous Droits Réservés"
+  },
+  "plans": {
+    "badge": "Nos Forfaits",
+    "title": "Choisissez Votre Forfait Idéal",
+    "description": "Nous proposons des forfaits de production flexibles conçus pour répondre à vos besoins de contenu et à votre budget. Du contenu social rapide aux productions complètes."
   }
 }

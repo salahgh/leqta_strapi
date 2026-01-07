@@ -6,3 +6,7 @@ in the mobile version :
 - the cards padding is too small when in mobile (wroks , services)
 - faq text sizes not consistent
 - reanalyse the spacing and padding across devices , use well known sizes
+- the leqta coordinates
+- get in touch --> CRM leads assigned to commerciale
+- plans should be dynamic
+- titre blog is so big

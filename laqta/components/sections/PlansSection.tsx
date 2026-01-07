@@ -149,8 +149,8 @@ function PlanCard({ plan, isPopular }: { plan: Plan; isPopular?: boolean }) {
                                                     ? "text-white"
                                                     : "text-neutral-700"
                                                 : isPopular
-                                                  ? "text-white/50 line-through"
-                                                  : "text-neutral-400 line-through"
+                                                  ? "text-white/50"
+                                                  : "text-neutral-400"
                                         }`}
                                     >
                                         {point.text}

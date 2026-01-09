@@ -6,6 +6,7 @@ import { FAQItem } from "@/components/sections/FAQSection/FAQItem";
 import { Badge } from "@/components/ui/Badge";
 import { useTranslations } from "next-intl";
 import { ErrorFallback } from "@/components/ui/ErrorFallback";
+import "@/components/sections/styles.css";
 
 interface FAQSectionClientProps {
     faqs: FAQ[] | null;
@@ -24,8 +25,24 @@ export const FAQSectionClient: React.FC<FAQSectionClientProps> = ({
     };
 
     return (
-        <section className="bg-white section-py">
-            <div className="section-px">
+        <section className="relative section-py-lg overflow-hidden" style={{ backgroundColor: "#d5ebf9" }}>
+            {/* Decorative Background */}
+            <div className="absolute inset-0 z-0 flex flex-col justify-start items-center">
+                <img
+                    src="/images/laqta_logo_courbe.svg"
+                    alt=""
+                    className="w-2/3 aspect-square object-fill opacity-70"
+                    aria-hidden="true"
+                />
+            </div>
+
+            {/* Gradient Overlay */}
+            <div
+                className="absolute inset-0 z-5 blue_gradient"
+                style={{ height: "100%" }}
+            />
+
+            <div className="section-px relative z-10">
                 <div className="max-w-container mx-auto text-center flex items-center flex-col space-y-6 md:space-y-12">
                     <div className="animate-slide-down" style={{ opacity: 0 }}>
                         <Badge variant="accent">{t("badge")}</Badge>

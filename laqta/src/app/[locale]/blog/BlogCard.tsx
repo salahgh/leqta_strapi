@@ -343,8 +343,8 @@ const GridBlogCardWithLogo: React.FC<{
             <div className="p-4 flex flex-col h-full">
                 {/* Featured Image with relative positioning for logo */}
                 <div className="relative mb-4">
-                    {blog.header_image && (
-                        <div className="relative w-full aspect-video overflow-hidden rounded-xl">
+                    <div className="relative w-full aspect-video overflow-hidden rounded-xl bg-gradient-to-br from-primary/10 to-primary/5">
+                        {blog.header_image ? (
                             <Image
                                 src={utils.getFileUrl(blog.header_image.url)}
                                 alt={
@@ -356,17 +356,27 @@ const GridBlogCardWithLogo: React.FC<{
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                 loading="lazy"
                             />
+                        ) : (
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <Image
+                                    src="/images/logo.svg"
+                                    alt="LAQTA"
+                                    width={80}
+                                    height={80}
+                                    className="object-contain opacity-20"
+                                />
+                            </div>
+                        )}
 
-                            {/* Category Badge */}
-                            {blog.category && (
-                                <div className="absolute top-4 left-4 z-20">
-                                    <CategoryBadge color={blog.category.color}>
-                                        {blog.category.name}
-                                    </CategoryBadge>
-                                </div>
-                            )}
-                        </div>
-                    )}
+                        {/* Category Badge */}
+                        {blog.category && (
+                            <div className="absolute top-4 left-4 z-20">
+                                <CategoryBadge color={blog.category.color}>
+                                    {blog.category.name}
+                                </CategoryBadge>
+                            </div>
+                        )}
+                    </div>
 
                     {/* LAQTA Logo Overlay - positioned under image */}
                     <div className="absolute -bottom-2 right-4 opacity-10 pointer-events-none z-0">
@@ -389,8 +399,8 @@ const GridBlogCardWithLogo: React.FC<{
                     <span>{formatDate(blog.publishedAt, locale)}</span>
                 </div>
 
-                {/* Title */}
-                <h3 className="text-body-lg font-bold text-neutral-900 mb-3 leading-tight line-clamp-2 group-hover:text-primary-light transition-colors">
+                {/* Title - min-h ensures consistent 2-line height */}
+                <h3 className="text-body-lg font-bold text-neutral-900 mb-3 leading-tight line-clamp-2 min-h-[3em] group-hover:text-primary-light transition-colors">
                     {blog.title}
                 </h3>
 

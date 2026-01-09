@@ -205,7 +205,7 @@ const ContactUs = () => {
                 </div>
 
                 {/* Desktop/Tablet Layout */}
-                <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-6 lg:gap-8 min-h-[600px]">
+                <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-6 lg:gap-8 min-h-[600px] max-w-5xl mx-auto">
                     {/* Left Side - Vertical Stepper (Desktop only) */}
                     <div className="hidden lg:block">
                         <div className="sticky top-8">

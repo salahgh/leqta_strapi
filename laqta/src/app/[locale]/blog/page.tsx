@@ -70,57 +70,50 @@ const BlogPage = async ({
             <Navigation />
 
             {/* Hero Section with Logo Background */}
-            <section className="relative pt-16 sm:pt-20 md:pt-24 lg:pt-28 pb-12 sm:pb-16 md:pb-20 lg:pb-24 overflow-hidden">
+            <section className="relative pt-8 sm:pt-12 md:pt-20 lg:pt-28 pb-8 sm:pb-12 md:pb-16 lg:pb-24 overflow-hidden">
                 {/* LAQTA Logo Background Overlay */}
-
                 <div className="absolute inset-0 pointer-events-none z-0">
                     {/* Union SVG Layer */}
-                    <div
-                        className="absolute inset-0"
-                        style={{ willChange: "" }}
-                    >
+                    <div className="absolute inset-0">
                         <img
                             src="/images/union.svg"
-                            alt="Union Background"
-                            className=" w-full"
+                            alt=""
+                            className="w-full"
+                            aria-hidden="true"
                         />
                     </div>
 
                     {/* Vector Courbe SVG Layer */}
-                    <div
-                        className="absolute w-[80%] lg:w-1/2 top-0 left-1/2 transform -translate-x-1/2 opacity-70"
-                        style={{ willChange: "opacity, transform" }}
-                    >
+                    <div className="absolute w-[80%] lg:w-1/2 top-0 left-1/2 transform -translate-x-1/2 opacity-70">
                         <img
                             src="/images/vector_courbe.svg"
-                            alt="Vector Curve Background"
+                            alt=""
                             width={800}
                             height={800}
                             className="h-full aspect-square object-cover"
+                            aria-hidden="true"
                         />
                     </div>
                     <div
                         className="absolute left-0 opacity-80"
-                        style={{
-                            willChange: "opacity, transform",
-                            marginTop: 700,
-                        }}
+                        style={{ marginTop: 700 }}
                     >
                         <img
                             src="/images/vector9.svg"
-                            alt="Vector Curve Background"
+                            alt=""
                             width={800}
                             height={800}
                             className="object-cover w-3/4 scale-120"
+                            aria-hidden="true"
                         />
                     </div>
                 </div>
 
                 <div className="relative z-10 max-w-container mx-auto section-px">
-                    <div className="text-center mb-8 sm:mb-12 md:mb-16 lg:mb-20">
+                    <div className="text-center mb-6 sm:mb-8 md:mb-12 lg:mb-16">
                         {/* Badge */}
                         <div
-                            className="inline-block mb-8 animate-slide-down"
+                            className="inline-block mb-3 sm:mb-4 md:mb-6 animate-slide-down"
                             style={{ opacity: 0 }}
                         >
                             <Badge size={"md"} variant={"accent"}>
@@ -130,7 +123,7 @@ const BlogPage = async ({
 
                         {/* Main Heading */}
                         <h2
-                            className="mb-6 animate-slide-up"
+                            className="text-[24px] sm:text-display-sm md:text-display-md lg:text-display-lg mb-3 sm:mb-4 animate-slide-up"
                             style={{ opacity: 0, animationDelay: "150ms" }}
                         >
                             {t("title")}
@@ -138,7 +131,7 @@ const BlogPage = async ({
 
                         {/* Description */}
                         <p
-                            className="text-body-sm sm:text-body-md md:text-body-lg text-secondary-gray max-w-3xl mx-auto leading-relaxed animate-fade-in"
+                            className="text-body-xs sm:text-body-sm md:text-body-md text-secondary-gray max-w-3xl mx-auto leading-relaxed animate-fade-in"
                             style={{ opacity: 0, animationDelay: "300ms" }}
                         >
                             {t("description")}

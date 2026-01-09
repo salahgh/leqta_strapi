@@ -25,23 +25,23 @@ const AboutSection = ({
     return (
         <div
             className={`relative overflow-hidden ${className} rounded-2xl sm:rounded-3xl`}
+            style={{ backgroundColor: "#d5ebf9" }}
         >
-            {/* Linear Gradient Background */}
-
-            <div
-                className="absolute inset-0 z-0"
-                style={{ backgroundColor: "rgba(249,213,213,0)" }}
-            />
-
-            <div className="absolute inset-0 z-1 flex items-center justify-center p-8">
+            {/* Decorative Background */}
+            <div className="absolute inset-0 z-0 flex flex-col justify-start items-center">
                 <img
                     src="/images/laqta_logo_courbe.svg"
-                    alt="LAQTA Logo Curve"
-                    className="w-full h-full object-contain opacity-60"
+                    alt=""
+                    className="w-2/3 aspect-square object-fill opacity-70"
+                    aria-hidden="true"
                 />
             </div>
 
-            <div className="absolute inset-0 z-5 blue_gradient" />
+            {/* Gradient Overlay */}
+            <div
+                className="absolute inset-0 z-5 blue_gradient"
+                style={{ height: "100%" }}
+            />
 
             {/* Content Layer */}
             <div className="relative z-20 bg-transparent rounded-2xl md:rounded-3xl shadow-2xl flex flex-col md:flex-row items-center gap-6 md:gap-8 lg:gap-12 p-4 sm:p-6 md:p-8 lg:p-12 xl:p-16">

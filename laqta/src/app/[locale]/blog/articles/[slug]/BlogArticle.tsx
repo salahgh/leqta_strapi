@@ -84,10 +84,10 @@ export const BlogArticle: React.FC<{
             <ReadingProgress />
 
             {/* Blue Header with LAQTA Logo Background */}
-            <div className="relative py-52 md:pt-24 max-w-container mx-auto">
-                {/* LAQTA Logo Background - larger and more visible */}
+            <div className="relative pt-20 sm:pt-24 md:pt-28 pb-12 max-w-container mx-auto">
+                {/* LAQTA Logo Background - hidden on mobile */}
                 <div
-                    className="absolute inset-0 opacity-5 overflow-hidden pt-20"
+                    className="hidden md:block absolute inset-0 opacity-5 overflow-hidden pt-20"
                     style={{
                         marginLeft: locale === "ar" ? "auto" : 700,
                         marginRight: locale === "ar" ? 700 : "auto",
@@ -95,7 +95,7 @@ export const BlogArticle: React.FC<{
                 >
                     <Image
                         src="/images/logo.svg"
-                        alt="LAQTA"
+                        alt=""
                         fill
                         className="object-contain mt-1"
                         style={{
@@ -106,24 +106,25 @@ export const BlogArticle: React.FC<{
                             marginLeft: locale === "ar" ? undefined : "14rem",
                             marginRight: locale === "ar" ? "14rem" : undefined,
                         }}
+                        aria-hidden="true"
                     />
                 </div>
 
                 <div
-                    className="absolute inset-0 overflow-hidden pt-52"
+                    className="hidden md:block absolute inset-0 overflow-hidden pt-52"
                     style={{
                         transform: locale === "ar" ? "scaleX(-1)" : undefined,
                     }}
                 >
                     <img
                         src="/images/vector9.svg"
-                        alt="LAQTA"
+                        alt=""
                         className="object-contain"
-                        style={{ transform: "scale(1)" }}
+                        aria-hidden="true"
                     />
                 </div>
 
-                <div className="w-2/3 pt-16 space-y-6 section-px">
+                <div className="w-full md:w-2/3 space-y-4 sm:space-y-6 section-px">
                     <h1
                         className="text-white leading-relaxed w-full text-display-xs sm:text-display-sm md:text-display-md lg:text-display-lg"
                         style={{ lineHeight: 1.4 }}
@@ -144,16 +145,18 @@ export const BlogArticle: React.FC<{
 
             {/* Header Image */}
             {blog.header_image && (
-                <div className="relative w-full h-64 md:h-96 lg:h-[32rem] overflow-hidden rounded-t-[50px] -mt-12 max-w-container mx-auto">
-                    <Image
-                        src={utils.getFileUrl(blog.header_image.url)}
-                        alt={blog.header_image.alternativeText || blog.title}
-                        fill
-                        className="object-cover"
-                        priority
-                        sizes="100vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/10" />
+                <div className="max-w-container mx-auto section-px">
+                    <div className="relative w-full h-48 sm:h-64 md:h-80 lg:h-[28rem] overflow-hidden rounded-2xl md:rounded-3xl">
+                        <Image
+                            src={utils.getFileUrl(blog.header_image.url)}
+                            alt={blog.header_image.alternativeText || blog.title}
+                            fill
+                            className="object-cover"
+                            priority
+                            sizes="(max-width: 768px) 100vw, 80vw"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/10" />
+                    </div>
                 </div>
             )}
 

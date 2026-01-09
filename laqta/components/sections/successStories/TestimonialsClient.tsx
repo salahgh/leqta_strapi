@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { TestimonialCard } from "@/components/sections/successStories/TestimonialCard";
 import { PaginationDots } from "@/components/sections/successStories/PaginationDots";
 import { useTranslations } from "next-intl";
+import "@/components/sections/styles.css";
 
 export const TestimonialsClient = ({
     testimonials,
@@ -78,22 +79,27 @@ export const TestimonialsClient = ({
 
     return (
         <section
-            className="relative py-16 md:py-24 lg:py-32 flex flex-col gap-8 overflow-hidden"
-            style={{
-                background: "linear-gradient(180deg, rgba(84, 179, 241, 0.15) 0%, rgba(255, 255, 255, 1) 70%)",
-            }}
+            className="relative section-py-lg overflow-hidden"
+            style={{ backgroundColor: "#d5ebf9" }}
         >
-            {/* Background decorative shape - subtle curved logo */}
-            <div className="absolute inset-0 z-0 flex justify-center items-start pointer-events-none overflow-hidden">
+            {/* Decorative Background */}
+            <div className="absolute inset-0 z-0 flex flex-col justify-start items-center">
                 <img
                     src="/images/laqta_logo_courbe.svg"
                     alt=""
-                    className="w-[55%] max-w-[700px] opacity-[0.08] -translate-y-[5%]"
+                    className="w-2/3 aspect-square object-fill opacity-70"
+                    aria-hidden="true"
                 />
             </div>
 
+            {/* Gradient Overlay */}
+            <div
+                className="absolute inset-0 z-5 blue_gradient"
+                style={{ height: "100%" }}
+            />
+
             {/* Header section */}
-            <div className="relative z-10 text-center px-4 md:px-8 space-y-6 max-w-container mx-auto">
+            <div className="relative z-10 text-center section-px space-y-6 max-w-container mx-auto">
                 {/* Badge */}
                 <div className="animate-slide-down" style={{ opacity: 0 }}>
                     <span className="inline-flex items-center justify-center px-7 py-4 rounded-full border border-accent-blue text-accent-blue font-gotham font-medium text-[20px] tracking-[-0.4px] shadow-[0px_1px_6px_1.248px_rgba(0,47,255,0.4)]">
@@ -111,7 +117,7 @@ export const TestimonialsClient = ({
             </div>
             {/* Testimonial carousel container */}
             <div
-                className="relative z-10 px-4 md:px-8 animate-fade-in max-w-[1071px] mx-auto"
+                className="relative z-10 section-px animate-fade-in max-w-container mx-auto mt-8"
                 style={{ opacity: 0, animationDelay: "300ms" }}
             >
                 <button

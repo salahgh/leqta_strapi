@@ -2,11 +2,9 @@
 
 import { Testimonial } from "@/lib/strapi";
 import React, { useEffect, useState } from "react";
-import { Badge } from "@/components/ui/Badge";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { TestimonialCard } from "@/components/sections/successStories/TestimonialCard";
 import { PaginationDots } from "@/components/sections/successStories/PaginationDots";
-import LetsStartProjectSection from "@/components/sections/LetsStartProjectSection";
 import { useTranslations } from "next-intl";
 
 export const TestimonialsClient = ({
@@ -79,34 +77,33 @@ export const TestimonialsClient = ({
     }, [currentTestimonial]);
 
     return (
-        <div
-            className="relative md:pt-16 pt-8 flex flex-col gap-4 md:gap-8 space-y-4 md:space-y-8 overflow-hidden"
-            style={{ backgroundColor: "#d5ebf9" }}
+        <section
+            className="relative py-16 md:py-24 lg:py-32 flex flex-col gap-8 overflow-hidden"
+            style={{
+                background: "linear-gradient(180deg, rgba(84, 179, 241, 0.15) 0%, rgba(255, 255, 255, 1) 70%)",
+            }}
         >
-            {/* Background LAQTA Logo */}
-            <div className="absolute inset-0 z-0 flex flex-col justify-start items-center -top-16 sm:-top-20 md:-top-24">
+            {/* Background decorative shape - subtle curved logo */}
+            <div className="absolute inset-0 z-0 flex justify-center items-start pointer-events-none overflow-hidden">
                 <img
                     src="/images/laqta_logo_courbe.svg"
-                    alt="LAQTA Logo Curve"
-                    className="w-2/3 aspect-square object-fill z-0 opacity-70"
+                    alt=""
+                    className="w-[55%] max-w-[700px] opacity-[0.08] -translate-y-[5%]"
                 />
             </div>
 
-            <div
-                className="absolute inset-0 z-5 blue_gradient"
-                style={{ height: "60%" }}
-            />
-
             {/* Header section */}
-            <div className="text-center px-3 space-y-6">
+            <div className="relative z-10 text-center px-4 md:px-8 space-y-6 max-w-container mx-auto">
+                {/* Badge */}
                 <div className="animate-slide-down" style={{ opacity: 0 }}>
-                    <Badge variant="accent" size={"md"}>
+                    <span className="inline-flex items-center justify-center px-7 py-4 rounded-full border border-accent-blue text-accent-blue font-gotham font-medium text-[20px] tracking-[-0.4px] shadow-[0px_1px_6px_1.248px_rgba(0,47,255,0.4)]">
                         {t("badge")}
-                    </Badge>
+                    </span>
                 </div>
 
+                {/* Title */}
                 <h2
-                    className="leading-tight text-gray-900 animate-slide-up w-1/2 mx-auto"
+                    className="font-medium text-primary text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] leading-[1.1] tracking-[1.192px] max-w-[832px] mx-auto animate-slide-up"
                     style={{ opacity: 0, animationDelay: "150ms" }}
                 >
                     {t("successStoriesTitle")}
@@ -114,12 +111,12 @@ export const TestimonialsClient = ({
             </div>
             {/* Testimonial carousel container */}
             <div
-                className="relative px-3 animate-fade-in space-y-12"
+                className="relative z-10 px-4 md:px-8 animate-fade-in max-w-[1071px] mx-auto"
                 style={{ opacity: 0, animationDelay: "300ms" }}
             >
                 <button
                     onClick={goToPrevious}
-                    className="hidden lg:flex absolute left-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full
+                    className="hidden lg:flex absolute -left-16 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full
                      shadow-lg items-center justify-center hover:bg-gray-50 transition-colors"
                     aria-label={t("previousTestimonial")}
                 >
@@ -127,7 +124,7 @@ export const TestimonialsClient = ({
                 </button>
                 <button
                     onClick={goToNext}
-                    className="hidden lg:flex absolute right-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg items-center
+                    className="hidden lg:flex absolute -right-16 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg items-center
                      justify-center hover:bg-gray-50 transition-colors"
                     aria-label={t("nextTestimonial")}
                 >
@@ -142,7 +139,7 @@ export const TestimonialsClient = ({
                     onTouchEnd={handleTouchEnd}
                 >
                     <div
-                        className="flex transition-transform duration-300 ease-in-out"
+                        className="flex transition-transform duration-500 ease-in-out"
                         style={{
                             transform: `translateX(-${currentTestimonial * 100}%)`,
                         }}
@@ -165,16 +162,19 @@ export const TestimonialsClient = ({
                 </div>
             </div>
 
-            <PaginationDots
-                total={testimonials?.length}
-                current={currentTestimonial}
-                onChange={setCurrentTestimonial}
-            />
+            {/* Pagination dots */}
+            <div className="relative z-10 mt-16 md:mt-24">
+                <PaginationDots
+                    total={testimonials?.length}
+                    current={currentTestimonial}
+                    onChange={setCurrentTestimonial}
+                />
+            </div>
+
             {/* Swipe indicator for mobile */}
-            <div className="md:hidden text-center text-sm text-gray-500 mb-8">
+            <div className="relative z-10 md:hidden text-center text-sm text-gray-500">
                 {t("swipeIndicator")}
             </div>
-            <LetsStartProjectSection />
-        </div>
+        </section>
     );
 };

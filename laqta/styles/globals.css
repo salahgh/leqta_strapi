@@ -198,9 +198,19 @@ html {
         @apply py-12 sm:py-14 md:py-16 lg:py-20 xl:py-24 2xl:py-32;
     }
 
+    /* Full Section Padding (both horizontal and vertical) */
+    .section-py {
+        @apply py-8 sm:py-10 md:py-12 lg:py-16 xl:py-20 2xl:py-24;
+    }
+
     /* Horizontal Section Padding */
     .section-px {
         @apply px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20;
+    }
+
+    /* Content Container - Fixed 1512px width with padding */
+    .content-container {
+        @apply w-full max-w-container mx-auto section-px;
     }
 
     /* -------------------------------------------------------------------------

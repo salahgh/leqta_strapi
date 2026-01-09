@@ -95,7 +95,9 @@ export default async function AboutPage({
                     {/* @ts-expect-error Server Component */}
                     <MissionVisionCards />
                     <div className="section-px">
-                        <CompetitiveEdge />
+                        <div className="max-w-container mx-auto">
+                            <CompetitiveEdge />
+                        </div>
                     </div>
                 </div>
             </div>

@@ -78,7 +78,8 @@ const ContactForm = ({ contactEmail, contactPhone, address }: ContactFormProps) 
     });
 
     return (
-        <div className="bg-primary flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-12 lg:gap-16 section-px py-8 sm:py-12 md:py-20 lg:py-32 pb-12 sm:pb-16 md:pb-32 lg:pb-44">
+        <div className="bg-primary w-full">
+        <div className="flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-12 lg:gap-16 section-px py-8 sm:py-12 md:py-20 lg:py-32 pb-12 sm:pb-16 md:pb-32 lg:pb-44 max-w-container mx-auto">
             <div className="animate-slide-right flex-1" style={{ opacity: 0 }}>
                 <ContactInfo
                     contactEmail={contactEmail}
@@ -168,6 +169,7 @@ const ContactForm = ({ contactEmail, contactPhone, address }: ContactFormProps) 
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     );
 };

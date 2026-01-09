@@ -36,34 +36,35 @@ export const MissionVisionCardsClient: React.FC<
     const t = useTranslations("missionVision");
 
     return (
-        <section className="py-12 md:py-16 px-2 md:px-12">
-            {/* Section Header */}
-            <div
-                className="text-center space-y-4 mb-12 max-w-3xl mx-auto animate-fade-in"
-                // style={{ opacity: 0 }}
-            >
+        <section className="py-12 md:py-16 section-px">
+            <div className="max-w-container mx-auto">
+                {/* Section Header */}
                 <div
-                    className="flex justify-center animate-slide-down"
-                    style={{ opacity: 0 }}
+                    className="text-center space-y-4 mb-12 max-w-3xl mx-auto animate-fade-in"
+                    // style={{ opacity: 0 }}
                 >
-                    <Badge variant="accent">{t("badge")}</Badge>
+                    <div
+                        className="flex justify-center animate-slide-down"
+                        style={{ opacity: 0 }}
+                    >
+                        <Badge variant="accent">{t("badge")}</Badge>
+                    </div>
+                    <h2
+                        className="text-white animate-slide-up"
+                        style={{ animationDelay: "150ms", opacity: 0 }}
+                    >
+                        {t("title")}
+                    </h2>
+                    <p
+                        className="text-secondary-gray text-responsive-lg leading-relaxed animate-fade-in"
+                        style={{ animationDelay: "300ms", opacity: 0 }}
+                    >
+                        {t("description")}
+                    </p>
                 </div>
-                <h2
-                    className="text-white animate-slide-up"
-                    style={{ animationDelay: "150ms", opacity: 0 }}
-                >
-                    {t("title")}
-                </h2>
-                <p
-                    className="text-secondary-gray text-responsive-lg leading-relaxed animate-fade-in"
-                    style={{ animationDelay: "300ms", opacity: 0 }}
-                >
-                    {t("description")}
-                </p>
-            </div>
 
-            {/* Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 mx-16">
+                {/* Cards Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
                 {cardsData.map((card, index) => (
                     <div
                         key={card.key}
@@ -116,6 +117,7 @@ export const MissionVisionCardsClient: React.FC<
                         </div>
                     </div>
                 ))}
+                </div>
             </div>
         </section>
     );

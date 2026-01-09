@@ -70,7 +70,7 @@ const BlogPage = async ({
             <Navigation />
 
             {/* Hero Section with Logo Background */}
-            <section className="relative section-px pt-16 sm:pt-20 md:pt-24 lg:pt-28 pb-12 sm:pb-16 md:pb-20 lg:pb-24">
+            <section className="relative pt-16 sm:pt-20 md:pt-24 lg:pt-28 pb-12 sm:pb-16 md:pb-20 lg:pb-24 overflow-hidden">
                 {/* LAQTA Logo Background Overlay */}
 
                 <div className="absolute inset-0 pointer-events-none z-0">
@@ -116,7 +116,7 @@ const BlogPage = async ({
                     </div>
                 </div>
 
-                <div className="max-w-7xl mx-auto relative z-10">
+                <div className="relative z-10 max-w-container mx-auto section-px">
                     <div className="text-center mb-8 sm:mb-12 md:mb-16 lg:mb-20">
                         {/* Badge */}
                         <div
@@ -148,7 +148,7 @@ const BlogPage = async ({
                     {/* Blog Grid - smaller spacing, equal aspect ratio */}
                     {latestBlogs.length > 0 ? (
                         <div
-                            className="grid md:grid-cols-2 lg:grid-cols-3 grid-gap-xs animate-fade-in"
+                            className="grid md:grid-cols-2 lg:grid-cols-3 grid-gap-sm animate-fade-in"
                             style={{ opacity: 0, animationDelay: "450ms" }}
                         >
                             {latestBlogs.map((blog) => (
@@ -170,7 +170,6 @@ const BlogPage = async ({
                 </div>
             </section>
             <Footer locale={locale} />
-            {/* Newsletter Subscription */}
         </div>
     );
 };

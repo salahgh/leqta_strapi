@@ -48,7 +48,7 @@ export default async function LocaleLayout({
                 <title>Laqta</title>
             </head>
             <body
-                className={`min-h-screen antialiased bg-black flex flex-col items-center ${
+                className={`min-h-screen antialiased bg-primary flex flex-col ${
                     locale === "ar" ? "font-arabic-body" : "font-sans"
                 }`}
             >
@@ -61,7 +61,7 @@ export default async function LocaleLayout({
                 </a>
 
                 <ErrorBoundary>
-                    <main className="flex-1 w-full" style={{ maxWidth: 1540 }} id="main-content">
+                    <main className="flex-1 w-full" id="main-content">
                         <NextIntlClientProvider messages={messages}>
                             {children}
                         </NextIntlClientProvider>

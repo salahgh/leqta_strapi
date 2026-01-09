@@ -45,7 +45,7 @@ export const HeroSection: React.FC = () => {
 
             {/* Content Layer */}
             <Navigation />
-            <div className="relative z-40 w-full">
+            <div className="relative z-40 w-full max-w-container mx-auto">
                 <div
                     className="pt-4 flex justify-center animate-fade-in"
                     style={{ opacity: 0 }}

@@ -20,20 +20,21 @@ export const YourPerfectPartner = () => {
                     "linear-gradient(to bottom, #0D1137, rgba(99, 114, 239, 0.27), #0D1137)",
             }}
         >
-            {/* Desktop background image - hidden on mobile */}
-            <div
-                className="absolute inset-0 z-0 mx-auto hidden md:block"
-                style={{
-                    backgroundImage: "url('/images/steps.svg')",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "right top",
-                    backgroundSize: "cover",
-                    opacity: 1,
-                    height: "86%",
-                    width: "100%",
-                }}
-            />
-            <div className="relative z-10 max-w-7xl mx-auto section-py-md">
+            {/* Desktop background image - constrained to content width */}
+            <div className="absolute inset-0 z-0 flex justify-center hidden md:flex">
+                <div
+                    className="w-full max-w-container"
+                    style={{
+                        backgroundImage: "url('/images/steps.svg')",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "right top",
+                        backgroundSize: "contain",
+                        opacity: 1,
+                        height: "86%",
+                    }}
+                />
+            </div>
+            <div className="relative z-10 max-w-container mx-auto section-py-md">
                 <div
                     className="mb-4 md:mb-8 animate-slide-down"
                     style={{ opacity: 0 }}

@@ -99,7 +99,7 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
             >
                 {/* Desktop Navigation */}
                 <div
-                    className={`hidden transition-all xl:flex items-center justify-between mx-auto px-6 xl:px-8 h-full ${
+                    className={`hidden transition-all xl:flex items-center justify-between mx-auto px-6 xl:px-8 2xl:px-12 h-full ${
                         scrolled ? "py-1" : "py-4"
                     }  w-full max-w-container`}
                 >

@@ -29,3 +29,5 @@ my-blog-cms/nul
 **/.env.production
 **/.env.server
 **/.env.example
+
+nul

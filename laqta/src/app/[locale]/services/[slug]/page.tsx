@@ -12,6 +12,10 @@ import {
     Film,
     Rocket,
 } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import Image from "next/image";
+import { Badge } from "@/components/ui/Badge";
 
 interface ServiceDetailPageProps {
     params: Promise<{
@@ -32,6 +36,31 @@ const getIconComponent = (iconName?: string) => {
         default:
             return <ChartColumnBig className="w-8 h-8 text-white" />;
     }
+};
+
+// Helper function to detect video type and extract embed info
+const getVideoEmbedInfo = (url: string): { type: 'youtube' | 'vimeo' | 'unknown'; embedUrl: string | null } => {
+    // YouTube patterns
+    const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+    const youtubeMatch = url.match(youtubeRegex);
+    if (youtubeMatch) {
+        return {
+            type: 'youtube',
+            embedUrl: `https://www.youtube.com/embed/${youtubeMatch[1]}?rel=0`
+        };
+    }
+
+    // Vimeo patterns
+    const vimeoRegex = /(?:vimeo\.com\/)(\d+)/;
+    const vimeoMatch = url.match(vimeoRegex);
+    if (vimeoMatch) {
+        return {
+            type: 'vimeo',
+            embedUrl: `https://player.vimeo.com/video/${vimeoMatch[1]}`
+        };
+    }
+
+    return { type: 'unknown', embedUrl: null };
 };
 
 export default async function ServiceDetailPage({
@@ -67,54 +96,69 @@ export default async function ServiceDetailPage({
         ? utils.getFileUrl(service.icon_image.url)
         : null;
 
-    // Gradient colors
+    // Get video URL (uploaded video)
+    const serviceVideoUrl = service.service_video?.url
+        ? utils.getFileUrl(service.service_video.url)
+        : null;
+
+    // Get external video embed info (YouTube/Vimeo)
+    const externalVideoInfo = service.video_url
+        ? getVideoEmbedInfo(service.video_url)
+        : null;
+
+    // Determine which video to show (prefer uploaded, fallback to external)
+    const hasVideo = serviceVideoUrl || (externalVideoInfo?.embedUrl);
+
+    // Gradient colors for icon
     const gradientFrom = service.gradientFrom || "#7F56D9";
     const gradientTo = service.gradientTo || "#5B21B6";
     const glowColor = `${gradientFrom}80`;
 
     return (
-        <div className="relative min-h-screen flex flex-col bg-neutral-900">
-            {/* Background Gradient Layer */}
-            <div
-                className="absolute inset-0 z-0 opacity-40"
-                style={{
-                    background: `linear-gradient(180deg, ${gradientFrom} 0%, ${gradientTo} 50%, transparent 100%)`,
-                }}
-            />
-
-            {/* Vector Curve SVG Layer */}
-            {/*<div className="absolute inset-0 z-[1] flex justify-center pointer-events-none">*/}
-            {/*    <img*/}
-            {/*        src="/images/vector_courbe.svg"*/}
-            {/*        alt=""*/}
-            {/*        className="w-full h-full object-fill opacity-30"*/}
-            {/*        aria-hidden="true"*/}
-            {/*    />*/}
-            {/*</div>*/}
-
-            {/* Laqta Logo Background */}
-            <div className="absolute inset-0 z-[2] flex items-center justify-center pointer-events-none">
+        <div className="min-h-screen bg-primary relative">
+            {/* Background SVG Layers */}
+            <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+                {/* Union SVG - Full width at top */}
                 <img
-                    src="/images/laqta_logo_courbe.svg"
+                    src="/images/union.svg"
                     alt=""
-                    className="w-1/2 max-w-3xl aspect-square object-contain opacity-10"
+                    className="w-full"
                     aria-hidden="true"
                 />
-            </div>
 
-            {/* Dark Overlay for readability */}
-            <div className="absolute inset-0 z-[3] bg-gradient-to-b from-transparent via-neutral-900/50 to-neutral-900 pointer-events-none" />
+                {/* Vector Courbe - Centered */}
+                <div className="absolute w-[80%] lg:w-1/2 top-0 left-1/2 -translate-x-1/2 opacity-70">
+                    <img
+                        src="/images/vector_courbe.svg"
+                        alt=""
+                        className="w-full"
+                        aria-hidden="true"
+                    />
+                </div>
+
+                {/* Vector9 - Left side decoration */}
+                <div
+                    className="absolute left-0 opacity-80"
+                    style={{ marginTop: 700 }}
+                >
+                    <img
+                        src="/images/vector9.svg"
+                        alt=""
+                        aria-hidden="true"
+                    />
+                </div>
+            </div>
 
             <Navigation />
 
-            <main className="relative z-10 flex-1">
+            <main className="relative z-10">
                 {/* Hero Section */}
-                <section className="section-px section-py-lg">
-                    <div className="max-w-4xl mx-auto">
+                <section className="section-px pt-16 pb-12">
+                    <div className="max-w-container mx-auto">
                         {/* Back Button */}
                         <Link
                             href="/services"
-                            className="inline-flex items-center text-neutral-400 hover:text-white transition-colors mb-8 group"
+                            className="inline-flex items-center text-neutral-300 hover:text-white transition-colors mb-8 group animate-fade-in"
                         >
                             <ChevronLeft className="w-5 h-5 mr-1 transition-transform group-hover:-translate-x-1" />
                             <span className="text-body-md">
@@ -122,125 +166,174 @@ export default async function ServiceDetailPage({
                             </span>
                         </Link>
 
-                        {/* Service Card Style Container */}
+                        {/* Service Icon with Glow */}
                         <div
-                            className="relative rounded-2xl overflow-hidden border border-white/10 bg-neutral-800/80 backdrop-blur-sm"
-                            style={{
-                                boxShadow: `0 0 60px ${glowColor}, 0 0 120px ${glowColor}`,
-                            }}
+                            className="flex mb-6 animate-slide-down"
+                            style={{ opacity: 0 }}
                         >
-                            {/* Featured Image Background */}
-                            {featuredImageUrl && (
-                                <div
-                                    className="absolute inset-0 z-[1] "
-                                    style={{
-                                        backgroundImage: `url(${featuredImageUrl})`,
-                                        backgroundSize: "cover",
-                                        backgroundPosition: "center",
-                                        opacity: 1,
-                                    }}
-                                />
-                            )}
-
-                            {/* Gradient Overlay */}
                             <div
-                                className="absolute inset-0 z-[2] opacity-60"
+                                className="w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center overflow-hidden bg-white/20 backdrop-blur-sm"
                                 style={{
-                                    background: `linear-gradient(0deg, ${gradientFrom} 0%, ${gradientTo} 100%)`,
+                                    boxShadow: `0 0 30px ${glowColor}, 0 0 60px ${glowColor}`,
+                                    background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})`,
                                 }}
-                            />
-
-                            {/* Dark overlay for text readability */}
-                            <div className="absolute inset-0 z-[3] bg-gradient-to-t from-neutral-900 via-neutral-900/80 to-transparent" />
-
-                            {/* Content */}
-                            <div className="relative z-10 p-8 md:p-12">
-                                {/* Icon with Glow */}
-                                <div className="flex justify-end mb-8">
-                                    <div
-                                        className="w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center overflow-hidden bg-white/20 backdrop-blur-sm"
-                                        style={{
-                                            boxShadow: `0 0 30px ${glowColor}, 0 0 60px ${glowColor}`,
-                                        }}
-                                    >
-                                        {iconImageUrl ? (
-                                            <img
-                                                src={iconImageUrl}
-                                                alt={service.title}
-                                                className="w-10 h-10 md:w-12 md:h-12 object-contain"
-                                            />
-                                        ) : (
-                                            getIconComponent(service.icon)
-                                        )}
-                                    </div>
-                                </div>
-
-                                {/* Title */}
-                                <h1
-                                    className="text-white text-display-md md:text-display-lg font-bold mb-6 animate-slide-up"
-                                    style={{ opacity: 0 }}
-                                >
-                                    {service.title}
-                                </h1>
-
-                                {/* Tags */}
-                                {service.tags && service.tags.length > 0 && (
-                                    <div
-                                        className="flex flex-wrap gap-2 mb-8 animate-fade-in"
-                                        style={{
-                                            opacity: 0,
-                                            animationDelay: "150ms",
-                                        }}
-                                    >
-                                        {service.tags.map(
-                                            (tag: string, index: number) => (
-                                                <span
-                                                    key={index}
-                                                    className="px-4 py-2 bg-white/10 text-neutral-300 text-body-sm rounded-full border border-white/10 backdrop-blur-sm"
-                                                >
-                                                    {tag}
-                                                </span>
-                                            ),
-                                        )}
-                                    </div>
+                            >
+                                {iconImageUrl ? (
+                                    <img
+                                        src={iconImageUrl}
+                                        alt={service.title}
+                                        className="w-10 h-10 md:w-12 md:h-12 object-contain"
+                                    />
+                                ) : (
+                                    getIconComponent(service.icon)
                                 )}
-
-                                {/* Description */}
-                                <p
-                                    className="text-neutral-300 text-body-lg md:text-body-xl leading-relaxed animate-fade-in"
-                                    style={{
-                                        opacity: 0,
-                                        animationDelay: "300ms",
-                                    }}
-                                >
-                                    {service.description}
-                                </p>
                             </div>
                         </div>
 
-                        {/* CTA Section */}
-                        <div
-                            className="mt-12 p-8 md:p-12 rounded-2xl border border-white/10 bg-neutral-800/50 backdrop-blur-sm text-center animate-fade-in"
-                            style={{ opacity: 0, animationDelay: "450ms" }}
+                        {/* Title */}
+                        <h1
+                            className="text-white text-display-md md:text-display-lg lg:text-display-xl font-bold mb-6 animate-slide-up"
+                            style={{ opacity: 0, animationDelay: "150ms" }}
                         >
-                            <h2 className="text-white text-display-xs md:text-display-sm font-bold mb-4">
-                                {t("interestedInService")}
-                            </h2>
-                            <p className="text-neutral-400 text-body-lg mb-8 max-w-2xl mx-auto">
-                                {t("contactUsDescription")}
-                            </p>
-                            <Link href="/contact">
-                                <Button
-                                    variant="primary"
-                                    size="lg"
-                                    rightIcon={
-                                        <ChevronRight className="w-5 h-5" />
-                                    }
+                            {service.title}
+                        </h1>
+
+                        {/* Description */}
+                        <p
+                            className="text-neutral-300 text-body-lg md:text-body-xl leading-relaxed max-w-3xl mb-8 animate-fade-in"
+                            style={{ opacity: 0, animationDelay: "300ms" }}
+                        >
+                            {service.description}
+                        </p>
+
+                        {/* Tags */}
+                        {service.tags && service.tags.length > 0 && (
+                            <div
+                                className="flex flex-wrap gap-2 animate-fade-in"
+                                style={{ opacity: 0, animationDelay: "350ms" }}
+                            >
+                                {service.tags.map(
+                                    (tag: string, index: number) => (
+                                        <span
+                                            key={index}
+                                            className="px-4 py-2 bg-white/10 text-neutral-300 text-body-sm rounded-full border border-white/10 backdrop-blur-sm"
+                                        >
+                                            {tag}
+                                        </span>
+                                    ),
+                                )}
+                            </div>
+                        )}
+                    </div>
+                </section>
+
+                {/* Featured Image */}
+                {featuredImageUrl && (
+                    <div
+                        className="relative w-full h-64 md:h-96 lg:h-[500px] overflow-hidden rounded-t-[50px] animate-fade-in"
+                        style={{ opacity: 0, animationDelay: "400ms" }}
+                    >
+                        <Image
+                            src={featuredImageUrl}
+                            alt={service.title}
+                            fill
+                            className="object-cover"
+                            priority
+                        />
+                        {/* Gradient overlay at bottom for smooth transition */}
+                        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white to-transparent" />
+                    </div>
+                )}
+
+                {/* White Content Section */}
+                {(service.content || hasVideo) && (
+                    <section className="section-px section-py-md bg-white">
+                        <div className="max-w-container mx-auto">
+                            {/* Video Section */}
+                            {hasVideo && (
+                                <div
+                                    className="rounded-2xl overflow-hidden mb-12 shadow-lg animate-fade-in"
+                                    style={{ opacity: 0, animationDelay: "450ms" }}
                                 >
-                                    {t("getStarted")}
-                                </Button>
-                            </Link>
+                                    {/* Uploaded Video (Priority) */}
+                                    {serviceVideoUrl ? (
+                                        <video
+                                            className="w-full aspect-video"
+                                            controls
+                                            poster={featuredImageUrl || undefined}
+                                            preload="metadata"
+                                        >
+                                            <source
+                                                src={serviceVideoUrl}
+                                                type={service.service_video?.mime || "video/mp4"}
+                                            />
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    ) : externalVideoInfo?.embedUrl ? (
+                                        /* External Video Embed (YouTube/Vimeo) */
+                                        <iframe
+                                            className="w-full aspect-video"
+                                            src={externalVideoInfo.embedUrl}
+                                            title={`${service.title} video`}
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            allowFullScreen
+                                        />
+                                    ) : null}
+                                </div>
+                            )}
+
+                            {/* Rich Text Content */}
+                            {service.content && (
+                                <div
+                                    className="bg-white rounded-3xl shadow-xl card-p-md animate-fade-in"
+                                    style={{ opacity: 0, animationDelay: "500ms" }}
+                                >
+                                    <div className="blog-content prose prose-lg max-w-none prose-headings:text-neutral-900 prose-p:text-neutral-700 prose-strong:text-neutral-900 prose-ul:text-neutral-700 prose-ol:text-neutral-700 prose-li:marker:text-primary prose-a:text-primary hover:prose-a:text-primary-dark prose-blockquote:border-primary prose-blockquote:text-neutral-600">
+                                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                            {service.content}
+                                        </ReactMarkdown>
+                                    </div>
+                                </div>
+                            )}
                         </div>
+                    </section>
+                )}
+
+                {/* CTA Section */}
+                <section className="bg-primary section-px section-py-lg relative overflow-hidden">
+                    {/* Background decoration */}
+                    <div className="absolute inset-0 pointer-events-none z-0">
+                        <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-30">
+                            <img
+                                src="/images/vector9.svg"
+                                alt=""
+                                className="transform rotate-180"
+                                aria-hidden="true"
+                            />
+                        </div>
+                    </div>
+
+                    <div
+                        className="max-w-container mx-auto text-center relative z-10 animate-fade-in"
+                        style={{ opacity: 0, animationDelay: "550ms" }}
+                    >
+                        <h2 className="text-white text-display-xs md:text-display-sm font-bold mb-4">
+                            {t("interestedInService")}
+                        </h2>
+                        <p className="text-neutral-300 text-body-lg mb-8 max-w-2xl mx-auto">
+                            {t("contactUsDescription")}
+                        </p>
+                        <Link href="/contact">
+                            <Button
+                                variant="primary"
+                                size="lg"
+                                rightIcon={
+                                    <ChevronRight className="w-5 h-5" />
+                                }
+                            >
+                                {t("getStarted")}
+                            </Button>
+                        </Link>
                     </div>
                 </section>
             </main>

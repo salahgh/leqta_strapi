@@ -3,8 +3,10 @@ import { cache } from "react";
 // Types for Services
 export interface Service {
     id: number;
+    documentId?: string;
     title: string;
     description: string;
+    content?: string;
     slug?: string;
     icon?: string;
     icon_image?: {
@@ -22,6 +24,14 @@ export interface Service {
         width?: number;
         height?: number;
     };
+    service_video?: {
+        url: string;
+        alternativeText?: string;
+        width?: number;
+        height?: number;
+        mime?: string;
+    } | null;
+    video_url?: string | null;
     order?: number;
     publishedAt: string;
     createdAt: string;
@@ -238,6 +248,7 @@ export interface Work {
     title: string;
     slug?: string;
     description: string;
+    content?: string;
     category: string;
     metrics?: string;
     cta_text?: string;

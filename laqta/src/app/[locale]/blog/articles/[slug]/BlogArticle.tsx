@@ -84,7 +84,7 @@ export const BlogArticle: React.FC<{
             <ReadingProgress />
 
             {/* Blue Header with LAQTA Logo Background */}
-            <div className="relative py-52 md:pt-24">
+            <div className="relative py-52 md:pt-24 max-w-container mx-auto">
                 {/* LAQTA Logo Background - larger and more visible */}
                 <div
                     className="absolute inset-0 opacity-5 overflow-hidden pt-20"
@@ -123,13 +123,7 @@ export const BlogArticle: React.FC<{
                     />
                 </div>
 
-                <div
-                    className="w-2/3 pt-16 space-y-6"
-                    style={{
-                        marginLeft: locale === "ar" ? undefined : "6rem",
-                        marginRight: locale === "ar" ? "6rem" : undefined,
-                    }}
-                >
+                <div className="w-2/3 pt-16 space-y-6 section-px">
                     <h1
                         className="text-white leading-relaxed w-full text-display-xs sm:text-display-sm md:text-display-md lg:text-display-lg"
                         style={{ lineHeight: 1.4 }}
@@ -150,7 +144,7 @@ export const BlogArticle: React.FC<{
 
             {/* Header Image */}
             {blog.header_image && (
-                <div className="relative w-full h-64 md:h-96 lg:h-[32rem] overflow-hidden rounded-t-[50px] -mt-12">
+                <div className="relative w-full h-64 md:h-96 lg:h-[32rem] overflow-hidden rounded-t-[50px] -mt-12 max-w-container mx-auto">
                     <Image
                         src={utils.getFileUrl(blog.header_image.url)}
                         alt={blog.header_image.alternativeText || blog.title}
@@ -164,8 +158,8 @@ export const BlogArticle: React.FC<{
             )}
 
             {/* Main Content Area */}
-            <div className="section-px section-py-md bg-white">
-                <div className="grid grid-cols-1 lg:grid-cols-12 grid-gap-md lg:gap-12">
+            <div className="section-py-md bg-white">
+                <div className="max-w-container mx-auto section-px grid grid-cols-1 lg:grid-cols-12 grid-gap-md lg:gap-12">
                     {/* Left Sidebar - Table of Contents */}
                     <aside className="lg:col-span-3 hidden lg:block">
                         <TableOfContents headings={headings} />
@@ -226,7 +220,7 @@ export const BlogArticle: React.FC<{
             {/* You Might Also Like Section */}
             {relatedBlogs.length > 0 && (
                 <div className="section-py-md">
-                    <div className="max-w-7xl mx-auto section-px">
+                    <div className="max-w-container mx-auto section-px">
                         <h2 className="text-display-sm md:text-display-md font-bold text-white mb-10">
                             {t("youMightAlsoLike")}
                         </h2>

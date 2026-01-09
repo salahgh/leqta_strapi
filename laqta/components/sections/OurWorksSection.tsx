@@ -64,7 +64,8 @@ export async function OurWorksSection({
 
     return (
         <div
-            className={`min-h-screen relative rounded-3xl section-py-lg ${className}`}
+            className={`min-h-screen relative section-py-lg ${className}`}
+            style={{ backgroundColor: "#d5ebf9" }}
         >
             {/* Background Logo */}
             <div className="absolute inset-0 z-0 flex flex-col justify-start items-center -top-16 sm:-top-20 md:-top-24">
@@ -76,11 +77,11 @@ export async function OurWorksSection({
             </div>
 
             <div
-                className="absolute inset-0 top-0 z-5 blue_gradient_two"
+                className="absolute inset-0 top-0 z-5 blue_gradient"
                 style={{ height: "100%" }}
             />
 
-            <div className="section-px z-10 relative bg-transparent">
+            <div className="section-px z-10 relative bg-transparent max-w-container mx-auto">
                 {/* Header Section */}
                 <div className="text-center flex flex-col items-center grid-gap-sm pb-6 sm:pb-8 md:pb-12">
                     <div className="animate-slide-down" style={{ opacity: 0 }}>

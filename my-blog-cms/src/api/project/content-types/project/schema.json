@@ -50,6 +50,14 @@
       },
       "required": true
     },
+    "content": {
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "metrics": {
       "type": "string",
       "pluginOptions": {

@@ -324,10 +324,10 @@ const GridBlogCardWithLogo: React.FC<{
 }> = ({ blog, blogUrl, locale = "en" }) => (
     <Link href={blogUrl} locale={locale as any} className="block group">
         <article
-            className="relative bg-white rounded-2xl
+            className="relative bg-white/90 backdrop-blur-sm rounded-2xl
         shadow-lg hover:shadow-2xl transition-all duration-300
         overflow-hidden h-full flex flex-col hover:-translate-y-1 border
-        border-neutral-100 hover:border-accent-blue/30"
+        border-white/20 hover:border-accent-blue/30"
         >
             {/* Laqta circle logo background */}
             <div className="absolute inset-0 z-1 flex items-center justify-center">

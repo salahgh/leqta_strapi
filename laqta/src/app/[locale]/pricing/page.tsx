@@ -81,7 +81,7 @@ const PricingPage = async ({
                             </p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 grid-gap-lg max-w-7xl mx-auto">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 grid-gap-lg max-w-container mx-auto">
                             {plans.map((plan, index) => (
                                 <div
                                     key={plan.id || index}

@@ -9,6 +9,17 @@ module.exports = {
         "./styles/**/*.css",
     ],
     theme: {
+        // Extended breakpoints for ultra-wide screens
+        screens: {
+            'sm': '640px',
+            'md': '768px',
+            'lg': '1024px',
+            'xl': '1280px',
+            '2xl': '1536px',
+            '3xl': '1920px',    // Full HD / Large monitors
+            '4xl': '2560px',    // QHD / Ultra-wide monitors
+            '5xl': '3440px',    // Ultra-wide 21:9 monitors
+        },
         extend: {
             colors: {
                 /*
@@ -118,8 +129,11 @@ module.exports = {
 
             // Max Width utilities
             maxWidth: {
-                "container": "94.625rem", // 1514px - custom max container
-                "content": "43.75rem",    // 700px - content max width
+                "container": "94.5rem",      // 1512px - fixed content width
+                "content": "43.75rem",       // 700px - content max width
+                "content-lg": "50rem",       // 800px - large content max width
+                "content-xl": "56.25rem",    // 900px - extra large content max width
+                "prose": "65ch",             // Readable line length
             },
 
             // Min Height utilities

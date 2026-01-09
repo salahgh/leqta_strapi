@@ -29,7 +29,7 @@ const Footer = async ({ locale }: FooterProps) => {
     }
 
     return (
-        <footer className="relative bg-primary text-white overflow-hidden">
+        <footer className="relative bg-primary text-white overflow-hidden w-full">
             {/* Background LAQTA Logo */}
             <div className="absolute bottom-0 w-full flex items-center justify-center pointer-events-none">
                 <img
@@ -51,7 +51,7 @@ const Footer = async ({ locale }: FooterProps) => {
             />
 
             {/* Main Footer Content */}
-            <div className="relative z-10 section-px pt-8 sm:pt-10 md:pt-16 lg:pt-20 pb-6 sm:pb-8 md:pb-12">
+            <div className="relative z-10 section-px pt-8 sm:pt-10 md:pt-16 lg:pt-20 pb-6 sm:pb-8 md:pb-12 max-w-container mx-auto">
                 {/* Top Section - Responsive Layout */}
                 <div className="flex flex-col md:flex-row gap-8 md:gap-0 md:justify-between">
                     {/* Left Column - Logo and Newsletter */}

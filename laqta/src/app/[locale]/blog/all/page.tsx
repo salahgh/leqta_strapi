@@ -55,8 +55,8 @@ const AllBlogsPage = async ({
             <Navigation />
 
             {/* Page Header */}
-            <section className="px-4 md:px-8 pt-8 md:pt-16 pb-8">
-                <div className="max-w-7xl mx-auto">
+            <section className="section-px pt-8 md:pt-16 pb-8">
+                <div className="max-w-container mx-auto">
                     <div className="text-center md:text-left">
                         <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 animate-slide-up" style={{ opacity: 0 }}>
                             {t("allArticles")}

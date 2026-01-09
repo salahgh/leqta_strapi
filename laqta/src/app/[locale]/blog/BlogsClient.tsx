@@ -91,7 +91,7 @@ export const BlogsClient: React.FC<BlogsClientProps> = ({
         <>
             {/* Hero Section */}
             <section className="section-px pt-6 sm:pt-8 md:pt-12 lg:pt-16 pb-8 sm:pb-12 md:pb-16 lg:pb-20">
-                <div className="max-w-7xl mx-auto">
+                <div className="max-w-container mx-auto">
                     <div className="text-center md:text-left mb-8 sm:mb-10 md:mb-12">
                         <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6">
                             {t("title")}
@@ -105,7 +105,7 @@ export const BlogsClient: React.FC<BlogsClientProps> = ({
 
             {/* Blog Grid */}
             <section className="section-px pb-12 sm:pb-14 md:pb-16">
-                <div className="max-w-7xl mx-auto">
+                <div className="max-w-container mx-auto">
                     {loading ? (
                         <div className="flex justify-center items-center py-12">
                             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>

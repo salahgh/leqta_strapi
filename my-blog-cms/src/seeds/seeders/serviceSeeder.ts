@@ -3,12 +3,24 @@ export const seedServices = async (strapi: any, servicesData: any[]) => {
 
     for (const serviceData of servicesData) {
         try {
+            // Check if service already exists
+            const existingServices = await strapi.documents('api::service.service').findMany({
+                filters: { slug: serviceData.base.slug },
+                locale: 'en'
+            });
+
+            if (existingServices && existingServices.length > 0) {
+                console.log(`⏭️ Service "${serviceData.base.title}" already exists, skipping`);
+                continue;
+            }
+
             // Create service
             const service = await strapi.documents('api::service.service').create({
                 data: {
                     title: serviceData.base.title,
                     slug: serviceData.base.slug,
                     description: serviceData.base.description,
+                    content: serviceData.base.content || null,
                     gradientFrom: serviceData.base.gradientFrom,
                     gradientTo: serviceData.base.gradientTo,
                     featured: serviceData.base.featured,
@@ -31,6 +43,7 @@ export const seedServices = async (strapi: any, servicesData: any[]) => {
                         data: {
                             title: t.title,
                             description: t.description,
+                            content: t.content || null,
                             tags: t.tags,
                             publishedAt: new Date()
                         }

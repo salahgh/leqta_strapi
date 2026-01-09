@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Link } from "@/src/i18n/navigation";
 import { ChevronRight, ArrowLeft } from "lucide-react";
 import Image from "next/image";
+import { WorkContent } from "./WorkContent";
 
 interface WorkDetailPageProps {
     params: Promise<{
@@ -47,11 +48,11 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
     const imageUrl = getImageUrl(project.featured_image?.url);
 
     return (
-        <div className="min-h-screen" dir={locale === "ar" ? "rtl" : "ltr"}>
+        <div className="min-h-screen bg-primary" dir={locale === "ar" ? "rtl" : "ltr"}>
             <Navigation />
 
             {/* Blue Header with LAQTA Logo Background - matching BlogArticle style */}
-            <div className="relative py-60 md:pt-24 bg-primary">
+            <div className="relative py-60 md:pt-24">
                 {/* LAQTA Logo Background - larger and more visible */}
                 <div
                     className="absolute inset-0 opacity-5 overflow-hidden pt-20"
@@ -88,44 +89,40 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
                     />
                 </div>
 
-                {/* Content */}
-                <div
-                    className="w-2/3 pt-24 relative z-10"
-                    style={{
-                        marginLeft: locale === "ar" ? undefined : "6rem",
-                        marginRight: locale === "ar" ? "6rem" : undefined,
-                    }}
-                >
-                    {/* Category Badge */}
-                    <div className="mb-6 animate-slide-down" style={{ opacity: 0 }}>
-                        <span className="px-6 py-2 bg-white/10 backdrop-blur-md text-white text-body-md rounded-full border border-white/20">
-                            {project.category}
-                        </span>
-                    </div>
+                {/* Content - constrained width */}
+                <div className="max-w-container mx-auto section-px relative z-10 pt-24">
+                    <div className="w-full lg:w-2/3 space-y-6">
+                        {/* Category Badge */}
+                        <div className="animate-slide-down" style={{ opacity: 0 }}>
+                            <span className="px-6 py-2 bg-white/10 backdrop-blur-md text-white text-body-md rounded-full border border-white/20">
+                                {project.category}
+                            </span>
+                        </div>
 
-                    {/* Title */}
-                    <h1
-                        className="text-white leading-relaxed w-full text-display-lg md:text-display-xl font-bold animate-slide-up"
-                        style={{ lineHeight: 1.4, opacity: 0, animationDelay: "150ms" }}
-                    >
-                        {project.title}
-                    </h1>
-
-                    {/* Metrics under title */}
-                    {project.metrics && (
-                        <p
-                            style={{ lineHeight: 1.7 }}
-                            className="text-body-lg md:text-body-xl text-secondary mt-4 w-full md:w-2/3 animate-fade-in"
+                        {/* Title */}
+                        <h1
+                            className="text-white leading-relaxed text-display-lg md:text-display-xl font-bold animate-slide-up"
+                            style={{ lineHeight: 1.4, opacity: 0, animationDelay: "150ms" }}
                         >
-                            {project.metrics}
-                        </p>
-                    )}
+                            {project.title}
+                        </h1>
+
+                        {/* Metrics under title */}
+                        {project.metrics && (
+                            <p
+                                style={{ lineHeight: 1.7, opacity: 0, animationDelay: "300ms" }}
+                                className="text-body-lg md:text-body-xl text-secondary animate-fade-in"
+                            >
+                                {project.metrics}
+                            </p>
+                        )}
+                    </div>
                 </div>
             </div>
 
             {/* Header Image */}
             {imageUrl && (
-                <div className="relative w-full h-64 md:h-96 lg:h-[32rem] overflow-hidden rounded-t-[50px] -mt-12">
+                <div className="relative w-full h-64 md:h-96 lg:h-[32rem] overflow-hidden rounded-t-[50px] -mt-12 max-w-container mx-auto">
                     <Image
                         src={imageUrl}
                         alt={project.title}
@@ -139,42 +136,18 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
             )}
 
             {/* Project Details Section */}
-            <section className="bg-white py-20">
-                <div className="container mx-auto px-6">
-                    {/* Main Content */}
-                    <div className="max-w-4xl mx-auto animate-fade-in" style={{ opacity: 0, animationDelay: "150ms" }}>
-                        {/* Description */}
-                        <div className="prose prose-lg max-w-none mb-12">
-                            <h2 className="text-gray-900 text-display-sm font-bold mb-6">
-                                {t("projectOverview")}
-                            </h2>
-                            <p className="text-gray-700 text-body-xl leading-relaxed whitespace-pre-wrap">
-                                {project.description}
-                            </p>
-                        </div>
-
-                        {/* Project Info Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                            <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6">
-                                <h3 className="text-gray-900 text-body-xl font-bold mb-3">
-                                    {t("category")}
-                                </h3>
-                                <p className="text-gray-700 text-body-lg">{project.category}</p>
-                            </div>
-
-                            {project.metrics && (
-                                <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6">
-                                    <h3 className="text-gray-900 text-body-xl font-bold mb-3">
-                                        {t("results")}
-                                    </h3>
-                                    <p className="text-gray-700 text-body-lg">{project.metrics}</p>
-                                </div>
-                            )}
-                        </div>
-                    </div>
+            <section className="bg-white section-py">
+                <div className="max-w-container mx-auto section-px">
+                    {/* Main Content with Rich Text */}
+                    <WorkContent
+                        description={project.description}
+                        content={project.content}
+                        category={project.category}
+                        metrics={project.metrics}
+                    />
 
                     {/* CTA Section */}
-                    <div className="max-w-4xl mx-auto bg-primary rounded-2xl p-12 text-center">
+                    <div className="max-w-4xl mx-auto bg-primary rounded-2xl p-12 text-center mt-12">
                         <h2 className="text-white text-display-sm font-bold mb-4">
                             {t("likeWhatYouSee")}
                         </h2>
@@ -195,7 +168,7 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
 
             {/* Back to Works */}
             <section className="bg-primary py-12">
-                <div className="container mx-auto px-6 text-center">
+                <div className="max-w-container mx-auto section-px text-center">
                     <Link href="/#works" className="inline-flex items-center text-white hover:text-secondary text-body-lg font-medium transition-colors">
                         <ArrowLeft className="w-5 h-5 mr-2" />
                         {t("backToWorks")}

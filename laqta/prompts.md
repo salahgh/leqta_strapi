@@ -1,12 +1,7 @@
-in the mobile version :
-- hero section text adjustement not consistent across devices
-- drawer : "Navigation Items" have to be removed
-- the about section : the content should be centered and takes the hole width when in colum layout
-- what we do section : the content should be centered the md: is too shrinked
-- the cards padding is too small when in mobile (wroks , services)
-- faq text sizes not consistent
-- reanalyse the spacing and padding across devices , use well known sizes
-- the leqta coordinates
-- get in touch --> CRM leads assigned to commerciale
-- plans should be dynamic
-- titre blog is so big
+the hero section is wider than the full width of 1512 
+the about laqta section background is blue wich does not 
+reflect the background color of the contnet (grandient from wite to transparent)
+what we do section also
+our works section good but the white grandient should extend
+consistent grouth image should not extend
+the footer is extended

@@ -12,6 +12,8 @@ import { getTranslations } from "next-intl/server";
 import Footer from "@/components/sections/Footer";
 import { siteSettingsApi } from "@/lib/strapi";
 import { Navigation } from "@/components/layout/Navigation";
+import LetsStartProjectSection from "@/components/sections/LetsStartProjectSection";
+import "@/components/sections/styles.css";
 
 // Disable caching for real-time CMS updates
 export const dynamic = "force-dynamic";
@@ -44,36 +46,60 @@ export default async function Home({
     return (
         <div className="w-full">
             {/*<Navigation />*/}
-            <div className="w-full xl:max-w-container xl:mx-auto">
-                <HeroSection />
-                <div
-                    className={"bg-white rounded-2xl sm:rounded-3xl"}
-                    style={{ backgroundColor: "#d5ebf9" }}
-                >
+            {/* Hero section - full width background */}
+            <HeroSection />
+
+            {/* About section - same background as Testimonials */}
+            <div className="w-full relative" style={{ backgroundColor: "#d5ebf9" }}>
+                {/* Background Logo */}
+                <div className="absolute inset-0 z-0 flex flex-col justify-start items-center -top-16 sm:-top-20 md:-top-24">
+                    <img
+                        src="/images/laqta_logo_courbe.svg"
+                        alt="LAQTA Logo Curve"
+                        className="w-2/3 aspect-square object-fill z-0 opacity-70"
+                    />
+                </div>
+                {/* Background gradient layer - extends full width */}
+                <div className="absolute inset-0 z-5 blue_gradient" style={{ height: "100%" }} />
+                {/* Content constrained to 1512px */}
+                <div className="relative z-10 max-w-container mx-auto">
                     <AboutSection illustration={<CustomIllustration />} />
                 </div>
-                <ServicesSection locale={locale} />
-                <div
-                    id="works"
-                    className={"rounded-2xl"}
-                    style={{ backgroundColor: "#d5ebf9" }}
-                >
-                    <OurWorks locale={locale} />
-                </div>
-                <YourPerfectPartner locale={locale} />
-                <div id="testimonials">
-                    <TestimonialsSectionWrapper locale={locale} />
-                </div>
-                <div id="faq">
-                    <FAQSectionWrapper locale={locale} />
-                </div>
-                <ContactUs
-                    contactEmail={siteSettings?.contactEmail}
-                    contactPhone={siteSettings?.contactPhone}
-                    address={siteSettings?.address}
-                />
-                <Footer locale={locale} />
             </div>
+
+            {/* Services section - full width with internal max-width */}
+            <ServicesSection locale={locale} />
+
+            {/* Works section - gradient background extends full width */}
+            <div id="works" className="w-full">
+                <OurWorks locale={locale} />
+            </div>
+
+            {/* Perfect Partner section */}
+            <YourPerfectPartner locale={locale} />
+
+            {/* Testimonials section */}
+            <div id="testimonials" className="w-full">
+                <TestimonialsSectionWrapper locale={locale} />
+            </div>
+
+            {/* Let's Start Project section */}
+            <LetsStartProjectSection />
+
+            {/* FAQ section */}
+            <div id="faq" className="w-full">
+                <FAQSectionWrapper locale={locale} />
+            </div>
+
+            {/* Contact section */}
+            <ContactUs
+                contactEmail={siteSettings?.contactEmail}
+                contactPhone={siteSettings?.contactPhone}
+                address={siteSettings?.address}
+            />
+
+            {/* Footer */}
+            <Footer locale={locale} />
         </div>
     );
 }

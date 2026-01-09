@@ -241,7 +241,7 @@ export default async function PlansSection({
                             </p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-6 max-w-6xl mx-auto items-stretch">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-6 max-w-container mx-auto items-stretch">
                             {plans.map((plan, index) => (
                                 <PlanCard
                                     key={plan.id || index}

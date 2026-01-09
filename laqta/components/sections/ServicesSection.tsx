@@ -140,7 +140,7 @@ export default async function ServicesSection({
             </div>
 
             {/* Content Layer */}
-            <div className="relative z-20 flex flex-col">
+            <div className="relative z-20 flex flex-col max-w-container mx-auto">
                 {/* Header - Using design system spacing */}
                 <div className="text-center flex flex-col items-center grid-gap-sm section-py-lg">
                     <div className="animate-slide-down" style={{ opacity: 0 }}>

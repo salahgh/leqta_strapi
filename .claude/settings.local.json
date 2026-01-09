@@ -24,7 +24,12 @@
       "Bash(mkdir:*)",
       "Bash(npm install:*)",
       "Bash(npx kill-port:*)",
-      "Bash(taskkill:*)"
+      "Bash(taskkill:*)",
+      "Bash(cd:*)",
+      "WebFetch(domain:www.figma.com)",
+      "mcp__figma-remote__get_design_context",
+      "mcp__figma-remote__get_screenshot",
+      "mcp__figma-remote__get_metadata"
     ],
     "deny": [],
     "ask": []

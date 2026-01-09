@@ -4,15 +4,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Laqta is a Next.js 15 marketing website for a creative agency offering content marketing and production services. The project uses modern React patterns, Tailwind CSS for styling, and integrates with a Strapi CMS backend for dynamic content management.
+Laqta is a Next.js 16 marketing website for a creative agency offering content marketing and production services. The project uses React 19, Tailwind CSS for styling, and integrates with a Strapi CMS backend for dynamic content management.
 
 ## Tech Stack
 
-- **Framework**: Next.js 15.3.3 with App Router
+- **Framework**: Next.js 16 with App Router
+- **React**: React 19
 - **Language**: TypeScript (with some legacy JSX files)
-- **Styling**: Tailwind CSS 3.4.0 with custom design system
-- **Forms**: Formik 2.4.6 + Yup 1.6.1 validation
-- **CMS**: Strapi (headless CMS at `http://localhost:1337`)
+- **Styling**: Tailwind CSS 3.4 with custom design system
+- **Forms**: Formik + Yup validation
+- **CMS**: Strapi v5 (headless CMS at `http://localhost:1337`)
 - **Internationalization**: next-intl with support for English (en), Arabic (ar), and French (fr)
 - **Icons**: Lucide React
 

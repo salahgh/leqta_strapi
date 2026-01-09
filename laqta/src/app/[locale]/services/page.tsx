@@ -95,6 +95,13 @@ const transformStrapiService = (service: Service) => ({
               url: utils.getFileUrl(service.featured_image.url),
           }
         : null,
+    service_video: service.service_video
+        ? {
+              ...service.service_video,
+              url: utils.getFileUrl(service.service_video.url),
+          }
+        : null,
+    video_url: service.video_url || null,
 });
 
 // Add revalidation for server-side rendering
@@ -128,9 +135,6 @@ const ServicesPage = async ({
                     className="w-2/3 h-2/3 object-fill opacity-70"
                 />
             </div>
-
-            {/* Gradient overlay from bottom */}
-            <div className="absolute top-1/3 left-0 right-0 bottom-0 z-5 bg-gradient-to-t from-black via-transparent to-transparent pointer-events-none" />
 
             <Navigation />
 
@@ -175,7 +179,7 @@ const ServicesPage = async ({
                             </p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-gap-lg max-w-7xl mx-auto">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-gap-lg max-w-container mx-auto">
                             {servicesToRender.map((service, index) => (
                                 <div key={index} className="w-full">
                                     <ServiceCard

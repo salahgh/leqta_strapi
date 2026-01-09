@@ -31,6 +31,25 @@ const nextConfig = {
                 port: '1337',
                 pathname: '/uploads/**',
             },
+            {
+                // Production server - leqta.com with Strapi port
+                protocol: 'http',
+                hostname: 'leqta.com',
+                port: '1337',
+                pathname: '/uploads/**',
+            },
+            {
+                // Production server - HTTPS
+                protocol: 'https',
+                hostname: 'leqta.com',
+                pathname: '/uploads/**',
+            },
+            {
+                // Production server - subdomains
+                protocol: 'https',
+                hostname: '*.leqta.com',
+                pathname: '/uploads/**',
+            },
         ],
         // Allow localhost images in development
         dangerouslyAllowSVG: true,

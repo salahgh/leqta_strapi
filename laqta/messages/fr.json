@@ -283,7 +283,7 @@
   },
   "blog": {
     "badge": "Insights et Histoires",
-    "title": "Le Blog LAQTA",
+    "title": "Le Blog LEQTA",
     "description": "Des stratégies technologiques basées sur les données qui stimulent l'engagement et l'impact de la marque. Explorez les perspectives des histoires de talents de nos studios en Algérie. Découvrez l'impact réel.",
     "featuredStories": "Histoires en Vedette",
     "latestArticles": "Derniers Articles",
@@ -296,11 +296,11 @@
     "tags": "Tags:",
     "minRead": "min de lecture",
     "views": "vues",
-    "articleNotFound": "Article non trouvé - LAQTA",
+    "articleNotFound": "Article non trouvé - LEQTA",
     "articleNotFoundDescription": "L'article demandé n'a pas pu être trouvé.",
-    "allArticlesTitle": "Tous les Articles - LAQTA",
+    "allArticlesTitle": "Tous les Articles - LEQTA",
     "allArticlesMetaDescription": "Parcourez tous nos articles avec des options de recherche et de filtre",
-    "blogTitle": "Insights et Histoires - LAQTA",
+    "blogTitle": "Insights et Histoires - LEQTA",
     "blogMetaDescription": "Découvrez comment la narration transforme les marques et se connecte avec les audiences à un niveau plus profond"
   },
   "footer": {

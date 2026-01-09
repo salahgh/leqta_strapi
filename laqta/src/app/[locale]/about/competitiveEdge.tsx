@@ -40,7 +40,7 @@ export const CompetitiveEdge = async () => {
             <div className="absolute inset-0 z-1 flex px-12 items-center justify-center">
                 <img
                     src="/images/laqta_logo_courbe.svg"
-                    alt="LAQTA Logo Curve"
+                    alt="LEQTA Logo Curve"
                     className="object-contain opacity-90 "
                 />
             </div>

@@ -62,7 +62,7 @@ export default async function LocaleLayout({
 
                 <ErrorBoundary>
                     <main className="flex-1 w-full" id="main-content">
-                        <NextIntlClientProvider messages={messages}>
+                        <NextIntlClientProvider locale={locale} messages={messages}>
                             {children}
                         </NextIntlClientProvider>
                     </main>

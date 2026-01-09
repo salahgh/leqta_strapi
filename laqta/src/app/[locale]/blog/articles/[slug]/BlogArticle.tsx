@@ -83,9 +83,9 @@ export const BlogArticle: React.FC<{
         <div className="min-h-screen" dir={locale === "ar" ? "rtl" : "ltr"}>
             <ReadingProgress />
 
-            {/* Blue Header with LAQTA Logo Background */}
+            {/* Blue Header with LEQTA Logo Background */}
             <div className="relative pt-20 sm:pt-24 md:pt-28 pb-12 max-w-container mx-auto">
-                {/* LAQTA Logo Background - hidden on mobile */}
+                {/* LEQTA Logo Background - hidden on mobile */}
                 <div
                     className="hidden md:block absolute inset-0 opacity-5 overflow-hidden pt-20"
                     style={{

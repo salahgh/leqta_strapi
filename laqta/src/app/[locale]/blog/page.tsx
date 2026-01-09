@@ -71,7 +71,7 @@ const BlogPage = async ({
 
             {/* Hero Section with Logo Background */}
             <section className="relative pt-8 sm:pt-12 md:pt-20 lg:pt-28 pb-8 sm:pb-12 md:pb-16 lg:pb-24 overflow-hidden">
-                {/* LAQTA Logo Background Overlay */}
+                {/* LEQTA Logo Background Overlay */}
                 <div className="absolute inset-0 pointer-events-none z-0">
                     {/* Union SVG Layer */}
                     <div className="absolute inset-0">

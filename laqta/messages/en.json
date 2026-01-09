@@ -32,7 +32,7 @@
   "services": {
     "badge": "Our Services",
     "title": "What We Do",
-    "description": "At LAQTA, we deliver video content that performs. Whether you're launching a campaign, telling your brand story, or creating cinematic visuals we've got you covered.",
+    "description": "At LEQTA, we deliver video content that performs. Whether you're launching a campaign, telling your brand story, or creating cinematic visuals we've got you covered.",
     "buttonText": "Discover our services",
     "backToServices": "Back to Services",
     "interestedInService": "Interested in this service?",
@@ -289,7 +289,7 @@
   },
   "blog": {
     "badge": "Insights & Stories",
-    "title": "The LAQTA Blog",
+    "title": "The LEQTA Blog",
     "description": "Data-led technology strategies that boost brand engagement and impact. Explore insights in talent stories from our studios in Algeria. Explore real-world impact.",
     "featuredStories": "Featured Stories",
     "latestArticles": "Latest Articles",
@@ -302,11 +302,11 @@
     "tags": "Tags:",
     "minRead": "min read",
     "views": "views",
-    "articleNotFound": "Article not found - LAQTA",
+    "articleNotFound": "Article not found - LEQTA",
     "articleNotFoundDescription": "The requested article could not be found.",
-    "allArticlesTitle": "All Articles - LAQTA",
+    "allArticlesTitle": "All Articles - LEQTA",
     "allArticlesMetaDescription": "Browse all our articles with search and filter options",
-    "blogTitle": "Insights & Stories - LAQTA",
+    "blogTitle": "Insights & Stories - LEQTA",
     "blogMetaDescription": "Discover how storytelling transforms brands and connects with audiences on a deeper level"
   },
   "footer": {
@@ -341,7 +341,7 @@
   },
   "privacyPolicy": {
     "title": "Privacy Policy",
-    "description": "At LAQTA, your privacy matters. This Privacy Policy explains how we collect, use, and protect your personal information when you visit our website or contact us.",
+    "description": "At LEQTA, your privacy matters. This Privacy Policy explains how we collect, use, and protect your personal information when you visit our website or contact us.",
     "sections": {
       "informationCollect": {
         "title": "Information We Collect",

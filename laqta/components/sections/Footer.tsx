@@ -30,7 +30,7 @@ const Footer = async ({ locale }: FooterProps) => {
 
     return (
         <footer className="relative bg-primary text-white overflow-hidden w-full">
-            {/* Background LAQTA Logo */}
+            {/* Background LEQTA Logo */}
             <div className="absolute bottom-0 w-full flex items-center justify-center pointer-events-none">
                 <img
                     src="/images/laqta_01.svg"

@@ -64,7 +64,7 @@ const WorksPage = async ({
             <div className="absolute inset-0 z-0 flex flex-col justify-start items-center -top-16 sm:-top-20 md:-top-24 pointer-events-none">
                 <img
                     src="/images/laqta_logo_courbe.svg"
-                    alt="LAQTA Logo Curve"
+                    alt="LEQTA Logo Curve"
                     className="w-2/3 aspect-square object-fill z-0 opacity-70"
                 />
             </div>

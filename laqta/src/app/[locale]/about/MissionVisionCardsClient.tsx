@@ -74,7 +74,7 @@ export const MissionVisionCardsClient: React.FC<
                         <div className="absolute inset-0 z-1 p-8">
                             <img
                                 src="/images/laqta_logo_courbe.svg"
-                                alt="LAQTA Logo Curve"
+                                alt="LEQTA Logo Curve"
                                 className="object-contain opacity-60"
                             />
                         </div>

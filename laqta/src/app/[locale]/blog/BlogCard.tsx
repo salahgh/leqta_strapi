@@ -360,7 +360,7 @@ const GridBlogCardWithLogo: React.FC<{
                             <div className="absolute inset-0 flex items-center justify-center">
                                 <Image
                                     src="/images/logo.svg"
-                                    alt="LAQTA"
+                                    alt="LEQTA"
                                     width={80}
                                     height={80}
                                     className="object-contain opacity-20"
@@ -378,11 +378,11 @@ const GridBlogCardWithLogo: React.FC<{
                         )}
                     </div>
 
-                    {/* LAQTA Logo Overlay - positioned under image */}
+                    {/* LEQTA Logo Overlay - positioned under image */}
                     <div className="absolute -bottom-2 right-4 opacity-10 pointer-events-none z-0">
                         <Image
                             src="/images/logo.svg"
-                            alt="LAQTA"
+                            alt="LEQTA"
                             width={80}
                             height={80}
                             className="object-contain"

@@ -33,7 +33,7 @@ export const Card: React.FC<CardProps> = ({
             >
                 <Image
                     src="/images/laqta_logo_courbe.svg"
-                    alt="LAQTA Logo Curve"
+                    alt="LEQTA Logo Curve"
                     width={200}
                     height={200}
                     className="w-1/2 aspect-square object-fill z-0 opacity-10 group-hover:opacity-20 transition-opacity duration-500"

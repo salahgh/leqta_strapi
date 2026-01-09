@@ -108,7 +108,7 @@ function PartnershipFormPage() {
                         className="text-secondary-gray animate-fade-in text-body-lg md:text-body-xl max-w-4xl mx-auto"
                         style={{ opacity: 0, animationDelay: "300ms" }}
                     >
-                        Want to collaborate with LAQTA? Let's build something
+                        Want to collaborate with LEQTA? Let's build something
                         unforgettable together. Fill out the form below and
                         we'll get back to you shortly.
                     </p>

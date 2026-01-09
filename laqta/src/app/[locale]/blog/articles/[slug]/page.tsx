@@ -91,7 +91,7 @@ export async function generateMetadata({ params }: BlogPageProps) {
         : undefined;
 
     return generateSEOMetadata({
-        title: blog.meta_title || `${blog.title} - LAQTA`,
+        title: blog.meta_title || `${blog.title} - LEQTA`,
         description: blog.meta_description || blog.excerpt || blog.description,
         canonical,
         ogImage,

@@ -15,7 +15,7 @@ export const ContactInfo = ({ contactEmail, contactPhone, address }: ContactInfo
     // Fallback values if not provided from CMS
     const email = contactEmail || "hello@laqta.agency";
     const phone = contactPhone || "+213 770 123 456";
-    const addressText = address || "LAQTA Studio, 1600, Algiers, Algeria";
+    const addressText = address || "LEQTA Studio, 1600, Algiers, Algeria";
 
     return (
         <div className=" space-y-8">

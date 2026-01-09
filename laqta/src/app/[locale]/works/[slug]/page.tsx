@@ -51,9 +51,9 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
         <div className="min-h-screen bg-primary" dir={locale === "ar" ? "rtl" : "ltr"}>
             <Navigation />
 
-            {/* Blue Header with LAQTA Logo Background - matching BlogArticle style */}
+            {/* Blue Header with LEQTA Logo Background - matching BlogArticle style */}
             <div className="relative py-60 md:pt-24">
-                {/* LAQTA Logo Background - larger and more visible */}
+                {/* LEQTA Logo Background - larger and more visible */}
                 <div
                     className="absolute inset-0 opacity-5 overflow-hidden pt-20"
                     style={{
@@ -63,7 +63,7 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
                 >
                     <Image
                         src="/images/logo.svg"
-                        alt="LAQTA"
+                        alt="LEQTA"
                         fill
                         className="object-contain mt-1"
                         style={{
@@ -83,7 +83,7 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
                 >
                     <img
                         src="/images/vector9.svg"
-                        alt="LAQTA"
+                        alt="LEQTA"
                         className="object-contain"
                         style={{ transform: "scale(1)" }}
                     />

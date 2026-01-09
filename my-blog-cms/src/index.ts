@@ -1,18 +1,20 @@
-import { runSeeds } from './seeds/seeders';
+// Seeding disabled - uncomment to re-enable
+// import { runSeeds } from './seeds/seeders';
 
 module.exports = {
     register(/* { strapi } */) {},
 
     async bootstrap({ strapi }) {
-        console.log('🚀 Bootstrap: Running seeds in 3 seconds...');
+        console.log('🚀 Bootstrap: Seeding disabled');
 
-        setTimeout(async () => {
-            try {
-                console.log('🌱 Seeding started...');
-                await runSeeds(strapi);
-            } catch (error) {
-                console.error('❌ Seeding error:', error);
-            }
-        }, 3000);
+        // Seeding disabled - uncomment to re-enable
+        // setTimeout(async () => {
+        //     try {
+        //         console.log('🌱 Seeding started...');
+        //         await runSeeds(strapi);
+        //     } catch (error) {
+        //         console.error('❌ Seeding error:', error);
+        //     }
+        // }, 3000);
     },
 };

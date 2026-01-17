@@ -31,3 +31,6 @@ my-blog-cms/nul
 **/.env.example
 
 nul
+/my-blog-cms/.strapi
+
+my-blog-cms/.strapi-updater.json

@@ -37,7 +37,11 @@
     "backToServices": "العودة إلى الخدمات",
     "interestedInService": "مهتم بهذه الخدمة؟",
     "contactUsDescription": "دعنا نناقش كيف يمكننا مساعدتك في تحقيق رؤيتك. فريقنا مستعد لإنشاء شيء مذهل معًا.",
-    "getStarted": "ابدأ الآن"
+    "getStarted": "ابدأ الآن",
+    "availablePlans": "الخطط المتاحة",
+    "choosePlanDescription": "اختر الخطة التي تناسب احتياجاتك ودعنا نبدأ مشروعك.",
+    "selectPlan": "اختر الخطة",
+    "contactForPricing": "تواصل معنا للتسعير"
   },
   "servicesPage": {
     "header": {
@@ -189,6 +193,14 @@
       "goBackToMainPage": "العودة إلى الصفحة الرئيسية"
     },
     "form": {
+      "selectedOptions": "اختيارك",
+      "service": "الخدمة",
+      "plan": "الخطة",
+      "reviewInfo": "راجع معلوماتك",
+      "fullNameLabel": "الاسم",
+      "emailLabel": "البريد الإلكتروني",
+      "companyNameLabel": "الشركة",
+      "industryLabel": "الصناعة",
       "personalInfoTitle": "المعلومات الشخصية",
       "personalInfoDescription": "لنبدأ بمعلومات الاتصال الأساسية الخاصة بك.",
       "fullName": "الاسم الكامل",

@@ -37,7 +37,11 @@
     "backToServices": "Retour aux Services",
     "interestedInService": "Intéressé par ce service ?",
     "contactUsDescription": "Discutons de la façon dont nous pouvons vous aider à concrétiser votre vision. Notre équipe est prête à créer quelque chose d'incroyable ensemble.",
-    "getStarted": "Commencer"
+    "getStarted": "Commencer",
+    "availablePlans": "Forfaits Disponibles",
+    "choosePlanDescription": "Sélectionnez un forfait adapté à vos besoins et commençons votre projet.",
+    "selectPlan": "Sélectionner",
+    "contactForPricing": "Contactez-nous pour les tarifs"
   },
   "servicesPage": {
     "header": {
@@ -189,12 +193,24 @@
       "goBackToMainPage": "Retour à la Page Principale"
     },
     "form": {
+      "selectedOptions": "Votre Sélection",
+      "service": "Service",
+      "plan": "Forfait",
+      "reviewInfo": "Vérifiez Vos Informations",
+      "fullNameLabel": "Nom",
+      "emailLabel": "Email",
+      "companyNameLabel": "Entreprise",
+      "industryLabel": "Industrie",
+      "personalInfoTitle": "Informations Personnelles",
+      "personalInfoDescription": "Commençons par vos informations de contact de base.",
       "fullName": "Nom Complet",
       "fullNamePlaceholder": "Entrez votre nom complet",
       "email": "Email",
       "emailPlaceholder": "Entrez votre adresse email",
       "phoneNumber": "Numéro de Téléphone",
       "phoneNumberPlaceholder": "Entrez votre numéro de téléphone",
+      "companyInfoTitle": "Informations sur l'Entreprise et l'Industrie",
+      "companyInfoDescription": "Parlez-nous de votre entreprise et de votre rôle.",
       "industry": "Industrie",
       "selectIndustry": "Sélectionnez votre industrie",
       "otherIndustry": "Autre Industrie",
@@ -206,6 +222,7 @@
       "website": "Site Web",
       "websitePlaceholder": "https://votresite.com",
       "socialMediaLinks": "Liens des Réseaux Sociaux",
+      "socialMediaDescription": "Connectez vos profils de réseaux sociaux (optionnel).",
       "facebook": "Facebook",
       "facebookPlaceholder": "https://facebook.com/votrepage",
       "instagram": "Instagram",
@@ -215,6 +232,7 @@
       "linkedin": "LinkedIn",
       "linkedinPlaceholder": "https://linkedin.com/in/votreprofil",
       "projectDetails": "Détails du Projet",
+      "projectDetailsDescription": "Parlez-nous des exigences de votre projet",
       "projectDescription": "Description du Projet",
       "projectDescriptionPlaceholder": "Parlez-nous de votre projet, de vos objectifs et de vos exigences",
       "goals": "Objectifs du Projet",

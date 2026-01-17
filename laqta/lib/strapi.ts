@@ -33,6 +33,7 @@ export interface Service {
     } | null;
     video_url?: string | null;
     order?: number;
+    plans?: Plan[];
     publishedAt: string;
     createdAt: string;
     updatedAt: string;
@@ -180,7 +181,12 @@ export const servicesApi = {
     ): Promise<ApiResponse<Service>> {
         const searchParams = new URLSearchParams();
         searchParams.set("filters[slug][$eq]", slug);
-        if (params?.populate) searchParams.set("populate", params.populate);
+
+        // Populate all related fields including plans with their sections and points
+        searchParams.set("populate[0]", "featured_image");
+        searchParams.set("populate[1]", "icon_image");
+        searchParams.set("populate[2]", "service_video");
+        searchParams.set("populate[3]", "plans.sections.points");
 
         const query = searchParams.toString();
         const endpoint = `/services?${query}`;
@@ -194,7 +200,11 @@ export const servicesApi = {
 
         // Fallback: fetch all services and find by generated slug from title
         const allParams = new URLSearchParams();
-        if (params?.populate) allParams.set("populate", params.populate);
+        // Populate all related fields including plans with their sections and points
+        allParams.set("populate[0]", "featured_image");
+        allParams.set("populate[1]", "icon_image");
+        allParams.set("populate[2]", "service_video");
+        allParams.set("populate[3]", "plans.sections.points");
         allParams.set("pagination[pageSize]", "100");
 
         const allQuery = allParams.toString();

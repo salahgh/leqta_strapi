@@ -215,6 +215,7 @@ module.exports = {
                 "slide-down": "slideDown 0.8s ease-out forwards",
                 "slide-right": "slideRight 0.8s ease-out forwards",
                 "marquee": "marquee 15s linear infinite",
+                "glow-breathe": "glowBreathe 3s ease-in-out infinite",
             },
 
             // Keyframes
@@ -238,6 +239,10 @@ module.exports = {
                 marquee: {
                     from: { transform: "translateX(0)" },
                     to: { transform: "translateX(-50%)" },
+                },
+                glowBreathe: {
+                    "0%, 100%": { opacity: "0.25", transform: "scale(4)" },
+                    "50%": { opacity: "0.35", transform: "scale(4.2)" },
                 },
             },
 

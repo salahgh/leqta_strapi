@@ -1,36 +1,27 @@
-"use client";
-
 import { Plan } from "@/lib/strapi";
 import { Button } from "@/components/ui/Button";
 import { Check, X, Sparkles } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { Link } from "@/src/i18n/navigation";
 
 interface ServicePlanCardProps {
     plan: Plan;
     serviceName: string;
     serviceSlug: string;
+    selectPlanText: string;
+    contactForPricingText: string;
 }
 
 export const ServicePlanCard = ({
     plan,
     serviceName,
     serviceSlug,
+    selectPlanText,
+    contactForPricingText,
 }: ServicePlanCardProps) => {
-    const router = useRouter();
-    const locale = useLocale();
-    const t = useTranslations("services");
     const isFeatured = plan.featured;
 
-    const handleSelectPlan = () => {
-        const params = new URLSearchParams({
-            service: serviceSlug,
-            serviceName: serviceName,
-            plan: plan.documentId || plan.id.toString(),
-            planName: plan.title,
-        });
-        router.push(`/${locale}/contact?${params.toString()}`);
-    };
+    // Build the contact URL with query params
+    const contactUrl = `/contact?service=${encodeURIComponent(serviceSlug)}&serviceName=${encodeURIComponent(serviceName)}&plan=${encodeURIComponent(plan.documentId || plan.id.toString())}&planName=${encodeURIComponent(plan.title)}`;
 
     // Determine price display
     const getPriceDisplay = () => {
@@ -40,7 +31,7 @@ export const ServicePlanCard = ({
         if (plan.price) {
             return plan.price;
         }
-        return t("contactForPricing");
+        return contactForPricingText;
     };
 
     return (
@@ -173,15 +164,16 @@ export const ServicePlanCard = ({
                 />
 
                 {/* CTA Button */}
-                <Button
-                    variant={isFeatured ? "primary" : "secondary"}
-                    size="md"
-                    onClick={handleSelectPlan}
-                    darkMode
-                    fullWidth
-                >
-                    {plan.buttonText || t("selectPlan")}
-                </Button>
+                <Link href={contactUrl} className="w-full">
+                    <Button
+                        variant={isFeatured ? "primary" : "secondary"}
+                        size="md"
+                        darkMode
+                        fullWidth
+                    >
+                        {plan.buttonText || selectPlanText}
+                    </Button>
+                </Link>
             </div>
         </div>
     );

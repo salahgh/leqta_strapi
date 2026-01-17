@@ -37,7 +37,11 @@
     "backToServices": "Back to Services",
     "interestedInService": "Interested in this service?",
     "contactUsDescription": "Let's discuss how we can help bring your vision to life. Our team is ready to create something amazing together.",
-    "getStarted": "Get Started"
+    "getStarted": "Get Started",
+    "availablePlans": "Available Plans",
+    "choosePlanDescription": "Select a plan that fits your needs and let's get started on your project.",
+    "selectPlan": "Select Plan",
+    "contactForPricing": "Contact for pricing"
   },
   "servicesPage": {
     "header": {
@@ -189,6 +193,14 @@
       "goBackToMainPage": "Go Back to Main Page"
     },
     "form": {
+      "selectedOptions": "Your Selection",
+      "service": "Service",
+      "plan": "Plan",
+      "reviewInfo": "Review Your Information",
+      "fullNameLabel": "Name",
+      "emailLabel": "Email",
+      "companyNameLabel": "Company",
+      "industryLabel": "Industry",
       "personalInfoTitle": "Personal Information",
       "personalInfoDescription": "Let's start with your basic contact information.",
       "fullName": "Full Name",

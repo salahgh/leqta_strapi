@@ -16,6 +16,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Image from "next/image";
 import { Badge } from "@/components/ui/Badge";
+import { ServicePlanCard } from "./ServicePlanCard";
 
 interface ServiceDetailPageProps {
     params: Promise<{
@@ -295,6 +296,55 @@ export default async function ServiceDetailPage({
                                     </div>
                                 </div>
                             )}
+                        </div>
+                    </section>
+                )}
+
+                {/* Plans Section */}
+                {service.plans && service.plans.length > 0 && (
+                    <section className="bg-gradient-to-b from-white to-neutral-50 section-px section-py-lg">
+                        <div className="max-w-container mx-auto">
+                            <div
+                                className="text-center mb-12 animate-fade-in"
+                                style={{ opacity: 0, animationDelay: "550ms" }}
+                            >
+                                <h2 className="text-display-sm md:text-display-md font-bold text-neutral-900 mb-4">
+                                    {t("availablePlans")}
+                                </h2>
+                                <p className="text-body-lg text-neutral-600 max-w-2xl mx-auto">
+                                    {t("choosePlanDescription")}
+                                </p>
+                            </div>
+                            <div
+                                className={`grid gap-8 ${
+                                    service.plans.length === 1
+                                        ? "grid-cols-1 max-w-md mx-auto"
+                                        : service.plans.length === 2
+                                        ? "grid-cols-1 md:grid-cols-2 max-w-3xl mx-auto"
+                                        : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+                                }`}
+                            >
+                                {service.plans
+                                    .sort((a, b) => (a.order || 0) - (b.order || 0))
+                                    .map((plan, index) => (
+                                        <div
+                                            key={plan.id}
+                                            className="animate-fade-in"
+                                            style={{
+                                                opacity: 0,
+                                                animationDelay: `${600 + index * 100}ms`,
+                                            }}
+                                        >
+                                            <ServicePlanCard
+                                                plan={plan}
+                                                serviceName={service.title}
+                                                serviceSlug={slug}
+                                                selectPlanText={t("selectPlan")}
+                                                contactForPricingText={t("contactForPricing")}
+                                            />
+                                        </div>
+                                    ))}
+                            </div>
                         </div>
                     </section>
                 )}

@@ -69,13 +69,23 @@ export default async function handler(formData: any) {
             type: "opportunity", // This makes it an opportunity instead of a lead
             stage_id: warmStageId, // Set to 'Warm' stage
             description: `
+--- Selected Service & Plan ---
+Service: ${formData.selectedService || "Not specified"}
+Plan: ${formData.selectedPlan || "Not specified"}
+
+--- Company Information ---
 Industry: ${formData.industry} ${formData.otherIndustry ? `(${formData.otherIndustry})` : ""}
 Website: ${formData.website || "Not provided"}
-Social Media:
+
+--- Social Media ---
 - Facebook: ${formData.facebook || "Not provided"}
 - Instagram: ${formData.instagram || "Not provided"}
 - TikTok: ${formData.tiktok || "Not provided"}
 - LinkedIn: ${formData.linkedin || "Not provided"}
+
+--- Project Details ---
+Description: ${formData.projectDescription || "Not provided"}
+Goals: ${formData.goals || "Not provided"}
             `.trim(),
         };
 

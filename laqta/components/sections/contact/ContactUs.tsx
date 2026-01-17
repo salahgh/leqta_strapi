@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Package, Briefcase } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import PersonalInfoStep from "./PersonalInfoStep";
@@ -11,40 +11,66 @@ import ProjectDetailsStep from "./ProjectDetailsStep";
 import SuccessStep from "@/components/sections/contact/SuccessStep";
 import { ActionButtons } from "@/components/sections/contact/ActionButtons";
 import { Navigation } from "@/components/layout/Navigation";
-import { StepperComponent } from "@/components/sections/contact/StepperComponent";
+import { Stepper } from "@/components/sections/contact/Stepper";
 
 interface ContactFormData {
-  // Personal Information
-  fullName: string;
-  email: string;
-  phoneNumber: string;
-  industry: string;
-  otherIndustry: string;
-  
-  // Company Information
-  companyName: string;
-  jobTitle: string;
-  website: string;
-  facebook: string;
-  instagram: string;
-  tiktok: string;
-  linkedin: string;
-  
-  // Project Information
-  projectType: string;
-  budget: string;
-  timeline: string;
-  projectDescription: string;
-  goals: string;
+    // Personal Information
+    fullName: string;
+    email: string;
+    phoneNumber: string;
+    industry: string;
+    otherIndustry: string;
+
+    // Company Information
+    companyName: string;
+    jobTitle: string;
+    website: string;
+    facebook: string;
+    instagram: string;
+    tiktok: string;
+    linkedin: string;
+
+    // Project Information
+    projectType: string;
+    budget: string;
+    timeline: string;
+    projectDescription: string;
+    goals: string;
+
+    // Pre-selected Service/Plan
+    selectedService: string;
+    selectedServiceSlug: string;
+    selectedPlan: string;
+    selectedPlanId: string;
+
+    // Pre-selected Work/Project
+    selectedWork: string;
+    selectedWorkSlug: string;
 }
 
-const ContactUs = () => {
+interface ContactUsProps {
+    preSelectedService?: string;
+    preSelectedServiceSlug?: string;
+    preSelectedPlan?: string;
+    preSelectedPlanId?: string;
+    preSelectedWork?: string;
+    preSelectedWorkSlug?: string;
+}
+
+const ContactUs = ({
+    preSelectedService,
+    preSelectedServiceSlug,
+    preSelectedPlan,
+    preSelectedPlanId,
+    preSelectedWork,
+    preSelectedWorkSlug,
+}: ContactUsProps) => {
     const [currentStep, setCurrentStep] = useState(1);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState<string | null>(null);
     const totalSteps = 5; // Updated to 5 steps
-    const t = useTranslations('contactPage.buttons');
+    const t = useTranslations("contactPage.buttons");
 
     // Initialize form data state
     const [formData, setFormData] = useState<ContactFormData>({
@@ -65,6 +91,12 @@ const ContactUs = () => {
         timeline: "",
         projectDescription: "",
         goals: "",
+        selectedService: preSelectedService || "",
+        selectedServiceSlug: preSelectedServiceSlug || "",
+        selectedPlan: preSelectedPlan || "",
+        selectedPlanId: preSelectedPlanId || "",
+        selectedWork: preSelectedWork || "",
+        selectedWorkSlug: preSelectedWorkSlug || "",
     });
 
     const handleGoBack = () => {
@@ -80,7 +112,7 @@ const ContactUs = () => {
     };
 
     const handleGoToMainPage = () => {
-        window.location.href = '/';
+        window.location.href = "/";
     };
 
     const handleStepSubmit = (stepData: Partial<ContactFormData>) => {
@@ -92,19 +124,21 @@ const ContactUs = () => {
     };
 
     // Handle final submission to Odoo
-    const handleFinalSubmit = async (finalStepData: Partial<ContactFormData>) => {
+    const handleFinalSubmit = async (
+        finalStepData: Partial<ContactFormData>,
+    ) => {
         setIsSubmitting(true);
         setSubmitError(null);
 
         try {
             // Combine all form data
             const completeFormData = { ...formData, ...finalStepData };
-            
+
             // Send to Odoo CRM
-            const response = await fetch('/api/odoo/contact', {
-                method: 'POST',
+            const response = await fetch("/api/odoo/contact", {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify(completeFormData),
             });
@@ -112,16 +146,19 @@ const ContactUs = () => {
             const result = await response.json();
 
             if (!response.ok) {
-                throw new Error(result.error || 'Failed to submit form');
+                throw new Error(result.error || "Failed to submit form");
             }
 
             // Success - move to success step
             setIsSubmitted(true);
             setCurrentStep(5);
-            
         } catch (error) {
-            console.error('Form submission error:', error);
-            setSubmitError(error instanceof Error ? error.message : 'An error occurred while submitting the form');
+            console.error("Form submission error:", error);
+            setSubmitError(
+                error instanceof Error
+                    ? error.message
+                    : "An error occurred while submitting the form",
+            );
         } finally {
             setIsSubmitting(false);
         }
@@ -142,7 +179,7 @@ const ContactUs = () => {
                 return <SocialMediaStep {...commonProps} />;
             case 4:
                 return (
-                    <ProjectDetailsStep 
+                    <ProjectDetailsStep
                         initialValues={formData}
                         onSubmit={handleFinalSubmit}
                         onBack={handleGoBack}
@@ -166,7 +203,10 @@ const ContactUs = () => {
             </div>
 
             {/* Go Back Button */}
-            <div className="max-w-container mx-auto section-px py-4 animate-slide-right" style={{ opacity: 0 }}>
+            <div
+                className="max-w-container mx-auto section-px py-4 animate-slide-right"
+                style={{ opacity: 0 }}
+            >
                 <button
                     onClick={handleGoToMainPage}
                     className="flex items-center gap-2 px-4 py-2 border border-slate-600 rounded-full hover:bg-slate-700/30
@@ -178,7 +218,45 @@ const ContactUs = () => {
             </div>
 
             {/* Main Content - Responsive Layout */}
-            <div className="max-w-container mx-auto section-px py-8 animate-fade-in" style={{ opacity: 0, animationDelay: "150ms" }}>
+            <div
+                className="max-w-container mx-auto section-px py-8 animate-fade-in"
+                style={{ opacity: 0, animationDelay: "150ms" }}
+            >
+                {/* Selected Service/Plan Banner */}
+                {(preSelectedService || preSelectedPlan) && (
+                    <div className="mb-6 p-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl border border-blue-500/30 max-w-5xl mx-auto">
+                        <div className="flex items-center gap-3">
+                            <Package className="w-5 h-5 text-blue-400" />
+                            <div>
+                                <p className="text-sm text-slate-400">
+                                    Your Selection
+                                </p>
+                                <p className="text-white font-medium">
+                                    {preSelectedService}
+                                    {preSelectedPlan && ` - ${preSelectedPlan}`}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Selected Work/Project Banner */}
+                {preSelectedWork && (
+                    <div className="mb-6 p-4 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-xl border border-purple-500/30 max-w-5xl mx-auto">
+                        <div className="flex items-center gap-3">
+                            <Briefcase className="w-5 h-5 text-purple-400" />
+                            <div>
+                                <p className="text-sm text-slate-400">
+                                    Inspired by Project
+                                </p>
+                                <p className="text-white font-medium">
+                                    {preSelectedWork}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
                 {/* Mobile Progress Bar - Visible only on mobile/tablet */}
                 <div className="lg:hidden mb-6">
                     <div className="flex justify-between items-center gap-2 px-2">
@@ -191,8 +269,8 @@ const ContactUs = () => {
                                             stepNum < currentStep
                                                 ? "bg-blue-500"
                                                 : stepNum === currentStep
-                                                ? "bg-blue-400"
-                                                : "bg-slate-700"
+                                                  ? "bg-blue-400"
+                                                  : "bg-slate-700"
                                         }`}
                                     />
                                 </div>
@@ -200,7 +278,9 @@ const ContactUs = () => {
                         })}
                     </div>
                     <p className="text-center text-sm text-slate-400 mt-3">
-                        {currentStep < 5 ? `Step ${currentStep} of ${totalSteps - 1}` : 'Complete!'}
+                        {currentStep < 5
+                            ? `Step ${currentStep} of ${totalSteps - 1}`
+                            : "Complete!"}
                     </p>
                 </div>
 
@@ -209,7 +289,7 @@ const ContactUs = () => {
                     {/* Left Side - Vertical Stepper (Desktop only) */}
                     <div className="hidden lg:block">
                         <div className="sticky top-8">
-                            <StepperComponent currentStep={currentStep} />
+                            <Stepper currentStep={currentStep} />
                         </div>
                     </div>
 

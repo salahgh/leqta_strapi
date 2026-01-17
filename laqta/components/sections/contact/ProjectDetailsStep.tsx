@@ -5,7 +5,6 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useTranslations } from "next-intl";
 import { FormInput } from "@/components/ui/FormInput";
-import { SubmitButton } from "@/components/ui/SubmitButton";
 
 interface ContactFormData {
   fullName: string;
@@ -147,21 +146,30 @@ const ProjectDetailsStep: React.FC<ProjectDetailsStepProps> = ({
           </div>
         </div>
 
-        <div className="flex justify-between pt-6">
+        <div className="flex items-center justify-between gap-4 pt-6">
           <button
             type="button"
             onClick={onBack}
-            className="btn-sm btn-outline touch-target"
+            className="px-6 py-3 border border-slate-600 rounded-full hover:bg-slate-700/30 transition-colors text-white text-body-md"
             disabled={isSubmitting}
           >
             {tButtons('goBack')}
           </button>
 
-          <SubmitButton
-            isSubmitting={isSubmitting}
-            text={tButtons('submit')}
-            className="btn-sm"
-          />
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-full font-medium text-body-md transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+          >
+            {isSubmitting ? (
+              <>
+                <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                {tButtons('submitting') || 'Submitting...'}
+              </>
+            ) : (
+              tButtons('submit')
+            )}
+          </button>
         </div>
       </form>
     </div>

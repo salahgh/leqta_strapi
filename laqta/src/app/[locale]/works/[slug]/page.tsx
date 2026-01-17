@@ -154,7 +154,7 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
                         <p className="text-secondary text-body-lg mb-6">
                             {t("letsWorkTogether")}
                         </p>
-                        <Link href="/contact">
+                        <Link href={`/contact?work=${encodeURIComponent(slug)}&workName=${encodeURIComponent(project.title)}`}>
                             <Button
                                 variant="primary"
                                 rightIcon={<ChevronRight className="w-5 h-5" />}

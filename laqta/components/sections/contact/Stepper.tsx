@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
     User,
@@ -23,7 +25,9 @@ interface Step {
     active: boolean;
 }
 
-export const StepperComponent: React.FC<StepperComponentProps> = ({ currentStep = 1 }) => {
+export const Stepper: React.FC<StepperComponentProps> = ({
+    currentStep = 1,
+}) => {
     const t = useTranslations("contactPage.stepper");
 
     const steps: Step[] = [
@@ -64,8 +68,12 @@ export const StepperComponent: React.FC<StepperComponentProps> = ({ currentStep 
     return (
         <div className="w-full max-w-md mx-auto px-4 py-6">
             <div className="relative">
-                {/* Vertical Progress Line */}
-                <div className="absolute start-6 top-0 bottom-0 w-0.5 bg-slate-700">
+                {/* Vertical Progress Line - centered through circles, stops at last step */}
+                {/* Height calculation: (steps - 1) * gap(32px from space-y-8) = 3 * 32 = 96px */}
+                <div
+                    className="absolute left-[23px] rtl:right-[23px] rtl:left-auto top-6 w-0.5 bg-slate-700"
+                    style={{ height: `${(steps.length - 1) * 32}px` }}
+                >
                     <div
                         className="w-full bg-gradient-to-b from-blue-500 to-blue-400 transition-all duration-700 ease-in-out"
                         style={{
@@ -103,8 +111,8 @@ export const StepperComponent: React.FC<StepperComponentProps> = ({ currentStep 
                                     )}
                                 </div>
 
-                                {/* Step Content */}
-                                <div className="ms-4 flex-1 min-w-0">
+                                {/* Step Content - vertically centered with circle */}
+                                <div className="ms-4 flex-1 min-w-0 pt-1">
                                     <div
                                         className={`
                                             transition-all duration-300 ease-in-out
@@ -119,7 +127,8 @@ export const StepperComponent: React.FC<StepperComponentProps> = ({ currentStep 
                                             className={`
                                                 text-lg font-semibold transition-all duration-300 leading-tight
                                                 ${
-                                                    step.active || step.completed
+                                                    step.active ||
+                                                    step.completed
                                                         ? "text-white"
                                                         : "text-slate-400"
                                                 }
@@ -131,7 +140,8 @@ export const StepperComponent: React.FC<StepperComponentProps> = ({ currentStep 
                                             className={`
                                                 text-sm mt-1 transition-all duration-300 leading-relaxed
                                                 ${
-                                                    step.active || step.completed
+                                                    step.active ||
+                                                    step.completed
                                                         ? "text-slate-300"
                                                         : "text-slate-500"
                                                 }

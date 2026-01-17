@@ -11,6 +11,8 @@ interface ContactPageProps {
         serviceName?: string;
         plan?: string;
         planName?: string;
+        work?: string;
+        workName?: string;
     }>;
 }
 
@@ -29,6 +31,8 @@ export default async function ContactPage({
                     preSelectedServiceSlug={urlParams.service}
                     preSelectedPlan={urlParams.planName}
                     preSelectedPlanId={urlParams.plan}
+                    preSelectedWork={urlParams.workName}
+                    preSelectedWorkSlug={urlParams.work}
                 />
             </Suspense>
             <Footer locale={locale} />

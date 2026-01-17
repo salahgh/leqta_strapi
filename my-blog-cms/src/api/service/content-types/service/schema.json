@@ -129,6 +129,12 @@
           "localized": false
         }
       }
+    },
+    "plans": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::plan.plan",
+      "inversedBy": "services"
     }
   }
 }

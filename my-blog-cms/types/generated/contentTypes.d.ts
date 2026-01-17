@@ -961,6 +961,7 @@ export interface ApiPlanPlan extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    services: Schema.Attribute.Relation<'manyToMany', 'api::service.service'>;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -1166,6 +1167,7 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
         };
       }> &
       Schema.Attribute.DefaultTo<0>;
+    plans: Schema.Attribute.Relation<'manyToMany', 'api::plan.plan'>;
     publishedAt: Schema.Attribute.DateTime;
     service_video: Schema.Attribute.Media<'videos'>;
     slug: Schema.Attribute.UID<'title'> &

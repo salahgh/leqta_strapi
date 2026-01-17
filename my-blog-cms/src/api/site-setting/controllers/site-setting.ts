@@ -11,13 +11,24 @@ export default factories.createCoreController('api::site-setting.site-setting', 
 
         try {
             // For single types, we use findFirst to get the single entry
-            const entity = await strapi.documents('api::site-setting.site-setting').findFirst({
+            let entity = await strapi.documents('api::site-setting.site-setting').findFirst({
                 populate: {
                     social_links: true,
                 },
                 locale,
                 status: 'published',
             });
+
+            // Fallback to default locale (en) if the requested locale doesn't exist
+            if (!entity && locale !== 'en') {
+                entity = await strapi.documents('api::site-setting.site-setting').findFirst({
+                    populate: {
+                        social_links: true,
+                    },
+                    locale: 'en',
+                    status: 'published',
+                });
+            }
 
             if (!entity) {
                 return ctx.notFound('Site settings not found. Please create site settings in the admin panel.');

@@ -29,7 +29,9 @@
       "WebFetch(domain:www.figma.com)",
       "mcp__figma-remote__get_design_context",
       "mcp__figma-remote__get_screenshot",
-      "mcp__figma-remote__get_metadata"
+      "mcp__figma-remote__get_metadata",
+      "Bash(if exist .cache rmdir /s /q .cache)",
+      "Bash(if exist dist rmdir /s /q dist)"
     ],
     "deny": [],
     "ask": []

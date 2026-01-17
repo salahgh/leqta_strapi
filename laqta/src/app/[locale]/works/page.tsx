@@ -37,8 +37,8 @@ async function getWorks(
     }
 }
 
-// Add revalidation for server-side rendering
-export const revalidate = 600; // 10 minutes
+// Disable caching for real-time CMS updates
+export const dynamic = "force-dynamic";
 
 // Main Component
 const WorksPage = async ({

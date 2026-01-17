@@ -411,5 +411,5 @@ export async function generateStaticParams() {
     }
 }
 
-// Revalidate every 10 minutes
-export const revalidate = 600;
+// Disable caching for real-time CMS updates
+export const dynamic = "force-dynamic";

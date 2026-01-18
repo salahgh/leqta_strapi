@@ -126,14 +126,14 @@ export const ServiceCard = ({
                     />
                 </div>
 
-                {/* Featured image as base layer */}
+                {/* Featured image as base layer - full width and height */}
                 {featured_image?.url && (
                     <div
-                        className="absolute inset-0 z-[3] p-8 m-6"
+                        className="absolute inset-0 z-[2]"
                         style={{
                             backgroundImage: `url(${featured_image.url})`,
-                            backgroundSize: "contain",
-                            backgroundPosition: "center bottom",
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
                             backgroundRepeat: "no-repeat",
                         }}
                     />
@@ -142,7 +142,7 @@ export const ServiceCard = ({
                 {/* Gradient overlay on top of image */}
                 <div
                     className={cn(
-                        "absolute inset-0 z-[2] opacity-60",
+                        "absolute inset-0 z-[3] opacity-60",
                         !hasCustomGradient && gradientClass,
                     )}
                     style={

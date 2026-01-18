@@ -174,17 +174,17 @@ module.exports = {
                 "4xl": ["2.25rem", { lineHeight: "2.5rem" }],
             },
 
-            // Font Families
+            // Font Families (using CSS variables from next/font)
             fontFamily: {
-                sans: ["Poppins", "system-ui", "sans-serif"],
-                display: ["Poppins", "system-ui", "sans-serif"],
-                gotham: ["Gotham", "Poppins", "system-ui", "sans-serif"],
+                sans: ["var(--font-poppins)", "system-ui", "sans-serif"],
+                poppins: ["var(--font-poppins)", "system-ui", "sans-serif"],
+                display: ["var(--font-poppins)", "system-ui", "sans-serif"],
+                gotham: ["Gotham", "var(--font-poppins)", "system-ui", "sans-serif"],
                 // Arabic fonts
-                // Titles: Alexandria only
-                // Content: RH-ZAK with Alexandria fallback
-                arabic: ["RH-ZAK", "Alexandria", "system-ui", "sans-serif"],
-                "arabic-title": ["Alexandria", "system-ui", "sans-serif"],
-                "arabic-body": ["RH-ZAK", "Alexandria", "system-ui", "sans-serif"],
+                alexandria: ["var(--font-alexandria)", "system-ui", "sans-serif"],
+                arabic: ["var(--font-alexandria)", "system-ui", "sans-serif"],
+                "arabic-title": ["var(--font-alexandria)", "system-ui", "sans-serif"],
+                "arabic-body": ["var(--font-alexandria)", "system-ui", "sans-serif"],
             },
 
             // Border Radius

@@ -230,19 +230,21 @@ export default async function ServiceDetailPage({
 
                 {/* Featured Image */}
                 {featuredImageUrl && (
-                    <div
-                        className="relative w-full h-64 md:h-96 lg:h-[500px] overflow-hidden rounded-t-[50px] animate-fade-in"
-                        style={{ opacity: 0, animationDelay: "400ms" }}
-                    >
-                        <Image
-                            src={featuredImageUrl}
-                            alt={service.title}
-                            fill
-                            className="object-cover"
-                            priority
-                        />
-                        {/* Gradient overlay at bottom for smooth transition */}
-                        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white to-transparent" />
+                    <div className="max-w-container mx-auto section-px">
+                        <div
+                            className="relative w-full h-64 md:h-96 lg:h-[500px] overflow-hidden rounded-[30px] animate-fade-in"
+                            style={{ opacity: 0, animationDelay: "400ms" }}
+                        >
+                            <Image
+                                src={featuredImageUrl}
+                                alt={service.title}
+                                fill
+                                className="object-cover"
+                                priority
+                            />
+                            {/* Gradient overlay at bottom for smooth transition */}
+                            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white/50 to-transparent" />
+                        </div>
                     </div>
                 )}
 

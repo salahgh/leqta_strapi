@@ -6,7 +6,22 @@ import type { Metadata } from "next";
 import React from "react";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { BackToTop } from "@/components/ui/BackToTop";
+import { Poppins, Alexandria } from "next/font/google";
 import "../../../styles/globals.css";
+
+const poppins = Poppins({
+    subsets: ["latin"],
+    weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+    variable: "--font-poppins",
+    display: "swap",
+});
+
+const alexandria = Alexandria({
+    subsets: ["arabic", "latin"],
+    weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+    variable: "--font-alexandria",
+    display: "swap",
+});
 
 export const metadata: Metadata = {
     title: "Laqta Design System",
@@ -37,19 +52,13 @@ export default async function LocaleLayout({
     const messages = await getMessages();
 
     return (
-        <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
+        <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} className={`${poppins.variable} ${alexandria.variable}`}>
             <head>
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="preconnect" href="https://fonts.gstatic.com" />
-                <link
-                    href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Alexandria:wght@100;200;300;400;500;600;700;800;900&display=swap"
-                    rel="stylesheet"
-                />
                 <title>Laqta</title>
             </head>
             <body
                 className={`min-h-screen antialiased bg-primary flex flex-col ${
-                    locale === "ar" ? "font-arabic-body" : "font-sans"
+                    locale === "ar" ? "font-alexandria" : "font-poppins"
                 }`}
             >
                 {/* Skip Navigation Link for Accessibility */}

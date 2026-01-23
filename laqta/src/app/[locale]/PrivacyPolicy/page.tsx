@@ -2,6 +2,7 @@ import React from "react";
 import { Navigation } from "@/components/layout/Navigation";
 import Footer from "@/components/sections/Footer";
 import PrivacyPolicyClient from "./PrivacyPolicyClient";
+import { privacyPolicyApi, PrivacyPolicy } from "@/lib/strapi";
 
 interface PrivacyPolicyPageProps {
     params: Promise<{
@@ -12,12 +13,20 @@ interface PrivacyPolicyPageProps {
 export default async function PrivacyPolicyPage({ params }: PrivacyPolicyPageProps) {
     const { locale } = await params;
 
+    // Fetch privacy policy from CMS
+    let privacyPolicy: PrivacyPolicy | null = null;
+    try {
+        privacyPolicy = await privacyPolicyApi.get(locale);
+    } catch (error) {
+        console.error("Failed to fetch privacy policy from CMS:", error);
+    }
+
     return (
         <div className="bg-primary">
             <Navigation />
 
             <div className="animate-fade-in" style={{ opacity: 0, animationDelay: "150ms" }}>
-                <PrivacyPolicyClient />
+                <PrivacyPolicyClient cmsData={privacyPolicy} locale={locale} />
             </div>
 
             {/* Background Decorative Elements */}
@@ -31,3 +40,6 @@ export default async function PrivacyPolicyPage({ params }: PrivacyPolicyPagePro
         </div>
     );
 }
+
+// Disable caching for real-time CMS updates
+export const dynamic = "force-dynamic";

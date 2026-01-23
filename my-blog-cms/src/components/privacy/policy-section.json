@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_privacy_policy_sections",
+  "info": {
+    "displayName": "Policy Section",
+    "description": "A section within the privacy policy"
+  },
+  "options": {},
+  "attributes": {
+    "sectionId": {
+      "type": "string",
+      "required": true,
+      "maxLength": 50
+    },
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    }
+  }
+}

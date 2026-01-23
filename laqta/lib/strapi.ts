@@ -1112,57 +1112,38 @@ export interface Plan {
     updatedAt: string;
 }
 
-// Plans API
-export const plansApi = {
-    async getAll(params?: {
-        page?: number;
-        pageSize?: number;
-        sort?: string;
-        locale?: string;
-    }): Promise<ApiResponse<Plan[]>> {
-        const searchParams = new URLSearchParams();
-        if (params?.page)
-            searchParams.set("pagination[page]", params.page.toString());
-        if (params?.pageSize)
-            searchParams.set("pagination[pageSize]", params.pageSize.toString());
-        if (params?.sort) searchParams.set("sort", params.sort);
+// Privacy Policy interface and API
+export interface PrivacyPolicySection {
+    id: number;
+    sectionId: string;
+    title: string;
+    content: string;
+}
 
-        // Populate sections and points
-        searchParams.set("populate[sections][populate][0]", "points");
+export interface PrivacyPolicy {
+    id: number;
+    documentId?: string;
+    title: string;
+    description?: string;
+    sections?: PrivacyPolicySection[];
+    lastUpdated?: string;
+    publishedAt: string;
+    createdAt: string;
+    updatedAt: string;
+}
 
-        const query = searchParams.toString();
-        const endpoint = `/plans${query ? `?${query}` : ""}`;
+// Privacy Policy API (fetches from privacy-policy single type)
+export const privacyPolicyApi = {
+    async get(locale?: string): Promise<PrivacyPolicy | null> {
+        const endpoint = `/privacy-policy?populate=sections`;
 
-        return fetchApi<ApiResponse<Plan[]>>(endpoint, {}, params?.locale);
-    },
-
-    async getById(
-        id: number,
-        params?: {
-            locale?: string;
-        },
-    ): Promise<ApiResponse<Plan>> {
-        const searchParams = new URLSearchParams();
-        searchParams.set("populate[sections][populate][0]", "points");
-
-        const query = searchParams.toString();
-        const endpoint = `/plans/${id}${query ? `?${query}` : ""}`;
-
-        return fetchApi<ApiResponse<Plan>>(endpoint, {}, params?.locale);
-    },
-
-    async getFeatured(params?: {
-        locale?: string;
-    }): Promise<ApiResponse<Plan[]>> {
-        const searchParams = new URLSearchParams();
-        searchParams.set("filters[featured][$eq]", "true");
-        searchParams.set("populate[sections][populate][0]", "points");
-        searchParams.set("sort", "order:asc");
-
-        const query = searchParams.toString();
-        const endpoint = `/plans?${query}`;
-
-        return fetchApi<ApiResponse<Plan[]>>(endpoint, {}, params?.locale);
+        try {
+            const response = await fetchApi<{ data: PrivacyPolicy }>(endpoint, {}, locale);
+            return response.data || null;
+        } catch (error) {
+            console.error("Failed to fetch privacy policy:", error);
+            return null;
+        }
     },
 };
 
@@ -1178,6 +1159,6 @@ export default {
     testimonialsApi,
     faqsApi,
     missionsApi,
-    plansApi,
+    privacyPolicyApi,
     utils,
 };

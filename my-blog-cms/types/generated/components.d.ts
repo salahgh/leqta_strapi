@@ -34,6 +34,27 @@ export interface PlanPlanSection extends Struct.ComponentSchema {
   };
 }
 
+export interface PrivacyPolicySection extends Struct.ComponentSchema {
+  collectionName: 'components_privacy_policy_sections';
+  info: {
+    description: 'A section within the privacy policy';
+    displayName: 'Policy Section';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    sectionId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+  };
+}
+
 export interface SharedSocialLink extends Struct.ComponentSchema {
   collectionName: 'components_shared_social_links';
   info: {
@@ -69,6 +90,7 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'plan.plan-point': PlanPlanPoint;
       'plan.plan-section': PlanPlanSection;
+      'privacy.policy-section': PrivacyPolicySection;
       'shared.social-link': SharedSocialLink;
     }
   }

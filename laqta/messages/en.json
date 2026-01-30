@@ -389,6 +389,10 @@
         "title": "Changes to This Policy",
         "content": "We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date."
       }
+    },
+    "emptyState": {
+      "title": "Content Not Available",
+      "message": "The privacy policy content is currently being updated. Please check back later."
     }
   }
 }

@@ -2,7 +2,7 @@ import React from "react";
 import NewsletterForm from "@/components/ui/NewsletterForm";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/src/i18n/navigation";
-import { siteSettingsApi, SocialMedia, SiteSettings } from "@/lib/strapi";
+import { siteSettingsApi, SocialMedia, SiteSettings, SocialPlatform, utils } from "@/lib/strapi";
 
 /**
  * Footer Component - Design System
@@ -10,6 +10,32 @@ import { siteSettingsApi, SocialMedia, SiteSettings } from "@/lib/strapi";
  * Mobile-first responsive design
  * Layout: Logo+Newsletter (left) | Company Links (center-right) | Utility Pages (far right)
  */
+
+// Default icon mapping for platforms (used when no custom icon is uploaded)
+const DEFAULT_PLATFORM_ICONS: Record<SocialPlatform, string> = {
+    facebook: "/icons/facebook.svg",
+    twitter: "/icons/twitter.svg",
+    instagram: "/icons/instagram.svg",
+    linkedin: "/icons/linkedin.svg",
+    youtube: "/icons/youtube.svg",
+    tiktok: "/icons/tiktok.svg",
+    github: "/icons/github.svg",
+    whatsapp: "/icons/whatsapp.svg",
+    telegram: "/icons/telegram.svg",
+    snapchat: "/icons/snapchat.svg",
+    pinterest: "/icons/pinterest.svg",
+    other: "/icons/link.svg",
+};
+
+// Helper to get icon URL for a social link
+const getSocialIconUrl = (social: SocialMedia): string => {
+    // Priority 1: Custom uploaded icon from CMS
+    if (social.icon?.url) {
+        return utils.getFileUrl(social.icon.url);
+    }
+    // Priority 2: Default icon based on platform
+    return DEFAULT_PLATFORM_ICONS[social.platform] || DEFAULT_PLATFORM_ICONS.other;
+};
 
 interface FooterProps {
     locale: string;
@@ -23,7 +49,10 @@ const Footer = async ({ locale }: FooterProps) => {
     let socialMediaLinks: SocialMedia[] = [];
     try {
         siteSettings = await siteSettingsApi.get(locale);
-        socialMediaLinks = siteSettings?.social_links || [];
+        // Filter active links and sort by order
+        socialMediaLinks = (siteSettings?.social_links || [])
+            .filter(link => link.isActive !== false)
+            .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
     } catch (error) {
         console.error("Failed to fetch site settings:", error);
     }
@@ -193,22 +222,11 @@ const Footer = async ({ locale }: FooterProps) => {
                         {siteSettings?.copyrightText || t("copyright")}
                     </p>
                     {/* Social Media Icons - Right aligned */}
-                    <div className="flex space-x-3">
-                        {socialMediaLinks.length > 0 ? (
-                            socialMediaLinks.map((social) => {
-                                // Map platform to icon file
-                                const iconMap: Record<string, string> = {
-                                    facebook: "/icons/facebook.svg",
-                                    twitter: "/icons/socialicon.svg",
-                                    instagram: "/icons/instagram.svg",
-                                    linkedin: "/icons/linkedIn.svg",
-                                    youtube: "/icons/youtube.svg",
-                                    tiktok: "/icons/tiktok.svg",
-                                    github: "/icons/github.svg",
-                                    whatsapp: "/icons/whatsapp.svg",
-                                    telegram: "/icons/telegram.svg",
-                                };
-                                const icon = iconMap[social.platform] || "/icons/link.svg";
+                    {socialMediaLinks.length > 0 && (
+                        <div className="flex space-x-3">
+                            {socialMediaLinks.map((social) => {
+                                const iconUrl = getSocialIconUrl(social);
+                                const platformLabel = social.platform.charAt(0).toUpperCase() + social.platform.slice(1);
 
                                 return (
                                     <a
@@ -217,65 +235,18 @@ const Footer = async ({ locale }: FooterProps) => {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="social-icon-btn touch-target"
-                                        aria-label={social.label || `Visit our ${social.platform} page`}
+                                        aria-label={social.label || `Visit our ${platformLabel} page`}
                                     >
                                         <img
-                                            src={icon}
-                                            alt={social.platform}
+                                            src={iconUrl}
+                                            alt={social.icon?.alternativeText || platformLabel}
                                             className="w-4 h-4"
                                         />
                                     </a>
                                 );
-                            })
-                        ) : (
-                            <>
-                                <a
-                                    href="#"
-                                    className="social-icon-btn touch-target"
-                                    aria-label="X (Twitter)"
-                                >
-                                    <img
-                                        src="/icons/socialicon.svg"
-                                        alt="X"
-                                        className="w-4 h-4"
-                                    />
-                                </a>
-                                <a
-                                    href="#"
-                                    className="social-icon-btn touch-target"
-                                    aria-label="Facebook"
-                                >
-                                    <img
-                                        src="/icons/facebook.svg"
-                                        alt="Facebook"
-                                        className="w-4 h-4"
-                                    />
-                                </a>
-                                <a
-                                    href="#"
-                                    className="social-icon-btn touch-target"
-                                    aria-label="Instagram"
-                                >
-                                    <img
-                                        src="/icons/instagram.svg"
-                                        alt="Instagram"
-                                        className="w-4 h-4"
-                                    />
-                                </a>
-                                <a
-                                    href="#"
-                                    className="social-icon-btn touch-target"
-                                    aria-label="LinkedIn"
-                                >
-                                    <img
-                                        src="/icons/linkedIn.svg"
-                                        alt="LinkedIn"
-                                        className="w-4 h-4"
-                                    />
-                                </a>
-                            </>
-                        )}
-                    </div>
+                            })}
+                        </div>
+                    )}
                 </div>
             </div>
         </footer>

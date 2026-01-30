@@ -345,5 +345,12 @@
     "line1": "COMMENÇONS",
     "line2": "UN",
     "line3": "PROJET"
+  },
+  "privacyPolicy": {
+    "title": "Politique de Confidentialité",
+    "emptyState": {
+      "title": "Contenu Non Disponible",
+      "message": "Le contenu de la politique de confidentialité est en cours de mise à jour. Veuillez réessayer plus tard."
+    }
   }
 }

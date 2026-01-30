@@ -51,75 +51,25 @@ const CMSContent = ({
     );
 };
 
-// Fallback Content Component - uses translations when CMS data is unavailable
-const FallbackContent = ({ activeSection, t, isRTL }: { activeSection: string; t: any; isRTL: boolean }) => {
-    switch (activeSection) {
-        case "informationCollect":
-            return (
-                <SectionWrapper title={t("sections.informationCollect.title")} isRTL={isRTL}>
-                    <p className="mb-4">{t("sections.informationCollect.intro")}</p>
-                    <ul className={`space-y-3 ${isRTL ? "list-disc pr-5" : "list-disc pl-5"}`}>
-                        <li>
-                            <span className="font-semibold">{t("sections.informationCollect.personalInfo")}</span>{" "}
-                            {t("sections.informationCollect.personalInfoDesc")}
-                        </li>
-                        <li>
-                            <span className="font-semibold">{t("sections.informationCollect.usageData")}</span>{" "}
-                            {t("sections.informationCollect.usageDataDesc")}
-                        </li>
-                    </ul>
-                </SectionWrapper>
-            );
-        case "howWeUse":
-            return (
-                <SectionWrapper title={t("sections.howWeUse.title")} isRTL={isRTL}>
-                    <p>{t("sections.howWeUse.content")}</p>
-                </SectionWrapper>
-            );
-        case "dataProtection":
-            return (
-                <SectionWrapper title={t("sections.dataProtection.title")} isRTL={isRTL}>
-                    <p>{t("sections.dataProtection.content")}</p>
-                </SectionWrapper>
-            );
-        case "sharing":
-            return (
-                <SectionWrapper title={t("sections.sharing.title")} isRTL={isRTL}>
-                    <p>{t("sections.sharing.content")}</p>
-                </SectionWrapper>
-            );
-        case "cookies":
-            return (
-                <SectionWrapper title={t("sections.cookies.title")} isRTL={isRTL}>
-                    <p>{t("sections.cookies.content")}</p>
-                </SectionWrapper>
-            );
-        case "rights":
-            return (
-                <SectionWrapper title={t("sections.rights.title")} isRTL={isRTL}>
-                    <p className="mb-4">{t("sections.rights.intro")}</p>
-                    <ul className={`space-y-2 ${isRTL ? "list-disc pr-5" : "list-disc pl-5"}`}>
-                        <li>{t("sections.rights.access")}</li>
-                        <li>{t("sections.rights.corrections")}</li>
-                        <li>{t("sections.rights.withdraw")}</li>
-                    </ul>
-                </SectionWrapper>
-            );
-        case "thirdParty":
-            return (
-                <SectionWrapper title={t("sections.thirdParty.title")} isRTL={isRTL}>
-                    <p>{t("sections.thirdParty.content")}</p>
-                </SectionWrapper>
-            );
-        case "changes":
-            return (
-                <SectionWrapper title={t("sections.changes.title")} isRTL={isRTL}>
-                    <p>{t("sections.changes.content")}</p>
-                </SectionWrapper>
-            );
-        default:
-            return null;
-    }
+// Empty State Component - shown when CMS data is unavailable
+const EmptyState = ({ isRTL }: { isRTL: boolean }) => {
+    const t = useTranslations("privacyPolicy");
+
+    return (
+        <div className={`flex flex-col items-center justify-center min-h-[400px] text-center ${isRTL ? "text-right" : "text-left"}`}>
+            <div className="w-16 h-16 mb-6 text-gray-300">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                </svg>
+            </div>
+            <h3 className="text-display-xs font-semibold text-gray-900 mb-2">
+                {t("emptyState.title")}
+            </h3>
+            <p className="text-body-md text-gray-500 max-w-md">
+                {t("emptyState.message")}
+            </p>
+        </div>
+    );
 };
 
 export default function PrivacyPolicyClient({ cmsData, locale }: PrivacyPolicyClientProps) {
@@ -127,27 +77,18 @@ export default function PrivacyPolicyClient({ cmsData, locale }: PrivacyPolicyCl
     const currentLocale = useLocale();
     const isRTL = currentLocale === "ar" || locale === "ar";
 
-    // Use CMS data if available, otherwise use fallback translations
-    const useCMS = cmsData && cmsData.sections && cmsData.sections.length > 0;
+    // Check if CMS data is available
+    const hasCMSData = cmsData && cmsData.sections && cmsData.sections.length > 0;
 
-    // Build sections list from CMS or fallback
-    const sections = useCMS && cmsData.sections
+    // Build sections list from CMS only
+    const sections = hasCMSData && cmsData.sections
         ? cmsData.sections.map(section => ({
               id: section.sectionId,
               label: section.title,
           }))
-        : [
-              { id: "informationCollect", label: t("sections.informationCollect.title") },
-              { id: "howWeUse", label: t("sections.howWeUse.title") },
-              { id: "dataProtection", label: t("sections.dataProtection.title") },
-              { id: "sharing", label: t("sections.sharing.title") },
-              { id: "cookies", label: t("sections.cookies.title") },
-              { id: "rights", label: t("sections.rights.title") },
-              { id: "thirdParty", label: t("sections.thirdParty.title") },
-              { id: "changes", label: t("sections.changes.title") },
-          ];
+        : [];
 
-    const [activeSection, setActiveSection] = useState(sections[0]?.id || "dataProtection");
+    const [activeSection, setActiveSection] = useState(sections[0]?.id || "");
 
     // Update active section when sections change
     useEffect(() => {
@@ -156,16 +97,31 @@ export default function PrivacyPolicyClient({ cmsData, locale }: PrivacyPolicyCl
         }
     }, [sections, activeSection]);
 
-    // Get title and description from CMS or translations
-    const title = useCMS && cmsData.title ? cmsData.title : t("title");
-    const description = useCMS && cmsData.description ? cmsData.description : t("description");
+    // Get title and description from CMS or translations for header
+    const title = hasCMSData && cmsData.title ? cmsData.title : t("title");
+    const description = hasCMSData && cmsData.description ? cmsData.description : t("description");
 
-    const renderContent = () => {
-        if (useCMS && cmsData) {
-            return <CMSContent privacyPolicy={cmsData} activeSection={activeSection} isRTL={isRTL} />;
-        }
-        return <FallbackContent activeSection={activeSection} t={t} isRTL={isRTL} />;
-    };
+    // If no CMS data, show empty state
+    if (!hasCMSData) {
+        return (
+            <div
+                className="max-w-6xl mx-auto section-px py-12 md:py-16 lg:py-20"
+                dir={isRTL ? "rtl" : "ltr"}
+            >
+                {/* Header Section */}
+                <div className="text-center mb-10 md:mb-14">
+                    <h1 className="text-display-md md:text-display-lg lg:text-display-xl font-bold text-white mb-4 md:mb-6">
+                        {t("title")}
+                    </h1>
+                </div>
+
+                {/* Empty State Container */}
+                <div className="bg-white rounded-2xl md:rounded-3xl shadow-2xl shadow-blue-100/50 overflow-hidden border border-gray-100">
+                    <EmptyState isRTL={isRTL} />
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div
@@ -206,7 +162,7 @@ export default function PrivacyPolicyClient({ cmsData, locale }: PrivacyPolicyCl
 
                     {/* Content Area - Left side in RTL */}
                     <div className="lg:w-2/3 p-5 md:p-8 lg:p-10">
-                        {renderContent()}
+                        <CMSContent privacyPolicy={cmsData} activeSection={activeSection} isRTL={isRTL} />
                     </div>
                 </div>
             </div>

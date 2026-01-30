@@ -7,22 +7,39 @@
   "options": {},
   "attributes": {
     "platform": {
-      "type": "string",
+      "type": "enumeration",
+      "enum": [
+        "facebook",
+        "twitter",
+        "instagram",
+        "linkedin",
+        "youtube",
+        "tiktok",
+        "github",
+        "whatsapp",
+        "telegram",
+        "snapchat",
+        "pinterest",
+        "other"
+      ],
       "required": true,
-      "maxLength": 50
+      "default": "other"
     },
     "url": {
       "type": "string",
       "required": true,
-      "maxLength": 500
+      "maxLength": 500,
+      "regex": "^https?://"
     },
     "label": {
       "type": "string",
       "maxLength": 100
     },
     "icon": {
-      "type": "string",
-      "maxLength": 200
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
     },
     "order": {
       "type": "integer",

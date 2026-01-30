@@ -755,12 +755,36 @@ export interface Newsletter {
     updatedAt: string;
 }
 
+// Social Media platform types
+export type SocialPlatform =
+    | 'facebook'
+    | 'twitter'
+    | 'instagram'
+    | 'linkedin'
+    | 'youtube'
+    | 'tiktok'
+    | 'github'
+    | 'whatsapp'
+    | 'telegram'
+    | 'snapchat'
+    | 'pinterest'
+    | 'other';
+
 // Social Media interface (from site-setting component)
 export interface SocialMedia {
     id: number;
-    platform: string;
+    platform: SocialPlatform;
     url: string;
     label?: string;
+    icon?: {
+        id: number;
+        url: string;
+        alternativeText?: string;
+        width?: number;
+        height?: number;
+    } | null;
+    order: number;
+    isActive: boolean;
 }
 
 // Updated Blogs API
@@ -1056,10 +1080,21 @@ export interface SiteSettings {
 // Site Settings API (fetches from site-setting single type)
 export const siteSettingsApi = {
     async get(locale?: string): Promise<SiteSettings | null> {
-        const endpoint = `/site-setting?populate=social_links`;
+        // Use nested populate syntax for icon media field
+        const endpoint = `/site-setting?populate[social_links][populate][icon]=true`;
 
         try {
-            const response = await fetchApi<{ data: SiteSettings }>(endpoint, {}, locale);
+            // Use specific cache tag for site settings to enable on-demand revalidation
+            const response = await fetchApi<{ data: SiteSettings }>(
+                endpoint,
+                {
+                    next: {
+                        tags: ['site-settings'],
+                        revalidate: 0, // Don't use time-based revalidation, use on-demand only
+                    },
+                } as RequestInit,
+                locale
+            );
             return response.data || null;
         } catch (error) {
             console.error("Failed to fetch site settings:", error);
@@ -1075,9 +1110,20 @@ export const socialMediaApi = {
         locale?: string;
     }): Promise<{ data: SocialMedia[] }> {
         const settings = await siteSettingsApi.get(params?.locale);
-        return {
-            data: settings?.social_links || [],
-        };
+        let links = settings?.social_links || [];
+
+        // Filter only active links
+        links = links.filter(link => link.isActive !== false);
+
+        // Sort by order field (ascending), then by id as fallback
+        links = links.sort((a, b) => {
+            const orderA = a.order ?? 0;
+            const orderB = b.order ?? 0;
+            if (orderA !== orderB) return orderA - orderB;
+            return a.id - b.id;
+        });
+
+        return { data: links };
     },
 };
 

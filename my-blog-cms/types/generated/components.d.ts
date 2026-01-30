@@ -62,21 +62,31 @@ export interface SharedSocialLink extends Struct.ComponentSchema {
     displayName: 'Social Link';
   };
   attributes: {
-    icon: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
-      }>;
+    icon: Schema.Attribute.Media<'images'>;
     isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     label: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 100;
       }>;
     order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
-    platform: Schema.Attribute.String &
+    platform: Schema.Attribute.Enumeration<
+      [
+        'facebook',
+        'twitter',
+        'instagram',
+        'linkedin',
+        'youtube',
+        'tiktok',
+        'github',
+        'whatsapp',
+        'telegram',
+        'snapchat',
+        'pinterest',
+        'other',
+      ]
+    > &
       Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 50;
-      }>;
+      Schema.Attribute.DefaultTo<'other'>;
     url: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{

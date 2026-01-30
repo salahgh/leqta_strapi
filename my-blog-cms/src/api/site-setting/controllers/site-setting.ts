@@ -13,7 +13,11 @@ export default factories.createCoreController('api::site-setting.site-setting', 
             // For single types, we use findFirst to get the single entry
             let entity = await strapi.documents('api::site-setting.site-setting').findFirst({
                 populate: {
-                    social_links: true,
+                    social_links: {
+                        populate: {
+                            icon: true,
+                        },
+                    },
                 },
                 locale,
                 status: 'published',
@@ -23,7 +27,11 @@ export default factories.createCoreController('api::site-setting.site-setting', 
             if (!entity && locale !== 'en') {
                 entity = await strapi.documents('api::site-setting.site-setting').findFirst({
                     populate: {
-                        social_links: true,
+                        social_links: {
+                            populate: {
+                                icon: true,
+                            },
+                        },
                     },
                     locale: 'en',
                     status: 'published',

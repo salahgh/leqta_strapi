@@ -135,6 +135,16 @@
       "relation": "manyToMany",
       "target": "api::plan.plan",
       "inversedBy": "services"
+    },
+    "buttonLabel": {
+      "type": "string",
+      "maxLength": 50,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": "Learn More"
     }
   }
 }

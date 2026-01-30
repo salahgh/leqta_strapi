@@ -34,6 +34,7 @@ export interface Service {
     video_url?: string | null;
     order?: number;
     plans?: Plan[];
+    buttonLabel?: string;
     publishedAt: string;
     createdAt: string;
     updatedAt: string;

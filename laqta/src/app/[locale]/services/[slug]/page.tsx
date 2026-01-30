@@ -383,7 +383,7 @@ export default async function ServiceDetailPage({
                                     <ChevronRight className="w-5 h-5" />
                                 }
                             >
-                                {t("getStarted")}
+                                {service.buttonLabel || t("getStarted")}
                             </Button>
                         </Link>
                     </div>

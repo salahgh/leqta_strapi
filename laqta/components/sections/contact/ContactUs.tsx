@@ -46,6 +46,9 @@ interface ContactFormData {
     // Pre-selected Work/Project
     selectedWork: string;
     selectedWorkSlug: string;
+
+    // Law 18-07 Consent
+    consentGiven: boolean;
 }
 
 interface ContactUsProps {
@@ -97,6 +100,7 @@ const ContactUs = ({
         selectedPlanId: preSelectedPlanId || "",
         selectedWork: preSelectedWork || "",
         selectedWorkSlug: preSelectedWorkSlug || "",
+        consentGiven: false,
     });
 
     const handleGoBack = () => {

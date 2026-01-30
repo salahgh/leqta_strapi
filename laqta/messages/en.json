@@ -346,9 +346,48 @@
     "line2": "START A",
     "line3": "PROJECT"
   },
+  "cookieConsent": {
+    "title": "We Value Your Privacy",
+    "description": "We use cookies to enhance your browsing experience, analyze site traffic, and personalize content. By clicking \"Accept All\", you consent to our use of cookies.",
+    "lawReference": {
+      "title": "Law 18-07 Compliance:",
+      "description": "In accordance with Algerian Law No. 18-07 on the protection of personal data, we require your explicit consent before processing any personal information."
+    },
+    "managePreferences": "Manage cookie preferences",
+    "acceptAll": "Accept All",
+    "rejectAll": "Reject All",
+    "savePreferences": "Save Preferences",
+    "privacyPolicy": "Read our Privacy Policy",
+    "alwaysActive": "Always Active",
+    "rightsNotice": "You have the right to withdraw your consent at any time. For more information about your rights under Law 18-07, please visit our Privacy Policy.",
+    "cookies": {
+      "necessary": {
+        "title": "Necessary Cookies",
+        "description": "These cookies are essential for the website to function properly. They enable basic features like page navigation and secure access."
+      },
+      "analytics": {
+        "title": "Analytics Cookies",
+        "description": "These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously."
+      },
+      "marketing": {
+        "title": "Marketing Cookies",
+        "description": "These cookies are used to track visitors across websites to display relevant advertisements based on your interests."
+      }
+    }
+  },
+  "formConsent": {
+    "checkboxLabel": "I have read and agree to the Privacy Policy and consent to the processing of my personal data.",
+    "purposeText": "Your information will be used only to contact you regarding your request and manage our professional relationship.",
+    "dataController": "Data controller: Leqta (لقطة) – Algeria",
+    "dataRights": "You may request access to or deletion of your personal data by contacting: data@leqta.com",
+    "newsletterCheckboxLabel": "I agree to the Privacy Policy",
+    "validation": {
+      "consentRequired": "You must agree to the Privacy Policy to continue"
+    }
+  },
   "privacyPolicy": {
     "title": "Privacy Policy",
-    "description": "At LEQTA, your privacy matters. This Privacy Policy explains how we collect, use, and protect your personal information when you visit our website or contact us.",
+    "description": "At LEQTA, your privacy matters. This Privacy Policy explains how we collect, use, and protect your personal information when you visit our website or contact us in compliance with Algerian Law No. 18-07.",
     "sections": {
       "informationCollect": {
         "title": "Information We Collect",

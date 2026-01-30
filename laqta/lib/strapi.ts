@@ -1194,6 +1194,56 @@ export const privacyPolicyApi = {
     },
 };
 
+// Cookie Consent interface (for Law 18-07 compliance)
+export interface CookieConsentContent {
+    id: number;
+    documentId?: string;
+    title: string;
+    description: string;
+    lawReferenceTitle?: string;
+    lawReferenceDescription?: string;
+    acceptAllButtonText?: string;
+    rejectAllButtonText?: string;
+    savePreferencesButtonText?: string;
+    managePreferencesText?: string;
+    privacyPolicyLinkText?: string;
+    alwaysActiveText?: string;
+    rightsNotice?: string;
+    necessaryCookiesTitle?: string;
+    necessaryCookiesDescription?: string;
+    analyticsCookiesTitle?: string;
+    analyticsCookiesDescription?: string;
+    marketingCookiesTitle?: string;
+    marketingCookiesDescription?: string;
+    publishedAt: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+// Cookie Consent API (fetches from cookie-consent single type)
+export const cookieConsentApi = {
+    async get(locale?: string): Promise<CookieConsentContent | null> {
+        const endpoint = `/cookie-consent`;
+
+        try {
+            const response = await fetchApi<{ data: CookieConsentContent }>(
+                endpoint,
+                {
+                    next: {
+                        tags: ['cookie-consent'],
+                        revalidate: 0,
+                    },
+                } as RequestInit,
+                locale
+            );
+            return response.data || null;
+        } catch (error) {
+            console.error("Failed to fetch cookie consent:", error);
+            return null;
+        }
+    },
+};
+
 export default {
     blogsApi,
     categoriesApi,
@@ -1207,5 +1257,6 @@ export default {
     faqsApi,
     missionsApi,
     privacyPolicyApi,
+    cookieConsentApi,
     utils,
 };

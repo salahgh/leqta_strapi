@@ -4,6 +4,7 @@
  * NewsletterForm Component - Design System
  * Uses design tokens for consistent styling
  * Mobile-first responsive design
+ * Law 18-07 Compliant with consent checkbox
  */
 
 import { useFormik } from "formik";
@@ -12,10 +13,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { newsletterApi } from "@/lib/strapi";
 import { cn } from "@/lib/utils";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { Link } from "@/src/i18n/navigation";
 
-// Validation schema
-const validationSchema = Yup.object({
+// Validation schema with consent
+const createValidationSchema = (consentError: string) => Yup.object({
     email: Yup.string()
         .email("Invalid email address")
         .matches(
@@ -23,6 +25,9 @@ const validationSchema = Yup.object({
             "Please enter a valid email",
         )
         .required("Email is required"),
+    consentGiven: Yup.boolean()
+        .oneOf([true], consentError)
+        .required(consentError),
 });
 
 interface NewsletterFormProps {
@@ -37,10 +42,16 @@ export default function NewsletterForm({
     const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
     const [message, setMessage] = useState("");
     const t = useTranslations("footer");
+    const tConsent = useTranslations("formConsent");
+    const locale = useLocale();
+    const isRTL = locale === "ar";
+
+    const validationSchema = createValidationSchema(tConsent("validation.consentRequired"));
 
     const formik = useFormik({
         initialValues: {
             email: "",
+            consentGiven: false,
         },
         validationSchema,
         onSubmit: async (values, { setSubmitting, resetForm }) => {
@@ -107,10 +118,58 @@ export default function NewsletterForm({
                                 </button>
                             </div>
 
+                            {/* Law 18-07 Consent Checkbox */}
+                            <div className="mt-4">
+                                <label
+                                    className={cn(
+                                        "flex items-start gap-2 cursor-pointer justify-center",
+                                        isRTL && "flex-row-reverse"
+                                    )}
+                                >
+                                    <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
+                                        <input
+                                            type="checkbox"
+                                            name="consentGiven"
+                                            checked={formik.values.consentGiven}
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleBlur}
+                                            className={cn(
+                                                "w-4 h-4 rounded border cursor-pointer transition-all",
+                                                "focus:ring-2 focus:ring-white focus:ring-offset-2",
+                                                formik.touched.consentGiven && formik.errors.consentGiven
+                                                    ? "border-red-300"
+                                                    : "border-white/50 hover:border-white",
+                                                formik.values.consentGiven && "bg-white border-white"
+                                            )}
+                                        />
+                                    </div>
+                                    <span className={cn(
+                                        "text-xs text-blue-100 pt-1.5",
+                                        isRTL && "text-right"
+                                    )}>
+                                        {tConsent("newsletterCheckboxLabel")}{" "}
+                                        <Link
+                                            href="/PrivacyPolicy"
+                                            className="text-white hover:text-blue-100 underline"
+                                            onClick={(e) => e.stopPropagation()}
+                                        >
+                                            {t("privacyPolicy")}
+                                        </Link>
+                                    </span>
+                                </label>
+                            </div>
+
                             {/* Show validation error */}
                             {formik.touched.email && formik.errors.email && (
                                 <p className="form-error mt-3 sm:mt-4 text-red-200">
                                     {formik.errors.email}
+                                </p>
+                            )}
+
+                            {/* Show consent error */}
+                            {formik.touched.consentGiven && formik.errors.consentGiven && (
+                                <p className="text-center text-red-200 mt-2 text-body-xs">
+                                    {formik.errors.consentGiven}
                                 </p>
                             )}
 
@@ -169,12 +228,63 @@ export default function NewsletterForm({
                               : t("subscribeNow")}
                     </Button>
                 </div>
+
+                {/* Law 18-07 Consent Checkbox */}
+                <div className="mt-3">
+                    <label
+                        className={cn(
+                            "flex items-start gap-2 cursor-pointer",
+                            isRTL && "flex-row-reverse"
+                        )}
+                    >
+                        <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
+                            <input
+                                type="checkbox"
+                                name="consentGiven"
+                                checked={formik.values.consentGiven}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                className={cn(
+                                    "w-4 h-4 rounded border cursor-pointer transition-all",
+                                    "focus:ring-2 focus:ring-primary focus:ring-offset-2",
+                                    formik.touched.consentGiven && formik.errors.consentGiven
+                                        ? "border-red-500"
+                                        : "border-neutral-400 hover:border-primary",
+                                    formik.values.consentGiven && "bg-primary border-primary"
+                                )}
+                            />
+                        </div>
+                        <span className={cn(
+                            "text-xs text-neutral-600 pt-1.5",
+                            isRTL && "text-right"
+                        )}>
+                            {tConsent("newsletterCheckboxLabel")}{" "}
+                            <Link
+                                href="/PrivacyPolicy"
+                                className="text-primary hover:text-primary-dark underline"
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                {t("privacyPolicy")}
+                            </Link>
+                        </span>
+                    </label>
+                </div>
             </form>
 
             {/* Show validation error */}
             {formik.touched.email && formik.errors.email && (
                 <p className="text-center text-red-500 mt-2 sm:mt-3 text-body-xs sm:text-body-sm">
                     {formik.errors.email}
+                </p>
+            )}
+
+            {/* Show consent error */}
+            {formik.touched.consentGiven && formik.errors.consentGiven && (
+                <p className={cn(
+                    "text-red-500 mt-1 text-body-xs",
+                    isRTL ? "text-right" : "text-left"
+                )}>
+                    {formik.errors.consentGiven}
                 </p>
             )}
 

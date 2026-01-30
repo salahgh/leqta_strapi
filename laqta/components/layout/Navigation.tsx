@@ -206,7 +206,7 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
             {/* Mobile Drawer Overlay */}
             {isDrawerOpen && (
                 <div
-                    className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity duration-300 lg:hidden"
+                    className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity duration-300 xl:hidden"
                     onClick={closeDrawer}
                     aria-hidden="true"
                 />
@@ -215,7 +215,7 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
             {/* Mobile Left Drawer */}
             <div
                 className={`
-                    fixed left-0 top-0 z-50 h-full w-80 transform transition-all duration-300 ease-out lg:hidden
+                    fixed left-0 top-0 z-50 h-full w-80 transform transition-all duration-300 ease-out xl:hidden
                     bg-gradient-to-b from-primary via-primary-dark to-neutral-900 backdrop-blur-xl border-e border-primary-light/20
                     ${isDrawerOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"}
                 `}

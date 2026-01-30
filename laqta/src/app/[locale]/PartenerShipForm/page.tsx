@@ -9,9 +9,12 @@ import { Button } from "@/components/ui/Button";
 import { Navigation } from "@/components/layout/Navigation";
 import Footer from "@/components/sections/Footer";
 import { useFormInput } from "@/lib/formik-helpers";
+import { ConsentCheckbox } from "@/components/ui/ConsentCheckbox";
+import { DataControllerInfo } from "@/components/ui/DataControllerInfo";
+import { useTranslations } from "next-intl";
 
-// Yup validation schema
-const validationSchema = Yup.object({
+// Yup validation schema factory (consent error message is localized)
+const createValidationSchema = (consentError: string) => Yup.object({
     firstName: Yup.string()
         .min(2, "First name must be at least 2 characters")
         .max(50, "First name must be less than 50 characters")
@@ -49,6 +52,9 @@ const validationSchema = Yup.object({
         .min(10, "Message must be at least 10 characters")
         .max(500, "Message must not exceed 500 characters")
         .required("Message is required"),
+    consentGiven: Yup.boolean()
+        .oneOf([true], consentError)
+        .required(consentError),
 });
 
 // useFormInput hook moved to @/lib/formik-helpers.ts
@@ -56,6 +62,8 @@ const validationSchema = Yup.object({
 function PartnershipFormPage() {
     const params = useParams();
     const locale = (params?.locale as string) || "en";
+    const tConsent = useTranslations("formConsent");
+
     const serviceOptions = [
         "Web Development",
         "Mobile App Development",
@@ -67,16 +75,19 @@ function PartnershipFormPage() {
     ];
 
     const initialValues = {
-        firstName: "Sarah",
+        firstName: "",
         lastName: "",
         companyName: "",
         email: "",
         phone: "",
         service: "",
         message: "",
+        consentGiven: false,
     };
 
-    const onSubmit = (values, { setSubmitting }) => {
+    const validationSchema = createValidationSchema(tConsent("validation.consentRequired"));
+
+    const onSubmit = (values: typeof initialValues, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
         console.log("Form submitted with values:", values);
         // Handle form submission logic here
         setSubmitting(false);
@@ -180,7 +191,21 @@ function PartnershipFormPage() {
                         </div>
                     )}
 
-                    <div className="h-16 flex justify-end">
+                    {/* Law 18-07 Compliance Section */}
+                    <div className="mt-6 space-y-4">
+                        {/* Data Controller Info */}
+                        <DataControllerInfo className="bg-neutral-800 border-neutral-700" />
+
+                        {/* Consent Checkbox */}
+                        <ConsentCheckbox
+                            checked={formik.values.consentGiven}
+                            onChange={(checked) => formik.setFieldValue("consentGiven", checked)}
+                            error={formik.touched.consentGiven ? formik.errors.consentGiven : undefined}
+                            className="text-white [&_span]:text-neutral-300 [&_a]:text-primary-light"
+                        />
+                    </div>
+
+                    <div className="h-16 flex justify-end mt-6">
                         <Button
                             onClick={formik.handleSubmit}
                             disabled={formik.isSubmitting}

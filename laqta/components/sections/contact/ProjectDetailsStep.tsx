@@ -5,6 +5,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useTranslations } from "next-intl";
 import { FormInput } from "@/components/ui/FormInput";
+import { ConsentCheckbox } from "@/components/ui/ConsentCheckbox";
+import { DataControllerInfo } from "@/components/ui/DataControllerInfo";
 
 interface ContactFormData {
   fullName: string;
@@ -24,6 +26,7 @@ interface ContactFormData {
   timeline: string;
   projectDescription: string;
   goals: string;
+  consentGiven: boolean;
 }
 
 interface ProjectDetailsStepProps {
@@ -46,16 +49,21 @@ const ProjectDetailsStep: React.FC<ProjectDetailsStepProps> = ({
   const t = useTranslations('contactPage.form');
   const tButtons = useTranslations('contactPage.buttons');
   const tCommon = useTranslations('common');
+  const tConsent = useTranslations('formConsent');
 
   const validationSchema = Yup.object({
     projectDescription: Yup.string().required(tCommon('required')),
     goals: Yup.string().required(tCommon('required')),
+    consentGiven: Yup.boolean()
+      .oneOf([true], tConsent('validation.consentRequired'))
+      .required(tConsent('validation.consentRequired')),
   });
 
   const formik = useFormik({
     initialValues: {
       projectDescription: initialValues.projectDescription || "",
       goals: initialValues.goals || "",
+      consentGiven: initialValues.consentGiven || false,
     },
     validationSchema,
     onSubmit: async (values) => {
@@ -144,6 +152,20 @@ const ProjectDetailsStep: React.FC<ProjectDetailsStepProps> = ({
               <span className="text-white ml-2">{allFormData.timeline}</span>
             </div>
           </div>
+        </div>
+
+        {/* Law 18-07 Compliance Section */}
+        <div className="mt-6 space-y-4">
+          {/* Data Controller Info */}
+          <DataControllerInfo className="bg-slate-800/50 border-slate-700" />
+
+          {/* Consent Checkbox */}
+          <ConsentCheckbox
+            checked={formik.values.consentGiven}
+            onChange={(checked) => formik.setFieldValue("consentGiven", checked)}
+            error={formik.touched.consentGiven ? formik.errors.consentGiven : undefined}
+            className="[&_span]:text-slate-300 [&_a]:text-blue-400 [&_a:hover]:text-blue-300"
+          />
         </div>
 
         <div className="flex items-center justify-between gap-4 pt-6">

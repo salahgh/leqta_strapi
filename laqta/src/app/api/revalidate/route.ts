@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Allowed tags for security
-        const allowedTags = ['site-settings', 'blogs', 'services', 'projects', 'testimonials', 'faqs'];
+        const allowedTags = ['site-settings', 'blogs', 'services', 'projects', 'testimonials', 'faqs', 'cookie-consent', 'privacy-policy'];
         if (!allowedTags.includes(tag)) {
             return NextResponse.json(
                 { error: `Invalid tag. Allowed tags: ${allowedTags.join(', ')}` },
@@ -82,7 +82,7 @@ export async function GET(request: NextRequest) {
         );
     }
 
-    const allowedTags = ['site-settings', 'blogs', 'services', 'projects', 'testimonials', 'faqs'];
+    const allowedTags = ['site-settings', 'blogs', 'services', 'projects', 'testimonials', 'faqs', 'cookie-consent', 'privacy-policy'];
     if (!allowedTags.includes(tag)) {
         return NextResponse.json(
             { error: `Invalid tag. Allowed tags: ${allowedTags.join(', ')}` },

@@ -346,6 +346,45 @@
     "line2": "UN",
     "line3": "PROJET"
   },
+  "cookieConsent": {
+    "title": "Nous Respectons Votre Vie Privée",
+    "description": "Nous utilisons des cookies et des technologies de suivi (Google Analytics, Meta Pixel, TikTok Pixel) pour analyser le trafic du site et améliorer nos services. Vous pouvez accepter, refuser ou gérer vos préférences.",
+    "lawReference": {
+      "title": "Conformité à la Loi 18-07 :",
+      "description": "Conformément à la loi algérienne n° 18-07 sur la protection des données personnelles, nous exigeons votre consentement explicite avant de traiter toute information personnelle."
+    },
+    "managePreferences": "Gérer les préférences de cookies",
+    "acceptAll": "Tout Accepter",
+    "rejectAll": "Tout Refuser",
+    "savePreferences": "Enregistrer les Préférences",
+    "privacyPolicy": "Lire notre Politique de Confidentialité",
+    "alwaysActive": "Toujours Actif",
+    "rightsNotice": "Vous avez le droit de retirer votre consentement à tout moment. Pour plus d'informations sur vos droits en vertu de la Loi 18-07, veuillez consulter notre Politique de Confidentialité.",
+    "cookies": {
+      "necessary": {
+        "title": "Cookies Nécessaires",
+        "description": "Ces cookies sont essentiels au bon fonctionnement du site. Ils permettent des fonctionnalités de base comme la navigation et l'accès sécurisé."
+      },
+      "analytics": {
+        "title": "Cookies Analytiques (Google Analytics)",
+        "description": "Ces cookies nous aident à comprendre comment les visiteurs interagissent avec notre site en collectant et en rapportant des informations de manière anonyme."
+      },
+      "marketing": {
+        "title": "Cookies Marketing (Meta Pixel, TikTok Pixel)",
+        "description": "Ces cookies sont utilisés pour suivre les visiteurs sur les sites web afin d'afficher des publicités pertinentes en fonction de vos intérêts."
+      }
+    }
+  },
+  "formConsent": {
+    "checkboxLabel": "J'ai lu et j'accepte la Politique de Confidentialité et je consens au traitement de mes données personnelles.",
+    "purposeText": "Vos informations seront utilisées uniquement pour vous contacter concernant votre demande et gérer notre relation professionnelle.",
+    "dataController": "Responsable du traitement : Leqta (لقطة) – Algérie",
+    "dataRights": "Vous pouvez demander l'accès ou la suppression de vos données personnelles en contactant : data@leqta.com",
+    "newsletterCheckboxLabel": "J'accepte la Politique de Confidentialité",
+    "validation": {
+      "consentRequired": "Vous devez accepter la Politique de Confidentialité pour continuer"
+    }
+  },
   "privacyPolicy": {
     "title": "Politique de Confidentialité",
     "emptyState": {

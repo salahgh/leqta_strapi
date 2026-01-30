@@ -32,7 +32,9 @@
       "mcp__figma-remote__get_metadata",
       "Bash(if exist .cache rmdir /s /q .cache)",
       "Bash(if exist dist rmdir /s /q dist)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "WebFetch(domain:doc.clickup.com)",
+      "WebFetch(domain:www.cookieyes.com)"
     ],
     "deny": [],
     "ask": []

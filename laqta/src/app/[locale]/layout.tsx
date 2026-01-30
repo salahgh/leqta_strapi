@@ -6,6 +6,8 @@ import type { Metadata } from "next";
 import React from "react";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { BackToTop } from "@/components/ui/BackToTop";
+import { CookieConsentWrapper } from "@/components/ui/CookieConsentWrapper";
+import { TrackingScripts } from "@/components/ui/TrackingScripts";
 import { Poppins, Alexandria } from "next/font/google";
 import "../../../styles/globals.css";
 
@@ -70,12 +72,15 @@ export default async function LocaleLayout({
                 </a>
 
                 <ErrorBoundary>
-                    <main className="flex-1 w-full" id="main-content">
-                        <NextIntlClientProvider locale={locale} messages={messages}>
+                    <NextIntlClientProvider locale={locale} messages={messages}>
+                        <main className="flex-1 w-full" id="main-content">
                             {children}
-                        </NextIntlClientProvider>
-                    </main>
-                    <BackToTop />
+                        </main>
+                        <BackToTop />
+                        <CookieConsentWrapper locale={locale} />
+                        {/* Law 18-07: Only load tracking scripts after user consent */}
+                        <TrackingScripts />
+                    </NextIntlClientProvider>
                 </ErrorBoundary>
             </body>
         </html>

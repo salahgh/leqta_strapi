@@ -1,0 +1,180 @@
+{
+  "kind": "singleType",
+  "collectionName": "cookie_consents",
+  "info": {
+    "singularName": "cookie-consent",
+    "pluralName": "cookie-consents",
+    "displayName": "Cookie Consent",
+    "description": "Cookie consent banner content for Law 18-07 compliance"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100,
+      "default": "We Value Your Privacy",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "lawReferenceTitle": {
+      "type": "string",
+      "maxLength": 100,
+      "default": "Law 18-07 Compliance:",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "lawReferenceDescription": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "acceptAllButtonText": {
+      "type": "string",
+      "maxLength": 50,
+      "default": "Accept All",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "rejectAllButtonText": {
+      "type": "string",
+      "maxLength": 50,
+      "default": "Reject All",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "savePreferencesButtonText": {
+      "type": "string",
+      "maxLength": 50,
+      "default": "Save Preferences",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "managePreferencesText": {
+      "type": "string",
+      "maxLength": 100,
+      "default": "Manage cookie preferences",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "privacyPolicyLinkText": {
+      "type": "string",
+      "maxLength": 100,
+      "default": "Read our Privacy Policy",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "alwaysActiveText": {
+      "type": "string",
+      "maxLength": 50,
+      "default": "Always Active",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "rightsNotice": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "necessaryCookiesTitle": {
+      "type": "string",
+      "maxLength": 100,
+      "default": "Necessary Cookies",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "necessaryCookiesDescription": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "analyticsCookiesTitle": {
+      "type": "string",
+      "maxLength": 100,
+      "default": "Analytics Cookies",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "analyticsCookiesDescription": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "marketingCookiesTitle": {
+      "type": "string",
+      "maxLength": 100,
+      "default": "Marketing Cookies",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "marketingCookiesDescription": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

@@ -27,6 +27,33 @@ This document describes the implementation of Algerian Law No. 18-07 (Personal D
 
 **CMS Integration:** Content managed via Strapi `cookie-consent` single type with full i18n support.
 
+**How It Appears Only Once:**
+
+The banner uses `localStorage` to remember the user's choice:
+
+```typescript
+// Storage keys
+const CONSENT_KEY = "leqta_cookie_consent";
+const CONSENT_PREFERENCES_KEY = "leqta_cookie_preferences";
+```
+
+| Visit | localStorage | Result |
+|-------|-------------|--------|
+| First visit | Empty | Banner shows after 1 second |
+| User clicks Accept/Reject | `leqta_cookie_consent` is set | Banner hides |
+| Subsequent visits | Has stored value | Banner never shows |
+
+**Flow:**
+1. On component mount, checks `localStorage.getItem(CONSENT_KEY)`
+2. If no consent found → shows banner after 1-second delay
+3. When user makes a choice → saves to localStorage and hides banner
+4. On next visit → localStorage has value → banner doesn't appear
+
+**To Reset (for testing):**
+1. Open browser DevTools → Application → Local Storage
+2. Delete `leqta_cookie_consent` and `leqta_cookie_preferences`
+3. Refresh the page → banner appears again
+
 ### 2. Conditional Tracking Scripts
 
 **Location:** `laqta/components/ui/TrackingScripts.tsx`

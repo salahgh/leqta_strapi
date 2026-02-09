@@ -75,7 +75,7 @@ export function ConsentCheckbox({
                             className="text-primary hover:text-primary-dark underline"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            {t("newsletterCheckboxLabel")}
+                            Privacy Policy
                         </Link>
                     </span>
                 </label>

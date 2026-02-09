@@ -8,6 +8,7 @@ import { Link } from "@/src/i18n/navigation";
 import {
     ChevronRight,
     ChevronLeft,
+    ChevronDown,
     ChartColumnBig,
     Film,
     Rocket,
@@ -16,6 +17,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Image from "next/image";
 import { Badge } from "@/components/ui/Badge";
+import { FloatingCTAButton } from "@/components/ui/FloatingCTAButton";
 import { ServicePlanCard } from "./ServicePlanCard";
 
 interface ServiceDetailPageProps {
@@ -225,6 +227,24 @@ export default async function ServiceDetailPage({
                                 )}
                             </div>
                         )}
+
+                        {/* Start Now Button - Scrolls to Plans */}
+                        {service.plans && service.plans.length > 0 && (
+                            <div
+                                className="mt-8 animate-fade-in"
+                                style={{ opacity: 0, animationDelay: "400ms" }}
+                            >
+                                <a href="#plans">
+                                    <Button
+                                        variant="primary"
+                                        size="lg"
+                                        rightIcon={<ChevronDown className="w-5 h-5" />}
+                                    >
+                                        {t("startNow")}
+                                    </Button>
+                                </a>
+                            </div>
+                        )}
                     </div>
                 </section>
 
@@ -304,7 +324,7 @@ export default async function ServiceDetailPage({
 
                 {/* Plans Section */}
                 {service.plans && service.plans.length > 0 && (
-                    <section className="bg-gradient-to-b from-white to-neutral-50 section-px section-py-lg">
+                    <section id="plans" className="bg-gradient-to-b from-white to-neutral-50 section-px section-py-lg">
                         <div className="max-w-container mx-auto">
                             <div
                                 className="text-center mb-12 animate-fade-in"
@@ -389,6 +409,11 @@ export default async function ServiceDetailPage({
                     </div>
                 </section>
             </main>
+
+            {/* Floating CTA Button - Scrolls to Plans */}
+            {service.plans && service.plans.length > 0 && (
+                <FloatingCTAButton targetId="plans" label={t("startNow")} />
+            )}
 
             <Footer locale={locale} />
         </div>

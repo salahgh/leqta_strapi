@@ -41,7 +41,8 @@
     "availablePlans": "الخطط المتاحة",
     "choosePlanDescription": "اختر الخطة التي تناسب احتياجاتك ودعنا نبدأ مشروعك.",
     "selectPlan": "اختر الخطة",
-    "contactForPricing": "تواصل معنا للتسعير"
+    "contactForPricing": "تواصل معنا للتسعير",
+    "startNow": "ابدأ الآن"
   },
   "servicesPage": {
     "header": {

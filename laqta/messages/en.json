@@ -41,7 +41,8 @@
     "availablePlans": "Available Plans",
     "choosePlanDescription": "Select a plan that fits your needs and let's get started on your project.",
     "selectPlan": "Select Plan",
-    "contactForPricing": "Contact for pricing"
+    "contactForPricing": "Contact for pricing",
+    "startNow": "Start Now"
   },
   "servicesPage": {
     "header": {

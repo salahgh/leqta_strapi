@@ -41,7 +41,8 @@
     "availablePlans": "Forfaits Disponibles",
     "choosePlanDescription": "Sélectionnez un forfait adapté à vos besoins et commençons votre projet.",
     "selectPlan": "Sélectionner",
-    "contactForPricing": "Contactez-nous pour les tarifs"
+    "contactForPricing": "Contactez-nous pour les tarifs",
+    "startNow": "Commencez Maintenant"
   },
   "servicesPage": {
     "header": {

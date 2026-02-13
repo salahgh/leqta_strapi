@@ -145,6 +145,16 @@
         }
       },
       "default": "Learn More"
+    },
+    "ctaButtonLabel": {
+      "type": "string",
+      "maxLength": 50,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": "Get Started"
     }
   }
 }

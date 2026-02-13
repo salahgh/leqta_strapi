@@ -228,23 +228,21 @@ export default async function ServiceDetailPage({
                             </div>
                         )}
 
-                        {/* Start Now Button - Scrolls to Plans */}
-                        {service.plans && service.plans.length > 0 && (
-                            <div
-                                className="mt-8 animate-fade-in"
-                                style={{ opacity: 0, animationDelay: "400ms" }}
-                            >
-                                <a href="#plans">
-                                    <Button
-                                        variant="primary"
-                                        size="lg"
-                                        rightIcon={<ChevronDown className="w-5 h-5" />}
-                                    >
-                                        {t("startNow")}
-                                    </Button>
-                                </a>
-                            </div>
-                        )}
+                        {/* Start Now Button - Scrolls to Plans or CTA */}
+                        <div
+                            className="mt-8 animate-fade-in"
+                            style={{ opacity: 0, animationDelay: "400ms" }}
+                        >
+                            <a href={service.plans && service.plans.length > 0 ? "#plans" : "#cta"}>
+                                <Button
+                                    variant="primary"
+                                    size="lg"
+                                    rightIcon={<ChevronDown className="w-5 h-5" />}
+                                >
+                                    {service.buttonLabel || t("startNow")}
+                                </Button>
+                            </a>
+                        </div>
                     </div>
                 </section>
 
@@ -371,8 +369,9 @@ export default async function ServiceDetailPage({
                     </section>
                 )}
 
-                {/* CTA Section */}
-                <section className="bg-primary section-px section-py-lg relative overflow-hidden">
+                {/* CTA Section - Only shown when no plans exist */}
+                {(!service.plans || service.plans.length === 0) && (
+                <section id="cta" className="bg-primary section-px section-py-lg relative overflow-hidden">
                     {/* Background decoration */}
                     <div className="absolute inset-0 pointer-events-none z-0">
                         <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-30">
@@ -395,25 +394,29 @@ export default async function ServiceDetailPage({
                         <p className="text-neutral-300 text-body-lg mb-8 max-w-2xl mx-auto">
                             {t("contactUsDescription")}
                         </p>
-                        <Link href="/contact">
-                            <Button
-                                variant="primary"
-                                size="lg"
-                                rightIcon={
-                                    <ChevronRight className="w-5 h-5" />
-                                }
-                            >
-                                {service.buttonLabel || t("getStarted")}
-                            </Button>
-                        </Link>
+                        <div className="flex justify-center">
+                            <Link href="/contact">
+                                <Button
+                                    variant="primary"
+                                    size="lg"
+                                    rightIcon={
+                                        <ChevronRight className="w-5 h-5" />
+                                    }
+                                >
+                                    {service.ctaButtonLabel || t("getStarted")}
+                                </Button>
+                            </Link>
+                        </div>
                     </div>
                 </section>
+                )}
             </main>
 
-            {/* Floating CTA Button - Scrolls to Plans */}
-            {service.plans && service.plans.length > 0 && (
-                <FloatingCTAButton targetId="plans" label={t("startNow")} />
-            )}
+            {/* Floating CTA Button - Scrolls to plans or CTA section */}
+            <FloatingCTAButton
+                targetId={service.plans && service.plans.length > 0 ? "plans" : "cta"}
+                label={service.buttonLabel || t("startNow")}
+            />
 
             <Footer locale={locale} />
         </div>

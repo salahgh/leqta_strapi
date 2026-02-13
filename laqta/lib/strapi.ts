@@ -35,6 +35,7 @@ export interface Service {
     order?: number;
     plans?: Plan[];
     buttonLabel?: string;
+    ctaButtonLabel?: string;
     publishedAt: string;
     createdAt: string;
     updatedAt: string;

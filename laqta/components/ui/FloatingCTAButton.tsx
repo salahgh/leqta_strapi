@@ -2,8 +2,8 @@
 
 /**
  * FloatingCTAButton Component
- * A floating call-to-action button that scrolls to a target section
- * Used on service pages to scroll to plans section
+ * A floating call-to-action button that scrolls to a target section.
+ * Hides when the target section is in view.
  */
 
 import { useEffect, useState } from "react";
@@ -50,7 +50,7 @@ export const FloatingCTAButton = ({
     return (
         <button
             onClick={scrollToTarget}
-            className="fixed bottom-24 right-8 px-6 py-3 bg-gradient-to-r from-accent-blue to-primary text-white rounded-full shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all z-50 flex items-center gap-2 font-medium"
+            className="fixed bottom-24 left-1/2 -translate-x-1/2 px-6 py-3 bg-gradient-to-r from-accent-blue to-primary text-white rounded-full shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all z-50 flex items-center gap-2 font-medium"
             aria-label={label}
         >
             {label}

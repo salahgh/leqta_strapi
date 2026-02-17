@@ -103,7 +103,7 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                     }  w-full max-w-container`}
                 >
                     <div className="transition-all duration-300 hidden md:block">
-                        <Logo />
+                        <Logo locale={locale} />
                     </div>
                     {/*Navigation Links - Desktop*/}
                     <div
@@ -223,7 +223,7 @@ export const Navigation = ({ className = "" }: NavigationProps) => {
                 <div className="flex h-full flex-col">
                     {/* Drawer Header */}
                     <div className="flex items-center justify-between border-b border-primary-light/20 p-5 bg-primary/50">
-                        <Logo />
+                        <Logo locale={locale} />
                         <button
                             onClick={closeDrawer}
                             className="p-2 rounded-full hover:bg-white/10 transition-colors duration-200"

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useLocale } from "next-intl";
+import { usePathname } from "next/navigation";
 import { Link } from "@/src/i18n/navigation";
 import { Shield, Cookie, ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "./Button";
@@ -10,6 +11,7 @@ import { CookieConsentContent } from "@/lib/strapi";
 // Cookie consent storage key
 const CONSENT_KEY = "leqta_cookie_consent";
 const CONSENT_PREFERENCES_KEY = "leqta_cookie_preferences";
+const READING_PRIVACY_KEY = "leqta_reading_privacy";
 
 interface CookiePreferences {
     necessary: boolean;
@@ -54,6 +56,7 @@ interface CookieConsentProps {
 
 export const CookieConsent = ({ content }: CookieConsentProps) => {
     const locale = useLocale();
+    const pathname = usePathname();
     const isRTL = locale === "ar";
 
     // Use CMS content or fallback to defaults
@@ -67,6 +70,19 @@ export const CookieConsent = ({ content }: CookieConsentProps) => {
     useEffect(() => {
         const consent = localStorage.getItem(CONSENT_KEY);
         if (!consent) {
+            const readingPrivacy = sessionStorage.getItem(READING_PRIVACY_KEY);
+            const isOnPrivacyPage = pathname.includes("/PrivacyPolicy");
+
+            // User dismissed the banner to read the privacy policy — keep it hidden
+            if (readingPrivacy && isOnPrivacyPage) {
+                return;
+            }
+
+            // Left the privacy policy page — clear the flag, show banner again
+            if (readingPrivacy) {
+                sessionStorage.removeItem(READING_PRIVACY_KEY);
+            }
+
             const timer = setTimeout(() => setIsVisible(true), 1000);
             return () => clearTimeout(timer);
         } else {
@@ -75,7 +91,7 @@ export const CookieConsent = ({ content }: CookieConsentProps) => {
                 setPreferences(JSON.parse(savedPreferences));
             }
         }
-    }, []);
+    }, [pathname]);
 
     const saveConsent = (accepted: boolean, prefs: CookiePreferences) => {
         localStorage.setItem(CONSENT_KEY, accepted ? "accepted" : "rejected");
@@ -114,6 +130,11 @@ export const CookieConsent = ({ content }: CookieConsentProps) => {
     const togglePreference = (key: keyof CookiePreferences) => {
         if (key === "necessary") return;
         setPreferences(prev => ({ ...prev, [key]: !prev[key] }));
+    };
+
+    const handlePrivacyPolicyClick = () => {
+        sessionStorage.setItem(READING_PRIVACY_KEY, "true");
+        setIsVisible(false);
     };
 
     if (!isVisible) return null;
@@ -266,38 +287,34 @@ export const CookieConsent = ({ content }: CookieConsentProps) => {
                         )}
 
                         {/* Actions */}
-                        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                            <div className="flex flex-col sm:flex-row gap-3 flex-1">
-                                <Button
-                                    variant="primary"
-                                    size="md"
-                                    onClick={handleAcceptAll}
-                                    className="flex-1 sm:flex-none"
-                                >
-                                    {c.acceptAllButtonText || "Accept All"}
-                                </Button>
+                        <div className="flex flex-row flex-wrap items-center gap-3">
+                            <Button
+                                variant="primary"
+                                size="md"
+                                onClick={handleAcceptAll}
+                            >
+                                {c.acceptAllButtonText || "Accept All"}
+                            </Button>
+                            <Button
+                                variant="secondary"
+                                size="md"
+                                onClick={handleRejectAll}
+                            >
+                                {c.rejectAllButtonText || "Reject All"}
+                            </Button>
+                            {showDetails && (
                                 <Button
                                     variant="secondary"
                                     size="md"
-                                    onClick={handleRejectAll}
-                                    className="flex-1 sm:flex-none"
+                                    onClick={handleSavePreferences}
                                 >
-                                    {c.rejectAllButtonText || "Reject All"}
+                                    {c.savePreferencesButtonText || "Save Preferences"}
                                 </Button>
-                                {showDetails && (
-                                    <Button
-                                        variant="secondary"
-                                        size="md"
-                                        onClick={handleSavePreferences}
-                                        className="flex-1 sm:flex-none"
-                                    >
-                                        {c.savePreferencesButtonText || "Save Preferences"}
-                                    </Button>
-                                )}
-                            </div>
+                            )}
                             <Link
                                 href="/PrivacyPolicy"
-                                className="text-sm text-primary hover:text-primary-dark font-medium text-center sm:text-left"
+                                onClick={handlePrivacyPolicyClick}
+                                className="text-sm text-primary hover:text-primary-dark font-medium ms-auto"
                             >
                                 {c.privacyPolicyLinkText || "Read our Privacy Policy"}
                             </Link>

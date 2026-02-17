@@ -258,6 +258,7 @@
         "url": "Please enter a valid URL",
         "minLength": "Must be at least {min} characters",
         "maxLength": "Must be no more than {max} characters",
+        "fullNameInvalid": "Full name can only contain letters",
         "fullNameRequired": "Full name is required",
         "emailRequired": "Email address is required",
         "phoneRequired": "Phone number is required",
@@ -269,7 +270,10 @@
         "facebookInvalid": "Please enter a valid Facebook URL",
         "instagramInvalid": "Please enter a valid Instagram URL",
         "tiktokInvalid": "Please enter a valid TikTok URL",
-        "linkedinInvalid": "Please enter a valid LinkedIn URL"
+        "linkedinInvalid": "Please enter a valid LinkedIn URL",
+        "projectTypeRequired": "Please select a project type",
+        "budgetRequired": "Please select a budget range",
+        "timelineRequired": "Please select a timeline"
       }
     },
     "success": {
@@ -329,6 +333,8 @@
     "subscribeNow": "Subscribe Now",
     "subscribing": "Subscribing...",
     "subscribed": "Subscribed!",
+    "invalidEmail": "Please enter a valid email address",
+    "emailRequired": "Email is required",
     "company": "Company",
     "aboutUs": "About us",
     "ourServices": "Our services",

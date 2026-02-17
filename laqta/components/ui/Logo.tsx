@@ -9,9 +9,11 @@ import { cn } from "@/lib/utils";
 interface LogoProps {
     className?: string;
     size?: "sm" | "md" | "lg";
+    locale?: string;
 }
 
-export const Logo: React.FC<LogoProps> = ({ className = "", size = "md" }) => {
+export const Logo: React.FC<LogoProps> = ({ className = "", size = "md", locale }) => {
+    const logoSrc = locale === "ar" ? "/images/leqta_logo_arabic.svg" : "/images/laqta.svg";
     const sizeClasses = {
         sm: "h-5 sm:h-6",
         md: "h-6 sm:h-7",
@@ -32,7 +34,7 @@ export const Logo: React.FC<LogoProps> = ({ className = "", size = "md" }) => {
             )}
         >
             <img src="/images/logo.svg" alt="Logo" className={sizeClasses[size]} />
-            <img src="/images/laqta.svg" alt="Laqta" className={textSizeClasses[size]} />
+            <img src={logoSrc} alt="Laqta" className={textSizeClasses[size]} />
         </div>
     );
 };

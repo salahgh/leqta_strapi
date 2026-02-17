@@ -12,15 +12,18 @@ interface SocialMediaStepValues {
     linkedin: string;
 }
 
-const validationSchema = Yup.object({
-    facebook: Yup.string().url("Please enter a valid Facebook URL").nullable(),
-    instagram: Yup.string().url("Please enter a valid Instagram URL").nullable(),
-    tiktok: Yup.string().url("Please enter a valid TikTok URL").nullable(),
-    linkedin: Yup.string().url("Please enter a valid LinkedIn URL").nullable(),
-});
-
 const SocialMediaStep = ({ initialValues, onSubmit }: { initialValues?: Partial<SocialMediaStepValues>; onSubmit: (values: SocialMediaStepValues) => void }) => {
     const t = useTranslations('contactPage.form');
+    const tValidation = useTranslations('contactPage.form.validation');
+
+    const urlPattern = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w\-.~:/?#[\]@!$&'()*+,;=%]*)?$/;
+
+    const validationSchema = Yup.object({
+        facebook: Yup.string().matches(urlPattern, { message: tValidation('facebookInvalid'), excludeEmptyString: true }).nullable(),
+        instagram: Yup.string().matches(urlPattern, { message: tValidation('instagramInvalid'), excludeEmptyString: true }).nullable(),
+        tiktok: Yup.string().matches(urlPattern, { message: tValidation('tiktokInvalid'), excludeEmptyString: true }).nullable(),
+        linkedin: Yup.string().matches(urlPattern, { message: tValidation('linkedinInvalid'), excludeEmptyString: true }).nullable(),
+    });
 
     const formik = useFormik<SocialMediaStepValues>({
         initialValues: {

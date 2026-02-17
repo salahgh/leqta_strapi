@@ -19,13 +19,13 @@ const PersonalInfoStep = ({ initialValues, onSubmit }: { initialValues?: Partial
         fullName: Yup.string()
             .min(2, tValidation('minLength', { min: 2 }))
             .max(100, tValidation('maxLength', { max: 100 }))
-            .matches(/^[A-Za-z\s]+$/, "Full name can only contain letters")
+            .matches(/^[\p{L}\s'-]+$/u, tValidation('fullNameInvalid'))
             .required(tValidation('fullNameRequired')),
         email: Yup.string()
             .email(tValidation('email'))
             .required(tValidation('emailRequired')),
         phoneNumber: Yup.string()
-            .matches(/^[+]?[\d\s\-\(\)]+$/, tValidation('phone'))
+            .matches(/^(?:\+213|0)[5-7]\d{8}$/, tValidation('phone'))
             .required(tValidation('phoneRequired')),
     });
 

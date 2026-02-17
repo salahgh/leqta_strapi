@@ -93,7 +93,7 @@ const Footer = async ({ locale }: FooterProps) => {
                                 className="h-10 md:h-14 w-auto"
                             />
                             <img
-                                src="/images/laqta.svg"
+                                src={locale === "ar" ? "/images/leqta_logo_arabic.svg" : "/images/laqta.svg"}
                                 alt="LEQTA Logo"
                                 className="h-8 md:h-10 w-auto"
                             />

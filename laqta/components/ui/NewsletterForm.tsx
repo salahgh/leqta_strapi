@@ -17,14 +17,14 @@ import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/src/i18n/navigation";
 
 // Validation schema with consent
-const createValidationSchema = (consentError: string) => Yup.object({
+const createValidationSchema = (emailInvalid: string, emailRequired: string, consentError: string) => Yup.object({
     email: Yup.string()
-        .email("Invalid email address")
+        .email(emailInvalid)
         .matches(
             /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            "Please enter a valid email",
+            emailInvalid,
         )
-        .required("Email is required"),
+        .required(emailRequired),
     consentGiven: Yup.boolean()
         .oneOf([true], consentError)
         .required(consentError),
@@ -46,7 +46,11 @@ export default function NewsletterForm({
     const locale = useLocale();
     const isRTL = locale === "ar";
 
-    const validationSchema = createValidationSchema(tConsent("validation.consentRequired"));
+    const validationSchema = createValidationSchema(
+        t("invalidEmail"),
+        t("emailRequired"),
+        tConsent("validation.consentRequired")
+    );
 
     const formik = useFormik({
         initialValues: {
@@ -123,7 +127,7 @@ export default function NewsletterForm({
                                 <label
                                     className={cn(
                                         "flex items-start gap-2 cursor-pointer justify-center",
-                                        isRTL && "flex-row-reverse"
+                                        ""
                                     )}
                                 >
                                     <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
@@ -137,7 +141,7 @@ export default function NewsletterForm({
                                                 "w-4 h-4 rounded border cursor-pointer transition-all",
                                                 "focus:ring-2 focus:ring-white focus:ring-offset-2",
                                                 formik.touched.consentGiven && formik.errors.consentGiven
-                                                    ? "border-red-300"
+                                                    ? "border-red-400"
                                                     : "border-white/50 hover:border-white",
                                                 formik.values.consentGiven && "bg-white border-white"
                                             )}
@@ -145,7 +149,7 @@ export default function NewsletterForm({
                                     </div>
                                     <span className={cn(
                                         "text-xs text-blue-100 pt-1.5",
-                                        isRTL && "text-right"
+                                        "text-start"
                                     )}>
                                         {tConsent("newsletterCheckboxLabel")}{" "}
                                         <Link
@@ -161,14 +165,14 @@ export default function NewsletterForm({
 
                             {/* Show validation error */}
                             {formik.touched.email && formik.errors.email && (
-                                <p className="form-error mt-3 sm:mt-4 text-red-200">
+                                <p className="form-error mt-3 sm:mt-4 text-red-400">
                                     {formik.errors.email}
                                 </p>
                             )}
 
                             {/* Show consent error */}
                             {formik.touched.consentGiven && formik.errors.consentGiven && (
-                                <p className="text-center text-red-200 mt-2 text-body-xs">
+                                <p className="text-center text-red-400 mt-2 text-body-xs">
                                     {formik.errors.consentGiven}
                                 </p>
                             )}
@@ -180,7 +184,7 @@ export default function NewsletterForm({
                                         "mt-3 sm:mt-4 text-body-sm",
                                         status === "success"
                                             ? "text-green-200"
-                                            : "text-red-200",
+                                            : "text-red-400",
                                     )}
                                 >
                                     {message}
@@ -234,7 +238,7 @@ export default function NewsletterForm({
                     <label
                         className={cn(
                             "flex items-start gap-2 cursor-pointer",
-                            isRTL && "flex-row-reverse"
+                            ""
                         )}
                     >
                         <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
@@ -246,22 +250,22 @@ export default function NewsletterForm({
                                 onBlur={formik.handleBlur}
                                 className={cn(
                                     "w-4 h-4 rounded border cursor-pointer transition-all",
-                                    "focus:ring-2 focus:ring-primary focus:ring-offset-2",
+                                    "focus:ring-2 focus:ring-white focus:ring-offset-2",
                                     formik.touched.consentGiven && formik.errors.consentGiven
-                                        ? "border-red-500"
-                                        : "border-neutral-400 hover:border-primary",
-                                    formik.values.consentGiven && "bg-primary border-primary"
+                                        ? "border-red-400"
+                                        : "border-neutral-300 hover:border-white",
+                                    formik.values.consentGiven && "bg-white border-white"
                                 )}
                             />
                         </div>
                         <span className={cn(
-                            "text-xs text-neutral-600 pt-1.5",
-                            isRTL && "text-right"
+                            "text-xs text-neutral-300 pt-1.5",
+                            "text-start"
                         )}>
                             {tConsent("newsletterCheckboxLabel")}{" "}
                             <Link
                                 href="/PrivacyPolicy"
-                                className="text-primary hover:text-primary-dark underline"
+                                className="text-white hover:text-neutral-200 underline"
                                 onClick={(e) => e.stopPropagation()}
                             >
                                 {t("privacyPolicy")}
@@ -273,17 +277,14 @@ export default function NewsletterForm({
 
             {/* Show validation error */}
             {formik.touched.email && formik.errors.email && (
-                <p className="text-center text-red-500 mt-2 sm:mt-3 text-body-xs sm:text-body-sm">
+                <p className="text-center text-red-400 mt-2 sm:mt-3 text-body-xs sm:text-body-sm">
                     {formik.errors.email}
                 </p>
             )}
 
             {/* Show consent error */}
             {formik.touched.consentGiven && formik.errors.consentGiven && (
-                <p className={cn(
-                    "text-red-500 mt-1 text-body-xs",
-                    isRTL ? "text-right" : "text-left"
-                )}>
+                <p className="!text-red-400 mt-1 text-body-xs text-start">
                     {formik.errors.consentGiven}
                 </p>
             )}

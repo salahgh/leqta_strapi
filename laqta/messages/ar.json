@@ -258,6 +258,7 @@
         "url": "يرجى إدخال رابط صحيح",
         "minLength": "يجب أن يكون على الأقل {min} أحرف",
         "maxLength": "يجب ألا يزيد عن {max} حرف",
+        "fullNameInvalid": "الاسم الكامل يمكن أن يحتوي على حروف فقط",
         "fullNameRequired": "الاسم الكامل مطلوب",
         "emailRequired": "عنوان البريد الإلكتروني مطلوب",
         "phoneRequired": "رقم الهاتف مطلوب",
@@ -269,7 +270,10 @@
         "facebookInvalid": "يرجى إدخال رابط فيسبوك صحيح",
         "instagramInvalid": "يرجى إدخال رابط إنستغرام صحيح",
         "tiktokInvalid": "يرجى إدخال رابط تيك توك صحيح",
-        "linkedinInvalid": "يرجى إدخال رابط لينكد إن صحيح"
+        "linkedinInvalid": "يرجى إدخال رابط لينكد إن صحيح",
+        "projectTypeRequired": "يرجى اختيار نوع المشروع",
+        "budgetRequired": "يرجى اختيار نطاق الميزانية",
+        "timelineRequired": "يرجى اختيار الجدول الزمني"
       }
     },
     "success": {
@@ -329,6 +333,8 @@
     "subscribeNow": "اشترك الآن",
     "subscribing": "جارٍ الاشتراك...",
     "subscribed": "تم الاشتراك!",
+    "invalidEmail": "يرجى إدخال عنوان بريد إلكتروني صحيح",
+    "emailRequired": "البريد الإلكتروني مطلوب",
     "company": "الشركة",
     "aboutUs": "من نحن",
     "ourServices": "خدماتنا",

@@ -15,26 +15,27 @@ interface CompanyInfoFormValues {
     website: string;
 }
 
-const validationSchema = Yup.object({
-    industry: Yup.string().required("Industry is required"),
-    otherIndustry: Yup.string().when("industry", {
-        is: "other",
-        then: (schema) => schema.required("Please specify your industry"),
-        otherwise: (schema) => schema.notRequired(),
-    }),
-    companyName: Yup.string()
-        .min(2, "Company name must be at least 2 characters")
-        .max(100, "Company name must be less than 100 characters")
-        .required("Company name is required"),
-    jobTitle: Yup.string()
-        .min(2, "Job title must be at least 2 characters")
-        .max(100, "Job title must be less than 100 characters")
-        .required("Job title is required"),
-    website: Yup.string().url("Please enter a valid URL").nullable(),
-});
-
 const CompanyInfoStep = ({ initialValues, onSubmit }: { initialValues?: Partial<CompanyInfoFormValues>; onSubmit: (values: CompanyInfoFormValues) => void }) => {
     const t = useTranslations('contactPage.form');
+    const tValidation = useTranslations('contactPage.form.validation');
+
+    const validationSchema = Yup.object({
+        industry: Yup.string().required(tValidation('industryRequired')),
+        otherIndustry: Yup.string().when("industry", {
+            is: "other",
+            then: (schema) => schema.required(tValidation('otherIndustryRequired')),
+            otherwise: (schema) => schema.notRequired(),
+        }),
+        companyName: Yup.string()
+            .min(2, tValidation('minLength', { min: 2 }))
+            .max(100, tValidation('maxLength', { max: 100 }))
+            .required(tValidation('companyNameRequired')),
+        jobTitle: Yup.string()
+            .min(2, tValidation('minLength', { min: 2 }))
+            .max(100, tValidation('maxLength', { max: 100 }))
+            .required(tValidation('jobTitleRequired')),
+        website: Yup.string().matches(/^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w\-.~:/?#[\]@!$&'()*+,;=%]*)?$/, { message: tValidation('url'), excludeEmptyString: true }).nullable(),
+    });
     
     const industryOptions = [
         { value: "", label: t('selectIndustry') },

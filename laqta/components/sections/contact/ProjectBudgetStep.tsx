@@ -10,14 +10,15 @@ interface ProjectBudgetStepValues {
     timeline: string;
 }
 
-const validationSchema = Yup.object({
-    projectType: Yup.string().required("Project type is required"),
-    budget: Yup.string().required("Budget range is required"),
-    timeline: Yup.string().required("Timeline is required"),
-});
-
 const ProjectBudgetStep = ({ initialValues, onSubmit }: { initialValues?: Partial<ProjectBudgetStepValues>; onSubmit: (values: ProjectBudgetStepValues) => void }) => {
     const t = useTranslations('contactPage.form');
+    const tValidation = useTranslations('contactPage.form.validation');
+
+    const validationSchema = Yup.object({
+        projectType: Yup.string().required(tValidation('projectTypeRequired')),
+        budget: Yup.string().required(tValidation('budgetRequired')),
+        timeline: Yup.string().required(tValidation('timelineRequired')),
+    });
     
     const projectTypeOptions = [
         { value: "", label: t('selectProjectType') },

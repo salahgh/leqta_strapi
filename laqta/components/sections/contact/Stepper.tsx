@@ -71,7 +71,7 @@ export const Stepper: React.FC<StepperComponentProps> = ({
                 {/* Vertical Progress Line - centered through circles, stops at last step */}
                 {/* Height calculation: (steps - 1) * gap(32px from space-y-8) = 3 * 32 = 96px */}
                 <div
-                    className="absolute left-[23px] rtl:right-[23px] rtl:left-auto top-6 w-0.5 bg-slate-700"
+                    className="absolute start-[23px] top-6 w-0.5 bg-slate-700"
                     style={{ height: `${(steps.length - 1) * 32}px` }}
                 >
                     <div

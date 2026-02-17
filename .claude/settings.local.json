@@ -34,7 +34,8 @@
       "Bash(if exist dist rmdir /s /q dist)",
       "Bash(rm:*)",
       "WebFetch(domain:doc.clickup.com)",
-      "WebFetch(domain:www.cookieyes.com)"
+      "WebFetch(domain:www.cookieyes.com)",
+      "Bash(nslookup:*)"
     ],
     "deny": [],
     "ask": []

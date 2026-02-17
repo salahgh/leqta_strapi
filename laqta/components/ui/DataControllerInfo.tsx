@@ -18,11 +18,13 @@ import { cn } from "@/lib/utils";
 
 interface DataControllerInfoProps {
     variant?: "full" | "compact";
+    dark?: boolean;
     className?: string;
 }
 
 export function DataControllerInfo({
     variant = "full",
+    dark = false,
     className,
 }: DataControllerInfoProps) {
     const locale = useLocale();
@@ -33,8 +35,9 @@ export function DataControllerInfo({
     if (variant === "compact") {
         return (
             <div className={cn(
-                "text-xs text-gray-500",
-                isRTL && "text-right",
+                "text-xs",
+                dark ? "text-neutral-400" : "text-gray-500",
+                "text-start",
                 className
             )}>
                 <p>{t("dataController")}</p>
@@ -45,37 +48,41 @@ export function DataControllerInfo({
     // Full variant (default)
     return (
         <div className={cn(
-            "bg-gray-50 border border-gray-200 rounded-lg p-4",
-            isRTL && "text-right",
+            "border rounded-lg p-4",
+            dark ? "bg-slate-800/50 border-slate-700" : "bg-gray-50 border-gray-200",
+            "text-start",
             className
         )}>
             <div className={cn(
                 "flex items-start gap-3",
-                isRTL && "flex-row-reverse"
+                ""
             )}>
                 <div className="flex-shrink-0">
-                    <Info className="w-5 h-5 text-gray-400 mt-0.5" />
+                    <Info className={cn("w-5 h-5 mt-0.5", dark ? "text-neutral-400" : "text-gray-400")} />
                 </div>
                 <div className="flex-1 space-y-2">
                     {/* Purpose text */}
-                    <p className="text-sm text-gray-600">
+                    <p className={cn("text-sm", dark ? "text-neutral-300" : "text-gray-600")}>
                         {t("purposeText")}
                     </p>
 
                     {/* Data controller */}
-                    <p className="text-sm text-gray-700 font-medium">
+                    <p className={cn("text-sm font-medium", dark ? "text-neutral-200" : "text-gray-700")}>
                         {t("dataController")}
                     </p>
 
                     {/* Data rights */}
-                    <p className="text-sm text-gray-600">
+                    <p className={cn("text-sm", dark ? "text-neutral-300" : "text-gray-600")}>
                         {t("dataRights")}
                     </p>
 
                     {/* Privacy Policy link */}
                     <Link
                         href="/PrivacyPolicy"
-                        className="text-sm text-primary hover:text-primary-dark underline inline-block"
+                        className={cn(
+                            "text-sm underline inline-block",
+                            dark ? "text-white hover:text-neutral-200" : "text-primary hover:text-primary-dark"
+                        )}
                     >
                         {tFooter("privacyPolicy")}
                     </Link>

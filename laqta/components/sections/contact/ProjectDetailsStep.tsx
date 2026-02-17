@@ -129,27 +129,27 @@ const ProjectDetailsStep: React.FC<ProjectDetailsStepProps> = ({
           <div className="grid grid-cols-1 md:grid-cols-2 grid-gap-sm text-body-sm">
             <div>
               <span className="text-secondary-gray">Name:</span>
-              <span className="text-white ml-2">{allFormData.fullName}</span>
+              <span className="text-white ms-2">{allFormData.fullName}</span>
             </div>
             <div>
               <span className="text-secondary-gray">Email:</span>
-              <span className="text-white ml-2">{allFormData.email}</span>
+              <span className="text-white ms-2">{allFormData.email}</span>
             </div>
             <div>
               <span className="text-secondary-gray">Company:</span>
-              <span className="text-white ml-2">{allFormData.companyName}</span>
+              <span className="text-white ms-2">{allFormData.companyName}</span>
             </div>
             <div>
               <span className="text-secondary-gray">Project Type:</span>
-              <span className="text-white ml-2">{allFormData.projectType}</span>
+              <span className="text-white ms-2">{allFormData.projectType}</span>
             </div>
             <div>
               <span className="text-secondary-gray">Budget:</span>
-              <span className="text-white ml-2">{allFormData.budget}</span>
+              <span className="text-white ms-2">{allFormData.budget}</span>
             </div>
             <div>
               <span className="text-secondary-gray">Timeline:</span>
-              <span className="text-white ml-2">{allFormData.timeline}</span>
+              <span className="text-white ms-2">{allFormData.timeline}</span>
             </div>
           </div>
         </div>
@@ -157,14 +157,14 @@ const ProjectDetailsStep: React.FC<ProjectDetailsStepProps> = ({
         {/* Law 18-07 Compliance Section */}
         <div className="mt-6 space-y-4">
           {/* Data Controller Info */}
-          <DataControllerInfo className="bg-slate-800/50 border-slate-700" />
+          <DataControllerInfo dark />
 
           {/* Consent Checkbox */}
           <ConsentCheckbox
             checked={formik.values.consentGiven}
             onChange={(checked) => formik.setFieldValue("consentGiven", checked)}
             error={formik.touched.consentGiven ? formik.errors.consentGiven : undefined}
-            className="[&_span]:text-slate-300 [&_a]:text-blue-400 [&_a:hover]:text-blue-300"
+            dark
           />
         </div>
 

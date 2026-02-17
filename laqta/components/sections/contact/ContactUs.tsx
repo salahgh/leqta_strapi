@@ -1,8 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { ArrowLeft, Package, Briefcase } from "lucide-react";
 import { useTranslations } from "next-intl";
+
+const FORM_STORAGE_KEY = "leqta_contact_form";
+const STEP_STORAGE_KEY = "leqta_contact_step";
 
 import PersonalInfoStep from "./PersonalInfoStep";
 import CompanyInfoStep from "./CompanyInfoStep";
@@ -68,15 +71,7 @@ const ContactUs = ({
     preSelectedWork,
     preSelectedWorkSlug,
 }: ContactUsProps) => {
-    const [currentStep, setCurrentStep] = useState(1);
-    const [isSubmitted, setIsSubmitted] = useState(false);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submitError, setSubmitError] = useState<string | null>(null);
-    const totalSteps = 5; // Updated to 5 steps
-    const t = useTranslations("contactPage.buttons");
-
-    // Initialize form data state
-    const [formData, setFormData] = useState<ContactFormData>({
+    const defaultFormData: ContactFormData = {
         fullName: "",
         email: "",
         phoneNumber: "",
@@ -101,7 +96,46 @@ const ContactUs = ({
         selectedWork: preSelectedWork || "",
         selectedWorkSlug: preSelectedWorkSlug || "",
         consentGiven: false,
+    };
+
+    const [currentStep, setCurrentStep] = useState(() => {
+        if (typeof window === "undefined") return 1;
+        const saved = sessionStorage.getItem(STEP_STORAGE_KEY);
+        return saved ? Number(saved) : 1;
     });
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState<string | null>(null);
+    const totalSteps = 5; // Updated to 5 steps
+    const t = useTranslations("contactPage.buttons");
+
+    // Initialize form data from sessionStorage or defaults
+    const [formData, setFormData] = useState<ContactFormData>(() => {
+        if (typeof window === "undefined") return defaultFormData;
+        const saved = sessionStorage.getItem(FORM_STORAGE_KEY);
+        if (saved) {
+            try {
+                return { ...defaultFormData, ...JSON.parse(saved) };
+            } catch {
+                return defaultFormData;
+            }
+        }
+        return defaultFormData;
+    });
+
+    // Persist form data and step to sessionStorage on changes
+    useEffect(() => {
+        sessionStorage.setItem(FORM_STORAGE_KEY, JSON.stringify(formData));
+    }, [formData]);
+
+    useEffect(() => {
+        sessionStorage.setItem(STEP_STORAGE_KEY, String(currentStep));
+    }, [currentStep]);
+
+    const clearSavedFormData = useCallback(() => {
+        sessionStorage.removeItem(FORM_STORAGE_KEY);
+        sessionStorage.removeItem(STEP_STORAGE_KEY);
+    }, []);
 
     const handleGoBack = () => {
         if (currentStep > 1) {
@@ -116,6 +150,7 @@ const ContactUs = ({
     };
 
     const handleGoToMainPage = () => {
+        clearSavedFormData();
         window.location.href = "/";
     };
 
@@ -153,7 +188,8 @@ const ContactUs = ({
                 throw new Error(result.error || "Failed to submit form");
             }
 
-            // Success - move to success step
+            // Success - clear saved data and move to success step
+            clearSavedFormData();
             setIsSubmitted(true);
             setCurrentStep(5);
         } catch (error) {

@@ -50,7 +50,7 @@ const SocialMediaStep = ({ initialValues, onSubmit }: { initialValues?: Partial<
                     {...useFormInput<SocialMediaStepValues>("facebook", formik)}
                     placeholder={t("facebookPlaceholder")}
                     size="sm"
-                    type="url"
+                    type="text"
                     className="bg-form-bg text-form-text"
                 />
 
@@ -59,7 +59,7 @@ const SocialMediaStep = ({ initialValues, onSubmit }: { initialValues?: Partial<
                     {...useFormInput<SocialMediaStepValues>("instagram", formik)}
                     placeholder={t("instagramPlaceholder")}
                     size="sm"
-                    type="url"
+                    type="text"
                     className="bg-form-bg text-form-text"
                 />
 
@@ -68,7 +68,7 @@ const SocialMediaStep = ({ initialValues, onSubmit }: { initialValues?: Partial<
                     {...useFormInput<SocialMediaStepValues>("tiktok", formik)}
                     placeholder={t("tiktokPlaceholder")}
                     size="sm"
-                    type="url"
+                    type="text"
                     className="bg-form-bg text-form-text"
                 />
 
@@ -77,7 +77,7 @@ const SocialMediaStep = ({ initialValues, onSubmit }: { initialValues?: Partial<
                     {...useFormInput<SocialMediaStepValues>("linkedin", formik)}
                     placeholder={t("linkedinPlaceholder")}
                     size="sm"
-                    type="url"
+                    type="text"
                     className="bg-form-bg text-form-text"
                 />
             </form>

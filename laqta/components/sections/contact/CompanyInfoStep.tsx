@@ -123,7 +123,7 @@ const CompanyInfoStep = ({ initialValues, onSubmit }: { initialValues?: Partial<
                     {...useFormInput<CompanyInfoFormValues>("website", formik)}
                     placeholder={t('websitePlaceholder')}
                     size="sm"
-                    type="url"
+                    type="text"
                     className="bg-form-bg text-form-text"
                 />
             </form>

@@ -218,7 +218,7 @@ const PersonalInfoForm = ({
                 {...useFormInput<PersonalInfoFormValues>("website", formik)}
                 placeholder={t('websitePlaceholder')}
                 size="sm"
-                type="url"
+                type="text"
                 className="bg-form-bg text-form-text"
             />
 
@@ -235,7 +235,7 @@ const PersonalInfoForm = ({
                     error={formik.touched.socialMedia?.facebook && formik.errors.socialMedia?.facebook ? String(formik.errors.socialMedia.facebook) : undefined}
                     placeholder={t('facebookPlaceholder')}
                     size="sm"
-                    type="url"
+                    type="text"
                     className="bg-form-bg text-form-text"
                 />
 
@@ -248,7 +248,7 @@ const PersonalInfoForm = ({
                     error={formik.touched.socialMedia?.instagram && formik.errors.socialMedia?.instagram ? String(formik.errors.socialMedia.instagram) : undefined}
                     placeholder={t('instagramPlaceholder')}
                     size="sm"
-                    type="url"
+                    type="text"
                     className="bg-form-bg text-form-text"
                 />
 
@@ -261,7 +261,7 @@ const PersonalInfoForm = ({
                     error={formik.touched.socialMedia?.tiktok && formik.errors.socialMedia?.tiktok ? String(formik.errors.socialMedia.tiktok) : undefined}
                     placeholder={t('tiktokPlaceholder')}
                     size="sm"
-                    type="url"
+                    type="text"
                     className="bg-form-bg text-form-text"
                 />
 
@@ -274,7 +274,7 @@ const PersonalInfoForm = ({
                     error={formik.touched.socialMedia?.linkedin && formik.errors.socialMedia?.linkedin ? String(formik.errors.socialMedia.linkedin) : undefined}
                     placeholder={t('linkedinPlaceholder')}
                     size="sm"
-                    type="url"
+                    type="text"
                     className="bg-form-bg text-form-text"
                 />
             </div>

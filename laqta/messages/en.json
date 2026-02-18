@@ -289,6 +289,12 @@
       "referenceId": "Reference ID:"
     }
   },
+  "comingSoon": {
+    "worksTitle": "Coming Soon",
+    "worksMessage": "We're working on exciting new projects. Stay tuned for our latest creative work!",
+    "testimonialsTitle": "Coming Soon",
+    "testimonialsMessage": "We're collecting stories from our amazing clients. Check back soon!"
+  },
   "common": {
     "loading": "Loading...",
     "error": "Something went wrong",

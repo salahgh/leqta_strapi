@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { TestimonialCard } from "@/components/sections/successStories/TestimonialCard";
 import { PaginationDots } from "@/components/sections/successStories/PaginationDots";
+import { ComingSoon } from "@/components/ui/ComingSoon";
 import { useTranslations } from "next-intl";
 import "@/components/sections/styles.css";
 
@@ -14,9 +15,12 @@ export const TestimonialsClient = ({
     testimonials: Testimonial[];
 }) => {
     const t = useTranslations("testimonials");
+    const tComingSoon = useTranslations("comingSoon");
     const [currentTestimonial, setCurrentTestimonial] = useState(0);
     const [touchStart, setTouchStart] = useState<number | null>(null);
     const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+    const isEmpty = !testimonials || testimonials.length === 0;
 
     // Navigation functions
     const goToPrevious = () => {
@@ -57,6 +61,7 @@ export const TestimonialsClient = ({
 
     // Keyboard navigation
     useEffect(() => {
+        if (isEmpty) return;
         const handleKeyPress = (e: KeyboardEvent) => {
             if (e.key === "ArrowLeft") {
                 goToPrevious();
@@ -67,15 +72,16 @@ export const TestimonialsClient = ({
 
         window.addEventListener("keydown", handleKeyPress);
         return () => window.removeEventListener("keydown", handleKeyPress);
-    }, []);
+    }, [isEmpty]);
 
     useEffect(() => {
+        if (isEmpty) return;
         const interval = setInterval(() => {
             goToNext();
         }, 5000); // Change slide every 5 seconds
 
         return () => clearInterval(interval);
-    }, [currentTestimonial]);
+    }, [currentTestimonial, isEmpty]);
 
     return (
         <section
@@ -115,72 +121,87 @@ export const TestimonialsClient = ({
                     {t("successStoriesTitle")}
                 </h2>
             </div>
-            {/* Testimonial carousel container */}
-            <div
-                className="relative z-10 section-px animate-fade-in max-w-container mx-auto mt-8"
-                style={{ opacity: 0, animationDelay: "300ms" }}
-            >
-                <button
-                    onClick={goToPrevious}
-                    className="hidden lg:flex absolute -left-16 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full
-                     shadow-lg items-center justify-center hover:bg-gray-50 transition-colors"
-                    aria-label={t("previousTestimonial")}
-                >
-                    <ChevronLeft className="w-6 h-6 text-gray-600" />
-                </button>
-                <button
-                    onClick={goToNext}
-                    className="hidden lg:flex absolute -right-16 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg items-center
-                     justify-center hover:bg-gray-50 transition-colors"
-                    aria-label={t("nextTestimonial")}
-                >
-                    <ChevronRight className="w-6 h-6 text-gray-600" />
-                </button>
-                {/* Testimonial content with touch handlers */}
+
+            {isEmpty ? (
                 <div
-                    className="overflow-hidden"
-                    dir="ltr"
-                    onTouchStart={handleTouchStart}
-                    onTouchMove={handleTouchMove}
-                    onTouchEnd={handleTouchEnd}
+                    className="relative z-10 section-px max-w-container mx-auto mt-8"
                 >
-                    <div
-                        className="flex transition-transform duration-500 ease-in-out"
-                        style={{
-                            transform: `translateX(-${currentTestimonial * 100}%)`,
-                        }}
-                    >
-                        {testimonials?.map((testimonial, index) => (
-                            <div
-                                key={testimonial.id || index}
-                                className="w-full flex-shrink-0"
-                                dir="auto"
-                            >
-                                <TestimonialCard
-                                    testimonial={testimonial.testimonial}
-                                    author={testimonial.author}
-                                    role={testimonial.role}
-                                    avatar={testimonial.avatar}
-                                />
-                            </div>
-                        ))}
-                    </div>
+                    <ComingSoon
+                        title={tComingSoon("testimonialsTitle")}
+                        message={tComingSoon("testimonialsMessage")}
+                        variant="light"
+                    />
                 </div>
-            </div>
+            ) : (
+                <>
+                    {/* Testimonial carousel container */}
+                    <div
+                        className="relative z-10 section-px animate-fade-in max-w-container mx-auto mt-8"
+                        style={{ opacity: 0, animationDelay: "300ms" }}
+                    >
+                        <button
+                            onClick={goToPrevious}
+                            className="hidden lg:flex absolute -left-16 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full
+                             shadow-lg items-center justify-center hover:bg-gray-50 transition-colors"
+                            aria-label={t("previousTestimonial")}
+                        >
+                            <ChevronLeft className="w-6 h-6 text-gray-600" />
+                        </button>
+                        <button
+                            onClick={goToNext}
+                            className="hidden lg:flex absolute -right-16 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg items-center
+                             justify-center hover:bg-gray-50 transition-colors"
+                            aria-label={t("nextTestimonial")}
+                        >
+                            <ChevronRight className="w-6 h-6 text-gray-600" />
+                        </button>
+                        {/* Testimonial content with touch handlers */}
+                        <div
+                            className="overflow-hidden"
+                            dir="ltr"
+                            onTouchStart={handleTouchStart}
+                            onTouchMove={handleTouchMove}
+                            onTouchEnd={handleTouchEnd}
+                        >
+                            <div
+                                className="flex transition-transform duration-500 ease-in-out"
+                                style={{
+                                    transform: `translateX(-${currentTestimonial * 100}%)`,
+                                }}
+                            >
+                                {testimonials?.map((testimonial, index) => (
+                                    <div
+                                        key={testimonial.id || index}
+                                        className="w-full flex-shrink-0"
+                                        dir="auto"
+                                    >
+                                        <TestimonialCard
+                                            testimonial={testimonial.testimonial}
+                                            author={testimonial.author}
+                                            role={testimonial.role}
+                                            avatar={testimonial.avatar}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
 
-            {/* Pagination dots */}
-            <div className="relative z-10 mt-16 md:mt-24">
-                <PaginationDots
-                    total={testimonials?.length}
-                    current={currentTestimonial}
-                    onChange={setCurrentTestimonial}
-                />
-            </div>
+                    {/* Pagination dots */}
+                    <div className="relative z-10 mt-16 md:mt-24">
+                        <PaginationDots
+                            total={testimonials?.length}
+                            current={currentTestimonial}
+                            onChange={setCurrentTestimonial}
+                        />
+                    </div>
 
-            {/* Swipe indicator for mobile */}
-            <div className="relative z-10 md:hidden text-center text-sm text-gray-500">
-                {t("swipeIndicator")}
-            </div>
+                    {/* Swipe indicator for mobile */}
+                    <div className="relative z-10 md:hidden text-center text-sm text-gray-500">
+                        {t("swipeIndicator")}
+                    </div>
+                </>
+            )}
         </section>
     );
 };

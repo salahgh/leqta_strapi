@@ -10,21 +10,35 @@
  * - TikTok Pixel (marketing consent)
  *
  * Scripts are NOT loaded if user rejects cookies or hasn't given consent yet.
+ *
+ * Tracking IDs can be managed via Strapi CMS (tracking-pixel single type)
+ * with fallback to environment variables.
  */
 
 import { useEffect, useState } from "react";
 import Script from "next/script";
 import { useCookieConsent } from "./CookieConsent";
 
-// Environment variables for tracking IDs (to be set in .env.local)
-const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
-const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
-const TIKTOK_PIXEL_ID = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID;
+export interface TrackingScriptsConfig {
+    gaId?: string;
+    metaId?: string;
+    tiktokId?: string;
+}
 
-export function TrackingScripts() {
+// Environment variables for tracking IDs (fallback)
+const ENV_GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+const ENV_META_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+const ENV_TIKTOK_ID = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID;
+
+export function TrackingScripts({ config }: { config?: TrackingScriptsConfig }) {
     const consent = useCookieConsent();
     const [analyticsLoaded, setAnalyticsLoaded] = useState(false);
     const [marketingLoaded, setMarketingLoaded] = useState(false);
+
+    // Use CMS-managed IDs with env variable fallback
+    const GA_MEASUREMENT_ID = config?.gaId || ENV_GA_ID;
+    const META_PIXEL_ID = config?.metaId || ENV_META_ID;
+    const TIKTOK_PIXEL_ID = config?.tiktokId || ENV_TIKTOK_ID;
 
     // Check if analytics consent is given
     const hasAnalyticsConsent = consent?.given && consent?.preferences?.analytics;

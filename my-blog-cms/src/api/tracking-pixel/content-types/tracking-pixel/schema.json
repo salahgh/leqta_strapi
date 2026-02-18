@@ -1,0 +1,38 @@
+{
+  "kind": "singleType",
+  "collectionName": "tracking_pixels",
+  "info": {
+    "singularName": "tracking-pixel",
+    "pluralName": "tracking-pixels",
+    "displayName": "Tracking Pixels"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "googleAnalyticsId": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "metaPixelId": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "tiktokPixelId": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "enableGoogleAnalytics": {
+      "type": "boolean",
+      "default": true
+    },
+    "enableMetaPixel": {
+      "type": "boolean",
+      "default": true
+    },
+    "enableTiktokPixel": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

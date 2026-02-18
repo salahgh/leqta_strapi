@@ -7,7 +7,7 @@ import React from "react";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { BackToTop } from "@/components/ui/BackToTop";
 import { CookieConsentWrapper } from "@/components/ui/CookieConsentWrapper";
-import { TrackingScripts } from "@/components/ui/TrackingScripts";
+import { TrackingScriptsWrapper } from "@/components/ui/TrackingScriptsWrapper";
 import { Poppins, Alexandria } from "next/font/google";
 import "../../../styles/globals.css";
 
@@ -79,7 +79,7 @@ export default async function LocaleLayout({
                         <BackToTop />
                         <CookieConsentWrapper locale={locale} />
                         {/* Law 18-07: Only load tracking scripts after user consent */}
-                        <TrackingScripts />
+                        <TrackingScriptsWrapper />
                     </NextIntlClientProvider>
                 </ErrorBoundary>
             </body>

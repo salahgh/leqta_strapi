@@ -1245,6 +1245,44 @@ export const cookieConsentApi = {
     },
 };
 
+// Tracking Pixel interface (for CMS-managed tracking IDs)
+export interface TrackingPixelConfig {
+    id: number;
+    documentId?: string;
+    googleAnalyticsId?: string;
+    metaPixelId?: string;
+    tiktokPixelId?: string;
+    enableGoogleAnalytics?: boolean;
+    enableMetaPixel?: boolean;
+    enableTiktokPixel?: boolean;
+    publishedAt: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+// Tracking Pixel API (fetches from tracking-pixel single type)
+export const trackingPixelApi = {
+    async get(): Promise<TrackingPixelConfig | null> {
+        const endpoint = `/tracking-pixel`;
+
+        try {
+            const response = await fetchApi<{ data: TrackingPixelConfig }>(
+                endpoint,
+                {
+                    next: {
+                        tags: ['tracking-pixel'],
+                        revalidate: 0,
+                    },
+                } as RequestInit,
+            );
+            return response.data || null;
+        } catch (error) {
+            console.error("Failed to fetch tracking pixel config:", error);
+            return null;
+        }
+    },
+};
+
 export default {
     blogsApi,
     categoriesApi,
@@ -1259,5 +1297,6 @@ export default {
     missionsApi,
     privacyPolicyApi,
     cookieConsentApi,
+    trackingPixelApi,
     utils,
 };

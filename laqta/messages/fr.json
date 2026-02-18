@@ -289,6 +289,12 @@
       "referenceId": "ID de référence:"
     }
   },
+  "comingSoon": {
+    "worksTitle": "Bientôt Disponible",
+    "worksMessage": "Nous travaillons sur de nouveaux projets passionnants. Restez à l'écoute pour nos dernières créations!",
+    "testimonialsTitle": "Bientôt Disponible",
+    "testimonialsMessage": "Nous recueillons les témoignages de nos clients. Revenez bientôt!"
+  },
   "common": {
     "loading": "Chargement...",
     "error": "Quelque chose s'est mal passé",

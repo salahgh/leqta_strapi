@@ -11,6 +11,7 @@ import { worksApi, Work, utils } from "@/lib/strapi";
 import { defaultWorks } from "@/components/sections/DefaultWorks";
 import { getTranslations } from "next-intl/server";
 import { ErrorFallback } from "@/components/ui/ErrorFallback";
+import { ComingSoon } from "@/components/ui/ComingSoon";
 
 interface OurWorksSectionProps {
     badge?: string;
@@ -34,6 +35,7 @@ export async function OurWorksSection({
 }: OurWorksSectionProps) {
     const t = await getTranslations("works");
     const tNav = await getTranslations("navigation");
+    const tComingSoon = await getTranslations("comingSoon");
 
     let works: Work[] = [];
     let hasError = false;
@@ -114,11 +116,11 @@ export async function OurWorksSection({
                             message={errorMessage}
                         />
                     ) : works.length === 0 ? (
-                        <div className="text-center py-12">
-                            <p className="text-neutral-600 text-body-lg">
-                                No projects available at the moment.
-                            </p>
-                        </div>
+                        <ComingSoon
+                            title={tComingSoon("worksTitle")}
+                            message={tComingSoon("worksMessage")}
+                            variant="light"
+                        />
                     ) : (
                         works.map((work, index) => {
                             const workData = work;

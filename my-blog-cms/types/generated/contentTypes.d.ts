@@ -1671,6 +1671,51 @@ export interface ApiTestimonialTestimonial extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiTrackingPixelTrackingPixel extends Struct.SingleTypeSchema {
+  collectionName: 'tracking_pixels';
+  info: {
+    displayName: 'Tracking Pixels';
+    pluralName: 'tracking-pixels';
+    singularName: 'tracking-pixel';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    enableGoogleAnalytics: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
+    enableMetaPixel: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
+    enableTiktokPixel: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
+    googleAnalyticsId: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::tracking-pixel.tracking-pixel'
+    > &
+      Schema.Attribute.Private;
+    metaPixelId: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    tiktokPixelId: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -2195,6 +2240,7 @@ declare module '@strapi/strapi' {
       'api::site-setting.site-setting': ApiSiteSettingSiteSetting;
       'api::tag.tag': ApiTagTag;
       'api::testimonial.testimonial': ApiTestimonialTestimonial;
+      'api::tracking-pixel.tracking-pixel': ApiTrackingPixelTrackingPixel;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

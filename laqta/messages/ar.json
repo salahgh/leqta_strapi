@@ -289,6 +289,12 @@
       "referenceId": "رقم المرجع:"
     }
   },
+  "comingSoon": {
+    "worksTitle": "قريبًا",
+    "worksMessage": "نعمل على مشاريع جديدة ومثيرة. ترقبوا أحدث أعمالنا الإبداعية!",
+    "testimonialsTitle": "قريبًا",
+    "testimonialsMessage": "نقوم بجمع قصص من عملائنا الرائعين. تحقق مرة أخرى قريبًا!"
+  },
   "common": {
     "loading": "جاري التحميل...",
     "error": "حدث خطأ ما",

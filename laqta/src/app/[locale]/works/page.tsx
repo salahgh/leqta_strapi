@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/Badge";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { Work, worksApi, utils } from "@/lib/strapi";
 import { ErrorFallback } from "@/components/ui/ErrorFallback";
+import { ComingSoon } from "@/components/ui/ComingSoon";
 
 export const metadata = {
     title: "Our Works | Laqta",
@@ -49,6 +50,7 @@ const WorksPage = async ({
     const { locale } = await params;
     const t = await getTranslations({ locale, namespace: "works" });
     const tNav = await getTranslations({ locale, namespace: "navigation" });
+    const tComingSoon = await getTranslations({ locale, namespace: "comingSoon" });
 
     const { data: works, error: worksError } = await getWorks(locale);
 
@@ -118,11 +120,11 @@ const WorksPage = async ({
                             message={worksError}
                         />
                     ) : works.length === 0 ? (
-                        <div className="text-center py-12">
-                            <p className="text-neutral-600 text-body-lg">
-                                No projects available at the moment.
-                            </p>
-                        </div>
+                        <ComingSoon
+                            title={tComingSoon("worksTitle")}
+                            message={tComingSoon("worksMessage")}
+                            variant="light"
+                        />
                     ) : (
                         <div className="stack-gap-lg flex flex-col max-w-7xl mx-auto">
                             {works.map((work, index) => {

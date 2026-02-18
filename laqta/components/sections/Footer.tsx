@@ -2,6 +2,7 @@ import React from "react";
 import NewsletterForm from "@/components/ui/NewsletterForm";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/src/i18n/navigation";
+import { Mail, Phone, MapPin } from "lucide-react";
 import { siteSettingsApi, SocialMedia, SiteSettings, SocialPlatform, utils } from "@/lib/strapi";
 
 /**
@@ -202,6 +203,45 @@ const Footer = async ({ locale }: FooterProps) => {
                                 </li>
                             </ul>
                         </div>
+
+                        {/* Contact Info Column */}
+                        {(siteSettings?.contactEmail || siteSettings?.contactPhone || siteSettings?.address) && (
+                            <div>
+                                <h3 className="text-body-sm md:text-body-md font-semibold mb-3 md:mb-4">
+                                    {t("contactInfo")}
+                                </h3>
+                                <ul className="space-y-2 md:space-y-3">
+                                    {siteSettings.contactEmail && (
+                                        <li>
+                                            <a
+                                                href={`mailto:${siteSettings.contactEmail}`}
+                                                className="text-neutral-400 hover:text-white transition-colors duration-200 text-body-xs md:text-body-sm flex items-center gap-2"
+                                            >
+                                                <Mail className="w-4 h-4 flex-shrink-0" />
+                                                {siteSettings.contactEmail}
+                                            </a>
+                                        </li>
+                                    )}
+                                    {siteSettings.contactPhone && (
+                                        <li>
+                                            <a
+                                                href={`tel:${siteSettings.contactPhone}`}
+                                                className="text-neutral-400 hover:text-white transition-colors duration-200 text-body-xs md:text-body-sm flex items-center gap-2"
+                                            >
+                                                <Phone className="w-4 h-4 flex-shrink-0" />
+                                                {siteSettings.contactPhone}
+                                            </a>
+                                        </li>
+                                    )}
+                                    {siteSettings.address && (
+                                        <li className="text-neutral-400 text-body-xs md:text-body-sm flex items-start gap-2">
+                                            <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                                            <span>{siteSettings.address}</span>
+                                        </li>
+                                    )}
+                                </ul>
+                            </div>
+                        )}
                     </div>
                 </div>
                 {/* Large LEQTA Watermark - Hidden on mobile */}
@@ -218,9 +258,16 @@ const Footer = async ({ locale }: FooterProps) => {
                     className="flex flex-col md:flex-row justify-between items-center pt-6 mt-8 md:mt-0 border-t border-white/20"
                     style={{ marginTop: undefined }}
                 >
-                    <p className="text-neutral-400 text-body-sm mb-4 md:mb-0">
-                        {siteSettings?.copyrightText || t("copyright")}
-                    </p>
+                    <div className="mb-4 md:mb-0">
+                        {siteSettings?.footerText && (
+                            <p className="text-neutral-300 text-body-xs mb-1">
+                                {siteSettings.footerText}
+                            </p>
+                        )}
+                        <p className="text-neutral-400 text-body-sm">
+                            {siteSettings?.copyrightText || t("copyright")}
+                        </p>
+                    </div>
                     {/* Social Media Icons - Right aligned */}
                     {socialMediaLinks.length > 0 && (
                         <div className="flex space-x-3">

@@ -211,7 +211,7 @@ export default function NewsletterForm({
                             value={formik.values.email}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            className="bg-transparent w-full h-9 sm:h-10 md:h-11 text-body-xs sm:text-body-sm outline-none placeholder-neutral-500 text-neutral-900"
+                            className="bg-transparent w-full h-9 sm:h-10 md:h-11 text-body-xs sm:text-body-sm outline-none placeholder-neutral-400 text-white"
                         />
                     </div>
 

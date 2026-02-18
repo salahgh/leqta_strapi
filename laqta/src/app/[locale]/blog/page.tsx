@@ -52,7 +52,7 @@ const BlogPage = async ({
 
         // Fetch latest blogs for static generation
         const latestResponse = await blogsApi.getAll({
-            pageSize: 9,
+            pageSize: 1000,
             sort: "publishedAt:desc",
             locale: locale,
         });

@@ -57,6 +57,7 @@ export default async function LocaleLayout({
         <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} className={`${poppins.variable} ${alexandria.variable}`}>
             <head>
                 <title>Laqta</title>
+                <link rel="icon" href="/images/fav_icon.jpg" />
             </head>
             <body
                 className={`min-h-screen antialiased bg-primary flex flex-col ${

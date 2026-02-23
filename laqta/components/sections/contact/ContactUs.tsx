@@ -11,7 +11,6 @@ import PersonalInfoStep from "./PersonalInfoStep";
 import CompanyInfoStep from "./CompanyInfoStep";
 import SocialMediaStep from "./SocialMediaStep";
 import ProjectDetailsStep from "./ProjectDetailsStep";
-import SuccessStep from "@/components/sections/contact/SuccessStep";
 import { ActionButtons } from "@/components/sections/contact/ActionButtons";
 import { Navigation } from "@/components/layout/Navigation";
 import { Stepper } from "@/components/sections/contact/Stepper";
@@ -103,10 +102,9 @@ const ContactUs = ({
         const saved = sessionStorage.getItem(STEP_STORAGE_KEY);
         return saved ? Number(saved) : 1;
     });
-    const [isSubmitted, setIsSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState<string | null>(null);
-    const totalSteps = 5; // Updated to 5 steps
+    const totalSteps = 4;
     const t = useTranslations("contactPage.buttons");
 
     // Initialize form data from sessionStorage or defaults
@@ -188,10 +186,10 @@ const ContactUs = ({
                 throw new Error(result.error || "Failed to submit form");
             }
 
-            // Success - clear saved data and move to success step
+            // Success - clear saved data and redirect to success page
             clearSavedFormData();
-            setIsSubmitted(true);
-            setCurrentStep(5);
+            sessionStorage.setItem("leqta_contact_submitted", "true");
+            window.location.href = "/contact/success";
         } catch (error) {
             console.error("Form submission error:", error);
             setSubmitError(
@@ -228,8 +226,6 @@ const ContactUs = ({
                         allFormData={formData}
                     />
                 );
-            case 5:
-                return <SuccessStep onGoToMainPage={handleGoToMainPage} />;
             default:
                 return <PersonalInfoStep {...commonProps} />;
         }
@@ -300,7 +296,7 @@ const ContactUs = ({
                 {/* Mobile Progress Bar - Visible only on mobile/tablet */}
                 <div className="lg:hidden mb-6">
                     <div className="flex justify-between items-center gap-2 px-2">
-                        {Array.from({ length: totalSteps - 1 }).map((_, i) => {
+                        {Array.from({ length: totalSteps }).map((_, i) => {
                             const stepNum = i + 1;
                             return (
                                 <div key={i} className="flex-1">
@@ -318,9 +314,7 @@ const ContactUs = ({
                         })}
                     </div>
                     <p className="text-center text-sm text-slate-400 mt-3">
-                        {currentStep < 5
-                            ? `Step ${currentStep} of ${totalSteps - 1}`
-                            : "Complete!"}
+                        {`Step ${currentStep} of ${totalSteps}`}
                     </p>
                 </div>
 
@@ -344,7 +338,7 @@ const ContactUs = ({
                                     <ActionButtons
                                         handleGoBack={handleGoBack}
                                         currentStep={currentStep}
-                                        totalSteps={totalSteps - 1}
+                                        totalSteps={totalSteps}
                                         isSubmitting={false}
                                         formId={`step-${currentStep}-form`}
                                     />

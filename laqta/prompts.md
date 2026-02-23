@@ -2,4 +2,4 @@
 - newsletter feature connected to strapi cms (in the future connected to odoo)
 - the privacy policy should be dynamic from the cms
 - the about page should stayed static
-- upload des donnes reelles
+- upload des donnes reelleslaude

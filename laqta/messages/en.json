@@ -4,6 +4,7 @@
     "about": "About Us",
     "services": "Services",
     "pricing": "Pricing",
+    "partners": "Partners",
     "blog": "Blog",
     "contact": "Contact Us",
     "getStarted": "Get Started",
@@ -397,6 +398,71 @@
     "newsletterCheckboxLabel": "I agree to the Privacy Policy",
     "validation": {
       "consentRequired": "You must agree to the Privacy Policy to continue"
+    }
+  },
+  "partners": {
+    "badge": "Our Partners",
+    "title": "Brands That Trust LEQTA",
+    "description": "We're proud to collaborate with leading brands, bold startups, and visionary changemakers. Together we create content that leaves an impact.",
+    "ctaTitle": "Interested in Partnering?",
+    "ctaDescription": "Join our network of partners and let's create something unforgettable together. We're always looking for like-minded brands to collaborate with.",
+    "becomePartner": "Become a Partner",
+    "errorTitle": "Unable to load partners",
+    "emptyState": "No partners available at the moment."
+  },
+  "partnerForm": {
+    "badge": "Become a Partner",
+    "title": "Partnership Application",
+    "description": "Want to collaborate with LEQTA? Let's build something unforgettable together. Fill out the form below and we'll get back to you shortly.",
+    "fields": {
+      "firstName": "First Name",
+      "firstNamePlaceholder": "e.g. Sarah",
+      "lastName": "Last Name",
+      "lastNamePlaceholder": "e.g. Benyamina",
+      "companyName": "Company Name",
+      "companyNamePlaceholder": "e.g. BrightHive",
+      "email": "Email Address",
+      "emailPlaceholder": "e.g. sarah.benyamina@email.com",
+      "phone": "Phone Number",
+      "phonePlaceholder": "e.g. +213 555 123 456",
+      "partnershipType": "Partnership Type",
+      "partnershipTypePlaceholder": "Select a partnership type",
+      "message": "Message",
+      "messagePlaceholder": "Tell us about the partnership opportunity you're interested in...",
+      "characters": "characters"
+    },
+    "validation": {
+      "firstNameMin": "First name must be at least 2 characters",
+      "firstNameMax": "First name must be less than 50 characters",
+      "firstNameInvalid": "First name can only contain letters",
+      "firstNameRequired": "First name is required",
+      "lastNameMin": "Last name must be at least 2 characters",
+      "lastNameMax": "Last name must be less than 50 characters",
+      "lastNameInvalid": "Last name can only contain letters",
+      "lastNameRequired": "Last name is required",
+      "companyNameMin": "Company name must be at least 2 characters",
+      "companyNameMax": "Company name must be less than 100 characters",
+      "companyNameRequired": "Company name is required",
+      "emailInvalid": "Invalid email address",
+      "emailRequired": "Email is required",
+      "phoneInvalid": "Invalid phone number format",
+      "phoneMin": "Phone number must be at least 10 digits",
+      "phoneRequired": "Phone number is required",
+      "partnershipTypeRequired": "Please select a partnership type",
+      "messageMin": "Message must be at least 10 characters",
+      "messageMax": "Message must not exceed 500 characters",
+      "messageRequired": "Message is required",
+      "consentRequired": "You must agree to the Privacy Policy to continue"
+    },
+    "submitButton": "Submit Application",
+    "submitting": "Submitting...",
+    "success": {
+      "title": "Application Submitted!",
+      "description": "Thank you for your interest in partnering with LEQTA. Our team will review your application and get back to you within 48 hours.",
+      "backToPartners": "Back to Partners"
+    },
+    "error": {
+      "generic": "Something went wrong. Please try again later."
     }
   },
   "privacyPolicy": {

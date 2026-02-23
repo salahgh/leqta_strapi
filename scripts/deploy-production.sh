@@ -1,23 +1,25 @@
 #!/bin/bash
 #
-# Laqta Deployment Script
-# Deploys both Strapi CMS and Next.js frontend using PM2
+# Laqta Production Deployment Script
+# Deploys main branch to /var/www/leqta
 #
-# Usage: ./deploy.sh [--skip-build]
+# Usage: ./deploy-production.sh [--skip-build]
 #
 # Options:
 #   --skip-build    Skip npm install and build steps (faster redeploy)
 #
 
-echo "WARNING: DEPRECATED - Use deploy-production.sh or deploy-staging.sh instead"
-echo ""
-
 set -e
 
 # Configuration
 PROJECT_ROOT="/var/www/leqta"
+BRANCH="main"
 STRAPI_DIR="$PROJECT_ROOT/my-blog-cms"
 LAQTA_DIR="$PROJECT_ROOT/laqta"
+PM2_STRAPI="strapi"
+PM2_LAQTA="laqta"
+STRAPI_PORT=1337
+LAQTA_PORT=3000
 SKIP_BUILD=false
 
 # Parse arguments
@@ -31,17 +33,20 @@ for arg in "$@"; do
 done
 
 echo "=============================================="
-echo "  Laqta Deployment Script"
+echo "  Laqta PRODUCTION Deployment"
 echo "=============================================="
 echo "  Project Root: $PROJECT_ROOT"
-echo "  Skip Build: $SKIP_BUILD"
+echo "  Branch:       $BRANCH"
+echo "  Strapi PM2:   $PM2_STRAPI (port $STRAPI_PORT)"
+echo "  Laqta PM2:    $PM2_LAQTA (port $LAQTA_PORT)"
+echo "  Skip Build:   $SKIP_BUILD"
 echo "=============================================="
 echo ""
 
 # Check if project exists
 if [ ! -d "$PROJECT_ROOT" ]; then
     echo "ERROR: Project directory not found at $PROJECT_ROOT"
-    echo "Run setup.sh first to initialize the server."
+    echo "Clone the repository first."
     exit 1
 fi
 
@@ -60,19 +65,19 @@ fi
 
 # Backup .env files before git pull
 echo "→ Backing up .env files..."
-cp "$STRAPI_DIR/.env" /tmp/.env.strapi.bak
-cp "$LAQTA_DIR/.env" /tmp/.env.laqta.bak
+cp "$STRAPI_DIR/.env" /tmp/.env.strapi-prod.bak
+cp "$LAQTA_DIR/.env" /tmp/.env.laqta-prod.bak
 
 # Pull latest code
-echo "→ Pulling latest code from GitHub..."
+echo "→ Pulling latest code from $BRANCH..."
 cd "$PROJECT_ROOT"
-git fetch origin main
-git reset --hard origin/main
+git fetch origin "$BRANCH"
+git reset --hard "origin/$BRANCH"
 
-# Restore .env files (git pull may have removed them)
+# Restore .env files
 echo "→ Restoring .env files..."
-cp /tmp/.env.strapi.bak "$STRAPI_DIR/.env"
-cp /tmp/.env.laqta.bak "$LAQTA_DIR/.env"
+cp /tmp/.env.strapi-prod.bak "$STRAPI_DIR/.env"
+cp /tmp/.env.laqta-prod.bak "$LAQTA_DIR/.env"
 
 # ==========================================
 # Deploy Strapi
@@ -90,14 +95,14 @@ if [ "$SKIP_BUILD" = false ]; then
 fi
 
 echo "  Starting Strapi with PM2..."
-pm2 delete strapi 2>/dev/null || true
-pm2 start npm --name "strapi" -- run start
+pm2 delete "$PM2_STRAPI" 2>/dev/null || true
+pm2 start npm --name "$PM2_STRAPI" -- run start
 
 # Wait for Strapi to be ready
 echo "  Waiting for Strapi to be healthy..."
 MAX_RETRIES=30
 RETRY_COUNT=0
-until curl -sf "http://localhost:1337/_health" > /dev/null 2>&1 || curl -sf "http://localhost:1337/admin" > /dev/null 2>&1; do
+until curl -sf "http://localhost:$STRAPI_PORT/_health" > /dev/null 2>&1 || curl -sf "http://localhost:$STRAPI_PORT/admin" > /dev/null 2>&1; do
     RETRY_COUNT=$((RETRY_COUNT + 1))
     if [ $RETRY_COUNT -ge $MAX_RETRIES ]; then
         echo "  WARNING: Strapi health check timed out, continuing anyway..."
@@ -106,7 +111,7 @@ until curl -sf "http://localhost:1337/_health" > /dev/null 2>&1 || curl -sf "htt
     echo "  Waiting... ($RETRY_COUNT/$MAX_RETRIES)"
     sleep 3
 done
-echo "  ✅ Strapi is running"
+echo "  Strapi is running on port $STRAPI_PORT"
 
 # ==========================================
 # Deploy Next.js (Laqta)
@@ -124,8 +129,23 @@ if [ "$SKIP_BUILD" = false ]; then
 fi
 
 echo "  Starting Next.js with PM2..."
-pm2 delete laqta 2>/dev/null || true
-pm2 start npm --name "laqta" -- run start
+pm2 delete "$PM2_LAQTA" 2>/dev/null || true
+pm2 start npm --name "$PM2_LAQTA" -- run start
+
+# Wait for Next.js to be ready
+echo "  Waiting for Next.js to be healthy..."
+MAX_RETRIES=20
+RETRY_COUNT=0
+until curl -sf "http://localhost:$LAQTA_PORT" > /dev/null 2>&1; do
+    RETRY_COUNT=$((RETRY_COUNT + 1))
+    if [ $RETRY_COUNT -ge $MAX_RETRIES ]; then
+        echo "  WARNING: Next.js health check timed out, continuing anyway..."
+        break
+    fi
+    echo "  Waiting... ($RETRY_COUNT/$MAX_RETRIES)"
+    sleep 3
+done
+echo "  Next.js is running on port $LAQTA_PORT"
 
 # Save PM2 configuration
 echo ""
@@ -137,20 +157,13 @@ pm2 save
 # ==========================================
 echo ""
 echo "=============================================="
-echo "  ✅ Deployment Complete!"
+echo "  PRODUCTION Deployment Complete!"
 echo "=============================================="
 echo ""
 echo "Services status:"
 pm2 status
 echo ""
-echo "Useful commands:"
-echo "  pm2 logs              - View all logs"
-echo "  pm2 logs strapi       - View Strapi logs"
-echo "  pm2 logs laqta        - View Next.js logs"
-echo "  pm2 restart all       - Restart all services"
-echo "  pm2 monit             - Monitor processes"
-echo ""
 echo "URLs:"
-echo "  Strapi Admin: http://your-server:1337/admin"
-echo "  Next.js Site: http://your-server:3000"
+echo "  Strapi Admin: http://localhost:$STRAPI_PORT/admin"
+echo "  Next.js Site: http://localhost:$LAQTA_PORT"
 echo ""

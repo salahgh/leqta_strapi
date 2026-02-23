@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "partner_requests",
+  "info": {
+    "singularName": "partner-request",
+    "pluralName": "partner-requests",
+    "displayName": "Partner Request",
+    "description": "Partnership application submissions"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "companyName": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "required": true
+    },
+    "partnershipType": {
+      "type": "string",
+      "required": true
+    },
+    "message": {
+      "type": "text",
+      "required": true,
+      "maxLength": 500
+    },
+    "consentGiven": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["pending", "reviewed", "accepted", "rejected"],
+      "default": "pending"
+    },
+    "locale": {
+      "type": "string"
+    }
+  }
+}

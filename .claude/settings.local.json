@@ -35,9 +35,14 @@
       "Bash(rm:*)",
       "WebFetch(domain:doc.clickup.com)",
       "WebFetch(domain:www.cookieyes.com)",
-      "Bash(nslookup:*)"
+      "Bash(nslookup:*)",
+      "Bash(grep:*)",
+      "mcp__clickup__clickup_search",
+      "mcp__clickup__clickup_get_workspace_hierarchy"
     ],
     "deny": [],
     "ask": []
-  }
+  },
+  "prefersReducedMotion": true,
+  "outputStyle": "default"
 }

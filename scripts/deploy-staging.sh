@@ -19,7 +19,7 @@ LAQTA_DIR="$PROJECT_ROOT/laqta"
 PM2_STRAPI="strapi-staging"
 PM2_LAQTA="laqta-staging"
 STRAPI_PORT=1338
-LAQTA_PORT=3001
+LAQTA_PORT=3003
 SKIP_BUILD=false
 
 # Parse arguments

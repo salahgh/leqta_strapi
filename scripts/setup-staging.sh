@@ -3,7 +3,7 @@
 # Laqta Staging Environment Setup
 # One-time initialization script for the staging environment
 #
-# Usage: sudo bash setup-staging.sh
+# Usage: bash setup-staging.sh
 #
 # This script:
 #   1. Clones the repo to /var/www/leqta-staging
@@ -18,20 +18,13 @@ set -e
 
 # Configuration
 STAGING_ROOT="/var/www/leqta-staging"
-REPO_URL="https://github.com/AymaneLk/leqta_strapi.git"
+REPO_URL="git@github.com:salahgh/leqta_strapi.git"
 BRANCH="develop"
 
 echo "=============================================="
 echo "  Laqta Staging Environment Setup"
 echo "=============================================="
 echo ""
-
-# Check if running as root
-if [ "$EUID" -ne 0 ]; then
-    echo "ERROR: This script must be run as root (sudo)."
-    echo "Usage: sudo bash setup-staging.sh"
-    exit 1
-fi
 
 # Check if staging directory already exists
 if [ -d "$STAGING_ROOT" ]; then
@@ -43,6 +36,8 @@ fi
 
 # Clone repository
 echo "→ Cloning repository to $STAGING_ROOT..."
+sudo mkdir -p "$STAGING_ROOT"
+sudo chown saleh:saleh "$STAGING_ROOT"
 git clone "$REPO_URL" "$STAGING_ROOT"
 
 # Checkout develop branch
@@ -53,45 +48,60 @@ git checkout "$BRANCH"
 # Create Strapi .env file
 echo "→ Creating Strapi .env template..."
 cat > "$STAGING_ROOT/my-blog-cms/.env" << 'EOF'
-# Strapi Staging Configuration
+# ===========================================
+# STAGING SERVER CONFIGURATION (Strapi)
+# ===========================================
 # IMPORTANT: Edit this file with your real credentials
 
+# Server Configuration
 HOST=0.0.0.0
 PORT=1338
+NODE_ENV=production
 
-# App Keys (generate unique keys for staging)
+# Security Keys (copy from production or generate new ones)
 APP_KEYS=
 API_TOKEN_SALT=
 ADMIN_JWT_SECRET=
 TRANSFER_TOKEN_SALT=
 JWT_SECRET=
+ENCRYPTION_KEY=
 
-# Database (shared with production)
-DATABASE_CLIENT=mysql2
-DATABASE_HOST=127.0.0.1
+# ===========================================
+# MariaDB Database Configuration (shared with production)
+# ===========================================
+DATABASE_CLIENT=mysql
+DATABASE_HOST=localhost
 DATABASE_PORT=3306
-DATABASE_NAME=strapi_db
+DATABASE_NAME=mariadb_user_strapi
 DATABASE_USERNAME=
 DATABASE_PASSWORD=
 DATABASE_SSL=false
 
-# Supabase Storage
-SUPABASE_API_URL=
-SUPABASE_API_KEY=
-SUPABASE_BUCKET=
+# Connection Pool Settings
+DATABASE_POOL_MIN=2
+DATABASE_POOL_MAX=10
+DATABASE_CONNECTION_TIMEOUT=60000
 EOF
 
 # Create Next.js .env file
 echo "→ Creating Next.js .env template..."
 cat > "$STAGING_ROOT/laqta/.env" << 'EOF'
-# Next.js Staging Configuration
-PORT=3001
-NEXT_PUBLIC_STRAPI_URL_2=http://localhost:1338
-EOF
+# ===========================================
+# STAGING SERVER CONFIGURATION (Frontend)
+# ===========================================
 
-# Set ownership (adjust user as needed)
-echo "→ Setting file permissions..."
-chown -R www-data:www-data "$STAGING_ROOT"
+# Strapi API URL
+NEXT_PUBLIC_STRAPI_URL_2=http://localhost:1338
+
+# Odoo Integration (copy from production if needed)
+ODOO_URL=
+ODOO_DB=
+ODOO_API_KEY=
+ODOO_USERNAME=
+
+# Server Port
+PORT=3003
+EOF
 
 echo ""
 echo "=============================================="
@@ -100,13 +110,13 @@ echo "=============================================="
 echo ""
 echo "Next steps:"
 echo "  1. Edit Strapi env:    nano $STAGING_ROOT/my-blog-cms/.env"
-echo "     - Add APP_KEYS, JWT secrets, database credentials, Supabase keys"
+echo "     - Add APP_KEYS, JWT secrets, ENCRYPTION_KEY, database credentials"
 echo "  2. Edit Next.js env:   nano $STAGING_ROOT/laqta/.env"
 echo "     - Verify STRAPI_URL points to port 1338"
 echo "  3. Deploy staging:     cd $STAGING_ROOT && bash scripts/deploy-staging.sh"
 echo ""
 echo "Staging will use:"
 echo "  - Strapi on port 1338 (PM2: strapi-staging)"
-echo "  - Next.js on port 3001 (PM2: laqta-staging)"
+echo "  - Next.js on port 3003 (PM2: laqta-staging)"
 echo "  - Shared database: strapi_db"
 echo ""

@@ -1,6 +1,0 @@
-- the dynamic button label at the bottom of the service should be at the center
-- the start now button label should be dynamic from strapi 
-- if there is plans the section button should be hidden ; if no : it should visible 
-- the get started now should be always vsisible whether have plans or not;
-- the floating button should be centeredcal
-  - 

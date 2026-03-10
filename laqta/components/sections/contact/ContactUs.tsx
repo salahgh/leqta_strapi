@@ -121,6 +121,11 @@ const ContactUs = ({
         return defaultFormData;
     });
 
+    // Scroll to top when navigating to contact page
+    useEffect(() => {
+        window.scrollTo({ top: 0 });
+    }, []);
+
     // Persist form data and step to sessionStorage on changes
     useEffect(() => {
         sessionStorage.setItem(FORM_STORAGE_KEY, JSON.stringify(formData));
@@ -138,12 +143,14 @@ const ContactUs = ({
     const handleGoBack = () => {
         if (currentStep > 1) {
             setCurrentStep(currentStep - 1);
+            window.scrollTo({ top: 0, behavior: "smooth" });
         }
     };
 
     const handleGoNext = () => {
         if (currentStep < totalSteps) {
             setCurrentStep(currentStep + 1);
+            window.scrollTo({ top: 0, behavior: "smooth" });
         }
     };
 

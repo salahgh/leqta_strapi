@@ -192,6 +192,7 @@
       "goBack": "Go Back",
       "next": "Next",
       "submit": "Submit",
+      "submitting": "Submitting...",
       "goBackToMainPage": "Go Back to Main Page"
     },
     "form": {

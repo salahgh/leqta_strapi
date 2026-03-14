@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { ArrowLeft, Package, Briefcase } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 const FORM_STORAGE_KEY = "leqta_contact_form";
 const STEP_STORAGE_KEY = "leqta_contact_step";
@@ -70,6 +70,7 @@ const ContactUs = ({
     preSelectedWork,
     preSelectedWorkSlug,
 }: ContactUsProps) => {
+    const locale = useLocale();
     const defaultFormData: ContactFormData = {
         fullName: "",
         email: "",
@@ -196,7 +197,7 @@ const ContactUs = ({
             // Success - clear saved data and redirect to success page
             clearSavedFormData();
             sessionStorage.setItem("leqta_contact_submitted", "true");
-            window.location.href = "/contact/success";
+            window.location.href = `/${locale}/contact/success`;
         } catch (error) {
             console.error("Form submission error:", error);
             setSubmitError(

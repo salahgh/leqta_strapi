@@ -192,6 +192,7 @@
       "goBack": "العودة",
       "next": "التالي",
       "submit": "إرسال",
+      "submitting": "جاري الإرسال...",
       "goBackToMainPage": "العودة إلى الصفحة الرئيسية"
     },
     "form": {

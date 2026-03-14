@@ -192,6 +192,7 @@
       "goBack": "Retour",
       "next": "Suivant",
       "submit": "Soumettre",
+      "submitting": "Envoi en cours...",
       "goBackToMainPage": "Retour à la Page Principale"
     },
     "form": {

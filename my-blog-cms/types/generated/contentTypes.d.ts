@@ -1054,6 +1054,173 @@ export interface ApiNewsletterNewsletter extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiPartnerRequestPartnerRequest
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'partner_requests';
+  info: {
+    description: 'Partnership application submissions';
+    displayName: 'Partner Request';
+    pluralName: 'partner-requests';
+    singularName: 'partner-request';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    companyName: Schema.Attribute.String & Schema.Attribute.Required;
+    consentGiven: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email & Schema.Attribute.Required;
+    firstName: Schema.Attribute.String & Schema.Attribute.Required;
+    lastName: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::partner-request.partner-request'
+    > &
+      Schema.Attribute.Private;
+    message: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+    partnershipType: Schema.Attribute.String & Schema.Attribute.Required;
+    phone: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    status: Schema.Attribute.Enumeration<
+      ['pending', 'reviewed', 'accepted', 'rejected']
+    > &
+      Schema.Attribute.DefaultTo<'pending'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPartnerPartner extends Struct.CollectionTypeSchema {
+  collectionName: 'partners';
+  info: {
+    description: 'Partner companies and organizations';
+    displayName: 'Partner';
+    pluralName: 'partners';
+    singularName: 'partner';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    featured: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<false>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::partner.partner'
+    >;
+    logo: Schema.Attribute.Media<'images'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    website: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+  };
+}
+
+export interface ApiPartnershipTypePartnershipType
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'partnership_types';
+  info: {
+    description: 'Types of partnership available';
+    displayName: 'Partnership Type';
+    pluralName: 'partnership-types';
+    singularName: 'partnership-type';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::partnership-type.partnership-type'
+    >;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPlanPlan extends Struct.CollectionTypeSchema {
   collectionName: 'plans';
   info: {
@@ -2233,6 +2400,9 @@ declare module '@strapi/strapi' {
       'api::faq.faq': ApiFaqFaq;
       'api::mission.mission': ApiMissionMission;
       'api::newsletter.newsletter': ApiNewsletterNewsletter;
+      'api::partner-request.partner-request': ApiPartnerRequestPartnerRequest;
+      'api::partner.partner': ApiPartnerPartner;
+      'api::partnership-type.partnership-type': ApiPartnershipTypePartnershipType;
       'api::plan.plan': ApiPlanPlan;
       'api::privacy-policy.privacy-policy': ApiPrivacyPolicyPrivacyPolicy;
       'api::project.project': ApiProjectProject;

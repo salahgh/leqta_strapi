@@ -4,6 +4,7 @@
     "about": "À propos",
     "services": "Services",
     "pricing": "Tarifs",
+    "partners": "Partenaires",
     "blog": "Blog",
     "contact": "Contactez-nous",
     "getStarted": "Commencer",
@@ -191,6 +192,7 @@
       "goBack": "Retour",
       "next": "Suivant",
       "submit": "Soumettre",
+      "submitting": "Envoi en cours...",
       "goBackToMainPage": "Retour à la Page Principale"
     },
     "form": {
@@ -397,6 +399,71 @@
     "newsletterCheckboxLabel": "J'accepte la Politique de Confidentialité",
     "validation": {
       "consentRequired": "Vous devez accepter la Politique de Confidentialité pour continuer"
+    }
+  },
+  "partners": {
+    "badge": "Nos Partenaires",
+    "title": "Les Marques qui Font Confiance à LEQTA",
+    "description": "Nous sommes fiers de collaborer avec des marques leaders, des startups audacieuses et des acteurs du changement visionnaires. Ensemble, nous créons du contenu qui marque les esprits.",
+    "ctaTitle": "Intéressé par un Partenariat ?",
+    "ctaDescription": "Rejoignez notre réseau de partenaires et créons ensemble quelque chose d'inoubliable. Nous recherchons toujours des marques partageant nos valeurs pour collaborer.",
+    "becomePartner": "Devenir Partenaire",
+    "errorTitle": "Impossible de charger les partenaires",
+    "emptyState": "Aucun partenaire disponible pour le moment."
+  },
+  "partnerForm": {
+    "badge": "Devenir Partenaire",
+    "title": "Formulaire de Partenariat",
+    "description": "Vous souhaitez collaborer avec LEQTA ? Construisons ensemble quelque chose d'inoubliable. Remplissez le formulaire ci-dessous et nous vous recontacterons rapidement.",
+    "fields": {
+      "firstName": "Prénom",
+      "firstNamePlaceholder": "ex. Sarah",
+      "lastName": "Nom",
+      "lastNamePlaceholder": "ex. Benyamina",
+      "companyName": "Nom de l'entreprise",
+      "companyNamePlaceholder": "ex. BrightHive",
+      "email": "Adresse e-mail",
+      "emailPlaceholder": "ex. sarah.benyamina@email.com",
+      "phone": "Numéro de téléphone",
+      "phonePlaceholder": "ex. +213 555 123 456",
+      "partnershipType": "Type de partenariat",
+      "partnershipTypePlaceholder": "Sélectionnez un type de partenariat",
+      "message": "Message",
+      "messagePlaceholder": "Parlez-nous de l'opportunité de partenariat qui vous intéresse...",
+      "characters": "caractères"
+    },
+    "validation": {
+      "firstNameMin": "Le prénom doit contenir au moins 2 caractères",
+      "firstNameMax": "Le prénom doit contenir moins de 50 caractères",
+      "firstNameInvalid": "Le prénom ne peut contenir que des lettres",
+      "firstNameRequired": "Le prénom est requis",
+      "lastNameMin": "Le nom doit contenir au moins 2 caractères",
+      "lastNameMax": "Le nom doit contenir moins de 50 caractères",
+      "lastNameInvalid": "Le nom ne peut contenir que des lettres",
+      "lastNameRequired": "Le nom est requis",
+      "companyNameMin": "Le nom de l'entreprise doit contenir au moins 2 caractères",
+      "companyNameMax": "Le nom de l'entreprise doit contenir moins de 100 caractères",
+      "companyNameRequired": "Le nom de l'entreprise est requis",
+      "emailInvalid": "Adresse e-mail invalide",
+      "emailRequired": "L'e-mail est requis",
+      "phoneInvalid": "Format de numéro de téléphone invalide",
+      "phoneMin": "Le numéro de téléphone doit contenir au moins 10 chiffres",
+      "phoneRequired": "Le numéro de téléphone est requis",
+      "partnershipTypeRequired": "Veuillez sélectionner un type de partenariat",
+      "messageMin": "Le message doit contenir au moins 10 caractères",
+      "messageMax": "Le message ne doit pas dépasser 500 caractères",
+      "messageRequired": "Le message est requis",
+      "consentRequired": "Vous devez accepter la Politique de Confidentialité pour continuer"
+    },
+    "submitButton": "Soumettre la Candidature",
+    "submitting": "Envoi en cours...",
+    "success": {
+      "title": "Candidature Envoyée !",
+      "description": "Merci pour votre intérêt à devenir partenaire de LEQTA. Notre équipe examinera votre candidature et vous recontactera sous 48 heures.",
+      "backToPartners": "Retour aux Partenaires"
+    },
+    "error": {
+      "generic": "Une erreur s'est produite. Veuillez réessayer plus tard."
     }
   },
   "privacyPolicy": {

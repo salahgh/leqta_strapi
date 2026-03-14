@@ -38,7 +38,6 @@ export default async function Home({
     params: Promise<{ locale: string }>;
 }) {
     const { locale } = await params;
-    console.log("Home page - locale:", locale);
 
     // Fetch site settings for contact info
     const siteSettings = await siteSettingsApi.get(locale);

@@ -18,6 +18,7 @@ import remarkGfm from "remark-gfm";
 import Image from "next/image";
 import { Badge } from "@/components/ui/Badge";
 import { FloatingCTAButton } from "@/components/ui/FloatingCTAButton";
+import { ScrollToSectionButton } from "@/components/ui/ScrollToSectionButton";
 import { ServicePlanCard } from "./ServicePlanCard";
 
 interface ServiceDetailPageProps {
@@ -233,7 +234,7 @@ export default async function ServiceDetailPage({
                             className="mt-8 animate-fade-in"
                             style={{ opacity: 0, animationDelay: "400ms" }}
                         >
-                            <a href={service.plans && service.plans.length > 0 ? "#plans" : "#cta"}>
+                            <ScrollToSectionButton targetId={service.plans && service.plans.length > 0 ? "plans" : "cta"}>
                                 <Button
                                     variant="primary"
                                     size="lg"
@@ -241,7 +242,7 @@ export default async function ServiceDetailPage({
                                 >
                                     {service.buttonLabel || t("startNow")}
                                 </Button>
-                            </a>
+                            </ScrollToSectionButton>
                         </div>
                     </div>
                 </section>

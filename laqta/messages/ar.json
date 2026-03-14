@@ -4,6 +4,7 @@
     "about": "من نحن",
     "services": "الخدمات",
     "pricing": "الأسعار",
+    "partners": "الشركاء",
     "blog": "المدونة",
     "contact": "اتصل بنا",
     "getStarted": "ابدأ الآن",
@@ -191,6 +192,7 @@
       "goBack": "العودة",
       "next": "التالي",
       "submit": "إرسال",
+      "submitting": "جاري الإرسال...",
       "goBackToMainPage": "العودة إلى الصفحة الرئيسية"
     },
     "form": {
@@ -397,6 +399,71 @@
     "newsletterCheckboxLabel": "أوافق على سياسة الخصوصية",
     "validation": {
       "consentRequired": "يجب الموافقة على سياسة الخصوصية للمتابعة"
+    }
+  },
+  "partners": {
+    "badge": "شركاؤنا",
+    "title": "العلامات التجارية التي تثق بلقطة",
+    "description": "نحن فخورون بالتعاون مع العلامات التجارية الرائدة والشركات الناشئة الجريئة وصناع التغيير. معاً نصنع محتوى يترك أثراً.",
+    "ctaTitle": "مهتم بالشراكة؟",
+    "ctaDescription": "انضم إلى شبكة شركائنا ودعنا نصنع شيئاً لا يُنسى معاً. نحن نبحث دائماً عن علامات تجارية تشاركنا الرؤية للتعاون.",
+    "becomePartner": "كن شريكاً",
+    "errorTitle": "تعذر تحميل الشركاء",
+    "emptyState": "لا يوجد شركاء متاحون في الوقت الحالي."
+  },
+  "partnerForm": {
+    "badge": "كن شريكاً",
+    "title": "طلب شراكة",
+    "description": "تريد التعاون مع لقطة؟ دعنا نبني شيئاً لا يُنسى معاً. املأ النموذج أدناه وسنتواصل معك قريباً.",
+    "fields": {
+      "firstName": "الاسم الأول",
+      "firstNamePlaceholder": "مثال: سارة",
+      "lastName": "اسم العائلة",
+      "lastNamePlaceholder": "مثال: بن يمينة",
+      "companyName": "اسم الشركة",
+      "companyNamePlaceholder": "مثال: برايت هايف",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "مثال: sarah.benyamina@email.com",
+      "phone": "رقم الهاتف",
+      "phonePlaceholder": "مثال: 456 123 555 213+",
+      "partnershipType": "نوع الشراكة",
+      "partnershipTypePlaceholder": "اختر نوع الشراكة",
+      "message": "الرسالة",
+      "messagePlaceholder": "أخبرنا عن فرصة الشراكة التي تهتم بها...",
+      "characters": "حرف"
+    },
+    "validation": {
+      "firstNameMin": "يجب أن يكون الاسم الأول على الأقل حرفين",
+      "firstNameMax": "يجب أن يكون الاسم الأول أقل من 50 حرفاً",
+      "firstNameInvalid": "الاسم الأول يمكن أن يحتوي على حروف فقط",
+      "firstNameRequired": "الاسم الأول مطلوب",
+      "lastNameMin": "يجب أن يكون اسم العائلة على الأقل حرفين",
+      "lastNameMax": "يجب أن يكون اسم العائلة أقل من 50 حرفاً",
+      "lastNameInvalid": "اسم العائلة يمكن أن يحتوي على حروف فقط",
+      "lastNameRequired": "اسم العائلة مطلوب",
+      "companyNameMin": "يجب أن يكون اسم الشركة على الأقل حرفين",
+      "companyNameMax": "يجب أن يكون اسم الشركة أقل من 100 حرف",
+      "companyNameRequired": "اسم الشركة مطلوب",
+      "emailInvalid": "عنوان بريد إلكتروني غير صالح",
+      "emailRequired": "البريد الإلكتروني مطلوب",
+      "phoneInvalid": "صيغة رقم هاتف غير صالحة",
+      "phoneMin": "يجب أن يكون رقم الهاتف على الأقل 10 أرقام",
+      "phoneRequired": "رقم الهاتف مطلوب",
+      "partnershipTypeRequired": "يرجى اختيار نوع الشراكة",
+      "messageMin": "يجب أن تكون الرسالة على الأقل 10 أحرف",
+      "messageMax": "يجب ألا تتجاوز الرسالة 500 حرف",
+      "messageRequired": "الرسالة مطلوبة",
+      "consentRequired": "يجب الموافقة على سياسة الخصوصية للمتابعة"
+    },
+    "submitButton": "إرسال الطلب",
+    "submitting": "جاري الإرسال...",
+    "success": {
+      "title": "تم إرسال الطلب!",
+      "description": "شكراً لاهتمامك بالشراكة مع لقطة. سيقوم فريقنا بمراجعة طلبك والرد عليك خلال 48 ساعة.",
+      "backToPartners": "العودة إلى الشركاء"
+    },
+    "error": {
+      "generic": "حدث خطأ ما. يرجى المحاولة مرة أخرى لاحقاً."
     }
   },
   "privacyPolicy": {

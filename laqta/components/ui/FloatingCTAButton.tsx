@@ -42,7 +42,12 @@ export const FloatingCTAButton = ({
 
     const scrollToTarget = () => {
         const target = document.getElementById(targetId);
-        target?.scrollIntoView({ behavior: "smooth" });
+        if (target) {
+            const nav = document.querySelector("nav");
+            const navHeight = nav ? nav.getBoundingClientRect().height : 80;
+            const top = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 16;
+            window.scrollTo({ top, behavior: "smooth" });
+        }
     };
 
     if (!isVisible) return null;
@@ -50,7 +55,7 @@ export const FloatingCTAButton = ({
     return (
         <button
             onClick={scrollToTarget}
-            className="fixed bottom-24 left-1/2 -translate-x-1/2 px-6 py-3 bg-gradient-to-r from-accent-blue to-primary text-white rounded-full shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all z-50 flex items-center gap-2 font-medium"
+            className="fixed bottom-8 md:bottom-24 left-1/2 -translate-x-1/2 px-6 py-3 bg-gradient-to-r from-accent-blue to-primary text-white rounded-full shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all z-50 flex items-center gap-2 font-medium"
             aria-label={label}
         >
             {label}

@@ -1283,6 +1283,119 @@ export const trackingPixelApi = {
     },
 };
 
+// Types for Partners
+export interface Partner {
+    id: number;
+    documentId: string;
+    name: string;
+    slug: string;
+    description?: string;
+    logo?: {
+        url: string;
+        alternativeText?: string;
+        width?: number;
+        height?: number;
+    } | null;
+    website?: string;
+    featured?: boolean;
+    order?: number;
+    publishedAt: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+// Types for Partnership Types
+export interface PartnershipType {
+    id: number;
+    documentId: string;
+    name: string;
+    slug: string;
+    order?: number;
+    publishedAt: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+// Partners API
+export const partnersApi = {
+    async getAll(params?: {
+        page?: number;
+        pageSize?: number;
+        sort?: string;
+        populate?: string;
+        locale?: string;
+    }): Promise<ApiResponse<Partner[]>> {
+        const searchParams = new URLSearchParams();
+        if (params?.page)
+            searchParams.set("pagination[page]", params.page.toString());
+        if (params?.pageSize)
+            searchParams.set("pagination[pageSize]", params.pageSize.toString());
+        if (params?.sort) searchParams.set("sort", params.sort);
+        if (params?.populate) searchParams.set("populate", params.populate);
+
+        const query = searchParams.toString();
+        const endpoint = `/partners${query ? `?${query}` : ""}`;
+
+        return fetchApi<ApiResponse<Partner[]>>(endpoint, {}, params?.locale);
+    },
+
+    async getFeatured(params?: {
+        page?: number;
+        pageSize?: number;
+        locale?: string;
+    }): Promise<ApiResponse<Partner[]>> {
+        return this.getAll({
+            ...params,
+            filters: { featured: true },
+            populate: "*",
+            sort: "order:asc",
+        } as any);
+    },
+};
+
+// Partnership Types API
+export const partnershipTypesApi = {
+    async getAll(params?: {
+        locale?: string;
+    }): Promise<ApiResponse<PartnershipType[]>> {
+        const searchParams = new URLSearchParams();
+        searchParams.set("sort", "order:asc");
+
+        const query = searchParams.toString();
+        const endpoint = `/partnership-types?${query}`;
+
+        return fetchApi<ApiResponse<PartnershipType[]>>(endpoint, {}, params?.locale);
+    },
+};
+
+// Partner Request API (direct POST, no caching)
+export const partnerRequestApi = {
+    async submit(data: {
+        firstName: string;
+        lastName: string;
+        companyName: string;
+        email: string;
+        phone: string;
+        partnershipType: string;
+        message: string;
+        consentGiven: boolean;
+        locale?: string;
+    }): Promise<{ data: { id: number }; message: string }> {
+        const response = await fetch(`${STRAPI_URL}/api/partner-requests/submit`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error?.error?.message || "Failed to submit partner request");
+        }
+
+        return response.json();
+    },
+};
+
 export default {
     blogsApi,
     categoriesApi,
@@ -1298,5 +1411,8 @@ export default {
     privacyPolicyApi,
     cookieConsentApi,
     trackingPixelApi,
+    partnersApi,
+    partnershipTypesApi,
+    partnerRequestApi,
     utils,
 };

@@ -18,6 +18,7 @@ interface CompanyInfoFormValues {
 const CompanyInfoStep = ({ initialValues, onSubmit }: { initialValues?: Partial<CompanyInfoFormValues>; onSubmit: (values: CompanyInfoFormValues) => void }) => {
     const t = useTranslations('contactPage.form');
     const tValidation = useTranslations('contactPage.form.validation');
+    const tCommon = useTranslations('common');
 
     const validationSchema = Yup.object({
         industry: Yup.string().required(tValidation('industryRequired')),
@@ -75,7 +76,7 @@ const CompanyInfoStep = ({ initialValues, onSubmit }: { initialValues?: Partial<
             <form onSubmit={formik.handleSubmit} className="form-group" id="step-2-form">
                 <div className="spacing-form-tight">
                     <label className="form-label text-body-md sm:text-body-lg">
-                        {t('industry')}
+                        {t('industry')}<span className="text-red-400 ml-1">*</span>
                     </label>
                     <select
                         {...useFormInput<CompanyInfoFormValues>("industry", formik)}
@@ -98,6 +99,7 @@ const CompanyInfoStep = ({ initialValues, onSubmit }: { initialValues?: Partial<
                         {...useFormInput<CompanyInfoFormValues>("otherIndustry", formik)}
                         placeholder={t('otherIndustryPlaceholder')}
                         size="sm"
+                        required
                         className="bg-form-bg text-form-text"
                     />
                 )}
@@ -107,6 +109,7 @@ const CompanyInfoStep = ({ initialValues, onSubmit }: { initialValues?: Partial<
                     {...useFormInput<CompanyInfoFormValues>("companyName", formik)}
                     placeholder={t('companyNamePlaceholder')}
                     size="sm"
+                    required
                     className="bg-form-bg text-form-text"
                 />
 
@@ -115,6 +118,7 @@ const CompanyInfoStep = ({ initialValues, onSubmit }: { initialValues?: Partial<
                     {...useFormInput<CompanyInfoFormValues>("jobTitle", formik)}
                     placeholder={t('jobTitlePlaceholder')}
                     size="sm"
+                    required
                     className="bg-form-bg text-form-text"
                 />
 
@@ -124,6 +128,7 @@ const CompanyInfoStep = ({ initialValues, onSubmit }: { initialValues?: Partial<
                     placeholder={t('websitePlaceholder')}
                     size="sm"
                     type="text"
+                    optionalLabel={tCommon('optional')}
                     className="bg-form-bg text-form-text"
                 />
             </form>

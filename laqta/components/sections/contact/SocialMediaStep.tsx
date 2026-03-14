@@ -15,14 +15,15 @@ interface SocialMediaStepValues {
 const SocialMediaStep = ({ initialValues, onSubmit }: { initialValues?: Partial<SocialMediaStepValues>; onSubmit: (values: SocialMediaStepValues) => void }) => {
     const t = useTranslations('contactPage.form');
     const tValidation = useTranslations('contactPage.form.validation');
+    const tCommon = useTranslations('common');
 
-    const urlPattern = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w\-.~:/?#[\]@!$&'()*+,;=%]*)?$/;
+    const accountNamePattern = /^[\w][\w.]*$/;
 
     const validationSchema = Yup.object({
-        facebook: Yup.string().matches(urlPattern, { message: tValidation('facebookInvalid'), excludeEmptyString: true }).nullable(),
-        instagram: Yup.string().matches(urlPattern, { message: tValidation('instagramInvalid'), excludeEmptyString: true }).nullable(),
-        tiktok: Yup.string().matches(urlPattern, { message: tValidation('tiktokInvalid'), excludeEmptyString: true }).nullable(),
-        linkedin: Yup.string().matches(urlPattern, { message: tValidation('linkedinInvalid'), excludeEmptyString: true }).nullable(),
+        facebook: Yup.string().matches(accountNamePattern, { message: tValidation('facebookInvalid'), excludeEmptyString: true }).nullable(),
+        instagram: Yup.string().matches(accountNamePattern, { message: tValidation('instagramInvalid'), excludeEmptyString: true }).nullable(),
+        tiktok: Yup.string().matches(accountNamePattern, { message: tValidation('tiktokInvalid'), excludeEmptyString: true }).nullable(),
+        linkedin: Yup.string().matches(accountNamePattern, { message: tValidation('linkedinInvalid'), excludeEmptyString: true }).nullable(),
     });
 
     const formik = useFormik<SocialMediaStepValues>({
@@ -51,6 +52,7 @@ const SocialMediaStep = ({ initialValues, onSubmit }: { initialValues?: Partial<
                     placeholder={t("facebookPlaceholder")}
                     size="sm"
                     type="text"
+                    optionalLabel={tCommon('optional')}
                     className="bg-form-bg text-form-text"
                 />
 
@@ -60,6 +62,7 @@ const SocialMediaStep = ({ initialValues, onSubmit }: { initialValues?: Partial<
                     placeholder={t("instagramPlaceholder")}
                     size="sm"
                     type="text"
+                    optionalLabel={tCommon('optional')}
                     className="bg-form-bg text-form-text"
                 />
 
@@ -69,6 +72,7 @@ const SocialMediaStep = ({ initialValues, onSubmit }: { initialValues?: Partial<
                     placeholder={t("tiktokPlaceholder")}
                     size="sm"
                     type="text"
+                    optionalLabel={tCommon('optional')}
                     className="bg-form-bg text-form-text"
                 />
 
@@ -78,6 +82,7 @@ const SocialMediaStep = ({ initialValues, onSubmit }: { initialValues?: Partial<
                     placeholder={t("linkedinPlaceholder")}
                     size="sm"
                     type="text"
+                    optionalLabel={tCommon('optional')}
                     className="bg-form-bg text-form-text"
                 />
             </form>

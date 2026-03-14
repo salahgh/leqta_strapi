@@ -26,6 +26,8 @@ interface FormInputProps {
     size?: "sm" | "md" | "lg";
     rows?: number;
     pill?: boolean;
+    required?: boolean;
+    optionalLabel?: string;
     /** @deprecated Use size="sm" instead of variant="compact" */
     variant?: "default" | "compact";
     /** @deprecated Use className instead - styles are handled via design tokens */
@@ -46,6 +48,8 @@ export const FormInput: React.FC<FormInputProps> = ({
     size,
     rows = 3,
     pill = true,
+    required,
+    optionalLabel,
     variant,
     style,
 }) => {
@@ -70,6 +74,8 @@ export const FormInput: React.FC<FormInputProps> = ({
         <div className="form-group">
             <label className="form-label">
                 {label}
+                {required && <span className="text-red-400 ms-1">*</span>}
+                {optionalLabel && <span className="text-slate-400 text-body-xs font-normal ms-1">({optionalLabel})</span>}
             </label>
             {as === "textarea" ? (
                 <textarea

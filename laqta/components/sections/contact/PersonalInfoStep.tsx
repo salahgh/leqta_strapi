@@ -55,6 +55,7 @@ const PersonalInfoStep = ({ initialValues, onSubmit }: { initialValues?: Partial
                     {...useFormInput<PersonalInfoStepValues>("fullName", formik)}
                     placeholder={t('fullNamePlaceholder')}
                     size="sm"
+                    required
                     className="bg-form-bg text-form-text"
                 />
 
@@ -64,6 +65,7 @@ const PersonalInfoStep = ({ initialValues, onSubmit }: { initialValues?: Partial
                     placeholder={t('emailPlaceholder')}
                     size="sm"
                     type="email"
+                    required
                     className="bg-form-bg text-form-text"
                 />
 
@@ -72,6 +74,7 @@ const PersonalInfoStep = ({ initialValues, onSubmit }: { initialValues?: Partial
                     {...useFormInput<PersonalInfoStepValues>("phoneNumber", formik)}
                     size="sm"
                     placeholder={t('phoneNumberPlaceholder')}
+                    required
                     className="bg-form-bg text-form-text"
                 />
             </form>

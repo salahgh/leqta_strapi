@@ -98,6 +98,7 @@ const ProjectDetailsStep: React.FC<ProjectDetailsStepProps> = ({
             }
             size="sm"
             rows={4}
+            required
             className="bg-form-bg text-form-text"
           />
 
@@ -113,6 +114,7 @@ const ProjectDetailsStep: React.FC<ProjectDetailsStepProps> = ({
             }
             size="sm"
             rows={3}
+            required
             className="bg-form-bg text-form-text"
           />
         </div>

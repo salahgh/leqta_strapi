@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Partner, partnersApi } from "@/lib/strapi";
 import { ErrorFallback } from "@/components/ui/ErrorFallback";
 import { PartnerCard } from "@/components/ui/PartnerCard";
-import { Handshake } from "lucide-react";
+import { Rocket } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Link } from "@/src/i18n/navigation";
 
@@ -111,12 +111,11 @@ const PartnersPage = async ({
                             </p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-gap-lg max-w-container mx-auto">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-container mx-auto">
                             {partners.map((partner) => (
                                 <PartnerCard
                                     key={partner.id}
                                     partner={partner}
-                                    className="h-full"
                                 />
                             ))}
                         </div>
@@ -135,9 +134,9 @@ const PartnersPage = async ({
                         <p className="text-secondary-gray text-body-md md:text-body-lg mb-8">
                             {t("ctaDescription")}
                         </p>
-                        <Link href="/partners/become-partner">
+                        <Link href="/partners/become-partner" className="inline-block">
                             <Button
-                                leftIcon={<Handshake className="me-2 h-5 w-5" />}
+                                leftIcon={<Rocket className="me-2 h-5 w-5" />}
                                 rightIcon={null}
                                 size="lg"
                             >

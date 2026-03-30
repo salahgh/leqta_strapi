@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import ContactUs from "@/components/sections/contact/ContactUs";
 import Footer from "@/components/sections/Footer";
+import { MetaInitiateCheckout } from "@/components/tracking/MetaInitiateCheckout";
 
 interface ContactPageProps {
     params: Promise<{
@@ -25,6 +26,7 @@ export default async function ContactPage({
 
     return (
         <>
+            <MetaInitiateCheckout />
             <Suspense fallback={<div className="min-h-screen bg-primary" />}>
                 <ContactUs
                     preSelectedService={urlParams.serviceName}

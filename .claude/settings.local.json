@@ -38,11 +38,12 @@
       "Bash(nslookup:*)",
       "Bash(grep:*)",
       "mcp__clickup__clickup_search",
-      "mcp__clickup__clickup_get_workspace_hierarchy"
+      "mcp__clickup__clickup_get_workspace_hierarchy",
+      "mcp__clickup__clickup_create_task"
     ],
     "deny": [],
     "ask": []
   },
-  "prefersReducedMotion": true,
-  "outputStyle": "default"
+  "outputStyle": "default",
+  "prefersReducedMotion": true
 }

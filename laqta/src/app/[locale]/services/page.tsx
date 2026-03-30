@@ -7,6 +7,7 @@ import { ServiceCard } from "@/components/ui/ServiceCard";
 import { Service, servicesApi, utils } from "@/lib/strapi";
 import { ErrorFallback } from "@/components/ui/ErrorFallback";
 import { ChartColumnBig, Film, Rocket } from "lucide-react";
+import { MetaViewContent } from "@/components/tracking/MetaViewContent";
 
 // Disable caching for real-time CMS updates
 export const dynamic = "force-dynamic";
@@ -125,6 +126,7 @@ const ServicesPage = async ({
 
     return (
         <div className="relative min-h-screen flex flex-col bg-primary">
+            <MetaViewContent />
             {/* Background Logo - similar to OurWorksSection */}
 
             {/* Vector Curve SVG Layer */}

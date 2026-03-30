@@ -8,6 +8,7 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { BackToTop } from "@/components/ui/BackToTop";
 import { CookieConsentWrapper } from "@/components/ui/CookieConsentWrapper";
 import { TrackingScriptsWrapper } from "@/components/ui/TrackingScriptsWrapper";
+import { MetaPageView } from "@/components/tracking/MetaPageView";
 import { Poppins, Alexandria } from "next/font/google";
 import "../../../styles/globals.css";
 
@@ -81,6 +82,7 @@ export default async function LocaleLayout({
                         <CookieConsentWrapper locale={locale} />
                         {/* Law 18-07: Only load tracking scripts after user consent */}
                         <TrackingScriptsWrapper />
+                        <MetaPageView />
                     </NextIntlClientProvider>
                 </ErrorBoundary>
             </body>

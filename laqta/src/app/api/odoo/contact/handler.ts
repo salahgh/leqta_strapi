@@ -1,4 +1,5 @@
 import xmlrpc from "xmlrpc";
+import { sendMetaEvent } from "@/lib/meta-capi";
 
 // Odoo configuration - add these to your .env.local file
 const ODOO_URL = process.env.ODOO_URL; // e.g., 'https://your-odoo-instance.com'
@@ -105,6 +106,16 @@ Goals: ${formData.goals || "Not provided"}
                     else resolve(value);
                 },
             );
+        });
+
+        // Fire Lead event server-side (fire-and-forget)
+        sendMetaEvent({
+            eventName: "Lead",
+            sourceUrl: "https://leqta.com/contact",
+            userData: {
+                email: formData.email,
+                phone: formData.phoneNumber,
+            },
         });
 
         return { success: true, opportunityId, stage: "Warm" };

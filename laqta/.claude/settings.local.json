@@ -7,7 +7,9 @@
       "Bash(tree:*)",
       "Bash(powershell:*)",
       "Bash(npm run build:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "mcp__figma-remote__get_design_context",
+      "Bash(ls:*)"
     ],
     "deny": [],
     "ask": []

@@ -8,6 +8,7 @@ interface SubmitButtonProps {
     className?: string;
     size?: string;
     buttonClassname?: string;
+    fullWidth?: boolean;
 }
 
 export const SubmitButton: React.FC<SubmitButtonProps> = ({
@@ -16,9 +17,10 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({
     className = "",
     buttonClassname = "",
     size,
+    fullWidth = true,
 }) => (
     <div
-        style={{ width: "100%" }}
+        style={fullWidth ? { width: "100%" } : undefined}
         className={`h-10 md:h-12 lg:h-14 ${className}`}
     >
         <Button
@@ -28,7 +30,7 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({
             disabled={isSubmitting}
             size={size}
             className={buttonClassname}
-            fullWidth={true}
+            fullWidth={fullWidth}
         >
             {text}
         </Button>

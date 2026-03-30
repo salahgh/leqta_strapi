@@ -10,6 +10,7 @@ import { DataControllerInfo } from "@/components/ui/DataControllerInfo";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { useTranslations } from "next-intl";
 import { CheckCircle, AlertCircle } from "lucide-react";
+import { Badge } from "@/components/ui/Badge";
 import { partnerRequestApi, partnershipTypesApi, PartnershipType } from "@/lib/strapi";
 
 const createValidationSchema = (t: (key: string) => string) =>
@@ -151,9 +152,9 @@ export function BecomePartnerForm({ locale }: BecomePartnerFormProps) {
                     className="mb-8 mt-32 animate-slide-down"
                     style={{ opacity: 0 }}
                 >
-                    <span className="badge-lg badge-outline text-accent-blue border-accent-blue">
+                    <Badge size="lg" variant="accent">
                         {t("badge")}
-                    </span>
+                    </Badge>
                 </div>
 
                 <h1
@@ -182,7 +183,7 @@ export function BecomePartnerForm({ locale }: BecomePartnerFormProps) {
             {/* Form */}
             <form
                 onSubmit={formik.handleSubmit}
-                className="form-group animate-fade-in"
+                className="form-group animate-fade-in [&_.form-label]:font-heading"
                 style={{ opacity: 0, animationDelay: "450ms" }}
             >
                 {/* Name Fields */}
@@ -192,14 +193,14 @@ export function BecomePartnerForm({ locale }: BecomePartnerFormProps) {
                         {...useFormInput("firstName", formik)}
                         placeholder={t("fields.firstNamePlaceholder")}
                         size="md"
-                        className="bg-form-bg text-form-text"
+                        className="bg-form-bg text-form-text border-[#333]"
                     />
                     <FormInput
                         label={t("fields.lastName")}
                         {...useFormInput("lastName", formik)}
                         placeholder={t("fields.lastNamePlaceholder")}
                         size="md"
-                        className="bg-form-bg text-form-text"
+                        className="bg-form-bg text-form-text border-[#333]"
                     />
                 </div>
 
@@ -209,7 +210,7 @@ export function BecomePartnerForm({ locale }: BecomePartnerFormProps) {
                     {...useFormInput("companyName", formik)}
                     placeholder={t("fields.companyNamePlaceholder")}
                     size="md"
-                    className="bg-form-bg text-form-text"
+                    className="bg-form-bg text-form-text border-[#333]"
                 />
 
                 {/* Email */}
@@ -219,7 +220,7 @@ export function BecomePartnerForm({ locale }: BecomePartnerFormProps) {
                     type="email"
                     placeholder={t("fields.emailPlaceholder")}
                     size="md"
-                    className="bg-form-bg text-form-text"
+                    className="bg-form-bg text-form-text border-[#333]"
                 />
 
                 {/* Phone */}
@@ -229,7 +230,7 @@ export function BecomePartnerForm({ locale }: BecomePartnerFormProps) {
                     type="tel"
                     placeholder={t("fields.phonePlaceholder")}
                     size="md"
-                    className="bg-form-bg text-form-text"
+                    className="bg-form-bg text-form-text border-[#333]"
                 />
 
                 {/* Partnership Type Select */}
@@ -242,7 +243,7 @@ export function BecomePartnerForm({ locale }: BecomePartnerFormProps) {
                         value={formik.values.partnershipType}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        className="w-full rounded-xl border border-white/10 bg-form-bg text-form-text px-4 py-3 text-body-md focus:outline-none focus:border-accent-blue/50 transition-colors"
+                        className="w-full rounded-full border border-[#333] bg-form-bg text-form-text px-7 py-5 text-body-md focus:outline-none focus:border-white/60 transition-colors appearance-none"
                     >
                         <option value="">{t("fields.partnershipTypePlaceholder")}</option>
                         {partnershipTypes.map((type) => (
@@ -265,7 +266,7 @@ export function BecomePartnerForm({ locale }: BecomePartnerFormProps) {
                     as="textarea"
                     placeholder={t("fields.messagePlaceholder")}
                     size="md"
-                    className="bg-form-bg text-form-text w-full min-h-[200px]"
+                    className="bg-form-bg text-form-text border-[#333] w-full min-h-[307px]"
                 />
 
                 {/* Character Counter */}
@@ -293,9 +294,10 @@ export function BecomePartnerForm({ locale }: BecomePartnerFormProps) {
                 </div>
 
                 {/* Submit Button */}
-                <div className="mt-6">
+                <div className="mt-6 flex justify-center">
                     <SubmitButton
                         isSubmitting={formik.isSubmitting}
+                        fullWidth={false}
                         text={
                             formik.isSubmitting
                                 ? t("submitting")

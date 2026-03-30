@@ -14,6 +14,7 @@ import ProjectDetailsStep from "./ProjectDetailsStep";
 import { ActionButtons } from "@/components/sections/contact/ActionButtons";
 import { Navigation } from "@/components/layout/Navigation";
 import { Stepper } from "@/components/sections/contact/Stepper";
+import { useMetaTrack } from "@/lib/useMetaTrack";
 
 interface ContactFormData {
     // Personal Information
@@ -71,6 +72,7 @@ const ContactUs = ({
     preSelectedWorkSlug,
 }: ContactUsProps) => {
     const locale = useLocale();
+    const { trackEvent } = useMetaTrack();
     const defaultFormData: ContactFormData = {
         fullName: "",
         email: "",
@@ -178,6 +180,9 @@ const ContactUs = ({
         try {
             // Combine all form data
             const completeFormData = { ...formData, ...finalStepData };
+
+            // Fire CompleteRegistration event (fire-and-forget)
+            trackEvent("CompleteRegistration");
 
             // Send to Odoo CRM
             const response = await fetch("/api/odoo/contact", {

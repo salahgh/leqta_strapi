@@ -25,13 +25,13 @@ export default async function BecomePartnerPage({
     const { locale } = await params;
 
     return (
-        <div className="min-h-screen bg-neutral-900 relative">
+        <div className="min-h-screen bg-primary relative">
             {/* Background decorator */}
-            <div className="absolute inset-0 z-0 flex justify-center pointer-events-none opacity-10">
+            <div className="absolute inset-0 z-0 flex justify-center pointer-events-none">
                 <img
-                    src="/images/laqta_logo_courbe.svg"
+                    src="/images/vector_courbe.svg"
                     alt=""
-                    className="w-1/2 h-1/2 object-contain"
+                    className="w-2/3 h-2/3 object-fill opacity-70"
                 />
             </div>
 
